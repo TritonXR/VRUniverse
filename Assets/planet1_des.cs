@@ -8,9 +8,7 @@ public class planet1_des : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-		name = "Earth";
-		year = "2016";
-		description = "This project is awesome";
+
 
 	}
 	
