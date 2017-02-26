@@ -9,7 +9,7 @@ public class JSONDemo : MonoBehaviour {
 	string jsonString;
     public planetsArray mainObject;
     public Planet innerObject;
-    List<Planet> objectList = new List<Planet>();
+  
     // Use this for initialization
   
     public Planet createSubObject(string Name, string Creator,string Description,
@@ -33,8 +33,11 @@ public class JSONDemo : MonoBehaviour {
 		path = Application.streamingAssetsPath+"/Planet.json";
 		jsonString = File.ReadAllText(path);
         Debug.Log("string is: " + jsonString);
-		Planet[] universe = JsonHelper.FromJson<Planet>(jsonString);
-        Debug.Log(universe[0].Name);
+        planetslist List = new planetslist();
+        JsonUtility.FromJsonOverwrite(jsonString, List);
+        //Planet[] universe = JsonHelper.FromJson<Planet>(jsonString);
+        //mainObject.Universe = objectList.ToArray();
+        Debug.Log(List.objectList[0].Name);
     }
 
 }
@@ -42,7 +45,12 @@ public class JSONDemo : MonoBehaviour {
 [System.Serializable]
 public class planetsArray
 {
-    public Planet[] Universe;
+    public Planet[] Universe = new Planet[10];
+}
+[System.Serializable]
+public class planetslist {
+    public List<Planet> objectList = new List<Planet>();
+
 }
 
 [System.Serializable]
@@ -61,6 +69,7 @@ public static class JsonHelper
     {
         Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
         return wrapper.Items;
+
     }
 
     public static string ToJson<T>(T[] array)
@@ -81,5 +90,7 @@ public static class JsonHelper
     private class Wrapper<T>
     {
         public T[] Items;
+
+        public object[] Array { get; internal set; }
     }
 }
