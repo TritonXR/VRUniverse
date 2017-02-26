@@ -1,48 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using VRTK;
 
-public class Controller : MonoBehaviour {
+public class Controller : VRTK_InteractableObject
+{
 
-	public Text panel;
+    public Text Title, Creator, Description, Year, Tag;
 
-	public GameObject planet1, planet2;
-	private planet1_des planet1_script;
-	private planet2_des planet2_script;
+    public Image iamgeDes;
 
+    private PlanetData planet_script;
 
-	// Use this for initialization
-	void Start () {
-	
-		planet1_script = planet1.GetComponent<planet1_des> ();
-		planet2_script = planet2.GetComponent<planet2_des> ();
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.A)) {
-			panel.text = "Name:" + planet1_script.name+ "\n" 
-				+ "Year: " + planet1_script.year + "\n" 
-				+ "Description: " + planet1_script.description;
-
-		}
-
-		if (Input.GetKeyUp (KeyCode.A)) {
-			panel.text = "";
-		}
-
-		if (Input.GetKeyDown (KeyCode.B)) {
-			panel.text = "Name:" + planet2_script.name+ "\n" 
-				+ "Year: " + planet2_script.year + "\n" 
-				+ "Description: " + planet2_script.description;
-
-		}
-
-		if (Input.GetKeyUp (KeyCode.B)) {
-			panel.text = "";
-		}
+    public GameObject UsingObject;
 
 
-	}
+    // Use this for initialization
+    void Start()
+    {
+    }
+
+    public override void StartUsing(GameObject currentUsingObject)
+    {
+        base.StartUsing(currentUsingObject);
+        UsingObject = currentUsingObject;
+        planet_script = gameObject.GetComponent<PlanetData>();
+        Title.text = planet_script.title;
+        Creator.text = planet_script.creator;
+        Description.text = planet_script.description;
+        Year.text = planet_script.year;
+        Tag.text = planet_script.des_tag;
+
+    }
+
+    public override void StopUsing(GameObject previousUsingObject)
+    {
+        base.StopUsing(previousUsingObject);
+        StartUsing(UsingObject);
+    }
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+    }
 }

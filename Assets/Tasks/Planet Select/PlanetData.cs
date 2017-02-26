@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PlanetData : MonoBehaviour {
 
-	public string planet_name, year, description;
+	public string title, creator, year, description, des_tag;
+    public Sprite image;
 
 	// Use this for initialization
 	void Start () {
