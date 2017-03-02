@@ -1,7 +1,19 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: a9f22b866f2850043925900a0262982a
 folderAsset: yes
 timeCreated: 1485641123
+=======
+<<<<<<< HEAD:Assets/SteamVR.meta
+guid: e45b39171e03e4f578049c8fd64c2c37
+folderAsset: yes
+timeCreated: 1486247407
+=======
+guid: 8ae4de58143a92a43aabb0de0cc32a1f
+folderAsset: yes
+timeCreated: 1487205405
+>>>>>>> master:Assets/Models.meta
+>>>>>>> master
 licenseType: Free
 DefaultImporter:
   userData: 

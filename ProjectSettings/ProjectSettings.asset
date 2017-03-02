@@ -426,10 +426,17 @@ PlayerSettings:
   webGLUseWasm: 0
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
+<<<<<<< HEAD
     1: CROSS_PLATFORM_INPUT;VRTK_SDK_STEAMVR
     4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
     14: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+=======
+    1: CROSS_PLATFORM_INPUT
+    4: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+    7: CROSS_PLATFORM_INPUT;MOBILE_INPUT
+    14: MOBILE_INPUT
+>>>>>>> master
     17: MOBILE_INPUT
     20: MOBILE_INPUT
     22: MOBILE_INPUT
@@ -474,7 +481,11 @@ PlayerSettings:
   tizenGPSPermissions: 0
   tizenMicrophonePermissions: 0
   tizenDeploymentTarget: 
+<<<<<<< HEAD
   tizenDeploymentTargetType: 15
+=======
+  tizenDeploymentTargetType: 690516836
+>>>>>>> master
   tizenMinOSVersion: 0
   n3dsUseExtSaveData: 0
   n3dsCompressStaticMem: 1
