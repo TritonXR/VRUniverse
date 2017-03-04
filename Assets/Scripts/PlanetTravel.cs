@@ -5,13 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class PlanetTravel : MonoBehaviour {
 
-    public GameObject cameraRig;
-    public GameObject VRTK;
+    //public GameObject cameraRig;
+    // public GameObject VRTK;
+
+    public static GameObject camerarig = null;
 
     void Awake()
     {
-        DontDestroyOnLoad(cameraRig);
-        DontDestroyOnLoad(VRTK);
+       // DontDestroyOnLoad(cameraRig);
+       // DontDestroyOnLoad(VRTK);
+       if (camerarig == null) {
+            camerarig = gameObject;
+       } else if (camerarig != gameObject) {
+            Destroy(gameObject);
+       }
+
+        DontDestroyOnLoad(gameObject);
+
     }
 
 	// Use this for initialization
