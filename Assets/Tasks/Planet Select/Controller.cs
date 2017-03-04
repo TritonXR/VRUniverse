@@ -39,7 +39,19 @@ public class Controller : VRTK_InteractableObject
         Creator.text = planet_script.creator;
         Description.text = planet_script.description;
         Year.text = planet_script.year;
-        Tag.text = planet_script.des_tag;
+
+        string tagText = "";
+        for (int i = 0; i < planet_script.des_tag.Length; i++)
+        {
+            if (i == planet_script.des_tag.Length - 1) {
+                tagText = tagText + planet_script.des_tag[i];
+            } else
+            {
+                tagText = tagText + planet_script.des_tag[i] + ", ";
+            }
+                
+        }
+        Tag.text = tagText;
 
         imageDes.sprite = planet_script.image;
 

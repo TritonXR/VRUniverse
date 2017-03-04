@@ -3,32 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class JSONDemo : MonoBehaviour {
+public class JSONController : MonoBehaviour {
 
-	string path;
-	string jsonString;
-    public GameObject planetObject;
+	private string jsonString;
+    public GameObject PlanetParent;
   
     // Use this for initialization
-  
     void Start()
 	{
-       
-        //string planetToJson = JsonHelper.ToJson(mainObject, true);
-		path = Application.streamingAssetsPath+"/Planet.json";
-		jsonString = File.ReadAllText(path);
-        Debug.Log("string is: " + jsonString);
+		jsonString = File.ReadAllText(Application.persistentDataPath + "/Planet.json");
+        Debug.Log("Reading: " + jsonString);
         Planet[] universe = JsonHelper.FromJson<Planet>(jsonString);
-        Debug.Log(universe[1].Tags[0]);
-        planetObject.GetComponent<PlanetData>().title = universe[0].Name;
-        planetObject.GetComponent<PlanetData>().creator = universe[0].Creator;
-        planetObject.GetComponent<PlanetData>().year = universe[0].Year.ToString();
-        planetObject.GetComponent<PlanetData>().description = universe[0].Description;
-        //planetObject.GetComponent<PlanetData>().image;
-        planetObject.GetComponent<PlanetData>().des_tag = universe[0].Tags[0];
+
+        PlanetData[] listOfPlanets = PlanetParent.GetComponentsInChildren<PlanetData>();
+        
+        for (int i = 0; i < listOfPlanets.Length; i++)
+        {
+            listOfPlanets[i].title = universe[i].Name;
+            listOfPlanets[i].creator = universe[i].Creator;
+            listOfPlanets[i].year = universe[i].Year.ToString();
+            listOfPlanets[i].description = universe[i].Description;
+            listOfPlanets[i].des_tag = new string[universe[i].Tags.Length];
+            for (int j = 0; j < universe[i].Tags.Length; j++)
+            {
+                listOfPlanets[i].des_tag[j] = universe[i].Tags[j];
+            }
+        } 
 
 
-        Debug.Log("path is: " + Application.persistentDataPath);
+
     }
 
 }
