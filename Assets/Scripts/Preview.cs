@@ -5,7 +5,7 @@
     using System.Collections;
     using VRTK;
 
-    public class Cube : VRTK_InteractableObject
+    public class Preview : VRTK_InteractableObject
     {
         public string myString;
         public Text myText;
