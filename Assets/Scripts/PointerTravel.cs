@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class YearTravel : MonoBehaviour {
+public class PointerTravel : MonoBehaviour {
 
-    public static GameObject vrtk = null;
+    public static GameObject pointer = null;
 
     void Awake()
     {
         // DontDestroyOnLoad(cameraRig);
         // DontDestroyOnLoad(VRTK);
-        if (vrtk == null)
+        if (pointer == null)
         {
-            vrtk = gameObject;
+            pointer = gameObject;
         }
-        else if (vrtk != gameObject)
+        else if (pointer != gameObject)
         {
             Destroy(gameObject);
         }
