@@ -20,12 +20,12 @@ public class JSONDemo : MonoBehaviour {
         Debug.Log("string is: " + jsonString);
         Planet[] universe = JsonHelper.FromJson<Planet>(jsonString);
         Debug.Log(universe[1].Tags[0]);
-        planetObject.GetComponent<PlanetData>().title = universe[0].Name;
-        planetObject.GetComponent<PlanetData>().creator = universe[0].Creator;
-        planetObject.GetComponent<PlanetData>().year = universe[0].Year;
-        planetObject.GetComponent<PlanetData>().description = universe[0].Description;
+        planetObject.GetComponent<PlanetDatasss>().title = universe[0].Name;
+        planetObject.GetComponent<PlanetDatasss>().creator = universe[0].Creator;
+        planetObject.GetComponent<PlanetDatasss>().year = universe[0].Year;
+        planetObject.GetComponent<PlanetDatasss>().description = universe[0].Description;
         //planetObject.GetComponent<PlanetData>().image;
-        planetObject.GetComponent<PlanetData>().des_tag = universe[0].Tags;
+        planetObject.GetComponent<PlanetDatasss>().des_tag = universe[0].Tags;
 
 
         Debug.Log("path is: " + Application.persistentDataPath);
