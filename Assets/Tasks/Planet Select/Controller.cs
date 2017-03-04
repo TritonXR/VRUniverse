@@ -20,7 +20,11 @@ public class Controller : VRTK_InteractableObject
     protected void Start()
     {
 
-        rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();    
+        rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();  
+        if (rightController == null) {
+            Debug.Log("right controller is null");
+            rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
+        }  
 
         //Debug.Log("hello");
         panel.enabled = false;
@@ -30,7 +34,6 @@ public class Controller : VRTK_InteractableObject
         myText.text = planet_script.title;
 
         panel.transform.LookAt(Camera.main.transform);
-        //panel.transform.Rotate(Vector3.up - Vector3(0, 180, 0));
         panel.transform.localEulerAngles = new Vector3(180, 0, 180);
     }
 
@@ -65,6 +68,11 @@ public class Controller : VRTK_InteractableObject
     public override void StartUsing(GameObject currentUsingObject)
     {
         base.StartUsing(currentUsingObject);
+        if (rightController == null)
+        {
+            Debug.Log("right controller is null AGAIN");
+            rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
+        }
 
         rightController.TriggerClicked += HandleTriggerClicked;
 

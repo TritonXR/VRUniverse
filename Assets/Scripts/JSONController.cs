@@ -11,6 +11,8 @@ public class JSONController : MonoBehaviour {
     // Use this for initialization
     void Start()
 	{
+        PlanetParent = ListOfPlanetsController.listOfPlanets;
+
 		jsonString = File.ReadAllText(Application.persistentDataPath + "/Planet.json");
         Debug.Log("Reading: " + jsonString);
         Planet[] universe = JsonHelper.FromJson<Planet>(jsonString);
