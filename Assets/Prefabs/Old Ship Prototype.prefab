@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 33799099264591930}
   - component: {fileID: 23772065512934790}
   m_Layer: 0
-  m_Name: this is the right ship prototype
+  m_Name: Old Ship Prototype
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
