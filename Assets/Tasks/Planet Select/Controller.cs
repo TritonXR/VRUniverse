@@ -25,7 +25,7 @@ public class Controller : VRTK_InteractableObject
     // Use this for initialization
     protected void Start()
     {
-        Debug.Log("hello");
+        //Debug.Log("hello");
         panel.enabled = false;
         myText.enabled = false;
 
@@ -40,7 +40,7 @@ public class Controller : VRTK_InteractableObject
         //var Cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         //Cube.transform.position = transform.position;
 
-        Debug.Log("clicked");
+        //Debug.Log("clicked");
 
         planet_script = gameObject.GetComponent<PlanetData>();
 
@@ -58,7 +58,7 @@ public class Controller : VRTK_InteractableObject
     public override void StartUsing(GameObject currentUsingObject)
     {
 
-        Debug.Log("using");
+        //Debug.Log("using");
         base.StartUsing(currentUsingObject);
 
         rightController.TriggerClicked += HandleTriggerClicked;
@@ -117,7 +117,7 @@ public class Controller : VRTK_InteractableObject
 
     public override void StopUsing(GameObject previousUsingObject)
     {
-        Debug.Log("stop");
+        //Debug.Log("stop");
         base.StopUsing(previousUsingObject);
 
         //pointer preview
