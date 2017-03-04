@@ -1,24 +1,50 @@
 {
-    "Planet":[
-{
-    "Name": "1Universe",
-	"Creator": "Molly",
-	"Description": "sample",
-	"Year": 2017,
-	"Tags": [
-		"White",
-		"Star"
+    "Planet":
+    [
+		{
+		    "Name": "A Magical Wonderland",
+			"Creator": "Kristin Agcaoili",
+			"Description": "This project immerses users in a terrain that changes the color of the sky. You can wander around this magical wonderland and explore the empty village.",
+			"Year": 2017,
+			"Tags": [
+				"Exploration",
+				"Open world",
+				"HTC Vive",
+				"Fantasy"
+			]
+		},
+		{
+		    "Name": "Space Flight",
+			"Creator": "Kristin Agcaoili",
+			"Description": "Space Flight is an experience that takes users up into the heights of space and allows them to explore mountains in a moon near Saturn.",
+			"Year": 2018,
+			"Tags": [
+				"Space",
+				"HTC Vive",
+				"Science Fiction"
+			]
+		},
+		{
+		    "Name": "Underwater Rings",
+			"Creator": "Kristin Agcaoili",
+			"Description": "Users have the opportunity to fly underwater and swim through rings like a racetrack in the ocean. Try to teleport through the ocean as fast as you can!",
+			"Year": 2015,
+			"Tags": [
+				"Underwater",
+				"HTC Vive",
+				"Racing"
+			]
+		},
+		{
+		    "Name": "Nature",
+			"Creator": "Kristin Agcaoili",
+			"Description": "Nature is a relaxing experience that takes users up into the mountains surrounded by forests and grass. It is a wonderful place to relax and take a break from life's business.",
+			"Year": 2016,
+			"Tags": [
+				"Relaxation",
+				"HTC Vive",
+				"Nature"
+			]
+		}
 	]
-},
-{
-    "Name": "2Universe",
-	"Creator": "2Molly",
-	"Description": "2sample",
-	"Year": 2018,
-	"Tags": [
-		"2White",
-		"2Star"
-	]
-}
-]
 }

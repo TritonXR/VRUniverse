@@ -26,6 +26,9 @@ public class JSONDemo : MonoBehaviour {
         planetObject.GetComponent<PlanetData>().description = universe[0].Description;
         //planetObject.GetComponent<PlanetData>().image;
         planetObject.GetComponent<PlanetData>().des_tag = universe[0].Tags;
+
+
+        Debug.Log("path is: " + Application.persistentDataPath);
     }
 
 }
