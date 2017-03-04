@@ -6,58 +6,113 @@ using VRTK;
 public class Controller : VRTK_InteractableObject
 {
 
+    //Planet Select Assets
     public Text Title, Creator, Description, Year, Tag;
-
     public Image imageDes;
-
     private PlanetData planet_script;
-
     public GameObject UsingObject;
 
+    //PointerPreview Assets
+    public Text myText;
+    public Image panel;
+    public SteamVR_TrackedController rightController;
 
-    // Use this for initialization
-    void Start()
+    protected void Start()
     {
+        //Debug.Log("hello");
+        panel.enabled = false;
+        myText.enabled = false;
+
+        planet_script = gameObject.GetComponent<PlanetData>();
+        myText.text = planet_script.title;
+
+        panel.transform.LookAt(Camera.main.transform);
+        //panel.transform.Rotate(Vector3.up - Vector3(0, 180, 0));
+        panel.transform.localEulerAngles = new Vector3(180, 0, 180);
     }
 
-    public override void StartUsing(GameObject currentUsingObject)
+    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
     {
-        //Debug.Log("1name of selected project" + gameObject.name);
 
-        //currentUsingObject.GetComponent<VRTK_SimplePointer>().enableTeleport = false;
-
-        //Debug.Log("setting the : " + currentUsingObject.name + " equal to false");
-        base.StartUsing(currentUsingObject);
-
-        //currentUsingObject.GetComponent<VRTK_SimplePointer>().enableTeleport = false;
-
-        UsingObject = currentUsingObject;
         planet_script = gameObject.GetComponent<PlanetData>();
 
-        //Debug.Log("2name of selected project" + gameObject.name);
         Title.text = planet_script.title;
         Creator.text = planet_script.creator;
         Description.text = planet_script.description;
         Year.text = planet_script.year;
-        Tag.text = planet_script.des_tag;
+
+        string tagText = "";
+        for (int i = 0; i < planet_script.des_tag.Length; i++)
+        {
+            if (i == planet_script.des_tag.Length - 1)
+            {
+                tagText = tagText + planet_script.des_tag[i];
+            }
+            else
+            {
+                tagText = tagText + planet_script.des_tag[i] + ", ";
+            }
+
+        }
+        Tag.text = tagText;
 
         imageDes.sprite = planet_script.image;
+    }
 
-        //Debug.Log("3name of selected project" + gameObject.name);
+    public override void StartUsing(GameObject currentUsingObject)
+    {
+        base.StartUsing(currentUsingObject);
+
+        rightController.TriggerClicked += HandleTriggerClicked;
+
+
+        /*
+        UsingObject = currentUsingObject;
+        planet_script = gameObject.GetComponent<PlanetData>();
+
+        Title.text = planet_script.title;
+        Creator.text = planet_script.creator;
+        Description.text = planet_script.description;
+        Year.text = planet_script.year;
+
+        string tagText = "";
+        for (int i = 0; i < planet_script.des_tag.Length; i++)
+        {
+            if (i == planet_script.des_tag.Length - 1) {
+                tagText = tagText + planet_script.des_tag[i];
+            } else
+            {
+                tagText = tagText + planet_script.des_tag[i] + ", ";
+            }
+                
+        }
+        Tag.text = tagText;
+
+        imageDes.sprite = planet_script.image;
+        */
+
+        planet_script = gameObject.GetComponent<PlanetData>();
+        myText.text = planet_script.title;
+
+        panel.enabled = true;
+        myText.enabled = true;
+
+
+
 
 
     }
 
     public override void StopUsing(GameObject previousUsingObject)
     {
-        Debug.Log("stop");
-        //previousUsingObject.GetComponent<VRTK_SimplePointer>().enableTeleport = false;
         base.StopUsing(previousUsingObject);
 
-        //previousUsingObject.GetComponent<VRTK_SimplePointer>().enableTeleport = false;
-
         StartUsing(UsingObject);
+
+        panel.enabled = false;
+        myText.enabled = false;
     }
+
     // Update is called once per frame
     protected override void Update()
     {
