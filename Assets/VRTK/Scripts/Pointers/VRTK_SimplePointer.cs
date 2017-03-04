@@ -114,6 +114,7 @@ namespace VRTK
             pointerHolder = new GameObject(string.Format("[{0}]BasePointer_SimplePointer_Holder", gameObject.name));
             pointerHolder.transform.localPosition = Vector3.zero;
             VRTK_PlayerObject.SetPlayerObject(pointerHolder, VRTK_PlayerObject.ObjectTypes.Pointer);
+            pointerHolder.transform.parent = transform;
 
             pointerBeam = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pointerBeam.transform.name = string.Format("[{0}]BasePointer_SimplePointer_Pointer", gameObject.name);

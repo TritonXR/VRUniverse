@@ -19,6 +19,9 @@ public class Controller : VRTK_InteractableObject
 
     protected void Start()
     {
+
+        rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();    
+
         //Debug.Log("hello");
         panel.enabled = false;
         myText.enabled = false;
