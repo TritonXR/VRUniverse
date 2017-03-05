@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: 24de8aa0f3be69a4fb8032ad06cae449
+<<<<<<< HEAD:Assets/VRTK.meta
+guid: f2332b95695ff4e3eb707c9dc6cb74b3
 folderAsset: yes
-timeCreated: 1487806796
+timeCreated: 1485391962
+=======
+guid: 24a0302801160f84ba8f7ea5242c3699
+folderAsset: yes
+timeCreated: 1487205477
+>>>>>>> master:Assets/Prefabs.meta
 licenseType: Free
 DefaultImporter:
   userData: 

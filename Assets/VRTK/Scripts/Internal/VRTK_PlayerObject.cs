@@ -34,6 +34,7 @@ namespace VRTK
             {
                 var playerObject = obj.AddComponent<VRTK_PlayerObject>();
                 playerObject.objectType = objType;
+                //var dontdestroy = obj.AddComponent<PointerTravel>();
             }
         }
 

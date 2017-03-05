@@ -1,48 +1,132 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using VRTK;
 
-public class Controller : MonoBehaviour {
+public class Controller : VRTK_InteractableObject
+{
 
-	public Text panel;
+    //Planet Select Assets
+    public Text Title, Creator, Description, Year, Tag;
+    public Image imageDes;
+    private PlanetData planet_script;
+    public GameObject UsingObject;
 
-	public GameObject planet1, planet2;
-	private planet1_des planet1_script;
-	private planet2_des planet2_script;
+    //PointerPreview Assets
+    public Text myText;
+    public Image panel;
+    public SteamVR_TrackedController rightController;
+
+    protected void Start()
+    {
+
+        rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();  
+        if (rightController == null) {
+            Debug.Log("right controller is null");
+            rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
+        }  
+
+        //Debug.Log("hello");
+        panel.enabled = false;
+        myText.enabled = false;
+
+        planet_script = gameObject.GetComponent<PlanetData>();
+        myText.text = planet_script.title;
+
+        panel.transform.LookAt(Camera.main.transform);
+        panel.transform.localEulerAngles = new Vector3(180, 0, 180);
+    }
+
+    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
+    {
+
+        planet_script = gameObject.GetComponent<PlanetData>();
+
+        Title.text = planet_script.title;
+        Creator.text = planet_script.creator;
+        Description.text = planet_script.description;
+        Year.text = planet_script.year;
+
+        string tagText = "";
+        for (int i = 0; i < planet_script.des_tag.Length; i++)
+        {
+            if (i == planet_script.des_tag.Length - 1)
+            {
+                tagText = tagText + planet_script.des_tag[i];
+            }
+            else
+            {
+                tagText = tagText + planet_script.des_tag[i] + ", ";
+            }
+
+        }
+        Tag.text = tagText;
+
+        imageDes.sprite = planet_script.image;
+    }
+
+    public override void StartUsing(GameObject currentUsingObject)
+    {
+        base.StartUsing(currentUsingObject);
+        if (rightController == null)
+        {
+            Debug.Log("right controller is null AGAIN");
+            rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
+        }
+
+        rightController.TriggerClicked += HandleTriggerClicked;
 
 
-	// Use this for initialization
-	void Start () {
-	
-		planet1_script = planet1.GetComponent<planet1_des> ();
-		planet2_script = planet2.GetComponent<planet2_des> ();
+        /*
+        UsingObject = currentUsingObject;
+        planet_script = gameObject.GetComponent<PlanetData>();
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.A)) {
-			panel.text = "Name:" + planet1_script.name+ "\n" 
-				+ "Year: " + planet1_script.year + "\n" 
-				+ "Description: " + planet1_script.description;
+        Title.text = planet_script.title;
+        Creator.text = planet_script.creator;
+        Description.text = planet_script.description;
+        Year.text = planet_script.year;
 
-		}
+        string tagText = "";
+        for (int i = 0; i < planet_script.des_tag.Length; i++)
+        {
+            if (i == planet_script.des_tag.Length - 1) {
+                tagText = tagText + planet_script.des_tag[i];
+            } else
+            {
+                tagText = tagText + planet_script.des_tag[i] + ", ";
+            }
+                
+        }
+        Tag.text = tagText;
 
-		if (Input.GetKeyUp (KeyCode.A)) {
-			panel.text = "";
-		}
+        imageDes.sprite = planet_script.image;
+        */
 
-		if (Input.GetKeyDown (KeyCode.B)) {
-			panel.text = "Name:" + planet2_script.name+ "\n" 
-				+ "Year: " + planet2_script.year + "\n" 
-				+ "Description: " + planet2_script.description;
+        planet_script = gameObject.GetComponent<PlanetData>();
+        myText.text = planet_script.title;
 
-		}
-
-		if (Input.GetKeyUp (KeyCode.B)) {
-			panel.text = "";
-		}
+        panel.enabled = true;
+        myText.enabled = true;
 
 
-	}
+
+
+
+    }
+
+    public override void StopUsing(GameObject previousUsingObject)
+    {
+        base.StopUsing(previousUsingObject);
+
+        StartUsing(UsingObject);
+
+        panel.enabled = false;
+        myText.enabled = false;
+    }
+
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+    }
 }
