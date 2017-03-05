@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4396784364679588}
+  - component: {fileID: 114147918690218838}
   m_Layer: 0
   m_Name: ListOfPlanets
   m_TagString: Untagged
@@ -547,7 +548,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1134081428863806}
   m_LocalRotation: {x: 0.11061879, y: -0.12311302, z: -0.067930214, w: 0.9838659}
-  m_LocalPosition: {x: 125.91576, y: 48.32709, z: 4.331974}
+  m_LocalPosition: {x: 146.6, y: 44.9, z: 9.2}
   m_LocalScale: {x: 18.247545, y: 18.247543, z: 18.247543}
   m_Children:
   - {fileID: 224303728624973282}
@@ -919,6 +920,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114147918690218838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1058020110578636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4112530091bfaa4ab3a7f31cadaf489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114172633250479702
 MonoBehaviour:
   m_ObjectHideFlags: 1

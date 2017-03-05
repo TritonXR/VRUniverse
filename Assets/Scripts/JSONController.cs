@@ -7,7 +7,19 @@ public class JSONController : MonoBehaviour {
 
 	private string jsonString;
     public GameObject PlanetParent;
-  
+
+    public static JSONController JSONControlObject = null;
+
+    private void Awake()
+    {
+        if (JSONControlObject == null) {
+            JSONControlObject = this;
+        } else if (JSONControlObject != this) {
+            Destroy(this);
+        }
+    }
+
+
     // Use this for initialization
     void Start()
 	{
