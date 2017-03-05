@@ -10,6 +10,7 @@ public class JSONController : MonoBehaviour {
 
     public static JSONController JSONControlObject = null;
 
+    /*
     private void Awake()
     {
         if (JSONControlObject == null) {
@@ -17,7 +18,7 @@ public class JSONController : MonoBehaviour {
         } else if (JSONControlObject != this) {
             Destroy(this);
         }
-    }
+    }*/
 
 
     // Use this for initialization
