@@ -12,6 +12,7 @@ ModelImporter:
     100008: Sphere
     100010: SurfCircle
     100012: Torus
+    100014: Window
     400000: Cube
     400002: Cylinder
     400004: Grid
@@ -19,24 +20,28 @@ ModelImporter:
     400008: Sphere
     400010: SurfCircle
     400012: Torus
+    400014: Window
     2300000: Cube
     2300002: Cylinder
     2300004: Grid
     2300006: Sphere
     2300008: SurfCircle
     2300010: Torus
+    2300012: Window
     3300000: Cube
     3300002: Cylinder
     3300004: Grid
     3300006: Sphere
     3300008: SurfCircle
     3300010: Torus
+    3300012: Window
     4300000: Sphere
     4300002: Cylinder
     4300004: SurfCircle
     4300006: Grid
     4300008: Torus
     4300010: Cube
+    4300012: Window
     7400000: Default Take
     9500000: //RootNode
   materials:
@@ -63,7 +68,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 50
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
