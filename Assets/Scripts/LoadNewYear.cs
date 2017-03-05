@@ -13,12 +13,14 @@ public class LoadNewYear : MonoBehaviour {
     private bool canPress;
     private uint controllerIndex;
 
-    public string MyTrigger;
+    //public string MyTrigger;
     public float duration = 5.0F;
     public Color color0 = Color.red;
     public Color color1 = Color.blue;
     public Light lt;
     public GameObject lightObject;
+    public GameObject particleWarpObject;
+    public ParticleSystem hyperspeed;
 
     /*
     private void Awake()
@@ -30,15 +32,19 @@ public class LoadNewYear : MonoBehaviour {
         DynamicGI.UpdateEnvironment();
        
 
-    }
+    }*/
 
     // Use this for initialization
     void Start () {
             lightObject = GameObject.Find("Directional Light");
             lt = lightObject.GetComponent<Light>();
+            particleWarpObject = GameObject.Find("Warp");
+            hyperspeed = particleWarpObject.GetComponent<ParticleSystem>();
+            hyperspeed.Pause();
+
     }
 
-    private bool ForwardPressed()
+    /*private bool ForwardPressed()
     {
         if (controllerIndex >= uint.MaxValue)
         {
@@ -54,41 +60,65 @@ public class LoadNewYear : MonoBehaviour {
     private void ResetPress()
     {
         canPress = true;
-    }
+    }*/
 
     // Update is called once per frame
     void Update () {
-            var leftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
+            //var leftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
             //var rightHand = VRTK_DeviceFinder.GetControllerRightHand(true);
-            controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand); */
-            
-            /*if (ForwardPressed() || Input.GetKeyUp(KeyCode.Space))
+            //controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
+            //Debug.Log("test");
+
+            //if (ForwardPressed() || Input.GetKeyUp(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                var nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+                /*var nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
                 if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
                 {
                     nextSceneIndex = 0;
-                }
-                SceneManager.LoadScene(nextSceneIndex);
-            }*/
+                }*/
+                //SceneManager.LoadScene(nextSceneIndex);
+                Debug.Log("Starting the travel coroutine");
+                StartCoroutine(Travel("2016"));
+                
+            }
 
 
             /*if (Input.GetKeyUp(MyKey))
         {
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        }
-	}*/
+        }*/
+	}
 
-        /*IEnumerator Travel()
+        IEnumerator Travel(string sceneName)
         {
-            GetComponent<Animator>().SetTrigger(MyTrigger);
-            float t = Mathf.PingPong(Time.time, duration) / duration;
-            lt.color = Color.Lerp(color0, color1, t);
-            yield return new WaitForSecondsRealtime(3);
+
+            hyperspeed.Play();
+            Debug.Log("play warp");
+            
+            for(float i = 0; i<3; i+= Time.deltaTime)
+            {
+                lt.intensity = Mathf.Lerp(1f, 0.5f, i / 3.0f);
+                yield return null;
+            }
+            yield return new WaitForSecondsRealtime(2);
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            yield return new WaitForSecondsRealtime(1);
+            lightObject = GameObject.Find("Directional Light");
+            lt = lightObject.GetComponent<Light>();
+            for (float i = 0; i < 3; i += Time.deltaTime)
+            {
+                lt.intensity = Mathf.Lerp(0.5f, 1f, i / 3.0f);
+                yield return null;
+            }
+           
+            yield return new WaitForSecondsRealtime(1);            
+           
+            hyperspeed.Stop();
+            Debug.Log("stop warp");
             //yield return null; 
 
-        }*/
+        }
 
         public void loadHomeScene()
         {
@@ -97,7 +127,8 @@ public class LoadNewYear : MonoBehaviour {
 
             //if (ForwardPressed() || Input.GetKeyUp(KeyCode.Space))
             //{
-                SceneManager.LoadScene("MainUniverse", LoadSceneMode.Single);
+            //SceneManager.LoadScene("MainUniverse", LoadSceneMode.Single);
+            StartCoroutine(Travel("MainUniverse"));
             Debug.Log("load home");
             //}
         }
@@ -105,24 +136,26 @@ public class LoadNewYear : MonoBehaviour {
         public void load2015()
         {
             //var leftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
-           // controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
+            // controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
 
             //if (ForwardPressed() || Input.GetKeyUp(KeyCode.Space))
             //{
-                SceneManager.LoadScene("2015", LoadSceneMode.Single);
+            //SceneManager.LoadScene("2015", LoadSceneMode.Single);
+            StartCoroutine(Travel("2015"));
             Debug.Log("load 2015");
             //}
         }
 
         public void load2016()
         {
-           // var leftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
+            // var leftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
             //var rightHand = VRTK_DeviceFinder.GetControllerRightHand(true);
-          //  controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
+            //  controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
 
             //if (ForwardPressed() || Input.GetKeyUp(KeyCode.Space))
             //{
-                SceneManager.LoadScene("2016", LoadSceneMode.Single);
+            //SceneManager.LoadScene("2016", LoadSceneMode.Single);
+            StartCoroutine(Travel("2016"));
             Debug.Log("load 2016");
             //}
         }
@@ -131,11 +164,12 @@ public class LoadNewYear : MonoBehaviour {
         {
             //var leftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
             //var rightHand = VRTK_DeviceFinder.GetControllerRightHand(true);
-           // controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
+            // controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
 
             //if (ForwardPressed() || Input.GetKeyUp(KeyCode.Space))
             //{
-                SceneManager.LoadScene("2017", LoadSceneMode.Single);
+            //SceneManager.LoadScene("2017", LoadSceneMode.Single);
+            StartCoroutine(Travel("2017"));
             Debug.Log("load 2017");
             //}
         }
@@ -144,11 +178,12 @@ public class LoadNewYear : MonoBehaviour {
         {
             //var leftHand = VRTK_DeviceFinder.GetControllerLeftHand(true);
             //var rightHand = VRTK_DeviceFinder.GetControllerRightHand(true);
-           // controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
+            // controllerIndex = VRTK_DeviceFinder.GetControllerIndex(leftHand);
 
-           // if (ForwardPressed() || Input.GetKeyUp(KeyCode.Space))
+            // if (ForwardPressed() || Input.GetKeyUp(KeyCode.Space))
             //{
-                SceneManager.LoadScene("2018", LoadSceneMode.Single);
+            //SceneManager.LoadScene("2018", LoadSceneMode.Single);
+            StartCoroutine(Travel("2018"));
             Debug.Log("load 2018");
             // }
         }
