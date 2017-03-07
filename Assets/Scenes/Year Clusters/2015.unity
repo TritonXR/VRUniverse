@@ -4491,6 +4491,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114387754615350110, guid: ab23004d396710240a04bcd0b0e5001f,
+        type: 2}
+      propertyPath: titleOfScene
+      value: 
+      objectReference: {fileID: 2132750436}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab23004d396710240a04bcd0b0e5001f, type: 2}
   m_IsPrefabParent: 0
@@ -4523,3 +4528,9 @@ GameObject:
   m_PrefabParentObject: {fileID: 1795679433511226, guid: ab23004d396710240a04bcd0b0e5001f,
     type: 2}
   m_PrefabInternal: {fileID: 2132750431}
+--- !u!114 &2132750436 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114987377808795320, guid: ab23004d396710240a04bcd0b0e5001f,
+    type: 2}
+  m_PrefabInternal: {fileID: 2132750431}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}

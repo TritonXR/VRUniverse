@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using VRTK;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Lever : VRTK_InteractableObject {
 
@@ -8,6 +10,8 @@ public class Lever : VRTK_InteractableObject {
 	private Animator anima;
 
     private bool displayInfo;
+
+    public Text titleOfScene;
 
 
     public override void StartUsing(GameObject usingObject)
@@ -35,6 +39,7 @@ public class Lever : VRTK_InteractableObject {
                 anima.SetBool("switch 2", false);
 
                 leverOn = true;
+                SceneManager.LoadScene(titleOfScene.text);
             }
             else
             {

@@ -350,6 +350,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114387754615350110, guid: ab23004d396710240a04bcd0b0e5001f,
+        type: 2}
+      propertyPath: titleOfScene
+      value: 
+      objectReference: {fileID: 349697285}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab23004d396710240a04bcd0b0e5001f, type: 2}
   m_IsPrefabParent: 0
@@ -382,6 +387,12 @@ MonoBehaviour:
   InstructionsMenu: {fileID: 410640167}
   FloatingMenu: {fileID: 349697282}
   LeverParticles: {fileID: 1562060506}
+--- !u!114 &349697285 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114987377808795320, guid: ab23004d396710240a04bcd0b0e5001f,
+    type: 2}
+  m_PrefabInternal: {fileID: 349697280}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &410640166
 Prefab:
   m_ObjectHideFlags: 0

@@ -95,23 +95,27 @@ public class LoadNewYear : MonoBehaviour {
 
             hyperspeed.Play();
             Debug.Log("play warp");
-            
-            for(float i = 0; i<3; i+= Time.deltaTime)
+            if (lt != null)
             {
-                lt.intensity = Mathf.Lerp(1f, 0.5f, i / 3.0f);
-                yield return null;
+                for (float i = 0; i < 3; i += Time.deltaTime)
+                {
+                    lt.intensity = Mathf.Lerp(1f, 0.5f, i / 3.0f);
+                    yield return null;
+                }
             }
             yield return new WaitForSecondsRealtime(2);
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
             yield return new WaitForSecondsRealtime(1);
             lightObject = GameObject.Find("Directional Light");
-            lt = lightObject.GetComponent<Light>();
-            for (float i = 0; i < 3; i += Time.deltaTime)
+            if (lightObject != null)
             {
-                lt.intensity = Mathf.Lerp(0.5f, 1f, i / 3.0f);
-                yield return null;
+                lt = lightObject.GetComponent<Light>();
+                for (float i = 0; i < 3; i += Time.deltaTime)
+                {
+                    lt.intensity = Mathf.Lerp(0.5f, 1f, i / 3.0f);
+                    yield return null;
+                }
             }
-           
             yield return new WaitForSecondsRealtime(1);            
            
             hyperspeed.Stop();
