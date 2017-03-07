@@ -22,6 +22,8 @@ public class LoadNewYear : MonoBehaviour {
     public GameObject particleWarpObject;
     public ParticleSystem hyperspeed;
 
+    public GameObject cameraRig;
+
     /*
     private void Awake()
     {
@@ -104,6 +106,10 @@ public class LoadNewYear : MonoBehaviour {
                 }
             }
             yield return new WaitForSecondsRealtime(2);
+            if (lt == null)
+            {
+                cameraRig.transform.position = gameObject.transform.position;
+            }
             SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
             yield return new WaitForSecondsRealtime(1);
             lightObject = GameObject.Find("Directional Light");
