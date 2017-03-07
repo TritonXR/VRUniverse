@@ -8,7 +8,7 @@ LOCATED HERE: C:\Users\Kristin Agcaoili\AppData\LocalLow\VRClub\VRClubUniverse
 		    "Name": "A Magical Wonderland",
 			"Creator": "Kristin Agcaoili",
 			"Description": "This project immerses users in a terrain that changes the color of the sky. You can wander around this magical wonderland and explore the empty village.",
-			"Year": 2017,
+			"Year": 2018,
 			"Tags": [
 				"Exploration",
 				"Open world",
@@ -57,6 +57,30 @@ LOCATED HERE: C:\Users\Kristin Agcaoili\AppData\LocalLow\VRClub\VRClubUniverse
 			"Tags": [
 				"Racing",
 				"HTC Vive"
+			]
+		},
+		{
+		    "Name": "Crash (A Visual Experience)",
+			"Creator": "Michelle Viado",
+			"Description": "Crash. An alternate universe. What could have been, but isn't. (A simple test of modeling and terrain).",
+			"Year": 2017,
+			"Tags": [
+				"Apocalyptic",
+				"Red",
+				"HTC Vive",
+				"Mountain"
+			]
+		},
+		{
+		    "Name": "Fluid Days",
+			"Creator": "Molly Li",
+			"Description": "A planet where people can walk on water and experience rain, waterfall, snow, and bubbles!",
+			"Year": 2017,
+			"Tags": [
+				"Water",
+				"HTC Vive",
+				"Snow",
+				"Bubbles"
 			]
 		}
 	]

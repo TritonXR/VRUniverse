@@ -10,6 +10,11 @@ public class SetCenterMenuInPlanet : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        SetForm();
+	}
+	
+    public void SetForm()
+    {
         Controller[] scriptController = ListOfPlanetsController.listOfPlanets.GetComponentsInChildren<Controller>();
         for (int i = 0; i < scriptController.Length; i++)
         {
@@ -20,8 +25,8 @@ public class SetCenterMenuInPlanet : MonoBehaviour {
             scriptController[i].Tag = tagsInput;
             scriptController[i].imageDes = image;
         }
-	}
-	
+    }
+
 	// Update is called once per frame
 	void Update () {
 		

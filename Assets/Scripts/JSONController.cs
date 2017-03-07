@@ -8,7 +8,9 @@ public class JSONController : MonoBehaviour {
 	private string jsonString;
     public GameObject PlanetParent;
 
-    public static JSONController JSONControlObject = null;
+    public string yearToRead;
+
+    //public static JSONController JSONControlObject = null;
 
     /*
     private void Awake()
@@ -26,7 +28,10 @@ public class JSONController : MonoBehaviour {
 	{
         PlanetParent = ListOfPlanetsController.listOfPlanets;
 
-		jsonString = File.ReadAllText(Application.persistentDataPath + "/Planet.json");
+        string filePath = "/Planet_" + yearToRead + ".json";
+        Debug.Log("the file path is: " + filePath);
+
+		jsonString = File.ReadAllText(Application.persistentDataPath + filePath);
         Debug.Log("Reading: " + jsonString);
         Planet[] universe = JsonHelper.FromJson<Planet>(jsonString);
 
@@ -53,7 +58,6 @@ public class JSONController : MonoBehaviour {
 
 
 [System.Serializable]
-
 public class Planet{
 	public string Name;
 	public string Creator;

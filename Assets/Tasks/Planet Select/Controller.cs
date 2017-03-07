@@ -5,7 +5,6 @@ using VRTK;
 
 public class Controller : VRTK_InteractableObject
 {
-    private string name;
 
 
     //Planet Select Assets
@@ -21,15 +20,21 @@ public class Controller : VRTK_InteractableObject
 
     private bool hasClickedTrigger;
 
+    //Access to Instructions Menu and Floating Menu
+    public GameObject InstructionsMenu;
+    public GameObject FloatingMenu;
+
+    //Access to Particle System Lever
+    public GameObject leverParticleSystem;
+
     protected void Start()
     {
-        name = gameObject.name;
 
         hasClickedTrigger = false;
 
         rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();  
         if (rightController == null) {
-            Debug.Log("right controller is null");
+            //Debug.Log("right controller is null");
             rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
         }  
 
@@ -46,12 +51,12 @@ public class Controller : VRTK_InteractableObject
 
     private void HandleTriggerClicked(object sender, ClickedEventArgs e)
     {
-        Debug.Log("Name of Controller Before Error: " + name);
+        //Debug.Log("Name of Controller Before Error: " + name);
         planet_script = gameObject.GetComponent<PlanetData>();
-        Debug.Log("after Click");
+       // Debug.Log("after Click");
 
         Title.text = planet_script.title;
-        Debug.Log("Testing After");
+        //Debug.Log("Testing After");
 
         Creator.text = planet_script.creator;
         Description.text = planet_script.description;
@@ -73,6 +78,20 @@ public class Controller : VRTK_InteractableObject
         Tag.text = tagText;
 
         imageDes.sprite = planet_script.image;
+
+        if (hasClickedTrigger)
+        {
+            //Debug.Log("TRIGGER CLICKED IS TRUE");
+            InstructionsMenu.SetActive(false);
+            FloatingMenu.SetActive(true);
+            leverParticleSystem.SetActive(true);
+        } else
+        {
+            //Debug.Log("TRIGGER CLICKED IS FALSE");
+            InstructionsMenu.SetActive(true);
+            FloatingMenu.SetActive(false);
+            leverParticleSystem.SetActive(false);
+        }
     }
 
     public override void StartUsing(GameObject currentUsingObject)
@@ -80,14 +99,14 @@ public class Controller : VRTK_InteractableObject
         base.StartUsing(currentUsingObject);
         if (rightController == null)
         {
-            Debug.Log("right controller is null AGAIN");
+            //Debug.Log("right controller is null AGAIN");
             rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
         }
 
         
         if (!hasClickedTrigger)
         {
-            Debug.LogWarning("Setting trigger clicked to " + name);
+            //Debug.LogWarning("Setting trigger clicked to " + name);
             rightController.TriggerClicked += HandleTriggerClicked;
             hasClickedTrigger = true;
         }
@@ -137,9 +156,10 @@ public class Controller : VRTK_InteractableObject
 
         if (hasClickedTrigger)
         {
-            Debug.LogWarning("Getting rid of trigger clicked to " + name);
+            //Debug.LogWarning("Getting rid of trigger clicked to " + name);
             rightController.TriggerClicked -= HandleTriggerClicked;
             hasClickedTrigger = false;
+            
         }
     }
 
