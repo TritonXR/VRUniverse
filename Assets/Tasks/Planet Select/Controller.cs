@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using VRTK;
+using UnityEngine.SceneManagement;
 
 public class Controller : VRTK_InteractableObject
 {
@@ -107,8 +108,9 @@ public class Controller : VRTK_InteractableObject
         if (!hasClickedTrigger)
         {
             //Debug.LogWarning("Setting trigger clicked to " + name);
-            rightController.TriggerClicked += HandleTriggerClicked;
             hasClickedTrigger = true;
+            rightController.TriggerClicked += HandleTriggerClicked;
+            
         }
 
 
@@ -157,8 +159,9 @@ public class Controller : VRTK_InteractableObject
         if (hasClickedTrigger)
         {
             //Debug.LogWarning("Getting rid of trigger clicked to " + name);
-            rightController.TriggerClicked -= HandleTriggerClicked;
             hasClickedTrigger = false;
+            rightController.TriggerClicked -= HandleTriggerClicked;
+            
             
         }
     }

@@ -29,6 +29,14 @@ public class Lever : VRTK_InteractableObject {
     }
 
 
+    IEnumerator WaitLever() {
+        for (float i = 0; i < 3; i += Time.deltaTime)
+        {
+            yield return null;
+        }
+        yield return new WaitForSecondsRealtime(2);
+    }
+
     void OnTriggerStay(Collider other) {
         if (other.name == "Body") {
             Debug.Log("is player");
@@ -39,6 +47,7 @@ public class Lever : VRTK_InteractableObject {
                 anima.SetBool("switch 2", false);
 
                 leverOn = true;
+                StartCoroutine(WaitLever());
                 SceneManager.LoadScene(titleOfScene.text);
             }
             else

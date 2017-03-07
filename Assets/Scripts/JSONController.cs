@@ -48,6 +48,19 @@ public class JSONController : MonoBehaviour {
             {
                 listOfPlanets[i].des_tag[j] = universe[i].Tags[j];
             }
+
+            string imageName = "/" + universe[i].Image;
+
+            byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
+            Texture2D texture = new Texture2D(900, 900, TextureFormat.RGB24, false);
+            texture.filterMode = FilterMode.Trilinear;
+            texture.LoadImage(bytes);
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, 400, 200), new Vector2(0.5f, 0.0f), 1.0f);
+
+            //listOfPlanets[i].GetComponent<UnityEngine.UI.Image>().sprite = sprite;
+            listOfPlanets[i].image = sprite;
+
+
         } 
 
 
@@ -64,6 +77,7 @@ public class Planet{
 	public string Description;
 	public int Year;
 	public string[] Tags;
+    public string Image;
 }
 
 public static class JsonHelper
