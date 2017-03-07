@@ -8,10 +8,19 @@ public class ListOfPlanetsController : MonoBehaviour {
 
     private void Awake()
     {
-        if (listOfPlanets == null) {
+        if (listOfPlanets == null)
+        {
             listOfPlanets = gameObject;
-        } else if (listOfPlanets != gameObject) {
-            Destroy(gameObject);
+        }
+        else if (listOfPlanets != gameObject)
+        {
+
+            if (listOfPlanets != null)
+            {
+                GameObject.Destroy(listOfPlanets);
+            }
+
+            listOfPlanets = gameObject;
         }
     }
 

@@ -7,6 +7,13 @@ public class PlanetData : MonoBehaviour {
     public string[] des_tag;
     public Sprite image;
 
+    void Awake()
+    {
+
+
+
+    }
+
 	// Use this for initialization
 	void Start () {
 	

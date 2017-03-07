@@ -5,6 +5,8 @@ using VRTK;
 
 public class Controller : VRTK_InteractableObject
 {
+    private string name;
+
 
     //Planet Select Assets
     public Text Title, Creator, Description, Year, Tag;
@@ -17,8 +19,13 @@ public class Controller : VRTK_InteractableObject
     public Image panel;
     public SteamVR_TrackedController rightController;
 
+    private bool hasClickedTrigger;
+
     protected void Start()
     {
+        name = gameObject.name;
+
+        hasClickedTrigger = false;
 
         rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();  
         if (rightController == null) {
@@ -39,10 +46,13 @@ public class Controller : VRTK_InteractableObject
 
     private void HandleTriggerClicked(object sender, ClickedEventArgs e)
     {
-
+        Debug.Log("Name of Controller Before Error: " + name);
         planet_script = gameObject.GetComponent<PlanetData>();
+        Debug.Log("after Click");
 
         Title.text = planet_script.title;
+        Debug.Log("Testing After");
+
         Creator.text = planet_script.creator;
         Description.text = planet_script.description;
         Year.text = planet_script.year;
@@ -74,7 +84,13 @@ public class Controller : VRTK_InteractableObject
             rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
         }
 
-        rightController.TriggerClicked += HandleTriggerClicked;
+        
+        if (!hasClickedTrigger)
+        {
+            Debug.LogWarning("Setting trigger clicked to " + name);
+            rightController.TriggerClicked += HandleTriggerClicked;
+            hasClickedTrigger = true;
+        }
 
 
         /*
@@ -108,10 +124,6 @@ public class Controller : VRTK_InteractableObject
         panel.enabled = true;
         myText.enabled = true;
 
-
-
-
-
     }
 
     public override void StopUsing(GameObject previousUsingObject)
@@ -122,6 +134,13 @@ public class Controller : VRTK_InteractableObject
 
         panel.enabled = false;
         myText.enabled = false;
+
+        if (hasClickedTrigger)
+        {
+            Debug.LogWarning("Getting rid of trigger clicked to " + name);
+            rightController.TriggerClicked -= HandleTriggerClicked;
+            hasClickedTrigger = false;
+        }
     }
 
     // Update is called once per frame
