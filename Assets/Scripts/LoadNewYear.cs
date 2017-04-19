@@ -21,7 +21,7 @@ public class LoadNewYear : MonoBehaviour {
     public GameObject lightObject;
     public GameObject particleWarpObject;
     public ParticleSystem hyperspeed;
-        public AudioSource hyperspeedSound;
+    public AudioSource hyperspeedSound;
 
     public GameObject cameraRig;
 
@@ -104,13 +104,13 @@ public class LoadNewYear : MonoBehaviour {
             if (lt != null)
             {
                 hyperspeedSound.Play();
-                for (float i = 0; i < 3; i += Time.deltaTime)
+                for (float i = 0; i < 2; i += Time.deltaTime)
                 {
-                    lt.intensity = Mathf.Lerp(1f, 0.5f, i / 3.0f);
+                    lt.intensity = Mathf.Lerp(1f, 0.5f, i / 2.0f);
                     yield return null;
                 }
             }
-            yield return new WaitForSecondsRealtime(2);
+            yield return new WaitForSecondsRealtime(1);
             if (lt == null)
             {
                 cameraRig.transform.position = gameObject.transform.position;
@@ -121,16 +121,16 @@ public class LoadNewYear : MonoBehaviour {
             lightObject = GameObject.Find("Directional Light");
             if (lightObject != null)
             {
-                hyperspeedSound.Play();
+                //hyperspeedSound.Play();
                 lt = lightObject.GetComponent<Light>();
-                for (float i = 0; i < 3; i += Time.deltaTime)
+                for (float i = 0; i < 2; i += Time.deltaTime)
                 {
-                    lt.intensity = Mathf.Lerp(0.5f, 1f, i / 3.0f);
+                    lt.intensity = Mathf.Lerp(0.5f, 1f, i / 2.0f);
                     yield return null;
                 }
             }
             yield return new WaitForSecondsRealtime(1);
-            hyperspeedSound.Stop();
+            //hyperspeedSound.Stop();
             hyperspeed.Stop();
             Debug.Log("stop warp");
             //yield return null; 
