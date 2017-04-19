@@ -33,7 +33,7 @@ public class JSONController : MonoBehaviour {
 
 		jsonString = File.ReadAllText(Application.persistentDataPath + filePath);
         Debug.Log("Reading: " + jsonString);
-        Planet[] universe = JsonHelper.FromJson<Planet>(jsonString);
+        PlanetJS[] universe = JsonHelper.FromJson<PlanetJS>(jsonString);
 
         PlanetData[] listOfPlanets = PlanetParent.GetComponentsInChildren<PlanetData>();
         
@@ -71,7 +71,7 @@ public class JSONController : MonoBehaviour {
 
 
 [System.Serializable]
-public class Planet{
+public class PlanetJS{
 	public string Name;
 	public string Creator;
 	public string Description;
@@ -85,28 +85,28 @@ public static class JsonHelper
     public static T[] FromJson<T>(string json)
     {
         Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
-        return wrapper.Planet;
+        return wrapper.PlanetJS;
 
     }
 
     public static string ToJson<T>(T[] array)
     {
         Wrapper<T> wrapper = new Wrapper<T>();
-        wrapper.Planet = array;
+        wrapper.PlanetJS = array;
         return JsonUtility.ToJson(wrapper);
     }
 
     public static string ToJson<T>(T[] array, bool prettyPrint)
     {
         Wrapper<T> wrapper = new Wrapper<T>();
-        wrapper.Planet = array;
+        wrapper.PlanetJS = array;
         return JsonUtility.ToJson(wrapper, prettyPrint);
     }
 
     [System.Serializable]
     private class Wrapper<T>
     {
-        public T[] Planet;
+        public T[] PlanetJS;
 
         public object[] Array { get; internal set; }
     }
