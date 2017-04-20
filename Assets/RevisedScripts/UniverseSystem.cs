@@ -27,6 +27,9 @@ public class UniverseSystem : MonoBehaviour {
     // Integer that stores the year user is currently located in.
     private int atYear = -1;
 
+    // Reference to the planet gameobject that will have the planet component
+    [SerializeField] private GameObject prefab_planet;
+
 	// Use this for initialization
 	void Start () {
 
@@ -111,7 +114,7 @@ public class UniverseSystem : MonoBehaviour {
         {
 
             // Instantiate a Planet object with a Planet component on it
-            GameObject planet = new GameObject();
+            GameObject planet = Instantiate(prefab_planet, planetPosition, Quaternion.identity);
 
             // Set the name of the planet game object in hierarchy
             planet.name = "Planet";
@@ -150,14 +153,12 @@ public class UniverseSystem : MonoBehaviour {
             // Get the planet's image with path
             string imageName = "/" + json_planet.Image;
 
-            // TODO: Turn the image from path URL into a Sprite to set
-            // TEMPORARY UNTIL BETTER SOLUTION
+            // Turn the image from path URL into a Sprite to set
             byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
-            Texture2D texture = new Texture2D(900, 900, TextureFormat.RGB24, false);
-            texture.filterMode = FilterMode.Trilinear;
+            Texture2D texture = new Texture2D(0, 0);
             texture.LoadImage(bytes);
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, 400, 200), new Vector2(0.5f, 0.0f), 1.0f);
-            currPlanet.image = sprite;
+            Rect rect = new Rect(0, 0, texture.width, texture.height);
+            currPlanet.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
 
             // Set the planet's position to the current planetPosition vector3
             planet.transform.position = planetPosition;
