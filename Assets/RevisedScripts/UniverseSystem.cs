@@ -24,6 +24,9 @@ public class UniverseSystem : MonoBehaviour {
     private Vector3 planetPosition;
     [SerializeField] private float temporaryPlanetPositionScale;
 
+    // Integer that stores the year user is currently located in.
+    private int atYear = -1;
+
 	// Use this for initialization
 	void Start () {
 
@@ -63,9 +66,6 @@ public class UniverseSystem : MonoBehaviour {
             // Get the name of the file
             string nameOfFile = f.Name;
 
-            // TESTING
-            Debug.Log("Creating year: " + nameOfFile);
-
             // Instantiate a Year object with a Year component on it
             GameObject year = new GameObject();
 
@@ -95,33 +95,69 @@ public class UniverseSystem : MonoBehaviour {
     public void CreateYear(int yearIndex)
     {
 
+        string yearName = list_years[yearIndex].yr_name;
+
         // Open the JSON file with the name yr_name parameter passed in
+        string jsonString = File.ReadAllText(Application.persistentDataPath + "/" + yearName);
 
         // Create a JSONPlanet array and read the JSON file
+        PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
         // Initialize the planetPosition vector3 to systematically place planets in universe
         planetPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
         // For each object in the JSONPlanet array
+        foreach (PlanetJSON json_planet in universe)
+        {
 
             // Instantiate a Planet object with a Planet component on it
             GameObject planet = new GameObject();
 
+            // Set the name of the planet game object in hierarchy
+            planet.name = "Planet";
+
             // Add a Planet component on the new planet game object to declare it a planet object
-            planet.AddComponent<Planet>();
+            Planet currPlanet = planet.AddComponent<Planet>();
 
             // Get the year object from the List via Index
             Year year = list_years[yearIndex];
 
-            // Set the parent of the new Planet object to be the Year gameobject
-            planet.transform.parent = year.transform;
+            // Set the parent of the new Planet object to be the Planets gameobject
+            planet.transform.parent = year.planets.transform;
 
             // Set the planet's name
+            currPlanet.title = json_planet.Name;
+
             // Set the planet's creator
+            currPlanet.creator = json_planet.Creator;
+
             // Set the planet's description
-            // Set the planet's tags
+            currPlanet.description = json_planet.Description;
+
             // Set the planet's year
-            // Set the planet's image
+            currPlanet.year = json_planet.Year.ToString();
+
+            // Set the planet's tags by creating a string array of the same length
+            currPlanet.des_tag = new string[json_planet.Tags.Length];
+
+            // For each tag in the json planet
+            for (int i = 0; i < json_planet.Tags.Length; i++)
+            {
+                // Set the tag of the current planet equal to the json tag
+                currPlanet.des_tag[i] = json_planet.Tags[i];
+            }
+
+            // Get the planet's image with path
+            string imageName = "/" + json_planet.Image;
+
+            // TODO: Turn the image from path URL into a Sprite to set
+            // TEMPORARY UNTIL BETTER SOLUTION
+            byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
+            Texture2D texture = new Texture2D(900, 900, TextureFormat.RGB24, false);
+            texture.filterMode = FilterMode.Trilinear;
+            texture.LoadImage(bytes);
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, 400, 200), new Vector2(0.5f, 0.0f), 1.0f);
+            currPlanet.image = sprite;
 
             // Set the planet's position to the current planetPosition vector3
             planet.transform.position = planetPosition;
@@ -129,6 +165,119 @@ public class UniverseSystem : MonoBehaviour {
             // TEMPORARY: Increment new planet position to be +scale on X direction
             planetPosition = new Vector3(planetPosition.x + temporaryPlanetPositionScale, planetPosition.y, planetPosition.z);
 
+            year.list_planets.Add(currPlanet);
+
+        }
+
     }
 
+    /*
+     * Destroys the planets in the year the user was currently at
+     */
+    public void DestroyPlanets(int prevYear)
+    {
+        Planet[] list_planets = list_years[prevYear].planets.GetComponentsInChildren<Planet>();
+        for (int i = 0; i < list_planets.Length; i++)
+        {
+            Destroy(list_planets[i].gameObject);
+        }
+        list_years[prevYear].list_planets.Clear();
+    }
+
+    /*
+     * Handles teleportation to a new year. Calls CreateYear and Destroys previous year
+     */
+    public void TeleportToYear(int newYear)
+    {
+
+        // Only teleport if the new year is different from the year you are currently at
+        if (newYear != atYear)
+        {
+            // Start teleportation system
+
+            // Check if there have been planets created before
+            if (atYear != -1)
+            {
+                // Destroy planets in the previous year
+                DestroyPlanets(atYear);
+            }
+
+            // Create the new year with planets
+            CreateYear(newYear);
+
+            // Set the year user is currently at to the new year
+            atYear = newYear;
+        }
+
+    }
+
+    /*
+     * TESTING INPUT TO GETTING YEAR AND PLANETS
+     */
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A)) // Create 2015
+        {
+            TeleportToYear(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.B)) // Create 2016
+        {
+            TeleportToYear(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.C)) // Create 2017
+        {
+            TeleportToYear(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.D)) // Create 2018
+        {
+            TeleportToYear(3);
+        }
+    }
+
+}
+
+[System.Serializable]
+public class PlanetJSON
+{
+    public string Name;
+    public string Creator;
+    public string Description;
+    public int Year;
+    public string[] Tags;
+    public string Image;
+}
+
+/*
+ * Acts to parse JSON objects into arrays
+ */
+public static class JsonHelper
+{
+    public static T[] FromJson<T>(string json)
+    {
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
+        return wrapper.PlanetJSON;
+
+    }
+
+    public static string ToJson<T>(T[] array)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.PlanetJSON = array;
+        return JsonUtility.ToJson(wrapper);
+    }
+
+    public static string ToJson<T>(T[] array, bool prettyPrint)
+    {
+        Wrapper<T> wrapper = new Wrapper<T>();
+        wrapper.PlanetJSON = array;
+        return JsonUtility.ToJson(wrapper, prettyPrint);
+    }
+
+    [System.Serializable]
+    private class Wrapper<T>
+    {
+        public T[] PlanetJSON;
+
+        public object[] Array { get; internal set; }
+    }
 }

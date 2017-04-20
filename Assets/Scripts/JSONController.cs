@@ -26,6 +26,7 @@ public class JSONController : MonoBehaviour {
     // Use this for initialization
     void Start()
 	{
+        /*
         PlanetParent = ListOfPlanetsController.listOfPlanets;
 
         string filePath = "/Planet_" + yearToRead + ".json";
@@ -61,7 +62,7 @@ public class JSONController : MonoBehaviour {
             listOfPlanets[i].image = sprite;
 
 
-        } 
+        } */
 
 
 
@@ -80,6 +81,7 @@ public class PlanetJS{
     public string Image;
 }
 
+/*
 public static class JsonHelper
 {
     public static T[] FromJson<T>(string json)
@@ -110,4 +112,4 @@ public static class JsonHelper
 
         public object[] Array { get; internal set; }
     }
-}
+}*/

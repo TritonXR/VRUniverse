@@ -12,8 +12,10 @@ public class Year : MonoBehaviour {
     public List<Planet> list_planets;
     public GameObject planets;
 
-	// Use this for initialization
-	void Start () {
+
+    void Awake()
+    {
+
 
         // Initialize the planets list that will hold the list of planets in the year being read from the JSON file
         list_planets = new List<Planet>();
@@ -26,6 +28,11 @@ public class Year : MonoBehaviour {
 
         // Set the parent of the planets gameobject to be the year gameobject
         planets.transform.parent = gameObject.transform;
+    }
+
+	// Use this for initialization
+	void Start () {
+
 
 	}
 	
