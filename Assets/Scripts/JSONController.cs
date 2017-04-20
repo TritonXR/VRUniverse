@@ -52,14 +52,14 @@ public class JSONController : MonoBehaviour {
 
             string imageName = "/" + universe[i].Image;
 
-            byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
-            Texture2D texture = new Texture2D(900, 900, TextureFormat.RGB24, false);
-            texture.filterMode = FilterMode.Trilinear;
-            texture.LoadImage(bytes);
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, 400, 200), new Vector2(0.5f, 0.0f), 1.0f);
+						byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
+						Texture2D texture = new Texture2D(0, 0);
+						texture.LoadImage(bytes);
 
-            //listOfPlanets[i].GetComponent<UnityEngine.UI.Image>().sprite = sprite;
-            listOfPlanets[i].image = sprite;
+						Rect rect = new Rect(0, 0, texture.width, texture.height);
+
+						//listOfPlanets[i].GetComponent<UnityEngine.UI.Image>().sprite = sprite;
+						listOfPlanets[i].image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
 
 
         } */
