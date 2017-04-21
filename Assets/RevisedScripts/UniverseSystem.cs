@@ -188,13 +188,14 @@ public class UniverseSystem : MonoBehaviour {
     /*
      * Handles teleportation to a new year. Calls CreateYear and Destroys previous year
      */
-    public void TeleportToYear(int newYear)
+    public IEnumerator TeleportToYear(int newYear)
     {
 
         // Only teleport if the new year is different from the year you are currently at
         if (newYear != atYear)
         {
-            // Start teleportation system
+            // Start teleportation system traveling there by calling from Hyperspeed script
+            yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(true));
 
             // Check if there have been planets created before
             if (atYear != -1)
@@ -205,6 +206,9 @@ public class UniverseSystem : MonoBehaviour {
 
             // Create the new year with planets
             CreateYear(newYear);
+
+            // Start teleportation system ending by Hyperspeed script call
+            yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(false));
 
             // Set the year user is currently at to the new year
             atYear = newYear;
@@ -219,19 +223,19 @@ public class UniverseSystem : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.A)) // Create 2015
         {
-            TeleportToYear(0);
+            StartCoroutine(TeleportToYear(0));
         }
         else if (Input.GetKeyDown(KeyCode.B)) // Create 2016
         {
-            TeleportToYear(1);
+            StartCoroutine(TeleportToYear(1));
         }
         else if (Input.GetKeyDown(KeyCode.C)) // Create 2017
         {
-            TeleportToYear(2);
+            StartCoroutine(TeleportToYear(2));
         }
         else if (Input.GetKeyDown(KeyCode.D)) // Create 2018
         {
-            TeleportToYear(3);
+            StartCoroutine(TeleportToYear(3));
         }
     }
 

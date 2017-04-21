@@ -35,55 +35,54 @@ public class Hyperspeed : MonoBehaviour {
     }
 
     /*
-     * Calls the StartCoroutine for Travel animation
-     */
-    public void StartHyperspeed()
-    {
-        StartCoroutine(Travel());
-    }
-
-    /*
      * Handles the playing and stopping of animation hyperspeed
      */
-    IEnumerator Travel()
+    public IEnumerator Travel(bool forward)
     {
 
+        // Play the animation particle system
         hyperspeed.Play();
-        Debug.Log("play warp");
+
+        // Check if the light is null
         if (lt != null)
         {
-            hyperspeedSound.Play();
-            for (float i = 0; i < 2; i += Time.deltaTime)
+            // Increase intensity of light and travel to the year sequence
+            if (forward)
             {
-                lt.intensity = Mathf.Lerp(1f, 0.5f, i / 2.0f);
-                yield return null;
-            }
-        }
-        yield return new WaitForSecondsRealtime(1);
-        if (lt == null)
-        {
-            //cameraRig.transform.position = gameObject.transform.position;
-        }
-        hyperspeedSound.Stop();
-        //SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
-        yield return new WaitForSecondsRealtime(1);
-        lightObject = GameObject.Find("Directional Light");
-        if (lightObject != null)
-        {
-            //hyperspeedSound.Play();
-            lt = lightObject.GetComponent<Light>();
-            for (float i = 0; i < 2; i += Time.deltaTime)
-            {
-                lt.intensity = Mathf.Lerp(0.5f, 1f, i / 2.0f);
-                yield return null;
-            }
-        }
-        yield return new WaitForSecondsRealtime(1);
-        //hyperspeedSound.Stop();
-        hyperspeed.Stop();
-        Debug.Log("stop warp");
-        //yield return null; 
+                // Play the sound effect
+                hyperspeedSound.Play();
 
+                // Change the lighting in 2 seconds
+                for (float i = 0; i < 2; i += Time.deltaTime)
+                {
+                    // Lerp to the lighting to see the change in a span of 2 seconds
+                    lt.intensity = Mathf.Lerp(1f, 0.5f, i / 2.0f);
+                    yield return null;
+                }
+
+            }
+
+            // Decrease intensity of light and stop traveling to the year sequence
+            else
+            {
+                // Change the lighting in 2 seconds
+                for (float i = 0; i < 2; i += Time.deltaTime)
+                {
+                    // Lerp to the lighting to see the change in a span of 2 seconds
+                    lt.intensity = Mathf.Lerp(0.5f, 1f, i / 2.0f);
+                    yield return null;
+                }
+            }
+        }
+
+        // Wait for 1 second then stop the sound
+        yield return new WaitForSecondsRealtime(1);
+
+        // Stop the sound
+        hyperspeedSound.Stop();
+
+        // Stop the particle animation
+        hyperspeed.Stop();
     }
 
 }
