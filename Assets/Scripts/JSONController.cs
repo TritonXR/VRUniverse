@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+/*
+ * OBSOLETE
+ * TO BE REMOVED FROM FINAL PRODUCT
+ */
 public class JSONController : MonoBehaviour {
 
 	private string jsonString;

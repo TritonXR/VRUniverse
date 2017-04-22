@@ -54,7 +54,9 @@ public class UniverseSystem : MonoBehaviour {
         years.transform.parent = gameObject.transform;
 
         // Get the information of a directory in persistent data path
-        DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
+        //DirectoryInfo dir = new DirectoryInfo(Application.persistentDataPath);
+
+        DirectoryInfo dir = new DirectoryInfo("VRClubUniverse_Data");
 
         // TESTING
         Debug.Log("Reading JSON files from " + Application.persistentDataPath);
@@ -105,13 +107,16 @@ public class UniverseSystem : MonoBehaviour {
             string yearName = list_years[yearIndex].yr_name;
 
             // Open the JSON file with the name yr_name parameter passed in
-            string jsonString = File.ReadAllText(Application.persistentDataPath + "/" + yearName);
+            //string jsonString = File.ReadAllText(Application.persistentDataPath + "/" + yearName);
+            string jsonString = File.ReadAllText("VRClubUniverse_Data/" + yearName);
+
+            Debug.Log("Jsonstring is: " + jsonString);
 
             // Create a JSONPlanet array and read the JSON file
             PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
             // Initialize the planetPosition vector3 to systematically place planets in universe
-            planetPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            planetPosition = new Vector3(0.0f, 20.0f, 30.0f);
 
             // For each object in the JSONPlanet array
             foreach (PlanetJSON json_planet in universe)
@@ -158,7 +163,8 @@ public class UniverseSystem : MonoBehaviour {
                 string imageName = "/" + json_planet.Image;
 
                 // Turn the image from path URL into a Sprite to set
-                byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
+                //byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
+                byte[] bytes = File.ReadAllBytes("VRClubUniverse_Data/" + imageName);
                 Texture2D texture = new Texture2D(0, 0);
                 texture.LoadImage(bytes);
                 Rect rect = new Rect(0, 0, texture.width, texture.height);

@@ -11,7 +11,7 @@ public class Controller : VRTK_InteractableObject
     //Planet Select Assets
     public Text Title, Creator, Description, Year, Tag;
     public Image imageDes;
-    private PlanetData planet_script;
+    private Planet planet_script;
     public GameObject UsingObject;
 
     //PointerPreview Assets
@@ -33,17 +33,14 @@ public class Controller : VRTK_InteractableObject
 
         hasClickedTrigger = false;
 
-        rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();  
-        if (rightController == null) {
-            //Debug.Log("right controller is null");
-            rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
-        }  
+        //rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
+        rightController = Camera.main.transform.root.GetComponentInChildren<SteamVR_TrackedController>();
 
         //Debug.Log("hello");
         panel.enabled = false;
         myText.enabled = false;
 
-        planet_script = gameObject.GetComponent<PlanetData>();
+        planet_script = gameObject.GetComponent<Planet>();
         myText.text = planet_script.title;
 
         panel.transform.LookAt(Camera.main.transform);
@@ -53,7 +50,7 @@ public class Controller : VRTK_InteractableObject
     private void HandleTriggerClicked(object sender, ClickedEventArgs e)
     {
         //Debug.Log("Name of Controller Before Error: " + name);
-        planet_script = gameObject.GetComponent<PlanetData>();
+        planet_script = gameObject.GetComponent<Planet>();
        // Debug.Log("after Click");
 
         Title.text = planet_script.title;
@@ -139,7 +136,7 @@ public class Controller : VRTK_InteractableObject
         imageDes.sprite = planet_script.image;
         */
 
-        planet_script = gameObject.GetComponent<PlanetData>();
+        planet_script = gameObject.GetComponent<Planet>();
         myText.text = planet_script.title;
 
         panel.enabled = true;

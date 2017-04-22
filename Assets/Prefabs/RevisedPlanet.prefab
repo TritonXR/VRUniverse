@@ -263,7 +263,8 @@ MonoBehaviour:
   myText: {fileID: 114243731907610942}
   panel: {fileID: 114150275203192496}
   rightController: {fileID: 0}
-  InstructionsMenu: {fileID: 0}
+  InstructionsMenu: {fileID: 1628357015486572, guid: b9c2dc28d564fad49a0fe2f18ae7a433,
+    type: 2}
   FloatingMenu: {fileID: 0}
   leverParticleSystem: {fileID: 0}
 --- !u!114 &114676126030461482

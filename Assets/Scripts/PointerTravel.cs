@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * OBSOLETE
+ * TO BE REMOVED FROM FINAL PRODUCT
+ */
+
 public class PointerTravel : MonoBehaviour {
 
     public static GameObject pointer = null;
