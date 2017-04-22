@@ -98,77 +98,92 @@ public class UniverseSystem : MonoBehaviour {
     public void CreateYear(int yearIndex)
     {
 
-        string yearName = list_years[yearIndex].yr_name;
+        // Checks if the year the user is traveling to is the Home Year. No JSON file for the home year
+        if (yearIndex != -1) {
 
-        // Open the JSON file with the name yr_name parameter passed in
-        string jsonString = File.ReadAllText(Application.persistentDataPath + "/" + yearName);
+            // Gets the name of the year in the list of years
+            string yearName = list_years[yearIndex].yr_name;
 
-        // Create a JSONPlanet array and read the JSON file
-        PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
+            // Open the JSON file with the name yr_name parameter passed in
+            string jsonString = File.ReadAllText(Application.persistentDataPath + "/" + yearName);
 
-        // Initialize the planetPosition vector3 to systematically place planets in universe
-        planetPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            // Create a JSONPlanet array and read the JSON file
+            PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
-        // For each object in the JSONPlanet array
-        foreach (PlanetJSON json_planet in universe)
-        {
+            // Initialize the planetPosition vector3 to systematically place planets in universe
+            planetPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
-            // Instantiate a Planet object with a Planet component on it
-            GameObject planet = Instantiate(prefab_planet, planetPosition, Quaternion.identity);
-
-            // Set the name of the planet game object in hierarchy
-            planet.name = "Planet";
-
-            // Add a Planet component on the new planet game object to declare it a planet object
-            Planet currPlanet = planet.AddComponent<Planet>();
-
-            // Get the year object from the List via Index
-            Year year = list_years[yearIndex];
-
-            // Set the parent of the new Planet object to be the Planets gameobject
-            planet.transform.parent = year.planets.transform;
-
-            // Set the planet's name
-            currPlanet.title = json_planet.Name;
-
-            // Set the planet's creator
-            currPlanet.creator = json_planet.Creator;
-
-            // Set the planet's description
-            currPlanet.description = json_planet.Description;
-
-            // Set the planet's year
-            currPlanet.year = json_planet.Year.ToString();
-
-            // Set the planet's tags by creating a string array of the same length
-            currPlanet.des_tag = new string[json_planet.Tags.Length];
-
-            // For each tag in the json planet
-            for (int i = 0; i < json_planet.Tags.Length; i++)
+            // For each object in the JSONPlanet array
+            foreach (PlanetJSON json_planet in universe)
             {
-                // Set the tag of the current planet equal to the json tag
-                currPlanet.des_tag[i] = json_planet.Tags[i];
+
+                // Instantiate a Planet object with a Planet component on it
+                GameObject planet = Instantiate(prefab_planet, planetPosition, Quaternion.identity);
+
+                // Set the name of the planet game object in hierarchy
+                planet.name = "Planet";
+
+                // Add a Planet component on the new planet game object to declare it a planet object
+                Planet currPlanet = planet.AddComponent<Planet>();
+
+                // Get the year object from the List via Index
+                Year year = list_years[yearIndex];
+
+                // Set the parent of the new Planet object to be the Planets gameobject
+                planet.transform.parent = year.planets.transform;
+
+                // Set the planet's name
+                currPlanet.title = json_planet.Name;
+
+                // Set the planet's creator
+                currPlanet.creator = json_planet.Creator;
+
+                // Set the planet's description
+                currPlanet.description = json_planet.Description;
+
+                // Set the planet's year
+                currPlanet.year = json_planet.Year.ToString();
+
+                // Set the planet's tags by creating a string array of the same length
+                currPlanet.des_tag = new string[json_planet.Tags.Length];
+
+                // For each tag in the json planet
+                for (int i = 0; i < json_planet.Tags.Length; i++)
+                {
+                    // Set the tag of the current planet equal to the json tag
+                    currPlanet.des_tag[i] = json_planet.Tags[i];
+                }
+
+                // Get the planet's image with path
+                string imageName = "/" + json_planet.Image;
+
+                // Turn the image from path URL into a Sprite to set
+                byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
+                Texture2D texture = new Texture2D(0, 0);
+                texture.LoadImage(bytes);
+                Rect rect = new Rect(0, 0, texture.width, texture.height);
+                currPlanet.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+
+                // Set the planet's position to the current planetPosition vector3
+                planet.transform.position = planetPosition;
+
+                // TEMPORARY: Increment new planet position to be +scale on X direction
+                planetPosition = new Vector3(planetPosition.x + temporaryPlanetPositionScale, planetPosition.y, planetPosition.z);
+
+                // Adds the read planet into the year
+                year.list_planets.Add(currPlanet);
+
             }
 
-            // Get the planet's image with path
-            string imageName = "/" + json_planet.Image;
+        }
 
-            // Turn the image from path URL into a Sprite to set
-            byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
-            Texture2D texture = new Texture2D(0, 0);
-            texture.LoadImage(bytes);
-            Rect rect = new Rect(0, 0, texture.width, texture.height);
-            currPlanet.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+        // Handles case if the year traveling to is the new year
+        else {
 
-            // Set the planet's position to the current planetPosition vector3
-            planet.transform.position = planetPosition;
-
-            // TEMPORARY: Increment new planet position to be +scale on X direction
-            planetPosition = new Vector3(planetPosition.x + temporaryPlanetPositionScale, planetPosition.y, planetPosition.z);
-
-            year.list_planets.Add(currPlanet);
+            // There shouldn't be any planets in the Home year
 
         }
+
 
     }
 
@@ -202,6 +217,7 @@ public class UniverseSystem : MonoBehaviour {
             {
                 // Destroy planets in the previous year
                 DestroyPlanets(atYear);
+
             }
 
             // Create the new year with planets
@@ -213,6 +229,17 @@ public class UniverseSystem : MonoBehaviour {
             // Set the year user is currently at to the new year
             atYear = newYear;
         }
+    }
+
+    /*
+     * TESTING RADIAL MENU WITH VRTK. GOING TO REMOVE RADIAL MENU IN THE FUTURE.
+     * Need to have separate method to start a coroutine since doesn't start coroutines in 
+     * VRTK radial menu settins.
+     */
+    public void RadialMenu_TeleportToYear(int newYear) 
+    {
+
+        StartCoroutine(TeleportToYear(newYear));
 
     }
 
