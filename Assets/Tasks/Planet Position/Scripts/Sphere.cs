@@ -5,17 +5,20 @@ using UnityEngine;
 // scale everything by 18 bc the actual project uses scale 18 for planets and this project uses scale = 1 for planets rn
 public class Sphere : MonoBehaviour {
 
-    private float level1_Y = 9f;
+    private float level1_Y = 7f;
     public GameObject prefab;
     private int num_of_planets = 8;
     public Material Planet1;
+	public Material Planet2;
+	public Material Planet3;
     public static int SPHERE_COUNT = 0;
     private GameObject planet;
 	// Use this for initialization
 	void Start ()
     { 
-        setupSphere((float) 30, level1_Y, 3);
-        setupSphere((float) 50, 17f, 9);
+        setupSphere((float) 50/3, level1_Y, 6, Planet1);
+		setupSphere((float) 50/3, 11f, 5, Planet2);
+		setupSphere ((float)50/3, 14f, 6, Planet3);
 	}
 
     public Vector3 getCartesianFor(float radius, float inclination, float azimuth)
@@ -23,7 +26,7 @@ public class Sphere : MonoBehaviour {
         return new Vector3(radius * Mathf.Sin(inclination) * Mathf.Sin(azimuth), radius * Mathf.Cos(inclination), radius * Mathf.Sin(inclination) * Mathf.Cos(azimuth));
     }
 
-    public void setupSphere(float inputRadius, float inputY, int num)
+    public void setupSphere(float inputRadius, float inputY, int num, Material material)
     {
         GameObject bigSphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
         bigSphere.GetComponent<SphereCollider>().radius = inputRadius;
@@ -43,8 +46,8 @@ public class Sphere : MonoBehaviour {
             Debug.Log(theta);
             Vector3 vect = getCartesianFor(radius, theta, i * sectorAngle);
             planet = Instantiate(prefab, vect, Quaternion.identity);
-            planet.transform.localScale = new Vector3(5, 5, 5);
-            planet.GetComponent<MeshRenderer>().material = Planet1;
+            planet.transform.localScale = new Vector3(2, 2, 2);
+			planet.GetComponent<MeshRenderer> ().material = material;
         }
         SPHERE_COUNT++;
     }
