@@ -16,9 +16,9 @@ public class Sphere : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     { 
-        setupSphere((float) 50/3, level1_Y, 6, Planet1);
-		setupSphere((float) 50/3, 11f, 5, Planet2);
-		setupSphere ((float)50/3, 14f, 6, Planet3);
+        setupSphere((float) 65/3, level1_Y, 6, Planet1);
+		setupSphere((float) 65/3, 11f, 5, Planet2);
+		setupSphere ((float)65/3, 14f, 6, Planet3);
 	}
 
     public Vector3 getCartesianFor(float radius, float inclination, float azimuth)
