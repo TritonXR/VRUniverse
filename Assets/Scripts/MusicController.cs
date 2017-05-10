@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * OBSOLETE
+ * TO BE REMOVED FROM FINAL PRODUCT
+ */
+
 public class MusicController : MonoBehaviour {
 
     public static AudioSource music = null;
@@ -17,13 +22,4 @@ public class MusicController : MonoBehaviour {
 
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

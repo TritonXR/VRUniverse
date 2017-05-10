@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * OBSOLETE
+ * TO BE REMOVED FROM FINAL PRODUCT
+ */
+
 public class SetLeverParticles : MonoBehaviour {
 
 	// Use this for initialization

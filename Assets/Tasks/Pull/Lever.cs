@@ -4,6 +4,10 @@ using VRTK;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/*
+ * OBSOLETE
+ * TO BE REMOVED FROM FINAL PRODUCT
+ */
 public class Lever : VRTK_InteractableObject {
 
 	bool leverOn = false;
