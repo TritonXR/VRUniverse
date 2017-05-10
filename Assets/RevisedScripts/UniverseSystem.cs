@@ -24,6 +24,16 @@ public class UniverseSystem : MonoBehaviour {
     private Vector3 planetPosition;
     [SerializeField] private float temporaryPlanetPositionScale;
 
+	/*
+	 * PlanetPosition Variables
+	 */
+	public Material Planet1;
+	public Material Planet2;
+	public Material Planet3;
+	public int NUM_OF_PLANETS;
+	private int tracker = 0;
+	private float inputRadius = (float) 70 / 3;
+
     // Integer that stores the year user is currently located in.
     private int atYear = -1;
 
@@ -116,7 +126,7 @@ public class UniverseSystem : MonoBehaviour {
             PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
             // Initialize the planetPosition vector3 to systematically place planets in universe
-            planetPosition = new Vector3(0.0f, 20.0f, 30.0f);
+            planetPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
             // For each object in the JSONPlanet array
             foreach (PlanetJSON json_planet in universe)
@@ -174,12 +184,16 @@ public class UniverseSystem : MonoBehaviour {
                 planet.transform.position = planetPosition;
 
                 // TEMPORARY: Increment new planet position to be +scale on X direction
-                planetPosition = new Vector3(planetPosition.x + temporaryPlanetPositionScale, planetPosition.y, planetPosition.z);
+                //planetPosition = new Vector3(planetPosition.x + temporaryPlanetPositionScale, planetPosition.y, planetPosition.z);
 
                 // Adds the read planet into the year
                 year.list_planets.Add(currPlanet);
 
             }
+
+			setupSphere (7f, 6, Planet1, list_years[yearIndex].list_planets);
+			setupSphere (13f, 5, Planet2, list_years[yearIndex].list_planets);
+			setupSphere (18f, 6, Planet3, list_years[yearIndex].list_planets);
 
         }
 
@@ -205,6 +219,41 @@ public class UniverseSystem : MonoBehaviour {
         }
         list_years[prevYear].list_planets.Clear();
     }
+
+	public Vector3 getCartesianFor(float radius, float inclination, float azimuth)
+	{
+		return new Vector3(radius * Mathf.Sin(inclination) * Mathf.Sin(azimuth), radius * Mathf.Cos(inclination), radius * Mathf.Sin(inclination) * Mathf.Cos(azimuth));
+	}
+
+	public void setupSphere(float inputY, int num, Material material, List<Planet> list)
+	{
+		GameObject bigSphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+		bigSphere.GetComponent<SphereCollider>().radius = inputRadius;
+		bigSphere.transform.position = new Vector3(0, 0, 0);
+		Renderer rend = bigSphere.GetComponent<Renderer>();
+		rend.enabled = false;
+		int old_tracker = tracker;
+
+		float radius = bigSphere.GetComponent<SphereCollider>().radius * transform.localScale.x;
+
+		float theta = (Mathf.PI / 2) - Mathf.Asin(inputY / radius);
+
+		for (int i = tracker; i < num + old_tracker; i++)
+		{
+			if (i < list.Count) {
+				float sectorAngle = (Mathf.PI * 2) / num;
+
+				Debug.Log (radius);
+				Debug.Log (theta);
+				Vector3 vect = getCartesianFor (radius, theta, i * sectorAngle);
+				list [i].transform.position = vect;
+				list [i].transform.localScale = new Vector3 (2, 2, 2);
+				list [i].GetComponent<MeshRenderer> ().material = material;
+				tracker++;
+			}
+		}
+		tracker++;
+	}
 
     /*
      * Handles teleportation to a new year. Calls CreateYear and Destroys previous year
