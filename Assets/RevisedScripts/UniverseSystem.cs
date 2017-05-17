@@ -30,7 +30,7 @@ public class UniverseSystem : MonoBehaviour {
 	public Material Planet1;
 	public Material Planet2;
 	public Material Planet3;
-	public int NUM_OF_PLANETS;
+	public int NUM_OF_PLANETS = 0;
 	private int tracker = 0;
 	private float inputRadius = (float) 70 / 3;
 
@@ -191,9 +191,23 @@ public class UniverseSystem : MonoBehaviour {
 
             }
 
-			setupSphere (7f, 6, Planet1, list_years[yearIndex].list_planets);
-			setupSphere (13f, 5, Planet2, list_years[yearIndex].list_planets);
-			setupSphere (18f, 6, Planet3, list_years[yearIndex].list_planets);
+            int listLength = list_years[yearIndex].list_planets.Count;
+            Debug.Log(" l  " + listLength);
+            if (listLength <= 6)
+            {
+                setupSphere(10f, listLength, Planet1, list_years[yearIndex].list_planets);
+            }
+            else if (listLength > 6 && listLength <= 11)
+            {
+                setupSphere(10f, 6, Planet1, list_years[yearIndex].list_planets);
+                setupSphere(15f, listLength - 6, Planet2, list_years[yearIndex].list_planets);
+            }
+            else if (listLength > 11)
+            {
+                setupSphere(10f, 6, Planet1, list_years[yearIndex].list_planets);
+                setupSphere(15f, 5, Planet2, list_years[yearIndex].list_planets);
+                setupSphere(20f, listLength - 11, Planet3, list_years[yearIndex].list_planets);
+            }
 
         }
 
@@ -238,21 +252,28 @@ public class UniverseSystem : MonoBehaviour {
 
 		float theta = (Mathf.PI / 2) - Mathf.Asin(inputY / radius);
 
-		for (int i = tracker; i < num + old_tracker; i++)
+        while (tracker < num + old_tracker)
 		{
-			if (i < list.Count) {
-				float sectorAngle = (Mathf.PI * 2) / num;
+          
+			//if (i < list.Count) {
+                float sectorAngle = (Mathf.PI * 2) / num;
+         
+				Vector3 vect = getCartesianFor (radius, theta, tracker * sectorAngle);
 
-				Debug.Log (radius);
-				Debug.Log (theta);
-				Vector3 vect = getCartesianFor (radius, theta, i * sectorAngle);
-				list [i].transform.position = vect;
-				list [i].transform.localScale = new Vector3 (2, 2, 2);
-				list [i].GetComponent<MeshRenderer> ().material = material;
+                if (NUM_OF_PLANETS == 1)
+                {
+                    Debug.Log("vector " + vect);
+                }
+
+
+                list[tracker].transform.position = vect;
+				list [tracker].transform.localScale = new Vector3 (2, 2, 2);
+				list [tracker].GetComponent<MeshRenderer> ().material = material;
 				tracker++;
-			}
+			//}
 		}
-		tracker++;
+		//tracker++;
+        NUM_OF_PLANETS++;
 	}
 
     /*
