@@ -5,6 +5,7 @@
 # Inverse ignore some stuff
 !/Assets/
 !/ProjectSettings/
+!/VRClubUniverse_Data/
 !.gitignore
 
 # OS Stuff
