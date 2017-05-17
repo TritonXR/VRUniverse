@@ -16,19 +16,22 @@ public class YearSelection : MonoBehaviour
 		displayedYear = selectedYear;
 		yearText = GetComponent<Text>();
 		updateYearText();
-	}
 
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.A) && displayedYear != selectedYear)
-		{
-			selectedYear = displayedYear;
-			updateYearText();
-			Debug.Log("Traveling to year " + selectedYear);
-		}
-	}
+        SteamVR_TrackedController leftController = transform.root.GetComponentInChildren<SteamVR_TrackedController>();
+        leftController.TriggerClicked += HandleTriggerClicked;
+    }
 
-	public void nextYear()
+    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
+    {
+        if (displayedYear != selectedYear)
+        {
+            selectedYear = displayedYear;
+            updateYearText();
+            Debug.Log("Traveling to year " + selectedYear);
+        }
+    }
+
+    public void nextYear()
 	{
 		displayedYear++;
 		updateYearText();
@@ -45,4 +48,14 @@ public class YearSelection : MonoBehaviour
 		yearText.text = displayedYear.ToString();
 		yearText.color = displayedYear == selectedYear ? Color.green : Color.black;
 	}
+
+    //private void Update()
+    //{
+    //	if (Input.GetKeyDown(KeyCode.A) && displayedYear != selectedYear)
+    //	{
+    //		selectedYear = displayedYear;
+    //		updateYearText();
+    //		Debug.Log("Traveling to year " + selectedYear);
+    //	}
+    //}
 }
