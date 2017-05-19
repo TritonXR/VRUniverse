@@ -13,8 +13,10 @@
 
         private void Start()
         {
+            //GetComponent<VRTK_ControllerEvents>().AliasMenuOn += new ControllerInteractionEventHandler(DoMenuOn);
+            //GetComponent<VRTK_ControllerEvents>().AliasMenuOff += new ControllerInteractionEventHandler(DoMenuOff);
             GetComponent<VRTK_ControllerEvents>().AliasMenuOn += new ControllerInteractionEventHandler(DoMenuOn);
-            GetComponent<VRTK_ControllerEvents>().AliasMenuOff += new ControllerInteractionEventHandler(DoMenuOff);
+            //GetComponent<VRTK_ControllerEvents>().AliasMenuOff += new ControllerInteractionEventHandler(DoMenuOff);
             menuInit = false;
             menuActive = false;
         }
@@ -34,12 +36,19 @@
             }
             clonedMenuObject.SetActive(true);
             menuActive = true;
+
+            GetComponent<VRTK_ControllerEvents>().AliasMenuOn -= new ControllerInteractionEventHandler(DoMenuOn);
+            GetComponent<VRTK_ControllerEvents>().AliasMenuOn += new ControllerInteractionEventHandler(DoMenuOff);
+
         }
 
         private void DoMenuOff(object sender, ControllerInteractionEventArgs e)
         {
             clonedMenuObject.SetActive(false);
             menuActive = false;
+
+            GetComponent<VRTK_ControllerEvents>().AliasMenuOn -= new ControllerInteractionEventHandler(DoMenuOff);
+            GetComponent<VRTK_ControllerEvents>().AliasMenuOn += new ControllerInteractionEventHandler(DoMenuOn);
         }
 
         private void Update()
