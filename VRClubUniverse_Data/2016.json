@@ -1,0 +1,53 @@
+{
+    "PlanetJSON":
+    [
+		{
+		    "Name": "A Magical Wonderland",
+			"Creator": "Kristin Agcaoili",
+			"Description": "This project immerses users in a terrain that changes the color of the sky. You can wander around this magical wonderland and explore the empty village.",
+			"Year": 2016,
+			"Tags": [
+				"Exploration",
+				"Open world",
+				"HTC Vive",
+				"Fantasy"
+			],
+			"Image": "image_amagicalwonderland.jpg"
+		},
+		{
+		    "Name": "Underwater Rings",
+			"Creator": "Kristin Agcaoili",
+			"Description": "Users have the opportunity to fly underwater and swim through rings like a racetrack in the ocean. Try to teleport through the ocean as fast as you can!",
+			"Year": 2016,
+			"Tags": [
+				"Underwater",
+				"HTC Vive",
+				"Racing"
+			],
+			"Image": "image_underwaterrings.jpg"
+		},
+		{
+		    "Name": "Nature",
+			"Creator": "Kristin Agcaoili",
+			"Description": "Nature is a relaxing experience that takes users up into the mountains surrounded by forests and grass. It is a wonderful place to relax and take a break from life's business.",
+			"Year": 2016,
+			"Tags": [
+				"Relaxation",
+				"HTC Vive",
+				"Nature"
+			],
+			"Image": "image_nature.jpg"
+		},
+		{
+		    "Name": "Fireland",
+			"Creator": "Kristin Agcaoili",
+			"Description": "Fireland takes users into the heart of a blazing volano. Jump from platform to platform looking for a way out of the volcano and escape into the night sky.",
+			"Year": 2016,
+			"Tags": [
+				"Racing",
+				"HTC Vive"
+			],
+			"Image": "image_fireland.jpg"
+		}
+	]
+}
