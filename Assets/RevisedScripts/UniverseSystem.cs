@@ -149,6 +149,9 @@ public class UniverseSystem : MonoBehaviour {
                 // Set the planet's year
                 currPlanet.year = json_planet.Year.ToString();
 
+                // Set the planet's executable path
+                currPlanet.executable = json_planet.Executable;
+
                 // Set the planet's tags by creating a string array of the same length
                 currPlanet.des_tag = new string[json_planet.Tags.Length];
 
@@ -283,6 +286,7 @@ public class PlanetJSON
     public int Year;
     public string[] Tags;
     public string Image;
+    public string Executable;
 }
 
 /*

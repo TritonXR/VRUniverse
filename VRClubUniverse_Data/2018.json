@@ -12,7 +12,8 @@
 				"HTC Vive",
 				"Fantasy"
 			],
-			"Image": "image_amagicalwonderland.jpg"
+			"Image": "image_amagicalwonderland.jpg",
+			"Executable": ""
 		},
 		{
 		    "Name": "Underwater Rings",
@@ -24,7 +25,8 @@
 				"HTC Vive",
 				"Racing"
 			],
-			"Image": "image_underwaterrings.jpg"
+			"Image": "image_underwaterrings.jpg",
+			"Executable": ""
 		},
 		{
 		    "Name": "Nature",
@@ -36,7 +38,8 @@
 				"HTC Vive",
 				"Nature"
 			],
-			"Image": "image_nature.jpg"
+			"Image": "image_nature.jpg",
+			"Executable": ""
 		},
 		{
 		    "Name": "Fireland",
@@ -47,7 +50,8 @@
 				"Racing",
 				"HTC Vive"
 			],
-			"Image": "image_fireland.jpg"
+			"Image": "image_fireland.jpg",
+			"Executable": ""
 		},
 		{
 		    "Name": "Space Flight",
@@ -59,7 +63,8 @@
 				"HTC Vive",
 				"Science Fiction"
 			],
-			"Image": "image_spaceflight.jpg"
+			"Image": "image_spaceflight.jpg",
+			"Executable": ""
 		}
 	]
 }

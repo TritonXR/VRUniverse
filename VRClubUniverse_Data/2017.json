@@ -12,7 +12,8 @@
 				"HTC Vive",
 				"Mountain"
 			],
-			"Image": "image_crash.png"
+			"Image": "image_crash.png",
+			"Executable": ""
 		},
 		{
 		    "Name": "Water Works",
@@ -25,7 +26,8 @@
 				"Snow",
 				"Bubbles"
 			],
-			"Image": "image_waterworks.png"
+			"Image": "image_waterworks.png",
+			"Executable": ""
 		},
 		{
 			"Name": "Island Adventure",
@@ -39,7 +41,8 @@
 				"Treasure",
 				"Explore"
 			],
-			"Image": "image_islandadventure.png"
+			"Image": "image_islandadventure.png",
+			"Executable": ""
 		}
 	]
 }
