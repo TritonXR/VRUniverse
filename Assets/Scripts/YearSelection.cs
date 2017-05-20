@@ -7,27 +7,24 @@ using UnityEngine.UI;
 public class YearSelection : MonoBehaviour
 {
 	private static readonly int CURRENT_YEAR = DateTime.Now.Year;
-	private int selectedYear = CURRENT_YEAR;
+    public int SelectedYear { get; private set; }
 	private int displayedYear;
 	private Text yearText;
-	
-	private void Start()
-	{
-		displayedYear = selectedYear;
-		yearText = GetComponent<Text>();
-		updateYearText();
 
-        SteamVR_TrackedController leftController = transform.root.GetComponentInChildren<SteamVR_TrackedController>();
-        leftController.TriggerClicked += HandleTriggerClicked;
+    private void Start()
+    {
+        SelectedYear = CURRENT_YEAR;
+        displayedYear = SelectedYear;
+        yearText = GetComponent<Text>();
+        updateYearText();
     }
 
-    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
+    public void attemptToChangeYears()
     {
-        if (displayedYear != selectedYear)
+        if (displayedYear != SelectedYear)
         {
-            selectedYear = displayedYear;
+            SelectedYear = displayedYear;
             updateYearText();
-            Debug.Log("Traveling to year " + selectedYear);
         }
     }
 
@@ -46,7 +43,7 @@ public class YearSelection : MonoBehaviour
 	private void updateYearText()
 	{
 		yearText.text = displayedYear.ToString();
-		yearText.color = displayedYear == selectedYear ? Color.green : Color.black;
+		yearText.color = displayedYear == SelectedYear ? Color.green : Color.black;
 	}
 
     //private void Update()
