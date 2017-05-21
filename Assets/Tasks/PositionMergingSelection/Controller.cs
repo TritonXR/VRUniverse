@@ -9,10 +9,12 @@ public class Controller : VRTK_InteractableObject
 
 
     //Planet Select Assets
-    public Text Title, Creator, Description, Year, Tag;
+    public Text Title, Creator, CreatorTitle, Description, Year, YearTitle, Tag, TagTitle;
     public Image imageDes;
     private Planet planet_script;
     public GameObject UsingObject;
+    public Image floatingPanel;
+    public Image radialBar;
 
     //PointerPreview Assets
     public Text myText;
@@ -28,6 +30,20 @@ public class Controller : VRTK_InteractableObject
     //Access to Particle System Lever
     public GameObject leverParticleSystem;
 
+    private void toggleMenu(bool status)
+    {
+        Title.enabled = status;
+        Creator.enabled = status;
+        Description.enabled = status;
+        Year.enabled = status;
+        Tag.enabled = status;
+        floatingPanel.enabled = status;
+        imageDes.enabled = status;
+        CreatorTitle.enabled = status;
+        YearTitle.enabled = status;
+        TagTitle.enabled = status;
+    }
+
     protected void Start()
     {
 
@@ -40,22 +56,30 @@ public class Controller : VRTK_InteractableObject
         panel.enabled = false;
         myText.enabled = false;
 
+        //Turn off floating menu panel by default
+        toggleMenu(false);
+
+
         planet_script = gameObject.GetComponent<Planet>();
-        myText.text = planet_script.title;
+        myText.text = planet_script.title;        
 
         panel.transform.LookAt(Camera.main.transform);
         panel.transform.localEulerAngles = new Vector3(180, 0, 180);
-    }
 
-    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
-    {
-        //Debug.Log("Name of Controller Before Error: " + name);
+        //Planet transforms (not needed?)
+        planet_script.transform.LookAt(Camera.main.transform);
+        planet_script.transform.localEulerAngles = new Vector3(180, 0, 180);
+
+        //Positions the menu to the left of the planet and looking at initial camera
+        FloatingMenu.transform.position = planet_script.transform.position + planet_script.transform.TransformDirection(new Vector3(15, 0, 0));
+        FloatingMenu.transform.LookAt(Camera.main.transform);
+        FloatingMenu.transform.Rotate(new Vector3(0, 180, 0));
+        //FloatingMenu.transform.localEulerAngles = new Vector3(180, 0, 180);
+
         planet_script = gameObject.GetComponent<Planet>();
-       // Debug.Log("after Click");
 
-        Title.text = planet_script.title;
-        //Debug.Log("Testing After");
-
+        //Set text to planet info
+        Title.text = planet_script.title;        
         Creator.text = planet_script.creator;
         Description.text = planet_script.description;
         Year.text = planet_script.year;
@@ -77,7 +101,15 @@ public class Controller : VRTK_InteractableObject
 
         imageDes.sprite = planet_script.image;
 
-        if (hasClickedTrigger)
+
+
+    }
+
+    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
+    {
+        //radialBar.fillAmount += 0.1f;
+
+        /*if (hasClickedTrigger)
         {
             //Debug.Log("TRIGGER CLICKED IS TRUE");
             InstructionsMenu.SetActive(false);
@@ -89,7 +121,7 @@ public class Controller : VRTK_InteractableObject
             InstructionsMenu.SetActive(true);
             FloatingMenu.SetActive(false);
             leverParticleSystem.SetActive(false);
-        }
+        }*/
     }
 
     public override void StartUsing(GameObject currentUsingObject)
@@ -142,6 +174,10 @@ public class Controller : VRTK_InteractableObject
         panel.enabled = true;
         myText.enabled = true;
 
+        //Turn on menu when hovering
+        toggleMenu(true);       
+
+
     }
 
     public override void StopUsing(GameObject previousUsingObject)
@@ -152,6 +188,12 @@ public class Controller : VRTK_InteractableObject
 
         panel.enabled = false;
         myText.enabled = false;
+
+        //Turn off floating menu panel when not using
+        toggleMenu(false);
+
+        //Reset circular status
+        //radialBar.fillAmount = 0;
 
         if (hasClickedTrigger)
         {
