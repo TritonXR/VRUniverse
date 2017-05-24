@@ -49,7 +49,12 @@ public class ControllerOne : VRTK_InteractableObject
         Planet_Data = gameObject.GetComponent<Planet>();
 
         //Positions the menu to the left of the planet and looking at initial camera
-        Planet_Menu.transform.position = new Vector3(Planet_Data.transform.position.x + 10, Planet_Data.transform.position.y, Planet_Data.transform.position.z);
+
+        Vector3 temp = Vector3.Cross(Planet_Data.transform.position, Vector3.up);
+        temp.Normalize();
+        temp *= 5.2f;
+        Vector3 closer = Vector3.Cross(Vector3.up, temp).normalized;
+        Planet_Menu.transform.position = new Vector3(temp.x, temp.y, temp.z) + Planet_Data.transform.position - 2*closer;
         //Planet_Menu.transform.position = Planet_Data.transform.position + Planet_Data.transform.TransformDirection(new Vector3(15, 0, 0));
         Planet_Menu.transform.LookAt(Camera.main.transform); //looks at the camera
         Planet_Menu.transform.Rotate(new Vector3(0, 180, 0)); //but it needs to be flipped around for some reason
