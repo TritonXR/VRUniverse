@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33113152719729944}
   - component: {fileID: 135022291448605742}
   - component: {fileID: 23356146451301020}
-  - component: {fileID: 114608700898529808}
+  - component: {fileID: 114118737325991954}
   m_Layer: 8
   m_Name: RevisedPlanet
   m_TagString: Untagged
@@ -806,6 +806,54 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114118737325991954
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050411509479860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c56eb6f8758cd4aaf737cd98ba33ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableWhenIdle: 1
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
+  allowedTouchControllers: 0
+  isGrabbable: 0
+  holdButtonToGrab: 1
+  stayGrabbedOnTeleport: 1
+  validDrop: 1
+  grabOverrideButton: 0
+  allowedGrabControllers: 0
+  grabAttachMechanicScript: {fileID: 0}
+  secondaryGrabActionScript: {fileID: 0}
+  isUsable: 1
+  holdButtonToUse: 1
+  useOnlyIfGrabbed: 0
+  pointerActivatesUseAction: 1
+  useOverrideButton: 0
+  allowedUseControllers: 0
+  usingState: 0
+  Title: {fileID: 0}
+  Creator: {fileID: 0}
+  CreatorTitle: {fileID: 0}
+  Description: {fileID: 0}
+  Year: {fileID: 0}
+  YearTitle: {fileID: 0}
+  Tag: {fileID: 0}
+  TagTitle: {fileID: 0}
+  imageDes: {fileID: 0}
+  UsingObject: {fileID: 0}
+  floatingPanel: {fileID: 0}
+  radialBar: {fileID: 0}
+  myText: {fileID: 114243731907610942, guid: 35c773cbc260b2641a16447075a68031, type: 2}
+  panel: {fileID: 114150275203192496, guid: 35c773cbc260b2641a16447075a68031, type: 2}
+  rightController: {fileID: 0}
+  InstructionsMenu: {fileID: 1628357015486572, guid: b9c2dc28d564fad49a0fe2f18ae7a433,
+    type: 2}
+  FloatingMenu: {fileID: 0}
+  leverParticleSystem: {fileID: 0}
 --- !u!114 &114138920366039680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1162,54 +1210,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114608700898529808
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1050411509479860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b966d30f8932145df86d90700014417e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  disableWhenIdle: 0
-  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
-  allowedTouchControllers: 0
-  isGrabbable: 0
-  holdButtonToGrab: 0
-  stayGrabbedOnTeleport: 1
-  validDrop: 1
-  grabOverrideButton: 0
-  allowedGrabControllers: 0
-  grabAttachMechanicScript: {fileID: 0}
-  secondaryGrabActionScript: {fileID: 0}
-  isUsable: 1
-  holdButtonToUse: 1
-  useOnlyIfGrabbed: 0
-  pointerActivatesUseAction: 1
-  useOverrideButton: 0
-  allowedUseControllers: 0
-  usingState: 0
-  Title: {fileID: 114473902890301866}
-  Creator: {fileID: 114644007620205848}
-  CreatorTitle: {fileID: 114990884392737982}
-  Description: {fileID: 114723136743441122}
-  Year: {fileID: 114857591264379196}
-  YearTitle: {fileID: 114068213195880782}
-  Tag: {fileID: 114003025045758502}
-  TagTitle: {fileID: 114565828264755352}
-  imageDes: {fileID: 114538665958769614}
-  UsingObject: {fileID: 0}
-  floatingPanel: {fileID: 114116494767913130}
-  radialBar: {fileID: 0}
-  myText: {fileID: 114243731907610942}
-  panel: {fileID: 114150275203192496}
-  rightController: {fileID: 0}
-  InstructionsMenu: {fileID: 1628357015486572, guid: b9c2dc28d564fad49a0fe2f18ae7a433,
-    type: 2}
-  FloatingMenu: {fileID: 1145482812893748}
-  leverParticleSystem: {fileID: 0}
 --- !u!114 &114629957741378538
 MonoBehaviour:
   m_ObjectHideFlags: 1
