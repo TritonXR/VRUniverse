@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * Located on the Text component of the YearSelection Canvas
+ */
+
 public class YearSelection : MonoBehaviour
 {
 	private static readonly int CURRENT_YEAR = DateTime.Now.Year;
