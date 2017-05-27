@@ -8,7 +8,7 @@ public class YearController : MonoBehaviour
 
     private void Start ()
     {
-
+        //transform.root.GetComponent<UniverseSystem>().StartCoroutine(transform.root.GetComponent<UniverseSystem>().TeleportToYear(2015));
         Debug.Log("Started year controller");
 
         yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
@@ -56,6 +56,7 @@ public class YearController : MonoBehaviour
         Debug.Log("going to year: " + yearSelection.SelectedYear);
         // freeze radial menu
 
-        transform.root.GetComponent<UniverseSystem>().RadialMenu_TeleportToYear(yearSelection.SelectedYear);
+        //transform.root.GetComponent<UniverseSystem>().RadialMenu_TeleportToYear(yearSelection.SelectedYear);
+        transform.root.GetComponent<UniverseSystem>().StartCoroutine(transform.root.GetComponent<UniverseSystem>().TeleportToYear(yearSelection.SelectedYear));
     }
 }
