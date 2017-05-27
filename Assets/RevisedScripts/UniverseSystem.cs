@@ -15,7 +15,7 @@ public class UniverseSystem : MonoBehaviour {
      */
     //gameobject acting as list of years
     public GameObject years;
-    public List<Year> list_years;
+    public static List<Year> list_years;
 
     /*
      * TODO: Need to figure out how to position the planets systematically
@@ -32,6 +32,9 @@ public class UniverseSystem : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        // Initialize list_years
+        list_years = new List<Year>();
 
         // Creates the years object and handles initializing the list of years
         GetYears();
@@ -214,7 +217,7 @@ public class UniverseSystem : MonoBehaviour {
      */
     public IEnumerator TeleportToYear(int newYear)
     {
-
+        Debug.Log("traveling to : " + newYear);
         // Only teleport if the new year is different from the year you are currently at
         if (newYear != atYear)
         {
@@ -228,6 +231,8 @@ public class UniverseSystem : MonoBehaviour {
                 DestroyPlanets(atYear);
 
             }
+
+            Debug.Log("creating year");
 
             // Create the new year with planets
             CreateYear(newYear);

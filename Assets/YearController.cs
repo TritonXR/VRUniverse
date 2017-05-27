@@ -8,28 +8,8 @@ public class YearController : MonoBehaviour
 
     private void Start ()
     {
-        //transform.root.GetComponent<UniverseSystem>().StartCoroutine(transform.root.GetComponent<UniverseSystem>().TeleportToYear(2015));
-        Debug.Log("Started year controller");
 
         yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
-
-        /*
-        GameObject leftleft = Camera.main.transform.root.GetComponent<SteamVR_ControllerManager>().left;
-        Debug.Log("leftleft: " + leftleft.name);
-
-        SteamVR_TrackedController controlObj = leftleft.GetComponent<SteamVR_TrackedController>();
-        if (controlObj)
-        {
-            Debug.Log("access to controller");
-        }
-        else
-        {
-            Debug.Log("noooo");
-        }
-        */
-
-
-
 
         SteamVR_TrackedController[] leftController = Camera.main.transform.root.GetComponentsInChildren<SteamVR_TrackedController>(true);
         for (int i = 0; i < leftController.Length; i++)
@@ -54,9 +34,9 @@ public class YearController : MonoBehaviour
         yearSelection.attemptToChangeYears();
 
         Debug.Log("going to year: " + yearSelection.SelectedYear);
+
         // freeze radial menu
 
-        //transform.root.GetComponent<UniverseSystem>().RadialMenu_TeleportToYear(yearSelection.SelectedYear);
         transform.root.GetComponent<UniverseSystem>().StartCoroutine(transform.root.GetComponent<UniverseSystem>().TeleportToYear(yearSelection.SelectedYear));
     }
 }
