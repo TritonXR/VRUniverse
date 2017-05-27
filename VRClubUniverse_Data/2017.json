@@ -1,0 +1,48 @@
+{
+    "PlanetJSON":
+    [
+		{
+		    "Name": "Crash (A Visual Experience)",
+			"Creator": "Michelle Viado",
+			"Description": "Crash. An alternate universe. What could have been, but isn't. (A simple test of modeling and terrain).",
+			"Year": 2017,
+			"Tags": [
+				"Apocalyptic",
+				"Red",
+				"HTC Vive",
+				"Mountain"
+			],
+			"Image": "image_crash.png",
+			"Executable": ""
+		},
+		{
+		    "Name": "Water Works",
+			"Creator": "Molly Li",
+			"Description": "A planet where people can walk on water and experience rain, waterfall, snow, and bubbles!",
+			"Year": 2017,
+			"Tags": [
+				"Water",
+				"HTC Vive",
+				"Snow",
+				"Bubbles"
+			],
+			"Image": "image_waterworks.png",
+			"Executable": ""
+		},
+		{
+			"Name": "Island Adventure",
+			"Creator": "Brittany Newton",
+			"Description": "Explore and find treasures hidden on an undiscovered island before a volcanic eruption.",
+			"Year": 2017,
+			"Tags": [
+				"Island",
+				"HTC Vive",
+				"Adventure",
+				"Treasure",
+				"Explore"
+			],
+			"Image": "image_islandadventure.png",
+			"Executable": ""
+		}
+	]
+}
