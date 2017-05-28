@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 55c7d5aa5e990b84183f533787bb345f
 =======
 guid: 8e4da68e34845094ea38751676bbdf86
 >>>>>>> master
+=======
+guid: 55c7d5aa5e990b84183f533787bb345f
+>>>>>>> PlanetPosition
 timeCreated: 1485642713
 licenseType: Free
 DefaultImporter:
