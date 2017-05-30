@@ -24,6 +24,16 @@ public class UniverseSystem : MonoBehaviour {
     private Vector3 planetPosition;
     [SerializeField] private float temporaryPlanetPositionScale;
 
+	/*
+	 * PlanetPosition Variables
+	 */
+	public Material Planet1;
+	public Material Planet2;
+	public Material Planet3;
+	public int NUM_OF_PLANETS = 0;
+	private int tracker = 0;
+	private float inputRadius = (float) 70 / 3;
+
     // Integer that stores the year user is currently located in.
     private int atYear = -1;
 
@@ -95,7 +105,7 @@ public class UniverseSystem : MonoBehaviour {
             Debug.Log("adding year: " + year.name);
 
             // Add the Year object to a list of Years
-            list_years.Add(year.GetComponent<Year>());
+            UniverseSystem.list_years.Add(year.GetComponent<Year>());
 
         }
 
@@ -112,7 +122,7 @@ public class UniverseSystem : MonoBehaviour {
         if (yearIndex != -1) {
 
             // Gets the name of the year in the list of years
-            string yearName = list_years[yearIndex].yr_name;
+            string yearName = UniverseSystem.list_years[yearIndex].yr_name;
 
             // Open the JSON file with the name yr_name parameter passed in
             //string jsonString = File.ReadAllText(Application.persistentDataPath + "/" + yearName);
@@ -124,7 +134,7 @@ public class UniverseSystem : MonoBehaviour {
             PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
             // Initialize the planetPosition vector3 to systematically place planets in universe
-            planetPosition = new Vector3(0.0f, 20.0f, 30.0f);
+            planetPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
             // For each object in the JSONPlanet array
             foreach (PlanetJSON json_planet in universe)
@@ -140,7 +150,7 @@ public class UniverseSystem : MonoBehaviour {
                 Planet currPlanet = planet.AddComponent<Planet>();
 
                 // Get the year object from the List via Index
-                Year year = list_years[yearIndex];
+                Year year = UniverseSystem.list_years[yearIndex];
 
                 // Set the parent of the new Planet object to be the Planets gameobject
                 planet.transform.parent = year.planets.transform;
@@ -185,11 +195,29 @@ public class UniverseSystem : MonoBehaviour {
                 planet.transform.position = planetPosition;
 
                 // TEMPORARY: Increment new planet position to be +scale on X direction
-                planetPosition = new Vector3(planetPosition.x + temporaryPlanetPositionScale, planetPosition.y, planetPosition.z);
+                //planetPosition = new Vector3(planetPosition.x + temporaryPlanetPositionScale, planetPosition.y, planetPosition.z);
 
                 // Adds the read planet into the year
                 year.list_planets.Add(currPlanet);
 
+            }
+
+            int listLength = UniverseSystem.list_years[yearIndex].list_planets.Count;
+            Debug.Log(" l  " + listLength);
+            if (listLength <= 6)
+            {
+                setupSphere(10f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+            }
+            else if (listLength > 6 && listLength <= 11)
+            {
+                setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(15f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+            }
+            else if (listLength > 11)
+            {
+                setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(15f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(20f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
             }
 
         }
@@ -209,13 +237,56 @@ public class UniverseSystem : MonoBehaviour {
      */
     public void DestroyPlanets(int prevYear)
     {
-        Planet[] list_planets = list_years[prevYear].planets.GetComponentsInChildren<Planet>();
+        Debug.Log("Destroying Planets from year: " + UniverseSystem.list_years[prevYear].yr_name);
+        Planet[] list_planets = UniverseSystem.list_years[prevYear].planets.GetComponentsInChildren<Planet>();
         for (int i = 0; i < list_planets.Length; i++)
         {
             Destroy(list_planets[i].gameObject);
         }
-        list_years[prevYear].list_planets.Clear();
+        UniverseSystem.list_years[prevYear].list_planets.Clear();
     }
+
+	public Vector3 getCartesianFor(float radius, float inclination, float azimuth)
+	{
+		return new Vector3(radius * Mathf.Sin(inclination) * Mathf.Sin(azimuth), radius * Mathf.Cos(inclination), radius * Mathf.Sin(inclination) * Mathf.Cos(azimuth));
+	}
+
+	public void setupSphere(float inputY, int num, Material material, List<Planet> list)
+	{
+		GameObject bigSphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+		bigSphere.GetComponent<SphereCollider>().radius = inputRadius;
+		bigSphere.transform.position = new Vector3(0, 0, 0);
+		Renderer rend = bigSphere.GetComponent<Renderer>();
+		rend.enabled = false;
+		int old_tracker = tracker;
+
+		float radius = bigSphere.GetComponent<SphereCollider>().radius * transform.localScale.x;
+
+		float theta = (Mathf.PI / 2) - Mathf.Asin(inputY / radius);
+
+        while (tracker < num + old_tracker)
+		{
+          
+			//if (i < list.Count) {
+                float sectorAngle = (Mathf.PI * 2) / num;
+         
+				Vector3 vect = getCartesianFor (radius, theta, tracker * sectorAngle);
+
+                if (NUM_OF_PLANETS == 1)
+                {
+                    Debug.Log("vector " + vect);
+                }
+
+
+                list[tracker].transform.position = vect;
+				list [tracker].transform.localScale = new Vector3 (2, 2, 2);
+				list [tracker].GetComponent<MeshRenderer> ().material = material;
+				tracker++;
+			//}
+		}
+		//tracker++;
+        NUM_OF_PLANETS++;
+	}
 
     /*
      * Handles teleportation to a new year. Calls CreateYear and Destroys previous year

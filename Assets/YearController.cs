@@ -16,8 +16,10 @@ public class YearController : MonoBehaviour
         {
             if (leftController[i].GetComponentInChildren<YearSelection>())
             {
-                Debug.Log("Found. Added listener for left controller trigger");
                 leftController[i].TriggerClicked += HandleTriggerClicked;
+            } else
+            {
+                Debug.Log("Error: Unable to find left controller");
             }
         }
         
@@ -27,13 +29,9 @@ public class YearController : MonoBehaviour
     private void HandleTriggerClicked(object sender, ClickedEventArgs e)
     {
 
-        Debug.Log("Trigger clicked");
-
-        Debug.Log("Leaving year: " + yearSelection.SelectedYearIndex);
-
         yearSelection.attemptToChangeYears();
 
-        Debug.Log("going to year: " + yearSelection.SelectedYearIndex);
+        Debug.Log("Traveling to Year: " + yearSelection.SelectedYearIndex);
 
         // freeze radial menu
 

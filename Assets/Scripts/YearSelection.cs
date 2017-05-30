@@ -58,7 +58,6 @@ public class YearSelection : MonoBehaviour
         {
             SelectedYearIndex = int.Parse(displayedYearString);
             updateYearText();
-            Debug.Log("[attempt] new year: " + SelectedYearIndex.ToString());
         } else
         {
             Debug.Log("[attempt] Same year");
@@ -68,9 +67,6 @@ public class YearSelection : MonoBehaviour
 
     public void nextYear()
 	{
-
-        Debug.Log("Next Year Test");
-
         // Check if there are years to travel to
         if (listYearNames.Count != 0)
         {
@@ -83,7 +79,6 @@ public class YearSelection : MonoBehaviour
             }
             else
             {
-                Debug.Log("OVERAL COUNT: " + int.Parse(displayedYearString) + "/" + UniverseSystem.list_years.Count);
                 // if the current year is NOT the maximum index and user can go to the next year, 
                 if (int.Parse(displayedYearString) < (UniverseSystem.list_years.Count - 1))
                 {
@@ -106,7 +101,6 @@ public class YearSelection : MonoBehaviour
 
 	public void prevYear()
 	{
-        Debug.Log("Previous Test");
 
         // Check if there are years to travel to
         if (listYearNames.Count != 0)
