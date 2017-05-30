@@ -116,7 +116,7 @@ public class UniverseSystem : MonoBehaviour {
 
             // Open the JSON file with the name yr_name parameter passed in
             //string jsonString = File.ReadAllText(Application.persistentDataPath + "/" + yearName);
-            string jsonString = File.ReadAllText("VRClubUniverse_Data/" + yearName);
+            string jsonString = File.ReadAllText("VRClubUniverse_Data/" + yearName + ".json");
 
             Debug.Log("Jsonstring is: " + jsonString);
 

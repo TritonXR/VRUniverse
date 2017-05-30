@@ -83,8 +83,9 @@ public class YearSelection : MonoBehaviour
             }
             else
             {
+                Debug.Log("OVERAL COUNT: " + int.Parse(displayedYearString) + "/" + UniverseSystem.list_years.Count);
                 // if the current year is NOT the maximum index and user can go to the next year, 
-                if (int.Parse(displayedYearString) <= (UniverseSystem.list_years.Count))
+                if (int.Parse(displayedYearString) < (UniverseSystem.list_years.Count - 1))
                 {
                     // increment the displayed year
                     int newYear = int.Parse(displayedYearString) + 1;
@@ -140,9 +141,15 @@ public class YearSelection : MonoBehaviour
 
 	private void updateYearText()
 	{
-
-        // Set the text of the displayed string to the controller year selection
-        yearText.text = displayedYearString;
+        // Since lobby has the string "Year" which is not an int, only show the word Year
+        if (displayedYearString == "Year")
+        {
+            yearText.text = displayedYearString;
+        }
+        else // Set the text of the displayed string to the controller year selection by grabbing the name from the index
+        {
+            yearText.text = listYearNames[int.Parse(displayedYearString)].ToString();
+        }
 
         // If the string displayed equals the index that was previously selected OR user is in the lobby, turn the text green. Or keep it black
         if (displayedYearString == SelectedYearIndex.ToString() || displayedYearString == "Year")
