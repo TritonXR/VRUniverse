@@ -29,14 +29,15 @@ public class YearController : MonoBehaviour
 
         Debug.Log("Trigger clicked");
 
-        Debug.Log("Leaving year: " + yearSelection.SelectedYear);
+        Debug.Log("Leaving year: " + yearSelection.SelectedYearIndex);
 
         yearSelection.attemptToChangeYears();
 
-        Debug.Log("going to year: " + yearSelection.SelectedYear);
+        Debug.Log("going to year: " + yearSelection.SelectedYearIndex);
 
         // freeze radial menu
 
-        transform.root.GetComponent<UniverseSystem>().StartCoroutine(transform.root.GetComponent<UniverseSystem>().TeleportToYear(yearSelection.SelectedYear));
+        // convert the year selection to the proper index
+        transform.root.GetComponent<UniverseSystem>().StartCoroutine(transform.root.GetComponent<UniverseSystem>().TeleportToYear(yearSelection.SelectedYearIndex));
     }
 }

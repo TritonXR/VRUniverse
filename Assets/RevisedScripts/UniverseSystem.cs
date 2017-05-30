@@ -62,7 +62,7 @@ public class UniverseSystem : MonoBehaviour {
         DirectoryInfo dir = new DirectoryInfo("VRClubUniverse_Data");
 
         // TESTING
-        Debug.Log("Reading JSON files from " + Application.persistentDataPath);
+        Debug.Log("Reading JSON files from VRClubUniverse_Data");
 
         // Get the file info by getting files with JSON path to get list of JSON files in directory
         FileInfo[] info = dir.GetFiles("*.json");
@@ -83,11 +83,16 @@ public class UniverseSystem : MonoBehaviour {
             // Set the parent of the new year object to be the years gameobject
             year.transform.parent = years.transform;
 
+            // Remove the .json from the name
+            string[] tempYearName = nameOfFile.Split('.');
+
             // Set the name of the new Year object to be the name of the file
-            currYear.yr_name = nameOfFile;
+            currYear.yr_name = tempYearName[0];
 
             // Set the name of the new Year object to be the name of the year being read
-            year.name = nameOfFile;
+            year.name = tempYearName[0];
+
+            Debug.Log("adding year: " + year.name);
 
             // Add the Year object to a list of Years
             list_years.Add(year.GetComponent<Year>());
