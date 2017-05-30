@@ -293,7 +293,6 @@ public class UniverseSystem : MonoBehaviour {
      */
     public IEnumerator TeleportToYear(int newYear)
     {
-        Debug.Log("traveling to : " + newYear);
         // Only teleport if the new year is different from the year you are currently at
         if (newYear != atYear)
         {
