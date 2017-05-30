@@ -1,3 +1,11 @@
+Warnings:
+- UniverseSystem reads all JSON files in the VRClubUniverse_Data folder. They must be in the format YEAR.json.
+- When using ExecutableSwitch, the user must already have SteamVR imported and did not change the hierarchy of the CameraRig.
+- VR Club Universe only works with HTC Vive and Unity projects.
+
+
+Example JSON File: 2021.json
+
 {
     "PlanetJSON":
     [
