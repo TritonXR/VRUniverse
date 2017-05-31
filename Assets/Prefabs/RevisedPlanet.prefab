@@ -283,7 +283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1457076648931528
 GameObject:
   m_ObjectHideFlags: 1
@@ -646,7 +646,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050411509479860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.7964506, y: 46.19851, z: 40.359356}
+  m_LocalPosition: {x: 12.886993, y: 44.302666, z: 21.0949}
   m_LocalScale: {x: 18.247545, y: 18.247543, z: 18.247543}
   m_Children:
   - {fileID: 4345272398624800}
@@ -1231,7 +1231,7 @@ MonoBehaviour:
   Planet_Tag: {fileID: 114017739256949010}
   Planet_Image: {fileID: 114465487263848872}
   Planet_Menu: {fileID: 1108763982531660}
-  RadialBar_Menu: {fileID: 1336624337051906}
+  RadialBar: {fileID: 0}
 --- !u!114 &114401112817139204
 MonoBehaviour:
   m_ObjectHideFlags: 1

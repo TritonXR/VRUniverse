@@ -22,7 +22,7 @@ public class ControllerOne : VRTK_InteractableObject
 
     //Menu's controlled by hovering and selecting
     [SerializeField] private GameObject Planet_Menu; //Entire Planet_Menu attached to each planet that shows planet data
-    [SerializeField] private GameObject RadialBar_Menu; //Entire Radial Bar that indicates selection of planet
+    private Image RadialBar; //Entire Radial Bar that indicates selection of planet
 
     //Reference to the right controller to detect the trigger clicked
     private SteamVR_TrackedController rightController;
@@ -47,8 +47,12 @@ public class ControllerOne : VRTK_InteractableObject
         //Turn off floating menu panel by default
         toggleMenu(false);
 
+        //getcomponentinchildren<image>
+        RadialBar = rightController.GetComponentInChildren<Image>();
+
         //Also turn off the radial bar by default
-        RadialBar_Menu.SetActive(false);
+        // RadialBar_Menu.SetActive(false);
+        RadialBar.fillAmount = 0;
         
         //Gets the data from the planet
         Planet_Data = gameObject.GetComponent<Planet>();

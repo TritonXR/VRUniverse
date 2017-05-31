@@ -495,9 +495,10 @@ MonoBehaviour:
   pointerThickness: 0.002
   pointerLength: 100
   showPointerTip: 1
-  customPointerCursor: {fileID: 0}
+  customPointerCursor: {fileID: 1229391746468482, guid: 890fadd278363684bb525cc5d26b6841,
+    type: 2}
   pointerCursorMatchTargetNormal: 0
-  pointerCursorRescaledAlongDistance: 0
+  pointerCursorRescaledAlongDistance: 1
 --- !u!114 &114281682759017286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -947,7 +948,7 @@ Canvas:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1751657893366618}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -956,6 +957,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
