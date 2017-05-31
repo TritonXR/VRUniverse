@@ -102,8 +102,6 @@ public class UniverseSystem : MonoBehaviour {
             // Set the name of the new Year object to be the name of the year being read
             year.name = tempYearName[0];
 
-            Debug.Log("adding year: " + year.name);
-
             // Add the Year object to a list of Years
             UniverseSystem.list_years.Add(year.GetComponent<Year>());
 
@@ -203,18 +201,21 @@ public class UniverseSystem : MonoBehaviour {
             }
 
             int listLength = UniverseSystem.list_years[yearIndex].list_planets.Count;
-            Debug.Log(" l  " + listLength);
+            //Debug.Log(" l  " + listLength);
             if (listLength <= 6)
             {
+                tracker = 0;
                 setupSphere(10f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 6 && listLength <= 11)
             {
+                tracker = 0;
                 setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
                 setupSphere(15f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 11)
             {
+                tracker = 0;
                 setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
                 setupSphere(15f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
                 setupSphere(20f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
@@ -274,10 +275,10 @@ public class UniverseSystem : MonoBehaviour {
 
                 if (NUM_OF_PLANETS == 1)
                 {
-                    Debug.Log("vector " + vect);
+                    //Debug.Log("vector " + vect);
                 }
 
-
+                //Debug.Log("The vector is: " + vect);
                 list[tracker].transform.position = vect;
 				list [tracker].transform.localScale = new Vector3 (2, 2, 2);
 				list [tracker].GetComponent<MeshRenderer> ().material = material;
@@ -306,8 +307,6 @@ public class UniverseSystem : MonoBehaviour {
                 DestroyPlanets(atYear);
 
             }
-
-            Debug.Log("creating year");
 
             // Create the new year with planets
             CreateYear(newYear);
