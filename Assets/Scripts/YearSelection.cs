@@ -54,7 +54,7 @@ public class YearSelection : MonoBehaviour
     public void attemptToChangeYears()
     {
       
-        if (displayedYearString != SelectedYearIndex.ToString())
+        if ((displayedYearString != SelectedYearIndex.ToString()) && (displayedYearString != "Year"))
         {
             SelectedYearIndex = int.Parse(displayedYearString);
             updateYearText();
