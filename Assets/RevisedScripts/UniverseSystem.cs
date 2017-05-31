@@ -15,7 +15,7 @@ public class UniverseSystem : MonoBehaviour {
      */
     //gameobject acting as list of years
     public GameObject years;
-    public List<Year> list_years;
+    public static List<Year> list_years;
 
     /*
      * TODO: Need to figure out how to position the planets systematically
@@ -43,6 +43,9 @@ public class UniverseSystem : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        // Initialize list_years
+        list_years = new List<Year>();
+
         // Creates the years object and handles initializing the list of years
         GetYears();
 
@@ -69,7 +72,7 @@ public class UniverseSystem : MonoBehaviour {
         DirectoryInfo dir = new DirectoryInfo("VRClubUniverse_Data");
 
         // TESTING
-        Debug.Log("Reading JSON files from " + Application.persistentDataPath);
+        Debug.Log("Reading JSON files from VRClubUniverse_Data");
 
         // Get the file info by getting files with JSON path to get list of JSON files in directory
         FileInfo[] info = dir.GetFiles("*.json");
@@ -90,14 +93,17 @@ public class UniverseSystem : MonoBehaviour {
             // Set the parent of the new year object to be the years gameobject
             year.transform.parent = years.transform;
 
+            // Remove the .json from the name
+            string[] tempYearName = nameOfFile.Split('.');
+
             // Set the name of the new Year object to be the name of the file
-            currYear.yr_name = nameOfFile;
+            currYear.yr_name = tempYearName[0];
 
             // Set the name of the new Year object to be the name of the year being read
-            year.name = nameOfFile;
+            year.name = tempYearName[0];
 
             // Add the Year object to a list of Years
-            list_years.Add(year.GetComponent<Year>());
+            UniverseSystem.list_years.Add(year.GetComponent<Year>());
 
         }
 
@@ -114,11 +120,11 @@ public class UniverseSystem : MonoBehaviour {
         if (yearIndex != -1) {
 
             // Gets the name of the year in the list of years
-            string yearName = list_years[yearIndex].yr_name;
+            string yearName = UniverseSystem.list_years[yearIndex].yr_name;
 
             // Open the JSON file with the name yr_name parameter passed in
             //string jsonString = File.ReadAllText(Application.persistentDataPath + "/" + yearName);
-            string jsonString = File.ReadAllText("VRClubUniverse_Data/" + yearName);
+            string jsonString = File.ReadAllText("VRClubUniverse_Data/" + yearName + ".json");
 
             Debug.Log("Jsonstring is: " + jsonString);
 
@@ -142,7 +148,7 @@ public class UniverseSystem : MonoBehaviour {
                 Planet currPlanet = planet.AddComponent<Planet>();
 
                 // Get the year object from the List via Index
-                Year year = list_years[yearIndex];
+                Year year = UniverseSystem.list_years[yearIndex];
 
                 // Set the parent of the new Planet object to be the Planets gameobject
                 planet.transform.parent = year.planets.transform;
@@ -194,22 +200,25 @@ public class UniverseSystem : MonoBehaviour {
 
             }
 
-            int listLength = list_years[yearIndex].list_planets.Count;
-            Debug.Log(" l  " + listLength);
+            int listLength = UniverseSystem.list_years[yearIndex].list_planets.Count;
+            //Debug.Log(" l  " + listLength);
             if (listLength <= 6)
             {
-                setupSphere(10f, listLength, Planet1, list_years[yearIndex].list_planets);
+                tracker = 0;
+                setupSphere(10f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 6 && listLength <= 11)
             {
-                setupSphere(10f, 6, Planet1, list_years[yearIndex].list_planets);
-                setupSphere(15f, listLength - 6, Planet2, list_years[yearIndex].list_planets);
+                tracker = 0;
+                setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(15f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 11)
             {
-                setupSphere(10f, 6, Planet1, list_years[yearIndex].list_planets);
-                setupSphere(15f, 5, Planet2, list_years[yearIndex].list_planets);
-                setupSphere(20f, listLength - 11, Planet3, list_years[yearIndex].list_planets);
+                tracker = 0;
+                setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(15f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(20f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
             }
 
         }
@@ -229,12 +238,13 @@ public class UniverseSystem : MonoBehaviour {
      */
     public void DestroyPlanets(int prevYear)
     {
-        Planet[] list_planets = list_years[prevYear].planets.GetComponentsInChildren<Planet>();
+        Debug.Log("Destroying Planets from year: " + UniverseSystem.list_years[prevYear].yr_name);
+        Planet[] list_planets = UniverseSystem.list_years[prevYear].planets.GetComponentsInChildren<Planet>();
         for (int i = 0; i < list_planets.Length; i++)
         {
             Destroy(list_planets[i].gameObject);
         }
-        list_years[prevYear].list_planets.Clear();
+        UniverseSystem.list_years[prevYear].list_planets.Clear();
     }
 
 	public Vector3 getCartesianFor(float radius, float inclination, float azimuth)
@@ -265,10 +275,10 @@ public class UniverseSystem : MonoBehaviour {
 
                 if (NUM_OF_PLANETS == 1)
                 {
-                    Debug.Log("vector " + vect);
+                    //Debug.Log("vector " + vect);
                 }
 
-
+                //Debug.Log("The vector is: " + vect);
                 list[tracker].transform.position = vect;
 				list [tracker].transform.localScale = new Vector3 (2, 2, 2);
 				list [tracker].GetComponent<MeshRenderer> ().material = material;
@@ -284,7 +294,6 @@ public class UniverseSystem : MonoBehaviour {
      */
     public IEnumerator TeleportToYear(int newYear)
     {
-
         // Only teleport if the new year is different from the year you are currently at
         if (newYear != atYear)
         {
