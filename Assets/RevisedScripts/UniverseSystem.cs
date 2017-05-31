@@ -183,7 +183,7 @@ public class UniverseSystem : MonoBehaviour {
 
                 // Turn the image from path URL into a Sprite to set
                 //byte[] bytes = File.ReadAllBytes(Application.persistentDataPath + imageName);
-                byte[] bytes = File.ReadAllBytes("VRClubUniverse_Data/" + imageName);
+                byte[] bytes = File.ReadAllBytes("VRClubUniverse_Data/VR_Demos/" + currPlanet.year + "/" + currPlanet.executable + "/" + imageName);
                 Texture2D texture = new Texture2D(0, 0);
                 texture.LoadImage(bytes);
                 Rect rect = new Rect(0, 0, texture.width, texture.height);

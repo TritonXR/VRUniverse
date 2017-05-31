@@ -16,10 +16,8 @@ public class YearController : MonoBehaviour
         {
             if (leftController[i].GetComponentInChildren<YearSelection>())
             {
+                Debug.Log("Established left controller input.");
                 leftController[i].TriggerClicked += HandleTriggerClicked;
-            } else
-            {
-                Debug.Log("Error: Unable to find left controller");
             }
         }
         

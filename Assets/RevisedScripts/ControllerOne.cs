@@ -11,6 +11,9 @@ public class ControllerOne : VRTK_InteractableObject
     [SerializeField] private Text Planet_Title, Planet_Creator, Planet_Description, Planet_Year, Planet_Tag;
     [SerializeField] private Image Planet_Image;
 
+    //Access to the Planet's Executable File to Travel to
+    private string Planet_Executable;
+
     //Reference to the Planet Data on each Planet
     private Planet Planet_Data;
 
@@ -25,7 +28,7 @@ public class ControllerOne : VRTK_InteractableObject
     private SteamVR_TrackedController rightController;
 
     //Reference that detects if the trigger has been clicked before
-    private bool hasClickedTrigger;
+    private bool canClickOnTrigger;
 
     private void toggleMenu(bool status)
     {
@@ -35,9 +38,11 @@ public class ControllerOne : VRTK_InteractableObject
     protected void Start()
     {
 
-        hasClickedTrigger = false;
+        //Set the use of trigger
+        canClickOnTrigger = false;
 
-        //rightController = Camera.main.transform.root.GetComponentInChildren<SteamVR_TrackedController>();
+        //Find the right controller
+        SetRightController();
 
         //Turn off floating menu panel by default
         toggleMenu(false);
@@ -79,48 +84,57 @@ public class ControllerOne : VRTK_InteractableObject
         }
         Planet_Tag.text = tagText;
         Planet_Image.sprite = Planet_Data.image;
+        Planet_Executable = Planet_Data.executable;
 
 
 
+    }
+
+    private void SetRightController()
+    {
+        SteamVR_TrackedController[] controllerSearch = Camera.main.transform.root.GetComponentsInChildren<SteamVR_TrackedController>(true);
+        for (int i = 0; i < controllerSearch.Length; i++)
+        {
+            if (!(controllerSearch[i].GetComponentInChildren<YearSelection>(true)))
+            {
+                Debug.Log("Established right controller input.");
+                rightController = controllerSearch[i];
+            }
+        }
     }
 
     private void HandleTriggerClicked(object sender, ClickedEventArgs e)
     {
         //radialBar.fillAmount += 0.1f;
 
-        /*if (hasClickedTrigger)
+        if (canClickOnTrigger)
         {
-            //Debug.Log("TRIGGER CLICKED IS TRUE");
-            InstructionsMenu.SetActive(false);
-            FloatingMenu.SetActive(true);
-            leverParticleSystem.SetActive(true);
+            Debug.Log("Loading Executable: " + Planet_Executable);
+            ExecutableSwitch.LoadExe("/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe");
+            
         } else
         {
-            //Debug.Log("TRIGGER CLICKED IS FALSE");
-            InstructionsMenu.SetActive(true);
-            FloatingMenu.SetActive(false);
-            leverParticleSystem.SetActive(false);
-        }*/
+            Debug.Log("TRIGGER CLICKED IS FALSE");
+            
+        }
     }
 
     public override void StartUsing(GameObject currentUsingObject)
     {
         base.StartUsing(currentUsingObject);
 
-        //if (rightController == null)
-        //{
-        //Debug.Log("right controller is null AGAIN");
-        //    rightController = PlanetTravel.camerarig.GetComponentInChildren<SteamVR_TrackedController>();
-        //}
+        //Double check that the controller has been set
+        if (rightController == null)
+        {
+            SetRightController(); //if not, set the right controller
+        }
 
-
-        //if (!hasClickedTrigger)
-        //{
-        //Debug.LogWarning("Setting trigger clicked to " + name);
-        //    hasClickedTrigger = true;
-        //    rightController.TriggerClicked += HandleTriggerClicked;
-
-        //}
+        //Check if the trigger isnt already pressed
+        if (!canClickOnTrigger)
+        {
+            canClickOnTrigger = true; //mark it as pressed
+            rightController.TriggerClicked += HandleTriggerClicked; //add a handle trigger check 
+        }
 
         //Saves the object that is currently being hovered on
         objectUsing = currentUsingObject;
@@ -142,14 +156,14 @@ public class ControllerOne : VRTK_InteractableObject
         //Reset circular status
         //radialBar.fillAmount = 0;
 
-        /*
-        if (hasClickedTrigger)
+        
+        if (canClickOnTrigger)
         {
             //Debug.LogWarning("Getting rid of trigger clicked to " + name);
-            hasClickedTrigger = false;
+            canClickOnTrigger = false;
             rightController.TriggerClicked -= HandleTriggerClicked;   
         }
-        */
+        
     }
 
     // Update is called once per frame
