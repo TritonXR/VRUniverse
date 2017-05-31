@@ -646,7 +646,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050411509479860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.07105, y: 6.8573885, z: 28.323284}
+  m_LocalPosition: {x: -5.7964506, y: 46.19851, z: 40.359356}
   m_LocalScale: {x: 18.247545, y: 18.247543, z: 18.247543}
   m_Children:
   - {fileID: 4345272398624800}
@@ -762,9 +762,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 28a2a82334b3b13428330b726bd5bb91, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 161
+    m_BestFit: 1
+    m_MinSize: 13
+    m_MaxSize: 30
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1516,9 +1516,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 28a2a82334b3b13428330b726bd5bb91, type: 3}
     m_FontSize: 30
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 40
+    m_BestFit: 1
+    m_MinSize: 13
+    m_MaxSize: 30
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1550,16 +1550,16 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 28a2a82334b3b13428330b726bd5bb91, type: 3}
     m_FontSize: 30
     m_FontStyle: 2
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 40
+    m_BestFit: 1
+    m_MinSize: 13
+    m_MaxSize: 30
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: UCSD VR
+  m_Text: 
 --- !u!114 &114817951036950748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1759,9 +1759,9 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 28a2a82334b3b13428330b726bd5bb91, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 46
+    m_BestFit: 1
+    m_MinSize: 20
+    m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -2639,8 +2639,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 242, y: 208}
-  m_SizeDelta: {x: 480, y: 50}
+  m_AnchoredPosition: {x: 189, y: 208}
+  m_SizeDelta: {x: 380, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224841345607217000
 RectTransform:

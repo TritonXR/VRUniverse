@@ -12,7 +12,11 @@ public class YearSelection : MonoBehaviour
 {
 	//private static readonly int CURRENT_YEAR = DateTime.Now.Year; No longer needed because you start in lobby
     public int SelectedYearIndex { get; private set; } // [0; 1; 2] --> UniverseSystem.list_years[0],[1],[2]
-	private string displayedYearString; // ["Year"; "0"; "1"; "2"]
+
+    public bool isTravelling { private get; set; }
+
+    private const string LOBBY_YEAR_STRING = "Year";
+    private string displayedYearString; // ["Year"; "0"; "1"; "2"]
 	private Text yearText;
 
     private int minimumYear, maximumYear;
@@ -36,7 +40,7 @@ public class YearSelection : MonoBehaviour
         SelectedYearIndex = -1; // The starting year should be -1 which is the lobby index
 
         //String that shows on the controller
-        displayedYearString = "Year";
+        displayedYearString = LOBBY_YEAR_STRING;
 
         //displayedYear = SelectedYear; No longer needed because you start in lobby
         yearText = GetComponent<Text>(); //The text of the year selection controller
@@ -48,30 +52,26 @@ public class YearSelection : MonoBehaviour
          * Can't pass in 2015/2016/2017 year names to the universe system. It teleports based on the index of the number in the year list
          * e.g. in [2015,2016,2017], 2015 is index 0, 2016 is 1, 2017 is 2.
          */
-
+    }
+    
+    public bool isAbleToTravel()
+    {
+        return (displayedYearString != SelectedYearIndex.ToString()) && (displayedYearString != LOBBY_YEAR_STRING);
     }
 
-    public void attemptToChangeYears()
+    public void changeYears()
     {
-      
-        if ((displayedYearString != SelectedYearIndex.ToString()) && (displayedYearString != "Year"))
-        {
-            SelectedYearIndex = int.Parse(displayedYearString);
-            updateYearText();
-        } else
-        {
-            Debug.Log("[attempt] Same year");
-        }
-        
+        SelectedYearIndex = int.Parse(displayedYearString);
+        updateYearText();
     }
 
     public void nextYear()
 	{
-        // Check if there are years to travel to
-        if (listYearNames.Count != 0)
+        // Check if there are years to travel to and not travelling
+        if (listYearNames.Count != 0 && !isTravelling)
         {
             // Handle case if user is in lobby
-            if (displayedYearString == "Year")
+            if (displayedYearString == LOBBY_YEAR_STRING)
             {
                 // display the first year available
                 displayedYearString = "0";
@@ -79,56 +79,57 @@ public class YearSelection : MonoBehaviour
             }
             else
             {
+                int newYear;
                 // if the current year is NOT the maximum index and user can go to the next year, 
                 if (int.Parse(displayedYearString) < (UniverseSystem.list_years.Count - 1))
                 {
                     // increment the displayed year
-                    int newYear = int.Parse(displayedYearString) + 1;
-                    displayedYearString = newYear.ToString();
-                    Debug.Log("[next] new year: " + displayedYearString);
+                    newYear = int.Parse(displayedYearString) + 1;
                 }
                 // else if the year is maximum
                 else
                 {
-                    // implement some way of notifying user that they reached the end of the list
+                    // wrap around to beginning
+                    newYear = 0;
                 }
+                displayedYearString = newYear.ToString();
+                Debug.Log("[next] new year: " + displayedYearString);
             }
         }
-
         // Update the text on the screen
 		updateYearText();
 	}
 
 	public void prevYear()
 	{
-
-        // Check if there are years to travel to
-        if (listYearNames.Count != 0)
+        // Check if there are years to travel to and not travelling
+        if (listYearNames.Count != 0 && !isTravelling)
         {
             // Handle case if user is in lobby
-            if (displayedYearString == "Year")
+            if (displayedYearString == LOBBY_YEAR_STRING)
             {
                 // implement some way of notifying the user that they reached the end of the list
                 Debug.Log("Failure: Can't go further past YEAR");
             }
             else
             {
+                int newYear;
                 // if the current year is NOT the minimum index and user can go to the previous year, 
                 if (int.Parse(displayedYearString) != 0)
                 {
                     // decrement the displayed year
-                    int newYear = int.Parse(displayedYearString) - 1;
-                    displayedYearString = newYear.ToString();
-                    Debug.Log("[prev] new year: " + displayedYearString);
+                    newYear = int.Parse(displayedYearString) - 1;
                 }
                 // else if the year is minimum
                 else
                 {
-                    // implement some way of notifying user that they reached the beginning of the list
+                    // wrap around to end
+                    newYear = listYearNames.Count - 1;
                 }
+                displayedYearString = newYear.ToString();
+                Debug.Log("[prev] new year: " + displayedYearString);
             }
         }
-
         // Update the text on the screen
         updateYearText();
 	}
@@ -136,7 +137,7 @@ public class YearSelection : MonoBehaviour
 	private void updateYearText()
 	{
         // Since lobby has the string "Year" which is not an int, only show the word Year
-        if (displayedYearString == "Year")
+        if (displayedYearString == LOBBY_YEAR_STRING)
         {
             yearText.text = displayedYearString;
         }
@@ -146,10 +147,11 @@ public class YearSelection : MonoBehaviour
         }
 
         // If the string displayed equals the index that was previously selected OR user is in the lobby, turn the text green. Or keep it black
-        if (displayedYearString == SelectedYearIndex.ToString() || displayedYearString == "Year")
+        if (displayedYearString == SelectedYearIndex.ToString() || displayedYearString == LOBBY_YEAR_STRING)
         {
             yearText.color = Color.green;
-        } else
+        }
+        else
         {
             yearText.color = Color.black;
         }
@@ -157,7 +159,6 @@ public class YearSelection : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.S))
         {
             nextYear();
@@ -166,7 +167,7 @@ public class YearSelection : MonoBehaviour
             prevYear();
         } else if (Input.GetKeyDown(KeyCode.U))
         {
-            attemptToChangeYears();
+            changeYears();
         }
 
     //	if (Input.GetKeyDown(KeyCode.A) && displayedYear != selectedYear)

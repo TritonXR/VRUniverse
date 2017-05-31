@@ -294,29 +294,28 @@ public class UniverseSystem : MonoBehaviour {
      */
     public IEnumerator TeleportToYear(int newYear)
     {
-        // Only teleport if the new year is different from the year you are currently at
-        if (newYear != atYear)
+        YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+        yearSelection.isTravelling = true;
+
+        // Start teleportation system traveling there by calling from Hyperspeed script
+        yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(true));
+
+        // Check if there have been planets created before
+        if (atYear != -1)
         {
-            // Start teleportation system traveling there by calling from Hyperspeed script
-            yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(true));
-
-            // Check if there have been planets created before
-            if (atYear != -1)
-            {
-                // Destroy planets in the previous year
-                DestroyPlanets(atYear);
-
-            }
-
-            // Create the new year with planets
-            CreateYear(newYear);
-
-            // Start teleportation system ending by Hyperspeed script call
-            yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(false));
-
-            // Set the year user is currently at to the new year
-            atYear = newYear;
+            // Destroy planets in the previous year
+            DestroyPlanets(atYear);
         }
+
+        // Create the new year with planets
+        CreateYear(newYear);
+
+        // Start teleportation system ending by Hyperspeed script call
+        yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(false));
+
+        // Set the year user is currently at to the new year
+        atYear = newYear;
+        yearSelection.isTravelling = false;
     }
 
     /*
