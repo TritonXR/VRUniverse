@@ -30,6 +30,8 @@ public class ControllerOne : VRTK_InteractableObject
     //Reference that detects if the trigger has been clicked before
     private bool canClickOnTrigger;
 
+    private bool triggerDown = false;
+
     private void toggleMenu(bool status)
     {
         Planet_Menu.SetActive(status);
@@ -37,6 +39,7 @@ public class ControllerOne : VRTK_InteractableObject
 
     protected void Start()
     {
+        
 
         //Set the use of trigger
         canClickOnTrigger = false;
@@ -49,6 +52,8 @@ public class ControllerOne : VRTK_InteractableObject
 
         //getcomponentinchildren<image>
         RadialBar = rightController.GetComponentInChildren<Image>();
+        if (RadialBar == null) Debug.LogWarning("radial bar not found");
+
 
         //Also turn off the radial bar by default
         // RadialBar_Menu.SetActive(false);
@@ -113,12 +118,17 @@ public class ControllerOne : VRTK_InteractableObject
 
         if (canClickOnTrigger)
         {
-            Debug.Log("Loading Executable: " + Planet_Executable);
-            ExecutableSwitch.LoadExe("/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe");
+            StartCoroutine(PlanetTravelLoading());            
+            
+            //Debug.Log("Loading Executable: " + Planet_Executable);
+            //ExecutableSwitch.LoadExe("/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe");
             
         } else
         {
+
+            StopAllCoroutines();
             Debug.Log("TRIGGER CLICKED IS FALSE");
+            RadialBar.fillAmount = 0;
             
         }
     }
@@ -148,6 +158,29 @@ public class ControllerOne : VRTK_InteractableObject
 
     }
 
+    public IEnumerator RadialBarLoading()
+    {
+        triggerDown = rightController.triggerPressed;
+        Debug.LogWarning("The controller is" + triggerDown);
+        if (triggerDown)
+        {
+            for (float i = 0; i < 15; i += Time.deltaTime)
+            {
+                Debug.LogWarning("Radial bar fill increased");
+                RadialBar.fillAmount += 0.005f;
+                yield return null;
+            }
+            Debug.Log("Loading Executable: " + Planet_Executable);
+            ExecutableSwitch.LoadExe("/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe");
+        }
+        else RadialBar.fillAmount = 0;
+    }
+
+    public IEnumerator PlanetTravelLoading()
+    {
+        yield return StartCoroutine(RadialBarLoading());
+    }
+
     public override void StopUsing(GameObject previousUsingObject)
     {
         base.StopUsing(previousUsingObject);
@@ -163,7 +196,10 @@ public class ControllerOne : VRTK_InteractableObject
         
         if (canClickOnTrigger)
         {
-            //Debug.LogWarning("Getting rid of trigger clicked to " + name);
+            Debug.LogWarning("Stop Using");
+            //StopCoroutine(PlanetTravelLoading());
+            StopAllCoroutines();
+            RadialBar.fillAmount = 0;
             canClickOnTrigger = false;
             rightController.TriggerClicked -= HandleTriggerClicked;   
         }
