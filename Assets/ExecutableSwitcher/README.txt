@@ -40,7 +40,7 @@ Step 5) Enable the "Exit By Menu Button" checkbox if you're using the default St
 
 
 More Information on the ExecutableSwitch script:
-> The defaultDatapth variable (defaults to "../../../../../VRClubUniverse.exe") should generally
+> The defaultDatapth variable (defaults to "/../../../../../VRUniverse.exe") should generally
   not be modified unless a VR Club Universe project team member tells you to do so.
 > There are four functions for loading an executable with the ExecutableSwitch script.
 	1) void LoadExecutable(string datapath):
@@ -61,3 +61,4 @@ More Information on the ExecutableSwitch script:
 > Enabling the "Exit By Menu Button" option is not recommended. It is reliant on the SteamVR camera rig
   being present and unmodified, and it will conflict with any functions tied to the menu button. Only use
   this option if you do not intend to set up advanced input.
+> If you pass a datapath to LoadExe() or LoadExecutable(), having a '/' or '\' at the beginning is optional.

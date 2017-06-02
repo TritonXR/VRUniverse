@@ -11,8 +11,9 @@ public class ExecutableSwitch : MonoBehaviour
     private SteamVR_TrackedController controller_right = null;
 
     public SteamVR_LoadLevel loadlevelscript;
-    public string defaultDatapath = "../../../../../VRClubUniverse.exe";
+    public string defaultDatapath = "/../../../../../VRUniverse.exe";
     public bool exitByMenuButton = false;
+    public float delayedSearchTime = 0.75f;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class ExecutableSwitch : MonoBehaviour
     {
         SceneManager.sceneLoaded += HandleLevelLoaded;
         SetupControllerListener();
+        if (controller_left == null || controller_right == null) StartCoroutine(DelayedSetup());
     }
 
     private void OnDisable()
@@ -47,9 +49,11 @@ public class ExecutableSwitch : MonoBehaviour
     {
         if (loadlevelscript == null) return;
         if (datapath == null || datapath.Equals("")) datapath = defaultDatapath;
+        if (!datapath.StartsWith("/") && !datapath.StartsWith("\\")) datapath = "/" + datapath;
 
         loadlevelscript.levelName = datapath;
-        loadlevelscript.internalProcessPath = Application.dataPath + datapath;
+
+        loadlevelscript.internalProcessPath = Application.dataPath + "/" + datapath;
 
         loadlevelscript.Trigger();
     }
@@ -61,6 +65,7 @@ public class ExecutableSwitch : MonoBehaviour
 
     private void SetupControllerListener()
     {
+        CleanUpControllerListener();
         GameObject l_control = GameObject.Find("[CameraRig]/Controller (left)");
         if (l_control != null)
         {
@@ -91,18 +96,18 @@ public class ExecutableSwitch : MonoBehaviour
             controller_right = null;
         }
 
-        exitByMenuButton = exitByMenuButton && (controller_left != null || controller_right != null);
-
         if(controller_left != null || controller_right != null)
         {
             if(controller_left != null)
             {
                 controller_left.MenuButtonClicked += HandleMenuClicked;
+                Debug.Log("Successfully Registered Left Controller");
             }
 
             if (controller_right != null)
             {
                 controller_right.MenuButtonClicked += HandleMenuClicked;
+                Debug.Log("Successfully Registered Right Controller");
             }
         }
     }
@@ -112,22 +117,28 @@ public class ExecutableSwitch : MonoBehaviour
         if(controller_left != null)
         {
             controller_left.MenuButtonClicked -= HandleMenuClicked;
+            controller_left = null;
+            Debug.Log("De-registered Left Controller");
         }
 
         if(controller_right != null)
         {
             controller_right.MenuButtonClicked -= HandleMenuClicked;
+            controller_right = null;
+            Debug.Log("De-registered Right Controller");
         }
     }
 
     private void HandleLevelLoaded(Scene scene, LoadSceneMode mode)
     {
         SetupControllerListener();
+        if (controller_left == null || controller_right == null) StartCoroutine(DelayedSetup());
     }
 
     private void HandleMenuClicked(object sender, ClickedEventArgs e)
     {
-        LoadExecutable();
+        Debug.Log("Detected Menu Button Click");
+        if (exitByMenuButton) LoadExecutable();
     }
 
     public static ExecutableSwitch GetExecutableSwitch()
@@ -146,5 +157,11 @@ public class ExecutableSwitch : MonoBehaviour
     {
         if (switcher == null) Debug.LogError("ExecutableSwitcher Error: No ExecutableSwitch script exists in this scene!");
         else switcher.LoadExecutable(datapath);
+    }
+
+    IEnumerator DelayedSetup()
+    {
+        yield return new WaitForSeconds(delayedSearchTime);
+        SetupControllerListener();
     }
 }
