@@ -93,7 +93,6 @@ public class YearSelection : MonoBehaviour
                     newYear = 0;
                 }
                 displayedYearString = newYear.ToString();
-                Debug.Log("[next] new year: " + displayedYearString);
             }
         }
         // Update the text on the screen
@@ -127,7 +126,6 @@ public class YearSelection : MonoBehaviour
                     newYear = listYearNames.Count - 1;
                 }
                 displayedYearString = newYear.ToString();
-                Debug.Log("[prev] new year: " + displayedYearString);
             }
         }
         // Update the text on the screen

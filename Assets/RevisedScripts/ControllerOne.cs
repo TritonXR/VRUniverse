@@ -150,9 +150,6 @@ public class ControllerOne : VRTK_InteractableObject
             rightController.TriggerClicked += HandleTriggerClicked; //add a handle trigger check 
         }
 
-        //Saves the object that is currently being hovered on
-        objectUsing = currentUsingObject;
-
         //Turn on menu when hovering
         toggleMenu(true);
 
@@ -179,13 +176,12 @@ public class ControllerOne : VRTK_InteractableObject
     public IEnumerator PlanetTravelLoading()
     {
         yield return StartCoroutine(RadialBarLoading());
+        Debug.LogWarning("End Radial Bar");
     }
 
     public override void StopUsing(GameObject previousUsingObject)
     {
         base.StopUsing(previousUsingObject);
-
-        StartUsing(objectUsing);
 
         //Turn off floating menu panel when not using
         toggleMenu(false);

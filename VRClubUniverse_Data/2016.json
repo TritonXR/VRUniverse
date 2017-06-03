@@ -1,18 +1,14 @@
 {
     "PlanetJSON":
     [
-		{
-		    "Name": "A Island",
-			"Creator": "Kristin Agcaoili, Vicki Intara, Nisha Yerunkar, Jenny Wong",
-			"Description": "You are shipwrecked on an island in the middle of the ocean. Can you survive and escape with nothing but the clothes on your back and items you can find?",
-			"Year": 2016,
-			"Tags": [
-				"HTC Vive",
-        "Beginner Project",
-        "Game"
-			],
-			"Image": "AIsland_Image.jpg",
-			"Executable": "AIsland"
-		}
-	]
+    {
+        "name": "Vivace",
+        "creator": "Connor Smith, Anish Kannan, Kristin Agcaoili",
+        "description": "Vivace is a musical experience that teaches you how to conduct an orchestra in front of an audience with your baton!",
+        "year": 2016,
+        "tags": "HTC Vive, Educational, Game",
+        "image": "Vivace_Image.jpg",
+        "executable": "Vivace"
+    }
+  ]
 }
