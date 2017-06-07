@@ -22,7 +22,10 @@ public class ControllerOne : VRTK_InteractableObject
 
     //Menu's controlled by hovering and selecting
     [SerializeField] private GameObject Planet_Menu; //Entire Planet_Menu attached to each planet that shows planet data
-    private Image RadialBar; //Entire Radial Bar that indicates selection of planet
+    //obselete --- private Image RadialBar; //Entire Radial Bar that indicates selection of planet
+
+    //Travel menu where user selects whether they want to travel or not. accessible by travelinteractable by clicking no
+    public GameObject Travel_Selection;
 
     //Reference to the right controller to detect the trigger clicked
     private SteamVR_TrackedController rightController;
@@ -51,13 +54,17 @@ public class ControllerOne : VRTK_InteractableObject
         toggleMenu(false);
 
         //getcomponentinchildren<image>
-        RadialBar = rightController.GetComponentInChildren<Image>();
-        if (RadialBar == null) Debug.LogWarning("radial bar not found");
+        // obselete--- RadialBar = rightController.GetComponentInChildren<Image>();
+        // obselete--- if (RadialBar == null) Debug.LogWarning("radial bar not found");
 
 
         //Also turn off the radial bar by default
         // RadialBar_Menu.SetActive(false);
-        RadialBar.fillAmount = 0;
+        /// obselete--- RadialBar.fillAmount = 0;
+        /// 
+
+        //Turn off travel menu by default
+        Travel_Selection.SetActive(false);
         
         //Gets the data from the planet
         Planet_Data = gameObject.GetComponent<Planet>();
@@ -96,6 +103,8 @@ public class ControllerOne : VRTK_InteractableObject
         Planet_Executable = Planet_Data.executable;
 
 
+        //Set executable string for TravelInteracble
+        GetComponentInChildren<TravelInteractable>(true).executableString = "/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe";
 
     }
 
@@ -118,43 +127,49 @@ public class ControllerOne : VRTK_InteractableObject
 
         if (canClickOnTrigger)
         {
-            StartCoroutine(PlanetTravelLoading());            
-            
-            //Debug.Log("Loading Executable: " + Planet_Executable);
-            //ExecutableSwitch.LoadExe("/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe");
+            //obselete--- StartCoroutine(PlanetTravelLoading());            
+
+            Travel_Selection.SetActive(true);
             
         } else
         {
 
-            StopAllCoroutines();
+            //obselete--- StopAllCoroutines();
             Debug.Log("TRIGGER CLICKED IS FALSE");
-            RadialBar.fillAmount = 0;
+            //obselete--- RadialBar.fillAmount = 0;
             
         }
     }
 
     public override void StartUsing(GameObject currentUsingObject)
     {
-        base.StartUsing(currentUsingObject);
-
-        //Double check that the controller has been set
-        if (rightController == null)
+        //Only use if the travel selection menu is not open
+        if (Travel_Selection.activeSelf)
         {
-            SetRightController(); //if not, set the right controller
-        }
 
-        //Check if the trigger isnt already pressed
-        if (!canClickOnTrigger)
+        } else
         {
-            canClickOnTrigger = true; //mark it as pressed
-            rightController.TriggerClicked += HandleTriggerClicked; //add a handle trigger check 
+            base.StartUsing(currentUsingObject);
+
+            //Double check that the controller has been set
+            if (rightController == null)
+            {
+                SetRightController(); //if not, set the right controller
+            }
+
+            //Check if the trigger isnt already pressed
+            if (!canClickOnTrigger)
+            {
+                canClickOnTrigger = true; //mark it as pressed
+                rightController.TriggerClicked += HandleTriggerClicked; //add a handle trigger check 
+            }
+
+            //Turn on menu when hovering
+            toggleMenu(true);
         }
-
-        //Turn on menu when hovering
-        toggleMenu(true);
-
     }
 
+    /*
     public IEnumerator RadialBarLoading()
     {
         triggerDown = rightController.triggerPressed;
@@ -164,13 +179,13 @@ public class ControllerOne : VRTK_InteractableObject
             for (float i = 0; i < 15; i += Time.deltaTime)
             {
                 Debug.LogWarning("Radial bar fill increased");
-                RadialBar.fillAmount += 0.005f;
+                //obselete--- RadialBar.fillAmount += 0.005f;
                 yield return null;
             }
             Debug.Log("Loading Executable: " + Planet_Executable);
             ExecutableSwitch.LoadExe("/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe");
         }
-        else RadialBar.fillAmount = 0;
+        //obselete--- else  RadialBar.fillAmount = 0;
     }
 
     public IEnumerator PlanetTravelLoading()
@@ -178,27 +193,35 @@ public class ControllerOne : VRTK_InteractableObject
         yield return StartCoroutine(RadialBarLoading());
         Debug.LogWarning("End Radial Bar");
     }
+    */
 
     public override void StopUsing(GameObject previousUsingObject)
     {
-        base.StopUsing(previousUsingObject);
 
-        //Turn off floating menu panel when not using
-        toggleMenu(false);
-
-        //Reset circular status
-        //radialBar.fillAmount = 0;
-
-        
-        if (canClickOnTrigger)
+        //if the travel menu is open, we want to always have the planet menu open
+        if (Travel_Selection.activeSelf)
         {
-            Debug.LogWarning("Stop Using");
-            //StopCoroutine(PlanetTravelLoading());
-            StopAllCoroutines();
-            RadialBar.fillAmount = 0;
-            canClickOnTrigger = false;
-            rightController.TriggerClicked -= HandleTriggerClicked;   
+
+        } else
+        {
+
+            base.StopUsing(previousUsingObject);
+
+            //Turn off floating menu panel when not using
+            toggleMenu(false);
+
+
+            if (canClickOnTrigger)
+            {
+                Debug.LogWarning("Stop Using");
+                //StopCoroutine(PlanetTravelLoading());
+                //obselete--- StopAllCoroutines();
+                //obselete--- RadialBar.fillAmount = 0;
+                canClickOnTrigger = false;
+                rightController.TriggerClicked -= HandleTriggerClicked;
+            }
         }
+        
         
     }
 
