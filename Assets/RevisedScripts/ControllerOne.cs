@@ -76,9 +76,17 @@ public class ControllerOne : VRTK_InteractableObject
         temp *= 5.2f;
         Vector3 closer = Vector3.Cross(Vector3.up, temp).normalized;
         Planet_Menu.transform.position = new Vector3(temp.x, temp.y, temp.z) + Planet_Data.transform.position - 2*closer;
-        //Planet_Menu.transform.position = Planet_Data.transform.position + Planet_Data.transform.TransformDirection(new Vector3(15, 0, 0));
         Planet_Menu.transform.LookAt(Camera.main.transform); //looks at the camera
         Planet_Menu.transform.Rotate(new Vector3(0, 180, 0)); //but it needs to be flipped around for some reason
+
+        Vector3 tempTravel = Vector3.Cross(Planet_Data.transform.position, Vector3.up);
+        tempTravel.Normalize();
+        tempTravel *= 10.2f;
+        Vector3 closerTravel = Vector3.Cross(Vector3.up, tempTravel).normalized;
+        Travel_Selection.transform.position = new Vector3(tempTravel.x, tempTravel.y, tempTravel.z) + Planet_Data.transform.position - 2 * closerTravel;
+        Travel_Selection.transform.LookAt(Camera.main.transform);
+        Travel_Selection.transform.Rotate(new Vector3(0, 180, 0));
+
 
         //Set text to planet info
         Planet_Title.text = Planet_Data.title;        

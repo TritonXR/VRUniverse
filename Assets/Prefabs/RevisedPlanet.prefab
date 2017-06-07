@@ -375,6 +375,8 @@ GameObject:
   - component: {fileID: 224055569455972030}
   - component: {fileID: 222597386623119306}
   - component: {fileID: 114457897904864960}
+  - component: {fileID: 65973306932232626}
+  - component: {fileID: 114199238551269618}
   m_Layer: 5
   m_Name: No_Panel
   m_TagString: Untagged
@@ -684,6 +686,8 @@ GameObject:
   - component: {fileID: 224850740257223192}
   - component: {fileID: 222045169030224760}
   - component: {fileID: 114692730332563366}
+  - component: {fileID: 65613296622265960}
+  - component: {fileID: 114878363058760706}
   m_Layer: 5
   m_Name: Yes_Panel
   m_TagString: Untagged
@@ -730,7 +734,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050411509479860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.15527, y: 16.900251, z: -21.183887}
+  m_LocalPosition: {x: -86.47713, y: 46.883038, z: -75.28825}
   m_LocalScale: {x: 18.247545, y: 18.247543, z: 18.247543}
   m_Children:
   - {fileID: 4345272398624800}
@@ -790,6 +794,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 81.19147, y: 67.33424, z: 20.285553}
   m_Center: {x: -55.155506, y: -34.29606, z: -66.47318}
+--- !u!65 &65613296622265960
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986297629282448}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 196.19618, y: 44.82454, z: 13.199277}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65973306932232626
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573841066390142}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 196.1962, y: 44.82454, z: 13.19928}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114016694772261518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1100,6 +1128,37 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114199238551269618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573841066390142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0090af35b86cea42bf4fffcf10a2764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableWhenIdle: 1
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
+  allowedTouchControllers: 0
+  isGrabbable: 0
+  holdButtonToGrab: 1
+  stayGrabbedOnTeleport: 1
+  validDrop: 1
+  grabOverrideButton: 0
+  allowedGrabControllers: 0
+  grabAttachMechanicScript: {fileID: 0}
+  secondaryGrabActionScript: {fileID: 0}
+  isUsable: 1
+  holdButtonToUse: 1
+  useOnlyIfGrabbed: 0
+  pointerActivatesUseAction: 1
+  useOverrideButton: 0
+  allowedUseControllers: 0
+  usingState: 0
+  isYes: 0
+  executableString: 
 --- !u!114 &114201174661578568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1401,6 +1460,7 @@ MonoBehaviour:
   Planet_Tag: {fileID: 114017739256949010}
   Planet_Image: {fileID: 114465487263848872}
   Planet_Menu: {fileID: 1108763982531660}
+  Travel_Selection: {fileID: 1688461248713054}
 --- !u!114 &114401112817139204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1917,6 +1977,37 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114878363058760706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986297629282448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0090af35b86cea42bf4fffcf10a2764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableWhenIdle: 1
+  touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
+  allowedTouchControllers: 0
+  isGrabbable: 0
+  holdButtonToGrab: 1
+  stayGrabbedOnTeleport: 1
+  validDrop: 1
+  grabOverrideButton: 0
+  allowedGrabControllers: 0
+  grabAttachMechanicScript: {fileID: 0}
+  secondaryGrabActionScript: {fileID: 0}
+  isUsable: 1
+  holdButtonToUse: 1
+  useOnlyIfGrabbed: 0
+  pointerActivatesUseAction: 1
+  useOverrideButton: 0
+  allowedUseControllers: 0
+  usingState: 0
+  isYes: 1
+  executableString: 
 --- !u!114 &114897409843176190
 MonoBehaviour:
   m_ObjectHideFlags: 1
