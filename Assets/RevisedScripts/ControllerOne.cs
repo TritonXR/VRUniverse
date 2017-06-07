@@ -79,11 +79,7 @@ public class ControllerOne : VRTK_InteractableObject
         Planet_Menu.transform.LookAt(Camera.main.transform); //looks at the camera
         Planet_Menu.transform.Rotate(new Vector3(0, 180, 0)); //but it needs to be flipped around for some reason
 
-        Vector3 tempTravel = Vector3.Cross(Planet_Data.transform.position, Vector3.up);
-        tempTravel.Normalize();
-        tempTravel *= 10.2f;
-        Vector3 closerTravel = Vector3.Cross(Vector3.up, tempTravel).normalized;
-        Travel_Selection.transform.position = new Vector3(tempTravel.x, tempTravel.y, tempTravel.z) + Planet_Data.transform.position - 2 * closerTravel;
+        Travel_Selection.transform.position = Planet_Data.transform.position * 0.7f + Vector3.up * 1.25f;
         Travel_Selection.transform.LookAt(Camera.main.transform);
         Travel_Selection.transform.Rotate(new Vector3(0, 180, 0));
 
@@ -130,7 +126,6 @@ public class ControllerOne : VRTK_InteractableObject
         {
             if (!(controllerSearch[i].GetComponentInChildren<YearSelection>(true)))
             {
-                Debug.Log("Established right controller input.");
                 rightController = controllerSearch[i];
             }
         }
@@ -216,10 +211,6 @@ public class ControllerOne : VRTK_InteractableObject
 
         if (canClickOnTrigger)
         {
-            Debug.LogWarning("Stop Using");
-            //StopCoroutine(PlanetTravelLoading());
-            //obselete--- StopAllCoroutines();
-            //obselete--- RadialBar.fillAmount = 0;
             canClickOnTrigger = false;
             rightController.TriggerClicked -= HandleTriggerClicked;
         }

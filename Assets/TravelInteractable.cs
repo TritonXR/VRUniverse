@@ -74,7 +74,7 @@ public class TravelInteractable : VRTK_InteractableObject
         if (isYes)
         {
             Debug.Log("Loading Executable: " + executableString);
-            ExecutableSwitch.LoadExe(executableString);
+            //ExecutableSwitch.LoadExe(executableString);
         } else
         {
             StopUsing(prevUsingObject);
@@ -90,7 +90,6 @@ public class TravelInteractable : VRTK_InteractableObject
         {
             if (!(controllerSearch[i].GetComponentInChildren<YearSelection>(true)))
             {
-                Debug.Log("Established right controller input.");
                 rightController = controllerSearch[i];
             }
         }

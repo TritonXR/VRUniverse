@@ -101,13 +101,17 @@ public class ExecutableSwitch : MonoBehaviour
             if(controller_left != null)
             {
                 controller_left.MenuButtonClicked += HandleMenuClicked;
-                Debug.Log("Successfully Registered Left Controller");
+            } else
+            {
+                Debug.LogWarning("Could not register left controller.");
             }
 
             if (controller_right != null)
             {
                 controller_right.MenuButtonClicked += HandleMenuClicked;
-                Debug.Log("Successfully Registered Right Controller");
+            } else
+            {
+                Debug.LogWarning("Could not register left controller.");
             }
         }
     }
@@ -118,14 +122,12 @@ public class ExecutableSwitch : MonoBehaviour
         {
             controller_left.MenuButtonClicked -= HandleMenuClicked;
             controller_left = null;
-            Debug.Log("De-registered Left Controller");
         }
 
         if(controller_right != null)
         {
             controller_right.MenuButtonClicked -= HandleMenuClicked;
             controller_right = null;
-            Debug.Log("De-registered Right Controller");
         }
     }
 

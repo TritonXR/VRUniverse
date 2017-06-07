@@ -40,6 +40,9 @@ public class UniverseSystem : MonoBehaviour {
     // Reference to the planet gameobject that will have the planet component
     [SerializeField] private GameObject prefab_planet;
 
+    // Holds original skybox color
+    private Color origSkyboxColor;
+
 	// Use this for initialization
 	void Start () {
 
@@ -48,6 +51,8 @@ public class UniverseSystem : MonoBehaviour {
 
         // Creates the years object and handles initializing the list of years
         GetYears();
+
+        origSkyboxColor = RenderSettings.skybox.GetColor("_Tint");
 
 	}
 
@@ -311,6 +316,29 @@ public class UniverseSystem : MonoBehaviour {
         CreateYear(newYear);
 
         // CHANGE THE SKYBOX TODO
+        Material skybox = RenderSettings.skybox;
+        skybox.SetInt("_Rotation", 20 * newYear);
+        int currYearName = int.Parse(list_years[newYear].yr_name);
+        int colorValueToChange = newYear % 3;
+        Color newSkyboxColor;
+        float newColorValue = ((currYearName * 42) % 255) / 255;
+        if (colorValueToChange == 0) // change red value
+        {
+            newSkyboxColor = new Color(newColorValue, origSkyboxColor.g, origSkyboxColor.b);
+            skybox.SetColor("_Tint", newSkyboxColor);
+        } else if (colorValueToChange == 1) // change green value
+        {
+            newSkyboxColor = new Color(origSkyboxColor.r, newColorValue, origSkyboxColor.b);
+            skybox.SetColor("_Tint", newSkyboxColor);
+        } else if (colorValueToChange == 2) //change blue value
+        {
+            newSkyboxColor = new Color(origSkyboxColor.r, origSkyboxColor.g, newColorValue);
+            skybox.SetColor("_Tint", newSkyboxColor);
+        } else
+        {
+            Debug.LogWarning("Invalid Skybox Year Index");
+        }
+        RenderSettings.skybox = skybox;
 
         // Start teleportation system ending by Hyperspeed script call
         yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(false));

@@ -75,7 +75,6 @@ public class YearSelection : MonoBehaviour
             {
                 // display the first year available
                 displayedYearString = "0";
-                Debug.Log("[next] new year from lobby: " + displayedYearString);
             }
             else
             {
