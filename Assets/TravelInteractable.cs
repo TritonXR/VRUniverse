@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class TravelInteractable : VRTK_InteractableObject
 {
-    [SerializeField]
-    private bool isYes; //check if searching for yes or no answer
+    public bool isYes; //check if searching for yes or no answer
 
     //constant strings to compare the text of the selection to
     private string YES = "Yes";
@@ -45,7 +44,7 @@ public class TravelInteractable : VRTK_InteractableObject
             SetRightController(); //if not, set the right controller
         }
 
-        rightController.TriggerClicked += HandleTriggerClicked; //add a handle trigger check 
+        rightController.TriggerClicked += HandleTriggerClicked_Travel; //add a handle trigger check 
 
         //get current using object to be prev using object
         prevUsingObject = currentUsingObject;
@@ -65,12 +64,12 @@ public class TravelInteractable : VRTK_InteractableObject
             SetRightController(); //if not, set the right controller
         }
 
-        rightController.TriggerClicked -= HandleTriggerClicked; //remove a handle trigger check
+        rightController.TriggerClicked -= HandleTriggerClicked_Travel; //remove a handle trigger check
 
     }
 
 
-    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
+    private void HandleTriggerClicked_Travel(object sender, ClickedEventArgs e)
     {
         if (isYes)
         {

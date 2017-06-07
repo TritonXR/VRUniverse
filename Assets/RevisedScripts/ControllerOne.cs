@@ -112,7 +112,14 @@ public class ControllerOne : VRTK_InteractableObject
 
 
         //Set executable string for TravelInteracble
-        GetComponentInChildren<TravelInteractable>(true).executableString = "/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe";
+        TravelInteractable[] travelPanels = GetComponentsInChildren<TravelInteractable>(true);
+        for (int i = 0; i < travelPanels.Length; i++)
+        {
+            if (travelPanels[i].isYes)
+            {
+                travelPanels[i].executableString = "/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe";
+            }
+        }
 
     }
 
@@ -151,30 +158,25 @@ public class ControllerOne : VRTK_InteractableObject
 
     public override void StartUsing(GameObject currentUsingObject)
     {
-        //Only use if the travel selection menu is not open
-        if (Travel_Selection.activeSelf)
+
+        base.StartUsing(currentUsingObject);
+
+        //Double check that the controller has been set
+        if (rightController == null)
         {
-
-        } else
-        {
-            base.StartUsing(currentUsingObject);
-
-            //Double check that the controller has been set
-            if (rightController == null)
-            {
-                SetRightController(); //if not, set the right controller
-            }
-
-            //Check if the trigger isnt already pressed
-            if (!canClickOnTrigger)
-            {
-                canClickOnTrigger = true; //mark it as pressed
-                rightController.TriggerClicked += HandleTriggerClicked; //add a handle trigger check 
-            }
-
-            //Turn on menu when hovering
-            toggleMenu(true);
+            SetRightController(); //if not, set the right controller
         }
+
+        //Check if the trigger isnt already pressed
+        if (!canClickOnTrigger)
+        {
+            canClickOnTrigger = true; //mark it as pressed
+            rightController.TriggerClicked += HandleTriggerClicked; //add a handle trigger check 
+        }
+
+        //Turn on menu when hovering
+        toggleMenu(true);
+      
     }
 
     /*
@@ -206,30 +208,21 @@ public class ControllerOne : VRTK_InteractableObject
     public override void StopUsing(GameObject previousUsingObject)
     {
 
-        //if the travel menu is open, we want to always have the planet menu open
-        if (Travel_Selection.activeSelf)
+        base.StopUsing(previousUsingObject);
+
+        //Turn off floating menu panel when not using
+        toggleMenu(false);
+
+
+        if (canClickOnTrigger)
         {
-
-        } else
-        {
-
-            base.StopUsing(previousUsingObject);
-
-            //Turn off floating menu panel when not using
-            toggleMenu(false);
-
-
-            if (canClickOnTrigger)
-            {
-                Debug.LogWarning("Stop Using");
-                //StopCoroutine(PlanetTravelLoading());
-                //obselete--- StopAllCoroutines();
-                //obselete--- RadialBar.fillAmount = 0;
-                canClickOnTrigger = false;
-                rightController.TriggerClicked -= HandleTriggerClicked;
-            }
+            Debug.LogWarning("Stop Using");
+            //StopCoroutine(PlanetTravelLoading());
+            //obselete--- StopAllCoroutines();
+            //obselete--- RadialBar.fillAmount = 0;
+            canClickOnTrigger = false;
+            rightController.TriggerClicked -= HandleTriggerClicked;
         }
-        
         
     }
 

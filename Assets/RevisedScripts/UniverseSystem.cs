@@ -310,6 +310,8 @@ public class UniverseSystem : MonoBehaviour {
         // Create the new year with planets
         CreateYear(newYear);
 
+        // CHANGE THE SKYBOX TODO
+
         // Start teleportation system ending by Hyperspeed script call
         yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(false));
 
