@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class YearController : MonoBehaviour
 {
@@ -27,7 +28,9 @@ public class YearController : MonoBehaviour
             yearSelection.changeYears();
             UniverseSystem universeSystem = transform.root.GetComponent<UniverseSystem>();
             universeSystem.StartCoroutine(universeSystem.TeleportToYear(yearSelection.SelectedYearIndex));
+
             universeSystem.tutorial_RadialMenu.SetActive(false);
+            universeSystem.tutorial_TriggerMenu.GetComponentInChildren<YearInput>().gameObject.GetComponent<Text>().text = UniverseSystem.list_years[yearSelection.SelectedYearIndex].yr_name;
             universeSystem.tutorial_TriggerMenu.SetActive(true);
         }
         else
