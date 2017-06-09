@@ -4,8 +4,9 @@ using UnityEngine;
 using VRTK;
 using UnityEngine.UI;
 
-public class TravelInteractable : VRTK_InteractableObject
+public class TravelInteractable : MonoBehaviour
 {
+
     public bool isYes; //check if searching for yes or no answer
 
     //constant strings to compare the text of the selection to
@@ -24,6 +25,13 @@ public class TravelInteractable : VRTK_InteractableObject
     //Access to the object using the button previously
     private GameObject prevUsingObject;
 
+    //Bool to detect if the panel is being pointed at
+    private bool isPointing = false;
+
+    //Bool to detect if currently implementing trigger action
+    private bool processingPress = false;
+
+    /*
     protected void Start()
     {
         highlight = GetComponent<Image>();
@@ -44,7 +52,8 @@ public class TravelInteractable : VRTK_InteractableObject
             SetRightController(); //if not, set the right controller
         }
 
-        rightController.TriggerClicked += HandleTriggerClicked_Travel; //add a handle trigger check 
+        //attempt: rightController.TriggerClicked += HandleTriggerClicked_Travel; //add a handle trigger check 
+        isPointing = true;
 
         //get current using object to be prev using object
         prevUsingObject = currentUsingObject;
@@ -64,7 +73,7 @@ public class TravelInteractable : VRTK_InteractableObject
             SetRightController(); //if not, set the right controller
         }
 
-        rightController.TriggerClicked -= HandleTriggerClicked_Travel; //remove a handle trigger check
+        //rightController.TriggerClicked -= HandleTriggerClicked_Travel; //remove a handle trigger check
 
     }
 
@@ -94,4 +103,37 @@ public class TravelInteractable : VRTK_InteractableObject
             }
         }
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (isPointing && !processingPress)
+        {
+            if (rightController == null)
+            {
+                SetRightController();
+            }
+
+            
+            if (rightController.triggerPressed)
+            {
+                processingPress = true;
+                Debug.Log("Trigger is pressed");
+                if (isYes)
+                {
+                    Debug.Log("Loading Executable: " + executableString);
+                    //ExecutableSwitch.LoadExe(executableString);
+                    processingPress = false;
+                }
+                else
+                {
+                    Debug.Log("no pressed");
+                    GetComponentInParent<ControllerOne>().Travel_Selection.SetActive(false);
+                    processingPress = false;
+                }
+            }
+            
+        }
+    }
+    */
 }

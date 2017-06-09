@@ -56,6 +56,45 @@
 			],
 			"Image": "AIsland_Image.jpg",
 			"Executable": "AIsland"
+		},
+		{
+		    "Name": "Mars 2020",
+			"Creator": "Subhankar Panda",
+			"Description": "A very very very very basic rendition of Mars in the year 2020.",
+			"Year": 2017,
+			"Tags": [
+				"HTC Vive",
+        "Beginner Project"
+			],
+			"Image": "Mars2020_Image.png",
+			"Executable": "Mars2020"
+		},
+		{
+		    "Name": "Ultimate Dragon Mech Vs Monster Showdown",
+			"Creator": "Prasanth Abraham",
+			"Description": "Jump right in to the battle of the century! Hopefully you'll make it out alive...",
+			"Year": 2017,
+			"Tags": [
+				"HTC Vive",
+        "Beginner Project",
+        "Game",
+        "Experience"
+			],
+			"Image": "UltimateDragonMechVsMonsterShowdown_Image.png",
+			"Executable": "UltimateDragonMechVsMonsterShowdown"
+		},
+		{
+		    "Name": "Bus Stop",
+			"Creator": "Dana Kimball",
+			"Description": "Wait for the bus that never comes in the rain that never stops.",
+			"Year": 2017,
+			"Tags": [
+				"HTC Vive",
+        "Game",
+        "Relaxation"
+			],
+			"Image": "BusStop_Image.png",
+			"Executable": "BusStop"
 		}
 	]
 }

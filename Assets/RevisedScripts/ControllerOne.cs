@@ -35,6 +35,9 @@ public class ControllerOne : VRTK_InteractableObject
 
     private bool triggerDown = false;
 
+    //Previous reference to panel on travel selection menu to deselect highlight
+    private Image prevTravelPanel;
+
     private void toggleMenu(bool status)
     {
         Planet_Menu.SetActive(status);
@@ -145,7 +148,7 @@ public class ControllerOne : VRTK_InteractableObject
         {
 
             //obselete--- StopAllCoroutines();
-            Debug.Log("TRIGGER CLICKED IS FALSE");
+            //Debug.Log("TRIGGER CLICKED IS FALSE");
             //obselete--- RadialBar.fillAmount = 0;
             
         }
@@ -221,5 +224,62 @@ public class ControllerOne : VRTK_InteractableObject
     protected override void Update()
     {
         base.Update();
+
+        if (rightController == null)
+        {
+            SetRightController();
+        }
+
+        Ray myRay = new Ray(rightController.transform.position, rightController.transform.forward);
+        Debug.DrawRay(rightController.transform.position, rightController.transform.forward, Color.blue);
+
+        RaycastHit hitObject;
+
+        if (Physics.Raycast(myRay, out hitObject, Mathf.Infinity))
+        {
+            Collider hitCollider = hitObject.collider;
+
+            if (hitCollider.gameObject.GetComponent<TravelInteractable>())
+            {
+                prevTravelPanel = hitCollider.gameObject.GetComponent<Image>();
+                prevTravelPanel.enabled = true;
+
+                if (rightController.triggerPressed)
+                {
+                    if (hitCollider.gameObject.GetComponent<TravelInteractable>().isYes)
+                    {
+                        Debug.Log("loading executable: " + hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
+                        ExecutableSwitch.LoadExe(hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
+                        prevTravelPanel.enabled = false;
+                        prevTravelPanel = null;
+                        Travel_Selection.SetActive(false);
+
+                    }
+                    else
+                    {
+                        Debug.Log("hiding travel selection");
+                        prevTravelPanel.enabled = false;
+                        prevTravelPanel = null;
+                        Travel_Selection.SetActive(false);
+                    }
+                }
+
+            } else
+            {
+                if (prevTravelPanel != null)
+                {
+                    prevTravelPanel.enabled = false;
+                    prevTravelPanel = null;
+                }
+            }
+
+        } else
+        {
+            if (prevTravelPanel != null)
+            {
+                prevTravelPanel.enabled = false;
+                prevTravelPanel = null;
+            }
+        }
     }
 }
