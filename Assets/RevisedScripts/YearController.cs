@@ -27,6 +27,8 @@ public class YearController : MonoBehaviour
             yearSelection.changeYears();
             UniverseSystem universeSystem = transform.root.GetComponent<UniverseSystem>();
             universeSystem.StartCoroutine(universeSystem.TeleportToYear(yearSelection.SelectedYearIndex));
+            universeSystem.tutorial_RadialMenu.SetActive(false);
+            universeSystem.tutorial_TriggerMenu.SetActive(true);
         }
         else
         {

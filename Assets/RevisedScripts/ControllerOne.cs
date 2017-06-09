@@ -140,7 +140,7 @@ public class ControllerOne : VRTK_InteractableObject
 
         if (canClickOnTrigger)
         {
-            //obselete--- StartCoroutine(PlanetTravelLoading());            
+            //obselete--- StartCoroutine(PlanetTravelLoading());  
 
             Travel_Selection.SetActive(true);
             

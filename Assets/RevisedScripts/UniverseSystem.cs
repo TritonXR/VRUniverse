@@ -43,6 +43,10 @@ public class UniverseSystem : MonoBehaviour {
     // Holds original skybox color
     private Color origSkyboxColor;
 
+    //Holds instruction menus
+    public GameObject tutorial_RadialMenu;
+    public GameObject tutorial_TriggerMenu;
+
 	// Use this for initialization
 	void Start () {
 
