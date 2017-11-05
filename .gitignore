@@ -6,6 +6,7 @@
 !/Assets/
 !/ProjectSettings/!.gitignore
 !/Website/
+!/VRClubUniverse_Data
 
 # OS Stuff
 .DS_Store
