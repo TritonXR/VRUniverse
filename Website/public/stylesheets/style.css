@@ -1,0 +1,17 @@
+#navbar {
+	background-color: #4E3863;
+}
+
+#navbar a {
+	color: white;
+}
+
+.navbar li:hover {
+	background-color: black;
+}
+
+.name {
+	font-size: 40px;
+	color : #4E3863;
+	margin-top: 40px;
+}
