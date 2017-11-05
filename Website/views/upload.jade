@@ -1,4 +1,34 @@
 extends header 
 
 block content
-	p.name This is the upload page
+	div.container
+		div.row
+			div.col-md-6.col-md-offset-3
+				p.form-head Upload to the VR Club Universe!
+				form
+					div(class="form-group" style="padding-top: 25px;")
+						label.form-label Project Name :
+						input(type="text" class="form-control" id="email")
+						label.form-label Contributor Email :
+						input(type="email" class="form-control" id="name")
+						label.form-label Description :
+						input(type="text" class="form-control" id="name" style="height : 200px")
+						label.form-label Project Members : 
+						input(type="text" class="form-control" id="members")
+						label.form-label Year :
+						select(class="form-control" id="year")
+							option 2015
+							option 2016
+							option 2017
+							option 2018
+						label.form-label Tags : 
+						input(type="text" class="form-control" id="tags")
+						label.form-label Upload an Image : 
+						span.input-group
+							span.input-group-btn
+								span.btn-btn-default.btn-file Browse 
+									input(type="file" class="form-control" id="picture")
+
+						label.form-label Upload your Executable :
+
+
