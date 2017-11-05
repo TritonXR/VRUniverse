@@ -4,20 +4,32 @@ html
 		title VR Club Universe
 		link(rel='stylesheet', href='/stylesheets/style.css')
 		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+		script(src="/javascripts/jquery-3.1.1.min.js")
+		script(src="/javascripts/bootstrap.min.js")
+
+
 	body
 		nav(class="navbar" id="navbar")
 			div.container-fluid
 				div.navbar-header
+
+					button(type="button", class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse")
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+
 					a(class="navbar-brand" href="/") VR Club Universe
-				ul.nav.navbar-nav
-					li
-						a(href="/about") About
-					li
-						a(href="/projects") Projects
-					li
-						a(href="/download") Download
-					li 
-						a(href="/upload") Upload
+
+				div(class="collapse navbar-collapse" id="#navbar-collapse")
+					ul.nav.navbar-nav
+						li
+							a(href="/about") About
+						li
+							a(href="/projects") Projects
+						li
+							a(href="/download") Download
+						li 
+							a(href="/upload") Upload
 
 	block content
 
