@@ -31,3 +31,37 @@
 .form-control {
 	margin-bottom: 25px;
 }
+
+.project-name {
+	font-size: 25px;
+	color: black;
+	display: inline;
+}
+
+.project-label {
+	font-size: 25px;
+	color: #4E3863;
+	font-weight: bold;
+		display: inline;
+
+}
+
+.proj-data{
+	padding-left : 20px;
+	padding-bottom: 10px;
+}
+
+.year{
+	font-size: 40px;
+	margin-left: 20px;
+	font-weight: bold;
+}
+
+.proj-container {
+	padding-top : 30px;
+	padding-bottom : 30px;
+	border : solid;
+	border-color: #4E3863;
+	margin-bottom : 50px;
+	border-radius: 6px;
+}

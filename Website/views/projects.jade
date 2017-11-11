@@ -1,12 +1,10 @@
 extends header 
+include ./mixins/project-mixin.jade
 
-block content
-    
-	p.name These are the projects in
+block content    
 	-var data = JSON.parse(json);
 	-for(var prop in data)
-		p #{prop}
+		p.year #{prop}
 		-var inner_obj = JSON.parse(data[prop])
 		-for (var key in inner_obj["PlanetJSON"])
-			-for (var field in inner_obj["PlanetJSON"][key])
-				p #{field} : #{inner_obj["PlanetJSON"][key][field]}
+				+project-mixin(inner_obj["PlanetJSON"][key])
