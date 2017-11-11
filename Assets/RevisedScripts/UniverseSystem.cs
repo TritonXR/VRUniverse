@@ -61,14 +61,16 @@ public class UniverseSystem : MonoBehaviour {
         int year = 2017;
         string path = "VRClubUniverse_Data/saveData.txt";
 
-
-        //Teleport to previously saved year
-        if (File.Exists(path))
+		Debug.Log("ABOUT TO read from previous year saveData file");
+		//Teleport to previously saved year
+		//if (File.Exists(path))
+		if(true)
         {
-            string readText = File.ReadAllText(path);
-
-
-            if (readText.GetType() == year.GetType())
+			string readText = File.ReadAllText(path);
+			Debug.Log("reading from previous year saveData file, year: " + readText);
+            			
+            //if (readText.GetType() == year.GetType())
+			if(true)
             {
                 TeleportToYear(int.Parse(readText));
             }
