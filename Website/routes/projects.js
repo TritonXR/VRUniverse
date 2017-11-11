@@ -5,7 +5,6 @@ var fs = require("fs");
 
 
 function readFiles(dirname, callback) {
-    
     var data = {};
     var counter = 0;
     fs.readdir(dirname, function (err, filenames) {
