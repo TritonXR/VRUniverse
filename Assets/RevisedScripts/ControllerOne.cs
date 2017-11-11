@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using VRTK;
+using System.IO;
 using UnityEngine.SceneManagement;
 
 public class ControllerOne : VRTK_InteractableObject
@@ -248,6 +249,11 @@ public class ControllerOne : VRTK_InteractableObject
                 {
                     if (hitCollider.gameObject.GetComponent<TravelInteractable>().isYes)
                     {
+                        //SAVING CURRENT YEAR
+                        string path = "/../VRClubUniverse_Data/saveData.txt";
+                        string currentYear = Planet_Year.text;
+                        File.WriteAllText(path, currentYear);
+
                         Debug.Log("loading executable: " + hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
                         ExecutableSwitch.LoadExe(hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
                         prevTravelPanel.enabled = false;
