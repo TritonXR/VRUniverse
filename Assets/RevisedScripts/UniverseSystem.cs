@@ -58,7 +58,23 @@ public class UniverseSystem : MonoBehaviour {
 
         origSkyboxColor = RenderSettings.skybox.GetColor("_Tint");
 
-	}
+        int year = 2017;
+        string path = "VRClubUniverse_Data/saveData.txt";
+
+
+        //Teleport to previously saved year
+        if (File.Exists(path))
+        {
+            string readText = File.ReadAllText(path);
+
+
+            if (readText.GetType() == year.GetType())
+            {
+                TeleportToYear(int.Parse(readText));
+            }
+        }
+
+    }
 
     /*
      * Gets the JSON files and detects what years should be in the list to travel to
