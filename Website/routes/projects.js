@@ -7,18 +7,20 @@ var fs = require("fs");
 function readFiles(dirname, callback) {
     var data = {};
     var counter = 0;
+    var sum;
     fs.readdir(dirname, function (err, filenames) {
         console.log("doing read dir");
         if (err) {
             console.log(err);
             return;
         }
-        
-        filenames
+        console.log(typeof filenames);
+        var array = filenames
             .filter(function (filename) {
                 return filename.substr(-5) === '.json';
-            })
-            .forEach(function (filename) {
+            });
+        sum = array.length;
+       array.forEach(function (filename) {
                 console.log(dirname + filename);
                 fs.readFile(dirname + filename, 'utf-8', function (err, content) {
                     if (err) {
@@ -30,7 +32,7 @@ function readFiles(dirname, callback) {
                     data[year] = content;
                     counter++;
                     console.log("counter is " + counter);
-                    if (counter === 2) {
+                    if (counter === sum) {
                         callback(data)
                     }    
                 });
@@ -63,12 +65,11 @@ router.get('/', function (req, res, next) {
     });
 }); */
 router.get('/', function (req, res, next) {
-    //return Promise.try(function () {
+    
     readFiles('./data/VRClubUniverseData/', function (data) {
-        console.log("data is " + data[2016]);
+        console.log(data);
         res.render('projects', {
-            //"data": JSON.stringify(data)
-            data
+            json:  JSON.stringify(data)
         });      
     });
 });
