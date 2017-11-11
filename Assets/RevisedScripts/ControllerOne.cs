@@ -250,7 +250,7 @@ public class ControllerOne : VRTK_InteractableObject
                     if (hitCollider.gameObject.GetComponent<TravelInteractable>().isYes)
                     {
                         //SAVING CURRENT YEAR
-                        string path = "/../VRClubUniverse_Data/saveData.txt";
+                        string path = "VRClubUniverse_Data/saveData.txt";
                         string currentYear = Planet_Year.text;
                         File.WriteAllText(path, currentYear);
 
