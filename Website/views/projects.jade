@@ -2,4 +2,11 @@ extends header
 
 block content
     
-	p.name These are the projects in #{data[2017]}
+	p.name These are the projects in
+	-var data = JSON.parse(json);
+	-for(var prop in data)
+		p #{prop}
+		-var inner_obj = JSON.parse(data[prop])
+		-for (var key in inner_obj["PlanetJSON"])
+			-for (var field in inner_obj["PlanetJSON"][key])
+				p #{field} : #{inner_obj["PlanetJSON"][key][field]}
