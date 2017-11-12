@@ -10,17 +10,16 @@ html
 
 
 	body
-		nav(class="navbar" id="navbar")
+		div(class="navbar navbar-default" role="navigation" id="navbar")
 			div.container-fluid
 				div.navbar-header
-					button(type="button", class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse")
-						span.sr-only Toggle 
+					button(type="button", class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
 					a(class="navbar-brand" href="/") VR Club Universe
-				div(class="collapse navbar-collapse" id="#navbar-collapse")
-					ul.nav.navbar-nav
+				div(class="navbar-collapse collapse" id="navbar-collapse")
+					ul.nav.navbar-nav.navbar-left
 						li
 							a(href="/about") About
 						li
