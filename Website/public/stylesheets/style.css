@@ -46,6 +46,13 @@
 
 }
 
+.project-img {
+	width :  200%;
+	display: flex;
+	justify-content: center;
+	align-items: center
+}
+
 .proj-data{
 	padding-left : 20px;
 	padding-bottom: 10px;
