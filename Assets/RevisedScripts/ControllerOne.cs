@@ -251,9 +251,10 @@ public class ControllerOne : VRTK_InteractableObject
                     {
 						//SAVING CURRENT YEAR
 						YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
-						Debug.Log("writing current year to saveData file");
+						
 						string path = "VRClubUniverse_Data/saveData.txt";
                         string currentYear = yearSelection.SelectedYearIndex.ToString();
+                        Debug.Log("writing current year to saveData file, year Index: " + currentYear);
                         File.WriteAllText(path, currentYear);
 
                         Debug.Log("loading executable: " + hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
