@@ -11,6 +11,7 @@
 				"Educational",
 				"Game"
 			],
+			"Show" : true,
 			"Image": "Vivace_Image.jpg",
 			"Executable": "Vivace"
 		}
