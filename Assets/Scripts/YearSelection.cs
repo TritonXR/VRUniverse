@@ -16,7 +16,7 @@ public class YearSelection : MonoBehaviour
     public bool isTravelling { private get; set; }
 
     private const string LOBBY_YEAR_STRING = "Year";
-    private string displayedYearString; // ["Year"; "0"; "1"; "2"]
+    public string displayedYearString; // ["Year"; "0"; "1"; "2"]
 	private Text yearText;
 
     private int minimumYear, maximumYear;
@@ -131,8 +131,9 @@ public class YearSelection : MonoBehaviour
         updateYearText();
 	}
 
-	private void updateYearText()
+	public void updateYearText()
 	{
+        Debug.Log("Updating year to: " + displayedYearString);
         // Since lobby has the string "Year" which is not an int, only show the word Year
         if (displayedYearString == LOBBY_YEAR_STRING)
         {

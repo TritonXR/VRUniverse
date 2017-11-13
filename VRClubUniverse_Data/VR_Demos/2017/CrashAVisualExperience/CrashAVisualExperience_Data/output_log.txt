@@ -7,23 +7,23 @@ Direct3D:
     VRAM:     4009 MB
     Driver:   21.21.13.7849
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.VR.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.VR.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.VR.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.VR.dll into Unity Child Domain
 - Completed reload, in  0.016 seconds
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17_v2\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\System.dll (this message is harmless)
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1200 59Hz; virtual: 1920x1200 at 0,0
@@ -32,7 +32,7 @@ OpenVR initialized!
  
 (Filename:  Line: 424)
 
-UnloadTime: 0.551004 ms
+UnloadTime: 0.553936 ms
 Connected to lighthouse:LHR-EFB7C2B3
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -46,12 +46,12 @@ Looking for controllers...
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 6 worker threads for Enlighten.
-  Thread -> id: 2498 -> priority: 1 
-  Thread -> id: 17e0 -> priority: 1 
-  Thread -> id: 2494 -> priority: 1 
-  Thread -> id: 1f58 -> priority: 1 
-  Thread -> id: 235c -> priority: 1 
-  Thread -> id: 1c68 -> priority: 1 
+  Thread -> id: 161c -> priority: 1 
+  Thread -> id: 1478 -> priority: 1 
+  Thread -> id: 1a1c -> priority: 1 
+  Thread -> id: 8a4 -> priority: 1 
+  Thread -> id: 1380 -> priority: 1 
+  Thread -> id: 108c -> priority: 1 
 Looking for controllers...
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)

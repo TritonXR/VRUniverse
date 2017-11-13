@@ -63,16 +63,20 @@ public class UniverseSystem : MonoBehaviour {
 
 		Debug.Log("ABOUT TO read from previous year saveData file");
 		//Teleport to previously saved year
-		//if (File.Exists(path))
-		if(true)
+		if (File.Exists(path))
+		///if(true)
         {
 			string readText = File.ReadAllText(path);
 			Debug.Log("reading from previous year saveData file, year: " + readText);
-            			
+            File.Delete(path);
+            StartCoroutine(TeleportToYear(int.Parse(readText), false));
+            YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+            yearSelection.displayedYearString = readText;
+            yearSelection.updateYearText();
             //if (readText.GetType() == year.GetType())
-			if(true)
+            if (true)
             {
-                StartCoroutine(TeleportToYear(int.Parse(readText), false));
+                
             }
         }
 
