@@ -5,12 +5,12 @@ block content
 		div.row
 			div.col-md-6.col-md-offset-3
 				p.form-head Upload to the VR Club Universe!
-				form(action="/upload" method="post")
+				form(action="/upload" enctype="multipart/form-data" method="post" )
 					div(class="form-group" style="padding-top: 25px;")
 						label.form-label Project Name :
-						input(type="text" class="form-control" id="email")
+						input(type="text" class="form-control" id="project" name="project")
 						label.form-label Contributor Email :
-						input(type="email" class="form-control" id="name")
+						input(type="email" class="form-control" id="email" name="email")
 						label.form-label Description :
 						input(type="text" class="form-control" id="name" style="height : 200px")
 						label.form-label Project Members : 
