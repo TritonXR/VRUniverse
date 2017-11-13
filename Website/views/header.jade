@@ -2,26 +2,24 @@ doctype html
 html
 	head
 		title VR Club Universe
-		link(rel='stylesheet', href='/stylesheets/style.css')
-		link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-		script(src="/javascripts/jquery-3.1.1.min.js")
-		script(src="/javascripts/bootstrap.min.js")
+		link(rel='stylesheet', href='/public/stylesheets/style.css')
+		link(rel='stylesheet', href='/public/stylesheets/bootstrap.min.css')
+		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		script(src="/public/javascripts/jquery-3.1.1.min.js")
+		script(src="/public/javascripts/bootstrap.min.js")
 
 
 	body
-		nav(class="navbar" id="navbar")
+		div(class="navbar navbar-default" role="navigation" id="navbar")
 			div.container-fluid
 				div.navbar-header
-
-					button(type="button", class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse")
+					button(type="button", class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-
 					a(class="navbar-brand" href="/") VR Club Universe
-
-				div(class="collapse navbar-collapse" id="#navbar-collapse")
-					ul.nav.navbar-nav
+				div(class="navbar-collapse collapse" id="navbar-collapse")
+					ul.nav.navbar-nav.navbar-left
 						li
 							a(href="/about") About
 						li
