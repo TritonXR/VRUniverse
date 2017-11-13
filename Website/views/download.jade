@@ -1,5 +1,6 @@
 extends header 
 include ./mixins/download-form-element.jade
+
 block content
 	p.name This is the download page!
 	br
@@ -8,7 +9,13 @@ block content
 		div.col-md-8.col-md-offset-2
 			form(action="/download" method="post")
 				div(class="form-check" style="padding-top: 25px;")
-				+download-form-element("qwerty")
+					-var data = JSON.parse(json);
+					-for(var prop in data)
+						p.year #{prop}
+						div.container-fluid
+							-var inner_obj = JSON.parse(data[prop])
+							-for (var key in inner_obj["PlanetJSON"])
+								+download-form-element(inner_obj["PlanetJSON"][key])
 				div.text-center
 					button(type="submit" class="btn btn-default") Submit
 
