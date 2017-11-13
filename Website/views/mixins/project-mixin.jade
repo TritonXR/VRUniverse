@@ -1,0 +1,19 @@
+mixin project-mixin(data)
+		div.container-fluid
+			div.row
+				div.col-md-2
+					img(src="/data/VRClubUniverseData/VR_Demos/#{data.Year}/#{data.Executable}/#{data.Image}" class="project-img")
+				div.col-md-7.col-md-offset-2.proj-container
+						div(class="row proj-data")
+							div.project-label Project Name :  
+							div.project-name #{data.Name}
+						div(class="row proj-data")
+							div.project-label Creator(s) : 
+							div.project-name #{data.Creator}
+						div(class="row proj-data") 
+							div.project-label Description : 
+							div.project-name #{data.Description}
+						div(class="row proj-data")
+							div.project-label Tags : 
+							div.project-name #{data.Tags}
+
