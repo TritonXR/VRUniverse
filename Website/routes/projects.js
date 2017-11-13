@@ -47,23 +47,6 @@ function readFiles(dirname, callback) {
 /* GET users listing. */
 
 
-
-/*
-router.get('/', function (req, res, next) {
-    var data = {};
-    return Promise.try(function () {
-        console.log("executing the main function");
-        return readFiles('./data/VRClubUniverseData/'), function (filename, content) {
-            var year = filename.spilt(".")[0];
-            data[year] = content;
-        }
-    }).then(function () {
-        console.log(data);
-        res.render('projects', {
-            "data": JSON.stringify(data)
-        });
-    });
-}); */
 router.get('/', function (req, res, next) {
     
     readFiles('./data/VRClubUniverseData/', function (data) {
@@ -73,7 +56,8 @@ router.get('/', function (req, res, next) {
         });      
     });
 });
-  
+
+
   
 
 
