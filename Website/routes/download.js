@@ -63,13 +63,6 @@ router.post('/', function (req, res, next) {
         });
     }
     let incoming_data = JSON.parse(req);
-    console.log(incoming_data);
-
-
-
-
-
-    
-    
+    console.log(incoming_data); 
 })
 module.exports = router;

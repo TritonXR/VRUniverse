@@ -1,50 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var formidable = require("formidable");
-
+var util = require('util');
 var fs = require('fs');
-// var multer = require('multer');
-/*
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null,'./data' )
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.orginalname)
-    }
+var multer = require('multer');
+
+var uploading = multer({
+  dest: __dirname + '/../public/uploads/',
 });
 
-var upload = multer({storage: storage});
-*/
-/* GET users listing. */
-
+/* GET upload form. */
 router.get('/', function(req, res, next) {
     res.render('upload');
 });
 
-router.post('/', function(req, res) {
 
-    res.send(JSON.stringify(req.body));
-
-    //res.send(req.files);
-    //console.log(req.files, 'files');
-    //console.log(req.body, 'body');
-    /*var year = 2016;
-    var json_dir = "./data/VRClubUniverseData/";
-    var content = null;
-    fs.readFile(json_dir + year + '.json', 'utf-8', function (err, file_content) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        content = JSON.parse(file_content);
-        console.log(content);
-
-              processForm(req, res, function (data) {
-            res.send(data);
-        });
-
-    });*/
+router.post('/', uploading.single('image') ,function(req, res) {
+    res.json({
+        message: 'File uploaded successfully',
+        filename: req.file.filename
+      });g
 });
 
 module.exports = router;

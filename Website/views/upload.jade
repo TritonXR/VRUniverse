@@ -5,41 +5,32 @@ block content
 		div.row
 			div.col-md-6.col-md-offset-3
 				p.form-head Upload to the VR Club Universe!
-<<<<<<< HEAD
-				form(action="/upload" enctype="multipart/form-data" method="post" )
+				form(action="/upload" method="post" style="margin-bottom : 50px;" enctype="multipart/form-data")
 					div(class="form-group" style="padding-top: 25px;")
 						label.form-label Project Name :
-						input(type="text" class="form-control" id="project" name="project")
-						label.form-label Contributor Email :
-						input(type="email" class="form-control" id="email" name="email")
-=======
-				form(action="/upload" method="post" style="margin-bottom : 50px;")
-					div(class="form-group" style="padding-top: 25px;")
-						label.form-label Project Name :
-						input(type="text" class="form-control" id="email")
+						input(type="text" class="form-control" id="name" name="project")
 						div.row
 							div.col-xs-6
 								label.form-label Year :
-								select(class="form-control" id="year")
+								select(class="form-control" id="year" name="year")
 									option 2015
 									option 2016
 									option 2017
 									option 2018
 							div.col-xs-6
 								label.form-label Contributor Email :
-								input(type="email" class="form-control" id="name")
->>>>>>> aef8b1aee7e69963f51fe90df8cdbd06a997e3e0
+								input(type="email" class="form-control" id="name" name="email")
 						label.form-label Description :
-						input(type="text" class="form-control" id="name" style="height : 200px")
+						input(type="text" class="form-control" id="name" style="height : 200px" name="desc")
 						label.form-label Project Members : 
-						input(type="text" class="form-control" id="members")
+						input(type="text" class="form-control" id="members" name="members")
 						label.form-label Tags : 
-						input(type="text" class="form-control" id="tags")
+						input(type="text" class="form-control" id="tags" name="tags")
 						label.form-label Upload an Image : 
-						input(type="file" class="form-control" id="picture")
+						input(type="file" class="form-control" id="picture" name="image")
 
 						label.form-label Upload your Executable :
-						input(type="file" class="form-control" id="exec")
+						input(type="file" class="form-control" id="exec" name="exec")
 					div.text-center
 						button(type="submit" class="btn btn-default") Submit!
 
