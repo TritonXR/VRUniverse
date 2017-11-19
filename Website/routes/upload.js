@@ -5,7 +5,7 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, './upload')
+        cb(null, 'data/upload')
     },
     filename: function(req,file,cb){
         cb(null, file.originalname)
@@ -35,7 +35,6 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', upload.any(), function(req, res) {
-    res.send(req.files);
     var year = req.body.year;
     var projectname = req.body.project;
     var upload_image = '';
@@ -112,6 +111,8 @@ router.post('/', upload.any(), function(req, res) {
             }
         }
     });
+
+    res.send("haha");
 });
 
 module.exports = router;
