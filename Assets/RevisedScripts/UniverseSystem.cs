@@ -59,18 +59,18 @@ public class UniverseSystem : MonoBehaviour {
         // Creates the years object and handles initializing the list of years
         GetYears();
 
-		//origSkyboxColor = RenderSettings.skybox.GetColor("_Tint");
-		origSkyboxColor = new Color(1, 1, 1); 
+		// Set the original color of the application to original color
+		origSkyboxColor = new Color(1, 1, 1);
+        Material skybox = RenderSettings.skybox;
+        skybox.SetColor("_Tint", origSkyboxColor);
+        RenderSettings.skybox = skybox;
 
-        int year = 2017;
         string path = "VRClubUniverse_Data/saveData.txt";
 
 		yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
 
-		//Debug.Log("ABOUT TO read from previous year saveData file");
 		//Teleport to previously saved year
 		if (File.Exists(path))
-		///if(true)
         {
 			string readText = File.ReadAllText(path);
 			Debug.Log("reading from previous year saveData file, year: " + readText);
@@ -84,12 +84,8 @@ public class UniverseSystem : MonoBehaviour {
 			tutorial_TriggerMenu.GetComponentInChildren<YearInput>().gameObject.GetComponent<Text>().text = list_years[yearSelection.SelectedYearIndex].yr_name;
 			tutorial_TriggerMenu.SetActive(true);
 
-			//yearSelection.updateYearText();
-			//if (readText.GetType() == year.GetType())
-			if (true)
-            {
-                
-            }
+            
+
         }
 
     }
