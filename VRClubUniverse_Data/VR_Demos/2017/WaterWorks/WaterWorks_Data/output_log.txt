@@ -7,23 +7,23 @@ Direct3D:
     VRAM:     4009 MB
     Driver:   21.21.13.7849
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.VR.dll (this message is harmless)
-Loading D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.VR.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.VR.dll (this message is harmless)
+Loading D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\UnityEngine.VR.dll into Unity Child Domain
 - Completed reload, in  0.015 seconds
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\VR Club Universe Development\Builds\Build_FA17\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\System.dll (this message is harmless)
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: D:\dkimball\VRUniverse\VRClubUniverse_Data\VR_Demos\2017\WaterWorks\WaterWorks_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1200 59Hz; virtual: 1920x1200 at 0,0
@@ -32,91 +32,27 @@ OpenVR initialized!
  
 (Filename:  Line: 424)
 
-UnloadTime: 0.579750 ms
+UnloadTime: 0.517281 ms
 Connected to lighthouse:LHR-EFB7C2B3
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Could not find left controller. Cannot detect exit button press.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Could not find right controller. Cannot detect exit button press.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Could not find left controller. Cannot detect exit button press.
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Could not find right controller. Cannot detect exit button press.
+Number of controllers: 2
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 6 worker threads for Enlighten.
-  Thread -> id: 1248 -> priority: 1 
-  Thread -> id: 1824 -> priority: 1 
-  Thread -> id: 1c7c -> priority: 1 
-  Thread -> id: 27d4 -> priority: 1 
-  Thread -> id: 206c -> priority: 1 
-  Thread -> id: 2d20 -> priority: 1 
-Successfully Registered Left Controller
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Successfully Registered Right Controller
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-De-registered Left Controller
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-De-registered Right Controller
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Successfully Registered Left Controller
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Successfully Registered Right Controller
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
+  Thread -> id: df4 -> priority: 1 
+  Thread -> id: 2768 -> priority: 1 
+  Thread -> id: ce0 -> priority: 1 
+  Thread -> id: 21e0 -> priority: 1 
+  Thread -> id: 1c3c -> priority: 1 
+  Thread -> id: 1ebc -> priority: 1 
 Detected Menu Button Click
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
-Detected Menu Button Click
+OpenVR Shutdown
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Launching external application...
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-LaunchingInternalProcess
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-ExternalAppPath = D:/VR Club Universe Development/Builds/Build_FA17/VRClubUniverse_Data/VR_Demos/2017/WaterWorks/WaterWorks_Data//../../../../../VRUniverse.exe
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-FullPath = D:/VR Club Universe Development/Builds/Build_FA17/VRClubUniverse_Data/VR_Demos/2017/WaterWorks/WaterWorks_Data//../../../../../VRUniverse.exe
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-ExternalAppArgs = 
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-WorkingDirectory = D:\VR Club Universe Development\Builds\Build_FA17
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-LaunchInternalProcessError: None
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+(Filename:  Line: 889)
 
