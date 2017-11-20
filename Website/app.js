@@ -34,12 +34,19 @@ app.use('/projects', projects);
 app.use('/download', download);
 app.use('/upload', upload);
 
+
+//debug and demoing
+app.get('/2016.json', function(req, res, next){
+	res.sendFile(__dirname + '/data/VRClubUniverseData/2016.json');
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+
 
 // error handler
 app.use(function(err, req, res, next) {
