@@ -44,23 +44,59 @@ router.post('/', upload.any(), function(req, res) {
     }
     if(!fs.existsSync(exec_dir + year + '/' + projectname)) {fs.mkdirSync(exec_dir + year + '/' + projectname);}
 
-    fs.rename('./tmp/' + projectname + '.jpg',
-        exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
-        function(err){
-            if(err){
-                console.log(err);
-            }
-        });
-    upload_image = projectname + '_Image.jpg';
-
-    fs.rename('./tmp/' + projectname + '.exe',
-        exec_dir + year + '/' + projectname + '/'+ projectname + '.exe',
-        function(err){
-        if(err){
-            console.log(err);
+    findFile('.jpg', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_image = projectname + '_Image.jpg';
         }
     });
-    upload_exec = projectname;
+    findFile('.png', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_image = projectname + '_Image.jpg';
+        }
+    });
+    findFile('.gif', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_image = projectname + '_Image.jpg';
+        }
+    });
+
+    findFile('.exe', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '.exe',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_exec = projectname;
+        }
+    });
 
     var tags = req.body.tags;
     var tag_arr = tags.split(",");
@@ -96,4 +132,13 @@ router.post('/', upload.any(), function(req, res) {
     res.send("haha");
 });
 
+function findFile(extension, cb){
+    var file = fs.readdirSync('tmp/');
+    for(var i = 0; i < file.length; i++){
+        var filename = path.join('tmp/', file[i]);
+        if(filename.indexOf(extension) >= 0){
+            cb(filename);
+        }
+    }
+}
 module.exports = router;
