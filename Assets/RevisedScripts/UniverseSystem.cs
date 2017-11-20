@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO; // Important for getting files from directory
+using UnityEngine.UI;
 
 /*
  * UniverseSystem manages the controllers of MainUniverse. Contains a list of Years.
@@ -47,6 +48,8 @@ public class UniverseSystem : MonoBehaviour {
     public GameObject tutorial_RadialMenu;
     public GameObject tutorial_TriggerMenu;
 
+	private YearSelection yearSelection;
+
 	// Use this for initialization
 	void Start () {
 
@@ -56,12 +59,15 @@ public class UniverseSystem : MonoBehaviour {
         // Creates the years object and handles initializing the list of years
         GetYears();
 
-        origSkyboxColor = RenderSettings.skybox.GetColor("_Tint");
+		//origSkyboxColor = RenderSettings.skybox.GetColor("_Tint");
+		origSkyboxColor = new Color(1, 1, 1); 
 
         int year = 2017;
         string path = "VRClubUniverse_Data/saveData.txt";
 
-		Debug.Log("ABOUT TO read from previous year saveData file");
+		yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+
+		//Debug.Log("ABOUT TO read from previous year saveData file");
 		//Teleport to previously saved year
 		if (File.Exists(path))
 		///if(true)
@@ -70,11 +76,17 @@ public class UniverseSystem : MonoBehaviour {
 			Debug.Log("reading from previous year saveData file, year: " + readText);
             File.Delete(path);
             StartCoroutine(TeleportToYear(int.Parse(readText), false));
-            YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+            //YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
             yearSelection.displayedYearString = readText;
-            yearSelection.updateYearText();
-            //if (readText.GetType() == year.GetType())
-            if (true)
+			yearSelection.SelectedYearIndex = int.Parse(readText);
+
+			tutorial_RadialMenu.SetActive(false);
+			tutorial_TriggerMenu.GetComponentInChildren<YearInput>().gameObject.GetComponent<Text>().text = list_years[yearSelection.SelectedYearIndex].yr_name;
+			tutorial_TriggerMenu.SetActive(true);
+
+			//yearSelection.updateYearText();
+			//if (readText.GetType() == year.GetType())
+			if (true)
             {
                 
             }
@@ -325,7 +337,7 @@ public class UniverseSystem : MonoBehaviour {
      */
     public IEnumerator TeleportToYear(int newYear, bool useAnimation = true)
     {
-        YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+        //YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
         yearSelection.isTravelling = true;
 
         // Start teleportation system traveling there by calling from Hyperspeed script
@@ -345,20 +357,26 @@ public class UniverseSystem : MonoBehaviour {
         Material skybox = RenderSettings.skybox;
         skybox.SetInt("_Rotation", 20 * newYear);
         int currYearName = int.Parse(list_years[newYear].yr_name);
+		//Debug.Log("SkyColor CurrYearName: " + currYearName);
         int colorValueToChange = newYear % 3;
-        Color newSkyboxColor;
-        float newColorValue = ((currYearName * 42) % 255) / 255;
-        if (colorValueToChange == 0) // change red value
+		//Debug.Log("SkyColor colorValueToChange: " + colorValueToChange);
+		Color newSkyboxColor;
+        float newColorValue = (( (float)currYearName * 42) % 255) / 255;
+		//Debug.Log("SkyColor newColorValue: " + newColorValue);
+		if (colorValueToChange == 0) // change red value
         {
+			//Debug.Log("SkyColor change to red");
             newSkyboxColor = new Color(newColorValue, origSkyboxColor.g, origSkyboxColor.b);
             skybox.SetColor("_Tint", newSkyboxColor);
         } else if (colorValueToChange == 1) // change green value
         {
-            newSkyboxColor = new Color(origSkyboxColor.r, newColorValue, origSkyboxColor.b);
+			//Debug.Log("SkyColor change to green");
+			newSkyboxColor = new Color(origSkyboxColor.r, newColorValue, origSkyboxColor.b);
             skybox.SetColor("_Tint", newSkyboxColor);
         } else if (colorValueToChange == 2) //change blue value
         {
-            newSkyboxColor = new Color(origSkyboxColor.r, origSkyboxColor.g, newColorValue);
+			//Debug.Log("SkyColor change to blue");
+			newSkyboxColor = new Color(origSkyboxColor.r, origSkyboxColor.g, newColorValue);
             skybox.SetColor("_Tint", newSkyboxColor);
         } else
         {
