@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var path = require('path');
 var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, './upload')
+        cb(null, 'tmp/')
     },
     filename: function(req,file,cb){
         cb(null, file.originalname)
@@ -14,20 +15,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage:storage});
 
-var uploadFile = function (filedest, filename){
-    var storage = multer.diskStorage({
-        destination: function(req, file, cb){
-            cb(null, filedest)
-        },
-        filename: function(req,file,cb){
-            cb(null, filename)
-        }
-    });
-
-    var upload = multer({storage:storage}).single('file');
-    return upload;
-}
-
 /* GET upload form. */
 router.get('/', function(req, res, next) {
     res.render('upload');
@@ -35,7 +22,6 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/', upload.any(), function(req, res) {
-    res.send(req.files);
     var year = req.body.year;
     var projectname = req.body.project;
     var upload_image = '';
@@ -58,30 +44,60 @@ router.post('/', upload.any(), function(req, res) {
     }
     if(!fs.existsSync(exec_dir + year + '/' + projectname)) {fs.mkdirSync(exec_dir + year + '/' + projectname);}
 
-    /*
-    if(req.file.image) {
-        var upload = uploadFile(exec_dir + year + '/' + projectname, projectname + '_Image.jpg');
-        upload(req,res,function(err){
-            if(err){
-                console.log(err);
-            } else {
-                res.send(req.file.image);
-                upload_image = projectname + '_Image.jpg';
-            }
-        });
-    };
-    if(req.file.exec) {
-        var upload = uploadFile(exec_dir + year + '/' + projectname, projectname + '.exe');
-        upload(req,res,function(err){
-            if(err){
-                console.log(err);
-            } else {
-                res.send(req.file.exec);
-                upload_exec = projectname + '.exe';
-            }
-        });
-    }
-    */
+    findFile('.jpg', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_image = projectname + '_Image.jpg';
+        }
+    });
+    findFile('.png', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_image = projectname + '_Image.jpg';
+        }
+    });
+    findFile('.gif', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_image = projectname + '_Image.jpg';
+        }
+    });
+
+    findFile('.exe', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '.exe',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_exec = projectname;
+        }
+    });
+
     var tags = req.body.tags;
     var tag_arr = tags.split(",");
     var proj = {
@@ -112,6 +128,17 @@ router.post('/', upload.any(), function(req, res) {
             }
         }
     });
+
+    res.send("haha");
 });
 
+function findFile(extension, cb){
+    var file = fs.readdirSync('tmp/');
+    for(var i = 0; i < file.length; i++){
+        var filename = path.join('tmp/', file[i]);
+        if(filename.indexOf(extension) >= 0){
+            cb(filename);
+        }
+    }
+}
 module.exports = router;
