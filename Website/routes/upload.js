@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
+var path = require('path');
 var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
-        cb(null, 'data/upload')
+        cb(null, 'tmp/')
     },
     filename: function(req,file,cb){
         cb(null, file.originalname)
@@ -13,20 +14,6 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({storage:storage});
-
-var uploadFile = function (filedest, filename){
-    var storage = multer.diskStorage({
-        destination: function(req, file, cb){
-            cb(null, filedest)
-        },
-        filename: function(req,file,cb){
-            cb(null, filename)
-        }
-    });
-
-    var upload = multer({storage:storage}).single('file');
-    return upload;
-}
 
 /* GET upload form. */
 router.get('/', function(req, res, next) {
@@ -57,30 +44,24 @@ router.post('/', upload.any(), function(req, res) {
     }
     if(!fs.existsSync(exec_dir + year + '/' + projectname)) {fs.mkdirSync(exec_dir + year + '/' + projectname);}
 
-    /*
-    if(req.file.image) {
-        var upload = uploadFile(exec_dir + year + '/' + projectname, projectname + '_Image.jpg');
-        upload(req,res,function(err){
+    fs.rename('./tmp/' + projectname + '.jpg',
+        exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
+        function(err){
             if(err){
                 console.log(err);
-            } else {
-                res.send(req.file.image);
-                upload_image = projectname + '_Image.jpg';
             }
         });
-    };
-    if(req.file.exec) {
-        var upload = uploadFile(exec_dir + year + '/' + projectname, projectname + '.exe');
-        upload(req,res,function(err){
-            if(err){
-                console.log(err);
-            } else {
-                res.send(req.file.exec);
-                upload_exec = projectname + '.exe';
-            }
-        });
-    }
-    */
+    upload_image = projectname + '_Image.jpg';
+
+    fs.rename('./tmp/' + projectname + '.exe',
+        exec_dir + year + '/' + projectname + '/'+ projectname + '.exe',
+        function(err){
+        if(err){
+            console.log(err);
+        }
+    });
+    upload_exec = projectname;
+
     var tags = req.body.tags;
     var tag_arr = tags.split(",");
     var proj = {

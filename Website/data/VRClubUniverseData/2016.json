@@ -1,6 +1,5 @@
 {
-  "PlanetJSON":
-  [
+  "PlanetJSON": [
     {
       "Name": "Vivace",
       "Creator": "Connor Smith, Anish Kannan, Kristin Agcaoili",
@@ -11,7 +10,7 @@
         "Educational",
         "Game"
       ],
-      "Show" : true,
+      "Show": true,
       "Image": "Vivace_Image.jpg",
       "Executable": "Vivace"
     }
