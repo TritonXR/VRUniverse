@@ -33,7 +33,7 @@ public class UniverseSystem : MonoBehaviour {
 	public Material Planet3;
 	public int NUM_OF_PLANETS = 0;
 	private int tracker = 0;
-	private float inputRadius = (float) 70 / 3;
+	private float inputRadius = (float) 500 / 3;
 
     // Integer that stores the year user is currently located in.
     private int atYear = -1;
@@ -248,20 +248,20 @@ public class UniverseSystem : MonoBehaviour {
             if (listLength <= 6)
             {
                 tracker = 0;
-                setupSphere(10f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(50f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 6 && listLength <= 11)
             {
                 tracker = 0;
-                setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(15f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(50f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(100f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 11)
             {
                 tracker = 0;
-                setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(15f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(20f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(50f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(100f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(200f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
             }
 
         }
@@ -323,7 +323,7 @@ public class UniverseSystem : MonoBehaviour {
 
                 //Debug.Log("The vector is: " + vect);
                 list[tracker].transform.position = vect;
-				list [tracker].transform.localScale = new Vector3 (2, 2, 2);
+				list [tracker].transform.localScale = new Vector3 (50, 50, 50);
 				list [tracker].GetComponent<MeshRenderer> ().material = material;
 				tracker++;
 			//}
