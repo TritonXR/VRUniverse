@@ -39,7 +39,11 @@ public class ControllerOne : VRTK_InteractableObject
     //Previous reference to panel on travel selection menu to deselect highlight
     private Image prevTravelPanel;
 
-    private void toggleMenu(bool status)
+	private bool tutorial_firstSelection = true;
+	private Image[] tutorialsOnRightController;
+
+
+	private void toggleMenu(bool status)
     {
         Planet_Menu.SetActive(status);
     }
@@ -121,7 +125,10 @@ public class ControllerOne : VRTK_InteractableObject
             }
         }
 
-    }
+		// Get Tutorials on right controller
+		tutorialsOnRightController = rightController.GetComponentsInChildren<Image>(true);
+
+	}
 
     private void SetRightController()
     {
@@ -142,6 +149,11 @@ public class ControllerOne : VRTK_InteractableObject
         {
 
             Travel_Selection.SetActive(true);
+
+			if (tutorialsOnRightController[1].gameObject.activeSelf)
+			{
+				tutorialsOnRightController[1].gameObject.SetActive(false); //turn off label 4
+			}
             
         } 
     }
@@ -166,8 +178,16 @@ public class ControllerOne : VRTK_InteractableObject
 
         //Turn on menu when hovering
         toggleMenu(true);
-      
-    }
+
+		if (tutorial_firstSelection)
+		{
+			tutorialsOnRightController[0].gameObject.SetActive(false); //turn off label 3
+			tutorialsOnRightController[1].transform.parent.gameObject.SetActive(true); //turn on label 4
+			tutorial_firstSelection = false;
+		}
+
+
+	}
 
 
     public override void StopUsing(GameObject previousUsingObject)

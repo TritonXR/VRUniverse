@@ -33,9 +33,9 @@ public class YearController : MonoBehaviour
             universeSystem.tutorial_TriggerMenu.GetComponentInChildren<YearInput>().gameObject.GetComponent<Text>().text = UniverseSystem.list_years[yearSelection.SelectedYearIndex].yr_name;
             universeSystem.tutorial_TriggerMenu.SetActive(true);
 
-            universeSystem.tutorial_YearTravel.SetActive(false);
+			universeSystem.tutorial_YearTravel.GetComponentInChildren<Image>().gameObject.SetActive(false);
             universeSystem.tutorial_PlanetSelection.SetActive(true);
-        }
+		}
         else
         {
             Debug.Log("Unable to travel");
