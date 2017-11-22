@@ -45,8 +45,10 @@ public class UniverseSystem : MonoBehaviour {
     private Color origSkyboxColor;
 
     //Holds instruction menus
+	/*
     public GameObject tutorial_RadialMenu;
     public GameObject tutorial_TriggerMenu;
+	*/
 
     // Holds tutorial menus
     public GameObject tutorial_YearSelection;
@@ -88,9 +90,11 @@ public class UniverseSystem : MonoBehaviour {
             yearSelection.displayedYearString = readText;
 			yearSelection.SelectedYearIndex = int.Parse(readText);
 
+			/* removing old tutorial system
 			tutorial_RadialMenu.SetActive(false);
 			tutorial_TriggerMenu.GetComponentInChildren<YearInput>().gameObject.GetComponent<Text>().text = list_years[yearSelection.SelectedYearIndex].yr_name;
 			tutorial_TriggerMenu.SetActive(true);
+			*/
 
             tutorial_YearSelection.SetActive(false);
             tutorial_PlanetSelection.SetActive(true);
