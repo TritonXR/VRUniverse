@@ -257,20 +257,20 @@ public class UniverseSystem : MonoBehaviour {
             if (listLength <= 6)
             {
                 tracker = 0;
-                setupSphere(50f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(23f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 6 && listLength <= 11)
             {
                 tracker = 0;
-                setupSphere(50f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(100f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(23f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(70f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 11)
             {
                 tracker = 0;
-                setupSphere(50f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(100f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(200f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(23f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(70f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(120f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
             }
 
         }
@@ -332,7 +332,7 @@ public class UniverseSystem : MonoBehaviour {
 
                 //Debug.Log("The vector is: " + vect);
                 list[tracker].transform.position = vect;
-				list [tracker].transform.localScale = new Vector3 (50, 50, 50);
+				list [tracker].transform.localScale = new Vector3 (40, 40, 40);
 				list [tracker].GetComponent<MeshRenderer> ().material = material;
 				tracker++;
 			//}

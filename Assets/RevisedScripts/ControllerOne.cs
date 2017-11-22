@@ -81,9 +81,10 @@ public class ControllerOne : VRTK_InteractableObject
 
         Vector3 temp = Vector3.Cross(Planet_Data.transform.position, Vector3.up);
         temp.Normalize();
-        temp *= 5.2f;
+		//temp *= 5.2f;
+		temp *= 63f;
         Vector3 closer = Vector3.Cross(Vector3.up, temp).normalized;
-        Planet_Menu.transform.position = new Vector3(temp.x, temp.y, temp.z) + Planet_Data.transform.position - 2*closer;
+        Planet_Menu.transform.position = new Vector3(temp.x, temp.y, temp.z) + Planet_Data.transform.position - 30*closer;
         Planet_Menu.transform.LookAt(Camera.main.transform); //looks at the camera
         Planet_Menu.transform.Rotate(new Vector3(0, 180, 0)); //but it needs to be flipped around for some reason
 
@@ -91,9 +92,15 @@ public class ControllerOne : VRTK_InteractableObject
         Travel_Selection.transform.LookAt(Camera.main.transform);
         Travel_Selection.transform.Rotate(new Vector3(0, 180, 0));
 
+		//Shrink the floating menus by a proportional size
+		Vector3 currentScale = Planet_Menu.transform.localScale;
+		Planet_Menu.transform.localScale = new Vector3(currentScale.x*0.58f, currentScale.y*0.58f, currentScale.z*0.58f);
+		currentScale = Travel_Selection.transform.localScale;
+		Travel_Selection.transform.localScale = new Vector3(currentScale.x * 0.58f, currentScale.y * 0.58f, currentScale.z * 0.58f);
 
-        //Set text to planet info
-        Planet_Title.text = Planet_Data.title;        
+
+		//Set text to planet info
+		Planet_Title.text = Planet_Data.title;        
         Planet_Creator.text = Planet_Data.creator;
         Planet_Description.text = Planet_Data.description;
         Planet_Year.text = Planet_Data.year;
