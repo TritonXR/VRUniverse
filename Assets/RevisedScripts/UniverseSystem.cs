@@ -48,7 +48,14 @@ public class UniverseSystem : MonoBehaviour {
     public GameObject tutorial_RadialMenu;
     public GameObject tutorial_TriggerMenu;
 
+    // Holds tutorial menus
+    public GameObject tutorial_YearSelection;
+    public GameObject tutorial_YearTravel;
+    public GameObject tutorial_PlanetSelection;
+    public GameObject tutorial_PlanetTravel;
+
 	private YearSelection yearSelection;
+
 
 	// Use this for initialization
 	void Start () {
@@ -58,6 +65,8 @@ public class UniverseSystem : MonoBehaviour {
 
         // Creates the years object and handles initializing the list of years
         GetYears();
+
+        tutorial_YearSelection.SetActive(true);
 
 		// Set the original color of the application to original color
 		origSkyboxColor = new Color(1, 1, 1);
@@ -73,10 +82,9 @@ public class UniverseSystem : MonoBehaviour {
 		if (File.Exists(path))
         {
 			string readText = File.ReadAllText(path);
-			Debug.Log("reading from previous year saveData file, year: " + readText);
             File.Delete(path);
             StartCoroutine(TeleportToYear(int.Parse(readText), false));
-            //YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+
             yearSelection.displayedYearString = readText;
 			yearSelection.SelectedYearIndex = int.Parse(readText);
 
@@ -84,7 +92,8 @@ public class UniverseSystem : MonoBehaviour {
 			tutorial_TriggerMenu.GetComponentInChildren<YearInput>().gameObject.GetComponent<Text>().text = list_years[yearSelection.SelectedYearIndex].yr_name;
 			tutorial_TriggerMenu.SetActive(true);
 
-            
+            tutorial_YearSelection.SetActive(false);
+            tutorial_PlanetSelection.SetActive(true);
 
         }
 
@@ -405,6 +414,13 @@ public class UniverseSystem : MonoBehaviour {
      */
     void Update()
     {
+
+        if (!tutorial_YearTravel.activeSelf && !yearSelection.tutorial_firstSelection)
+        {
+            tutorial_YearTravel.SetActive(true);
+            tutorial_YearSelection.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.A)) // Create 2015
         {
             StartCoroutine(TeleportToYear(0));

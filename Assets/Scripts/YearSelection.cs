@@ -23,6 +23,8 @@ public class YearSelection : MonoBehaviour
 
     private List<int> listYearNames; // [2015; 2016; 2017]
 
+    public bool tutorial_firstSelection = true;
+
     private void Start()
     {
 
@@ -66,11 +68,24 @@ public class YearSelection : MonoBehaviour
         updateYearText();
     }
 
+    private void checkTutorial()
+    {
+        if (tutorial_firstSelection)
+        {
+            tutorial_firstSelection = false;
+        }
+    }
+
     public void nextYear()
 	{
+
+        // Disable "navigate a year" tutorial and enable "select a year"
+        checkTutorial();
+
         // Check if there are years to travel to and not travelling
         if (listYearNames.Count != 0 && !isTravelling)
         {
+
             // Handle case if user is in lobby
             if (displayedYearString == LOBBY_YEAR_STRING)
             {
@@ -101,6 +116,10 @@ public class YearSelection : MonoBehaviour
 
 	public void prevYear()
 	{
+
+        // Disable "navigate a year" tutorial and enable "select a year"
+        checkTutorial();
+
         // Check if there are years to travel to and not travelling
         if (listYearNames.Count != 0 && !isTravelling)
         {
