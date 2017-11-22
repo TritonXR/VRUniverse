@@ -4,7 +4,7 @@
 
 # Inverse ignore some stuff
 !/Assets/
-!/ProjectSettings/!.gitignore
+!/VRClubUniverse_Data/!/ProjectSettings/!.gitignore
 
 # OS Stuff
 .DS_Store
