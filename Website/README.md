@@ -4,7 +4,7 @@ Get the code to run VR Universe with `git clone https://github.com/UCSDVR/VRUniv
 
 Get to the Website code with `cd Website` from your VRUniverse home
 
-Make sure you have npm and node working on your system
+Make sure you have `npm` and `node` working on your system. Installing node should install `npm`. 
 
 Over-write the current VRUniverseData in Website/data with the one on Google Drive
 
