@@ -4,9 +4,10 @@ html
 		title VR Club Universe
 		link(rel='stylesheet', href='/public/stylesheets/style.css')
 		link(rel='stylesheet', href='/public/stylesheets/bootstrap.min.css')
-		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+		meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes")
 		script(src="/public/javascripts/jquery-3.1.1.min.js")
 		script(src="/public/javascripts/bootstrap.min.js")
+		script(src="/public/javascripts/universe.js")
 
 
 	body(style="background-color : #fbfbfb;")
@@ -17,7 +18,7 @@ html
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-					a(class="navbar-brand" href="/" style="font-size : 22px;") VR Club Universe
+					a(class="navbar-brand" href="/" style="font-size : 25px; font-family : 'Nunito', sans-serif; font-weight : bold;") VR Club Universe
 				div(class="navbar-collapse collapse" id="navbar-collapse")
 					ul.nav.navbar-nav.navbar-right
 						li
@@ -30,4 +31,3 @@ html
 							a(href="/upload").hvr-underline-from-center Upload
 
 		block content
-
