@@ -12,7 +12,6 @@
 				"HTC Vive",
 				"Mountain"
 			],
-			"Show" : true,
 			"Image": "CrashAVisualExperience_Image.png",
 			"Executable": "CrashAVisualExperience"
 		},
@@ -27,7 +26,6 @@
 				"Snow",
 				"Bubbles"
 			],
-			"Show" : true,
 			"Image": "WaterWorks_Image.png",
 			"Executable": "WaterWorks"
 		},
@@ -43,7 +41,6 @@
           "Treasure",
           "Explore"
         ],
-        "Show" : true,
         "Image": "IslandAdventure_Image.png",
         "Executable": "IslandAdventure"
       },
@@ -57,7 +54,6 @@
         "Beginner Project",
         "Game"
 			],
-			"Show" : true,
 			"Image": "AIsland_Image.jpg",
 			"Executable": "AIsland"
 		},
@@ -70,7 +66,6 @@
 				"HTC Vive",
         "Beginner Project"
 			],
-			"Show" : true,
 			"Image": "Mars2020_Image.png",
 			"Executable": "Mars2020"
 		},
@@ -85,7 +80,6 @@
         "Game",
         "Experience"
 			],
-			"Show" : true,
 			"Image": "UltimateDragonMechVsMonsterShowdown_Image.png",
 			"Executable": "UltimateDragonMechVsMonsterShowdown"
 		},
@@ -99,7 +93,6 @@
         "Game",
         "Relaxation"
 			],
-			"Show" : true,
 			"Image": "BusStop_Image.png",
 			"Executable": "BusStop"
 		}

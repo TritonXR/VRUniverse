@@ -9,7 +9,7 @@ html
 		script(src="/public/javascripts/bootstrap.min.js")
 
 
-	body
+	body(style="background-color : #fbfbfb;")
 		div(class="navbar navbar-default" role="navigation" id="navbar")
 			div.container-fluid
 				div.navbar-header
@@ -17,17 +17,18 @@ html
 						span.icon-bar
 						span.icon-bar
 						span.icon-bar
-					a(class="navbar-brand" href="/") VR Club Universe
-				div(class="navbar-collapse collapse" id="navbar-collapse")
-					ul.nav.navbar-nav.navbar-left
-						li
-							a(href="/about") About
-						li
-							a(href="/projects") Projects
-						li
-							a(href="/download") Download
-						li 
-							a(href="/upload") Upload
 
-	block content
+					a(class="navbar-brand" href="/" style="font-size : 22px;") VR Club Universe
+				div(class="navbar-collapse collapse" id="navbar-collapse")
+					ul.nav.navbar-nav.navbar-right
+						li
+							a(href="/about").hvr-underline-from-center About
+						li
+							a(href="/projects").hvr-underline-from-center Projects
+						li
+							a(href="/download").hvr-underline-from-center Download
+						li 
+							a(href="/upload").hvr-underline-from-center Upload
+
+		block content
 
