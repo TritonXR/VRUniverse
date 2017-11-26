@@ -6,7 +6,7 @@ Get to the `website` branch
 
 Get to the Website code with `cd Website` from your VRUniverse home
 
-Make sure you have `npm` and `node` working on your system. Installing node should install `npm`. 
+Make sure you have `npm` and `node` working on your system. Installing `node` should install `npm`. 
 
 Over-write the current VRUniverseData in Website/data with the one on Google Drive
 
