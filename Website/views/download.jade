@@ -2,24 +2,25 @@ extends header
 include ./mixins/download-form-element.jade
 
 block content
-	p.name This is the download page!
-	br
-	br
-	div.container-fluid
-		div.col-md-8.col-md-offset-2
-			form(action="/download" method="post")
-				-var data = JSON.parse(json);
-				-for(var prop in data)
-					div(style="margin-top: 30px;").row
-						div.col-md-8.year
-							span #{prop}
-					div.container-fluid
-						div.row
-							div.col-md-10.col-md-offset-1.proj-container
+	div.container
+		div.row
+			div.col-md-6.col-md-offset-3
+				p.form-head Download the projects you like!
+				div.container-fluid
+					div.col-md-8.col-md-offset-2
+						form(action="/download" method="post")
+							-var data = JSON.parse(json);
+							-for(var prop in data)
+								div(style="margin-top: 30px;").row
+								div.col-md-8.year
+									span #{prop}
 								div.container-fluid
-									-var inner_obj = JSON.parse(data[prop])
-									-for (var key in inner_obj["PlanetJSON"])
-										+download-form-element(inner_obj["PlanetJSON"][key])
-				div.text-center
-					button(type="submit" class="btn btn-default") Submit
+									div.row
+										div.col-md-10.col-md-offset-1.proj-container
+											div.container-fluid
+												-var inner_obj = JSON.parse(data[prop])
+												-for (var key in inner_obj["PlanetJSON"])
+													+download-form-element(inner_obj["PlanetJSON"][key])
+							div.text-center
+								button(type="submit" class="btn btn-default") Submit!
 

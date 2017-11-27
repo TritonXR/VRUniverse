@@ -6,6 +6,7 @@ var data = {};
 var years = [];
 
 function readFiles(dirname, callback) {
+    years = [];
     var counter = 0;
     var sum;
     fs.readdir(dirname, function (err, filenames) {
@@ -47,13 +48,6 @@ function readFiles(dirname, callback) {
 /* GET users listing. */
 
 router.get('/', function (req, res, next) {
-    fs_extra.copy('./data', './download', function (err) {
-        if (err) {
-            console.error(err);
-        } else {
-            console.log("success!");
-        }
-    });
     readFiles('./data/VRClubUniverseData/', function (data2) {
         console.log(data);
         data = data2;
@@ -80,40 +74,40 @@ function updateShow(projs, callback) {
 router.post('/', function (req, res, next) {
     if (!data) {
         console.log("data is empty!");
-        years = [];
         readFiles('./data/VRClubUniverseData/', function (data2) {
             data = data2;
         });
     }
 
-   /* fs_extra.copy('./data', './download', function (err) {
+    fs_extra.copy('./data', './download', function (err) {
         if (err) {
             console.error(err);
         } else {
             console.log("success!");
-        }
-    }); */
 
-    let incoming_data = req.body;
-    console.log(years);
-    for (year_index in years) {
-        var year = years[year_index];
-        var projects = JSON.parse(data[year]);
-        for (index in projects["PlanetJSON"]) {
-            var show = false;
-            for (key in incoming_data) {
-                show = show || (projects["PlanetJSON"][index].Name == key);
+            let incoming_data = req.body;
+            console.log(years);
+            for (year_index in years) {
+                var year = years[year_index];
+                var projects = JSON.parse(data[year]);
+                for (index in projects["PlanetJSON"]) {
+                    var show = false;
+                    for (key in incoming_data) {
+                        show = show || (projects["PlanetJSON"][index].Name == key);
+                    }
+                    if (!show) {
+                        projects["PlanetJSON"][index].Show = false;
+                    }
+                }
+                fs.writeFile('./download/VRClubUniverseData/' + year + ".json", JSON.stringify(projects), function (err) {
+                    if (err) return console.log(err);
+                    console.log("writing file success!")
+                });
             }
-            if (!show) {
-                projects["PlanetJSON"][index].Show = false;
-            }
+            res.render('download_success');
         }
-        fs.writeFile('./download/VRClubUniverseData/' + year + ".json", JSON.stringify(projects), function (err) {
-            if (err) return console.log(err);
-                console.log("writing file success!")
-        });
-    }
-    res.render('download_success');
+    }); 
+    
 })
 
 module.exports = router;
