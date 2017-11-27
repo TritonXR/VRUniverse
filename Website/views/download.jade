@@ -12,12 +12,11 @@ block content
 							-var data = JSON.parse(json);
 							-for(var prop in data)
 								div(style="margin-top: 30px;").row
-								div.col-md-8.year
-									span #{prop}
 								div.container-fluid
 									div.row
 										div.col-md-10.col-md-offset-1.proj-container
 											div.container-fluid
+												div.col-md-8.year #{prop}
 												-var inner_obj = JSON.parse(data[prop])
 												-for (var key in inner_obj["PlanetJSON"])
 													+download-form-element(inner_obj["PlanetJSON"][key])
