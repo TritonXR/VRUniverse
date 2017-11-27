@@ -17,6 +17,14 @@
 	color: white;
 }
 
+.qtr-label {
+    text-align: center;
+    padding-top : 30px;
+    font-size : 30px;
+    color : #7b4ba8;
+    font-weight: bold;
+    padding-bottom: 7px;
+}
 
 #navbar ul a {
 	font-size: 20px;
