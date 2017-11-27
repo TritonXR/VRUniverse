@@ -101,12 +101,12 @@ router.post('/', function (req, res, next) {
                 projects["PlanetJSON"][index].Show = false;
             }
         }
-        fs.writeFile('./data/VRClubUniverseData/' + year + ".json", JSON.stringify(projects), function (err) {
+        fs.writeFile('./download/VRClubUniverseData/' + year + ".json", JSON.stringify(projects), function (err) {
             if (err) return console.log(err);
                 console.log("writing file success!")
         });
     }
-    res.send(req.body);
+    res.render('download_success');
 })
 
 module.exports = router;
