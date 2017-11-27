@@ -8,6 +8,8 @@
 !/Website/
 !/VRClubUniverse_Data
 !/deploy.sh
+!/VRClubUniverse_Data/!/ProjectSettings/!.gitignore
+
 
 # OS Stuff
 .DS_Store

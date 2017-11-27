@@ -34,14 +34,15 @@ Step 5) Enable the "Exit By Menu Button" checkbox if you're using the default St
 	prefab and you don't have a exit button set up yet.
 	Step 5A) Do not modify the name of any object in the "[CameraRig]" prefab, or the
 		 ExecutableSwitch script will be unable to find the controllers.
-	Step 5B) If you have anything mapped to the menu button above the trackpad on either
+	Step 5B) Add the "Steam VR_Tracked Controller" script to both the "Controller (left)" and
+		 "Controller (right)" children of the "[CameraRig]" prefab.
+	Step 5C) If you have anything mapped to the menu button above the trackpad on either
 		 controller, do not enable this function. It will exit the application regardless
 		 of any other functions executing at the same time.
 
 
 More Information on the ExecutableSwitch script:
-> The defaultDatapth variable (defaults to "/../../../../../VRUniverse.exe") should generally
-  not be modified unless a VR Club Universe project team member tells you to do so.
+> Make sure the defaultDatapth variable is set to "/../../../../../VRUniverse.exe".
 > There are four functions for loading an executable with the ExecutableSwitch script.
 	1) void LoadExecutable(string datapath):
 		This loads the executable at the relative path specified by "datapath". If datapath

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO; // Important for getting files from directory
+using UnityEngine.UI;
 
 /*
  * UniverseSystem manages the controllers of MainUniverse. Contains a list of Years.
@@ -32,7 +33,7 @@ public class UniverseSystem : MonoBehaviour {
 	public Material Planet3;
 	public int NUM_OF_PLANETS = 0;
 	private int tracker = 0;
-	private float inputRadius = (float) 70 / 3;
+	private float inputRadius = (float) 500 / 3;
 
     // Integer that stores the year user is currently located in.
     private int atYear = -1;
@@ -44,8 +45,19 @@ public class UniverseSystem : MonoBehaviour {
     private Color origSkyboxColor;
 
     //Holds instruction menus
+	/*
     public GameObject tutorial_RadialMenu;
     public GameObject tutorial_TriggerMenu;
+	*/
+
+    // Holds tutorial menus
+    public GameObject tutorial_YearSelection;
+    public GameObject tutorial_YearTravel;
+    public GameObject tutorial_PlanetSelection;
+    public GameObject tutorial_PlanetTravel;
+
+	private YearSelection yearSelection;
+
 
 	// Use this for initialization
 	void Start () {
@@ -56,9 +68,40 @@ public class UniverseSystem : MonoBehaviour {
         // Creates the years object and handles initializing the list of years
         GetYears();
 
-        origSkyboxColor = RenderSettings.skybox.GetColor("_Tint");
+        tutorial_YearSelection.SetActive(true);
 
-	}
+		// Set the original color of the application to original color
+		origSkyboxColor = new Color(1, 1, 1);
+        Material skybox = RenderSettings.skybox;
+        skybox.SetColor("_Tint", origSkyboxColor);
+        RenderSettings.skybox = skybox;
+
+        string path = "VRClubUniverse_Data/saveData.txt";
+
+		yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+
+		//Teleport to previously saved year
+		if (File.Exists(path))
+        {
+			string readText = File.ReadAllText(path);
+            File.Delete(path);
+            StartCoroutine(TeleportToYear(int.Parse(readText), false));
+
+            yearSelection.displayedYearString = readText;
+			yearSelection.SelectedYearIndex = int.Parse(readText);
+
+			/* removing old tutorial system
+			tutorial_RadialMenu.SetActive(false);
+			tutorial_TriggerMenu.GetComponentInChildren<YearInput>().gameObject.GetComponent<Text>().text = list_years[yearSelection.SelectedYearIndex].yr_name;
+			tutorial_TriggerMenu.SetActive(true);
+			*/
+
+            tutorial_YearSelection.SetActive(false);
+            tutorial_PlanetSelection.SetActive(true);
+
+        }
+
+    }
 
     /*
      * Gets the JSON files and detects what years should be in the list to travel to
@@ -214,20 +257,20 @@ public class UniverseSystem : MonoBehaviour {
             if (listLength <= 6)
             {
                 tracker = 0;
-                setupSphere(10f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(23f, listLength, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 6 && listLength <= 11)
             {
                 tracker = 0;
-                setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(15f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(23f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(70f, listLength - 6, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
             }
             else if (listLength > 11)
             {
                 tracker = 0;
-                setupSphere(10f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(15f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
-                setupSphere(20f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(23f, 6, Planet1, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(70f, 5, Planet2, UniverseSystem.list_years[yearIndex].list_planets);
+                setupSphere(120f, listLength - 11, Planet3, UniverseSystem.list_years[yearIndex].list_planets);
             }
 
         }
@@ -289,7 +332,7 @@ public class UniverseSystem : MonoBehaviour {
 
                 //Debug.Log("The vector is: " + vect);
                 list[tracker].transform.position = vect;
-				list [tracker].transform.localScale = new Vector3 (2, 2, 2);
+				list [tracker].transform.localScale = new Vector3 (40, 40, 40);
 				list [tracker].GetComponent<MeshRenderer> ().material = material;
 				tracker++;
 			//}
@@ -301,13 +344,13 @@ public class UniverseSystem : MonoBehaviour {
     /*
      * Handles teleportation to a new year. Calls CreateYear and Destroys previous year
      */
-    public IEnumerator TeleportToYear(int newYear)
+    public IEnumerator TeleportToYear(int newYear, bool useAnimation = true)
     {
-        YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+        //YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
         yearSelection.isTravelling = true;
 
         // Start teleportation system traveling there by calling from Hyperspeed script
-        yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(true));
+        if(useAnimation) yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(true));
 
         // Check if there have been planets created before
         if (atYear != -1)
@@ -323,20 +366,26 @@ public class UniverseSystem : MonoBehaviour {
         Material skybox = RenderSettings.skybox;
         skybox.SetInt("_Rotation", 20 * newYear);
         int currYearName = int.Parse(list_years[newYear].yr_name);
+		//Debug.Log("SkyColor CurrYearName: " + currYearName);
         int colorValueToChange = newYear % 3;
-        Color newSkyboxColor;
-        float newColorValue = ((currYearName * 42) % 255) / 255;
-        if (colorValueToChange == 0) // change red value
+		//Debug.Log("SkyColor colorValueToChange: " + colorValueToChange);
+		Color newSkyboxColor;
+        float newColorValue = (( (float)currYearName * 42) % 255) / 255;
+		//Debug.Log("SkyColor newColorValue: " + newColorValue);
+		if (colorValueToChange == 0) // change red value
         {
+			//Debug.Log("SkyColor change to red");
             newSkyboxColor = new Color(newColorValue, origSkyboxColor.g, origSkyboxColor.b);
             skybox.SetColor("_Tint", newSkyboxColor);
         } else if (colorValueToChange == 1) // change green value
         {
-            newSkyboxColor = new Color(origSkyboxColor.r, newColorValue, origSkyboxColor.b);
+			//Debug.Log("SkyColor change to green");
+			newSkyboxColor = new Color(origSkyboxColor.r, newColorValue, origSkyboxColor.b);
             skybox.SetColor("_Tint", newSkyboxColor);
         } else if (colorValueToChange == 2) //change blue value
         {
-            newSkyboxColor = new Color(origSkyboxColor.r, origSkyboxColor.g, newColorValue);
+			//Debug.Log("SkyColor change to blue");
+			newSkyboxColor = new Color(origSkyboxColor.r, origSkyboxColor.g, newColorValue);
             skybox.SetColor("_Tint", newSkyboxColor);
         } else
         {
@@ -345,7 +394,7 @@ public class UniverseSystem : MonoBehaviour {
         RenderSettings.skybox = skybox;
 
         // Start teleportation system ending by Hyperspeed script call
-        yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(false));
+        if(useAnimation) yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(false));
 
         // Set the year user is currently at to the new year
         atYear = newYear;
@@ -369,6 +418,13 @@ public class UniverseSystem : MonoBehaviour {
      */
     void Update()
     {
+
+        if (!tutorial_YearTravel.activeSelf && !yearSelection.tutorial_firstSelection)
+        {
+            tutorial_YearTravel.SetActive(true);
+            tutorial_YearSelection.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.A)) // Create 2015
         {
             StartCoroutine(TeleportToYear(0));

@@ -11,17 +11,19 @@ using UnityEngine.UI;
 public class YearSelection : MonoBehaviour
 {
 	//private static readonly int CURRENT_YEAR = DateTime.Now.Year; No longer needed because you start in lobby
-    public int SelectedYearIndex { get; private set; } // [0; 1; 2] --> UniverseSystem.list_years[0],[1],[2]
+    public int SelectedYearIndex { get; set; } // [0; 1; 2] --> UniverseSystem.list_years[0],[1],[2]
 
     public bool isTravelling { private get; set; }
 
     private const string LOBBY_YEAR_STRING = "Year";
-    private string displayedYearString; // ["Year"; "0"; "1"; "2"]
+    public string displayedYearString; // ["Year"; "0"; "1"; "2"]
 	private Text yearText;
 
     private int minimumYear, maximumYear;
 
     private List<int> listYearNames; // [2015; 2016; 2017]
+
+    public bool tutorial_firstSelection = true;
 
     private void Start()
     {
@@ -34,13 +36,14 @@ public class YearSelection : MonoBehaviour
         {
             //Adds the year names into a list
             listYearNames.Add(int.Parse(UniverseSystem.list_years[i].yr_name));
-        }
+        }  
 
-        //SelectedYear = CURRENT_YEAR; No longer needed because you start in lobby
-        SelectedYearIndex = -1; // The starting year should be -1 which is the lobby index
-
-        //String that shows on the controller
-        displayedYearString = LOBBY_YEAR_STRING;
+		//String that shows on the controller
+		if (string.IsNullOrEmpty(displayedYearString))
+		{
+			SelectedYearIndex = -1; // The starting year should be -1 which is the lobby index
+			displayedYearString = LOBBY_YEAR_STRING;
+		}
 
         //displayedYear = SelectedYear; No longer needed because you start in lobby
         yearText = GetComponent<Text>(); //The text of the year selection controller
@@ -65,11 +68,24 @@ public class YearSelection : MonoBehaviour
         updateYearText();
     }
 
+    private void checkTutorial()
+    {
+        if (tutorial_firstSelection)
+        {
+            tutorial_firstSelection = false;
+        }
+    }
+
     public void nextYear()
 	{
+
+        // Disable "navigate a year" tutorial and enable "select a year"
+        checkTutorial();
+
         // Check if there are years to travel to and not travelling
         if (listYearNames.Count != 0 && !isTravelling)
         {
+
             // Handle case if user is in lobby
             if (displayedYearString == LOBBY_YEAR_STRING)
             {
@@ -100,6 +116,10 @@ public class YearSelection : MonoBehaviour
 
 	public void prevYear()
 	{
+
+        // Disable "navigate a year" tutorial and enable "select a year"
+        checkTutorial();
+
         // Check if there are years to travel to and not travelling
         if (listYearNames.Count != 0 && !isTravelling)
         {
@@ -131,8 +151,9 @@ public class YearSelection : MonoBehaviour
         updateYearText();
 	}
 
-	private void updateYearText()
+	public void updateYearText()
 	{
+        Debug.Log("Updating year to: " + displayedYearString);
         // Since lobby has the string "Year" which is not an int, only show the word Year
         if (displayedYearString == LOBBY_YEAR_STRING)
         {
@@ -140,6 +161,9 @@ public class YearSelection : MonoBehaviour
         }
         else // Set the text of the displayed string to the controller year selection by grabbing the name from the index
         {
+			//Debug.Log("0:" + listYearNames[0]);
+			//Debug.Log("1: " + listYearNames[1]);
+			//Debug.Log("Text: " + yearText.text);
             yearText.text = listYearNames[int.Parse(displayedYearString)].ToString();
         }
 

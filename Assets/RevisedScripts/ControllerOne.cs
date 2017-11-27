@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using VRTK;
+using System.IO;
 using UnityEngine.SceneManagement;
 
 public class ControllerOne : VRTK_InteractableObject
@@ -38,7 +39,11 @@ public class ControllerOne : VRTK_InteractableObject
     //Previous reference to panel on travel selection menu to deselect highlight
     private Image prevTravelPanel;
 
-    private void toggleMenu(bool status)
+	private bool tutorial_firstSelection = true;
+	private Image[] tutorialsOnRightController;
+
+
+	private void toggleMenu(bool status)
     {
         Planet_Menu.SetActive(status);
     }
@@ -76,9 +81,10 @@ public class ControllerOne : VRTK_InteractableObject
 
         Vector3 temp = Vector3.Cross(Planet_Data.transform.position, Vector3.up);
         temp.Normalize();
-        temp *= 5.2f;
+		//temp *= 5.2f;
+		temp *= 63f;
         Vector3 closer = Vector3.Cross(Vector3.up, temp).normalized;
-        Planet_Menu.transform.position = new Vector3(temp.x, temp.y, temp.z) + Planet_Data.transform.position - 2*closer;
+        Planet_Menu.transform.position = new Vector3(temp.x, temp.y, temp.z) + Planet_Data.transform.position - 30*closer;
         Planet_Menu.transform.LookAt(Camera.main.transform); //looks at the camera
         Planet_Menu.transform.Rotate(new Vector3(0, 180, 0)); //but it needs to be flipped around for some reason
 
@@ -86,9 +92,15 @@ public class ControllerOne : VRTK_InteractableObject
         Travel_Selection.transform.LookAt(Camera.main.transform);
         Travel_Selection.transform.Rotate(new Vector3(0, 180, 0));
 
+		//Shrink the floating menus by a proportional size
+		Vector3 currentScale = Planet_Menu.transform.localScale;
+		Planet_Menu.transform.localScale = new Vector3(currentScale.x*0.58f, currentScale.y*0.58f, currentScale.z*0.58f);
+		currentScale = Travel_Selection.transform.localScale;
+		Travel_Selection.transform.localScale = new Vector3(currentScale.x * 0.58f, currentScale.y * 0.58f, currentScale.z * 0.58f);
 
-        //Set text to planet info
-        Planet_Title.text = Planet_Data.title;        
+
+		//Set text to planet info
+		Planet_Title.text = Planet_Data.title;        
         Planet_Creator.text = Planet_Data.creator;
         Planet_Description.text = Planet_Data.description;
         Planet_Year.text = Planet_Data.year;
@@ -120,7 +132,10 @@ public class ControllerOne : VRTK_InteractableObject
             }
         }
 
-    }
+		// Get Tutorials on right controller
+		tutorialsOnRightController = rightController.GetComponentsInChildren<Image>(true);
+
+	}
 
     private void SetRightController()
     {
@@ -136,22 +151,18 @@ public class ControllerOne : VRTK_InteractableObject
 
     private void HandleTriggerClicked(object sender, ClickedEventArgs e)
     {
-        //radialBar.fillAmount += 0.1f;
 
         if (canClickOnTrigger)
         {
-            //obselete--- StartCoroutine(PlanetTravelLoading());  
 
             Travel_Selection.SetActive(true);
-            
-        } else
-        {
 
-            //obselete--- StopAllCoroutines();
-            //Debug.Log("TRIGGER CLICKED IS FALSE");
-            //obselete--- RadialBar.fillAmount = 0;
+			if (tutorialsOnRightController[1].gameObject.activeSelf)
+			{
+				tutorialsOnRightController[1].gameObject.SetActive(false); //turn off label 4
+			}
             
-        }
+        } 
     }
 
     public override void StartUsing(GameObject currentUsingObject)
@@ -174,34 +185,17 @@ public class ControllerOne : VRTK_InteractableObject
 
         //Turn on menu when hovering
         toggleMenu(true);
-      
-    }
 
-    /*
-    public IEnumerator RadialBarLoading()
-    {
-        triggerDown = rightController.triggerPressed;
-        Debug.LogWarning("The controller is" + triggerDown);
-        if (triggerDown)
-        {
-            for (float i = 0; i < 15; i += Time.deltaTime)
-            {
-                Debug.LogWarning("Radial bar fill increased");
-                //obselete--- RadialBar.fillAmount += 0.005f;
-                yield return null;
-            }
-            Debug.Log("Loading Executable: " + Planet_Executable);
-            ExecutableSwitch.LoadExe("/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe");
-        }
-        //obselete--- else  RadialBar.fillAmount = 0;
-    }
+		if (tutorial_firstSelection)
+		{
+			tutorialsOnRightController[0].gameObject.SetActive(false); //turn off label 3
+			tutorialsOnRightController[1].transform.parent.gameObject.SetActive(true); //turn on label 4
+			tutorial_firstSelection = false;
+		}
 
-    public IEnumerator PlanetTravelLoading()
-    {
-        yield return StartCoroutine(RadialBarLoading());
-        Debug.LogWarning("End Radial Bar");
-    }
-    */
+
+	}
+
 
     public override void StopUsing(GameObject previousUsingObject)
     {
@@ -248,6 +242,14 @@ public class ControllerOne : VRTK_InteractableObject
                 {
                     if (hitCollider.gameObject.GetComponent<TravelInteractable>().isYes)
                     {
+						//SAVING CURRENT YEAR
+						YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+						
+						string path = "VRClubUniverse_Data/saveData.txt";
+                        string currentYear = yearSelection.SelectedYearIndex.ToString();
+                        Debug.Log("writing current year to saveData file, year Index: " + currentYear);
+                        File.WriteAllText(path, currentYear);
+
                         Debug.Log("loading executable: " + hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
                         ExecutableSwitch.LoadExe(hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
                         prevTravelPanel.enabled = false;
