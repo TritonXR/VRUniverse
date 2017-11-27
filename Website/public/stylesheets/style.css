@@ -228,5 +228,15 @@
 .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open>a:focus, .navbar-default .navbar-nav > .open > a:active {
     background: none;
     color: #555;
+}
+
+.title {
+    text-align: center;
+    color : white;
+    text-shadow: -2px 0 #7b4ba8, 0 2px #7b4ba8, 2px 0 #7b4ba8, 0 -2px #7b4ba8;
+    font-size : 50px;
+    font-family: Nunito, sans-serif;
+    font-weight: bold;
+    padding-top: 100px;
 
 }
