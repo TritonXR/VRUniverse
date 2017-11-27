@@ -47,6 +47,13 @@ function readFiles(dirname, callback) {
 /* GET users listing. */
 
 router.get('/', function (req, res, next) {
+    fs_extra.copy('./data', './download', function (err) {
+        if (err) {
+            console.error(err);
+        } else {
+            console.log("success!");
+        }
+    });
     readFiles('./data/VRClubUniverseData/', function (data2) {
         console.log(data);
         data = data2;
@@ -79,13 +86,13 @@ router.post('/', function (req, res, next) {
         });
     }
 
-    fs_extra.copy('./data', './download', function (err) {
+   /* fs_extra.copy('./data', './download', function (err) {
         if (err) {
             console.error(err);
         } else {
             console.log("success!");
         }
-    });
+    }); */
 
     let incoming_data = req.body;
     console.log(years);
