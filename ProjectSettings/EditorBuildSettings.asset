@@ -4,24 +4,4 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/MainUniverse.unity
-  - enabled: 0
-    path: Assets/Scenes/Year Clusters/2015.unity
-  - enabled: 0
-    path: Assets/Scenes/Year Clusters/2016.unity
-  - enabled: 0
-    path: Assets/Scenes/Year Clusters/2017.unity
-  - enabled: 0
-    path: Assets/Scenes/Year Clusters/2018.unity
-  - enabled: 0
-    path: Assets/Scenes/Planets/A Magical Wonderland.unity
-  - enabled: 0
-    path: Assets/Scenes/Planets/Space Flight.unity
-  - enabled: 0
-    path: Assets/Scenes/Planets/Underwater Rings.unity
-  - enabled: 0
-    path: Assets/Scenes/Planets/Nature.unity
-  - enabled: 0
-    path: Assets/Scenes/Planets/Fireland.unity
+  m_Scenes: []
