@@ -9,7 +9,7 @@ public class SShot : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             print("Screen shot!");
-            Application.CaptureScreenshot("Screenshot.png", 2);
+            ScreenCapture.CaptureScreenshot("Screenshot.png", 2);
         }
     }
 }

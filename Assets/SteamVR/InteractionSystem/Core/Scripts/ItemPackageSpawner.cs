@@ -32,7 +32,6 @@ namespace Valve.VR.InteractionSystem
 		}
 
 		public ItemPackage _itemPackage;
-		private ItemPackage prevItemPackage;
 
 		private bool useItemPackagePreview = true;
 		private bool useFadedPreview = false;
@@ -220,6 +219,19 @@ namespace Valve.VR.InteractionSystem
 		//-------------------------------------------------
 		private void HandHoverUpdate( Hand hand )
 		{
+			if ( takeBackItem && requireTriggerPressToReturn )
+			{
+				if ( hand.controller != null && hand.controller.GetHairTriggerDown() )
+				{
+					ItemPackage currentAttachedItemPackage = GetAttachedItemPackage( hand );
+					if ( currentAttachedItemPackage == itemPackage )
+					{
+						TakeBackItem( hand );
+						return; // So that we don't pick up an ItemPackage the same frame that we return it
+					}
+				}
+			}
+
 			if ( requireTriggerPressToTake )
 			{
 				if ( hand.controller != null && hand.controller.GetHairTriggerDown() )
@@ -346,24 +358,4 @@ namespace Valve.VR.InteractionSystem
 			}
 		}
 	}
-
-#if UNITY_EDITOR
-	//-------------------------------------------------------------------------
-	[CustomEditor( typeof( ItemPackageSpawner ) )]
-	public class ItemPackageSpawnerEditor : Editor
-	{
-		//-------------------------------------------------
-		public override void OnInspectorGUI()
-		{
-			if ( Selection.activeTransform )
-			{
-				ItemPackageSpawner script = target as ItemPackageSpawner;
-
-				script.itemPackage = script._itemPackage;
-			}
-
-			DrawDefaultInspector();
-		}
-	}
-#endif
 }
