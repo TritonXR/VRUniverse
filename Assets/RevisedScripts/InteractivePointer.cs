@@ -14,7 +14,7 @@ public class InteractivePointer : MonoBehaviour {
     private SteamVR_LaserPointer laser;
 
     private ControllerOne planet;
-    private TravelInteractable travelMenu;
+    private TravelInteractable travelMenuButton;
 
     private bool isTriggerClickable = false; //check to ensure user doesn't click on a planet multiple times
 
@@ -34,7 +34,7 @@ public class InteractivePointer : MonoBehaviour {
     {
 
         planet = e.target.GetComponent<ControllerOne>();
-        travelMenu = e.target.GetComponent<TravelInteractable>();
+		travelMenuButton = e.target.GetComponent<TravelInteractable>();
 
 
         if (planet) //check if the pointer is pointed at a planet
@@ -46,18 +46,18 @@ public class InteractivePointer : MonoBehaviour {
             if (!isTriggerClickable)
             {
                 isTriggerClickable = true;
-                controller.TriggerClicked += HandleTriggerClicked;
+                controller.TriggerClicked += HandlePlanetTriggerClicked;
             }
-        } else if (travelMenu)
+        } else if (travelMenuButton)
         {
             Debug.Log("POINTER IN on: travel menu!");
             laser.color = activeColor;
-            travelMenu.TravelMenu(e.target.gameObject);
+			travelMenuButton.StartHoverButton(e.target.gameObject);
 
             if (!isTriggerClickable)
             {
                 isTriggerClickable = true;
-                controller.TriggerClicked += HandleTriggerClicked;
+                controller.TriggerClicked += HandleMenuTriggerClicked;
             }
         }
     }
@@ -65,7 +65,7 @@ public class InteractivePointer : MonoBehaviour {
     private void HandlePointerOut(object sender, PointerEventArgs e)
     {
         planet = e.target.GetComponent<ControllerOne>();
-        travelMenu = e.target.GetComponent<TravelInteractable>();
+		travelMenuButton = e.target.GetComponent<TravelInteractable>();
 
         if (planet) //check if the pointer stopped pointing at a planet
         {
@@ -76,26 +76,39 @@ public class InteractivePointer : MonoBehaviour {
             if (isTriggerClickable)
             {
                 isTriggerClickable = false;
-                controller.TriggerClicked -= HandleTriggerClicked;
+                controller.TriggerClicked -= HandlePlanetTriggerClicked;
             }
-        } else if (travelMenu)
+        } else if (travelMenuButton)
         {
             Debug.Log("POINTER out on: travel menu!");
             laser.color = inactiveColor;
+            travelMenuButton.StopHoverButton(e.target.gameObject);
 
             if (isTriggerClickable)
             {
                 isTriggerClickable = false;
-                controller.TriggerClicked -= HandleTriggerClicked;
+                controller.TriggerClicked -= HandleMenuTriggerClicked;
             }
         }
     }
 
-    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
+    private void HandlePlanetTriggerClicked(object sender, ClickedEventArgs e)
     {
         planet.SelectPlanet();
     }
-	
+
+	private void HandleMenuTriggerClicked(object sender, ClickedEventArgs e)
+	{
+        if (travelMenuButton.isYes)
+        {
+            travelMenuButton.BeginTravel();
+        } else
+        {
+            //planet.DeselectPlanet();
+            travelMenuButton.GetComponentInParent<ControllerOne>().DeselectPlanet();
+        }
+	}
+
 	// Update is called once per frame
 	void Update () {
 		

@@ -49,11 +49,7 @@ public class ControllerOne : MonoBehaviour
 
     protected void Start()
     {
-        
-
-        //Set the use of trigger
-        //OBSELTEcanClickOnTrigger = false;
-
+      
         //Find the right controller
         SetRightController();
 
@@ -86,7 +82,6 @@ public class ControllerOne : MonoBehaviour
 		Planet_Menu.transform.localScale = new Vector3(currentScale.x*0.58f, currentScale.y*0.58f, currentScale.z*0.58f);
 		currentScale = Travel_Selection.transform.localScale;
 		Travel_Selection.transform.localScale = new Vector3(currentScale.x * 0.58f, currentScale.y * 0.58f, currentScale.z * 0.58f);
-
 
 		//Set text to planet info
 		Planet_Title.text = Planet_Data.title;        
@@ -162,6 +157,11 @@ public class ControllerOne : MonoBehaviour
 			}
             
         } */
+    }
+
+    public void DeselectPlanet()
+    {
+        Travel_Selection.SetActive(false);
     }
 
     //Called when user's laser collides with the planet
