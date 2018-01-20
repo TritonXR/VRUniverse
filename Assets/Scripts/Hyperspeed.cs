@@ -1,12 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Hyperspeed : MonoBehaviour {
+/*
+ * Name: Hyperspeed.cs
+ * Description: Contains methods for the blue particle light speed travel effect that happens when traveling between years
+ * Utilized on: HyperspeedController particle system gameobject
+ */
 
-    public float duration = 5.0F;
-    public Color color0 = Color.red;
-    public Color color1 = Color.blue;
+public class Hyperspeed : MonoBehaviour {
 
     // Holds the particle system for hyperspeed
     private ParticleSystem hyperspeed;
@@ -17,7 +18,10 @@ public class Hyperspeed : MonoBehaviour {
     // Directional Light in the scene will be controlled during hyperspeed
     private Light lt;
 
-    // Use this for initialization
+    /*
+     * Start: Initialize sound, light, particles. Start off the system as pause.
+     * Parameters: None
+     */
     void Start () {
 
         // Get the audiosource to access hyperspeed sound
@@ -35,7 +39,9 @@ public class Hyperspeed : MonoBehaviour {
     }
 
     /*
-     * Handles the playing and stopping of animation hyperspeed
+     * Travel: Handles the playing and stopping of animation hyperspeed
+     * Parameters: bool forward - true if travelling to the year (start to fast)
+     *                           false if slowly stopping the particles (fast to slow)
      */
     public IEnumerator Travel(bool forward)
     {

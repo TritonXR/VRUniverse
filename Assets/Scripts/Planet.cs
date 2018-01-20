@@ -1,5 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
+
+/*
+ * Name: Planet.cs
+ * Description: Object holder for planet data
+ * Utilized on: Planet.prefab
+ */
 
 public class Planet : MonoBehaviour {
 
