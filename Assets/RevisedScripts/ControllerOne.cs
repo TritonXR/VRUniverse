@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using VRTK;
 using System.IO;
 using UnityEngine.SceneManagement;
 
-public class ControllerOne : VRTK_InteractableObject
+public class ControllerOne : MonoBehaviour
 {
 
     //Planet Data Input on Planet Menu
@@ -19,7 +18,9 @@ public class ControllerOne : VRTK_InteractableObject
     private Planet Planet_Data;
 
     //VRTK Hovering Check
+    /* obselete
     private GameObject objectUsing;
+    */
 
     //Menu's controlled by hovering and selecting
     [SerializeField] private GameObject Planet_Menu; //Entire Planet_Menu attached to each planet that shows planet data
@@ -32,12 +33,10 @@ public class ControllerOne : VRTK_InteractableObject
     private SteamVR_TrackedController rightController;
 
     //Reference that detects if the trigger has been clicked before
-    private bool canClickOnTrigger;
-
-    private bool triggerDown = false;
+    //private bool canClickOnTrigger;
 
     //Previous reference to panel on travel selection menu to deselect highlight
-    private Image prevTravelPanel;
+    //private Image travelPanel;
 
 	private bool tutorial_firstSelection = true;
 	private Image[] tutorialsOnRightController;
@@ -53,23 +52,13 @@ public class ControllerOne : VRTK_InteractableObject
         
 
         //Set the use of trigger
-        canClickOnTrigger = false;
+        //OBSELTEcanClickOnTrigger = false;
 
         //Find the right controller
         SetRightController();
 
         //Turn off floating menu panel by default
         toggleMenu(false);
-
-        //getcomponentinchildren<image>
-        // obselete--- RadialBar = rightController.GetComponentInChildren<Image>();
-        // obselete--- if (RadialBar == null) Debug.LogWarning("radial bar not found");
-
-
-        //Also turn off the radial bar by default
-        // RadialBar_Menu.SetActive(false);
-        /// obselete--- RadialBar.fillAmount = 0;
-        /// 
 
         //Turn off travel menu by default
         Travel_Selection.SetActive(false);
@@ -137,6 +126,7 @@ public class ControllerOne : VRTK_InteractableObject
 
 	}
 
+    
     private void SetRightController()
     {
         SteamVR_TrackedController[] controllerSearch = Camera.main.transform.root.GetComponentsInChildren<SteamVR_TrackedController>(true);
@@ -148,10 +138,19 @@ public class ControllerOne : VRTK_InteractableObject
             }
         }
     }
+    
 
-    private void HandleTriggerClicked(object sender, ClickedEventArgs e)
+    public void SelectPlanet()
     {
+        Travel_Selection.SetActive(true);
 
+        if (tutorialsOnRightController[1].gameObject.activeSelf)
+        {
+            tutorialsOnRightController[1].gameObject.SetActive(false); //turn off label 4
+        }
+
+
+        /*
         if (canClickOnTrigger)
         {
 
@@ -162,14 +161,14 @@ public class ControllerOne : VRTK_InteractableObject
 				tutorialsOnRightController[1].gameObject.SetActive(false); //turn off label 4
 			}
             
-        } 
+        } */
     }
 
-    public override void StartUsing(GameObject currentUsingObject)
+    //Called when user's laser collides with the planet
+    public void StartPointing(GameObject currentUsingObject)
     {
 
-        base.StartUsing(currentUsingObject);
-
+        /*
         //Double check that the controller has been set
         if (rightController == null)
         {
@@ -181,7 +180,7 @@ public class ControllerOne : VRTK_InteractableObject
         {
             canClickOnTrigger = true; //mark it as pressed
             rightController.TriggerClicked += HandleTriggerClicked; //add a handle trigger check 
-        }
+        } */
 
         //Turn on menu when hovering
         toggleMenu(true);
@@ -196,29 +195,64 @@ public class ControllerOne : VRTK_InteractableObject
 
 	}
 
-
-    public override void StopUsing(GameObject previousUsingObject)
+    // Calls when the user points their laser away from the planet
+    public void StopPointing(GameObject previousUsingObject)
     {
-
-        base.StopUsing(previousUsingObject);
 
         //Turn off floating menu panel when not using
         toggleMenu(false);
 
-
+        /*
         if (canClickOnTrigger)
         {
             canClickOnTrigger = false;
-            rightController.TriggerClicked -= HandleTriggerClicked;
-        }
+            rightController.TriggerClicked -= SelectPlanet;
+        }*/
         
     }
 
-    // Update is called once per frame
-    protected override void Update()
+    /*
+    public void TravelMenu(GameObject obj)
     {
-        base.Update();
+        travelPanel = obj.GetComponent<Image>();
+        //travelPanel.enabled = true;
 
+
+
+        if (rightController.triggerPressed)
+        {
+            if (hitCollider.gameObject.GetComponent<TravelInteractable>().isYes)
+            {
+                //SAVING CURRENT YEAR
+                YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
+
+                string path = "VRClubUniverse_Data/saveData.txt";
+                string currentYear = yearSelection.SelectedYearIndex.ToString();
+                Debug.Log("writing current year to saveData file, year Index: " + currentYear);
+                File.WriteAllText(path, currentYear);
+
+                Debug.Log("loading executable: " + hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
+                ExecutableSwitch.LoadExe(hitCollider.gameObject.GetComponent<TravelInteractable>().executableString);
+                prevTravelPanel.enabled = false;
+                prevTravelPanel = null;
+                Travel_Selection.SetActive(false);
+
+            }
+            else
+            {
+                Debug.Log("hiding travel selection");
+                prevTravelPanel.enabled = false;
+                prevTravelPanel = null;
+                Travel_Selection.SetActive(false);
+            }
+        }
+    }
+    */
+
+    // Update is called once per frame
+    protected void Update()
+    {
+        /*
         if (rightController == null)
         {
             SetRightController();
@@ -282,6 +316,6 @@ public class ControllerOne : VRTK_InteractableObject
                 prevTravelPanel.enabled = false;
                 prevTravelPanel = null;
             }
-        }
+        } */
     }
 }
