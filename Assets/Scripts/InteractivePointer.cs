@@ -50,16 +50,20 @@ public class InteractivePointer : MonoBehaviour {
      */
 	private void SetPointerColor(bool active)
 	{
-		if (active)
+		//Ensure that the laser exists
+		if (laser.pointer)
 		{
-			//Only sets the color in the component. Need to directly access the pointer gameobject and set the material color
-			laser.color = activeColor;
-			laser.pointer.GetComponent<MeshRenderer>().material.color = activeColor;
-		}
-		else
-		{
-			laser.color = inactiveColor;
-			laser.pointer.GetComponent<MeshRenderer>().material.color = inactiveColor;
+			if (active)
+			{
+				//Only sets the color in the component. Need to directly access the pointer gameobject and set the material color
+				laser.color = activeColor;
+				laser.pointer.GetComponent<MeshRenderer>().material.color = activeColor;
+			}
+			else
+			{
+				laser.color = inactiveColor;
+				laser.pointer.GetComponent<MeshRenderer>().material.color = inactiveColor;
+			}
 		}
 	}
 
