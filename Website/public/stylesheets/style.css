@@ -241,3 +241,18 @@
     padding-top: 100px;
 
 }
+
+footer {
+ position: fixed;
+  bottom: 0;
+  width: 100%;
+  min-height: 70px;
+  max-height: 80px;
+  background-color: #7b4ba8;
+  color: white;
+  padding: 10px 0px;
+  padding-top: 10px;
+  margin-top: 30px;
+  font-weight: 100;
+  clear: both;
+}
