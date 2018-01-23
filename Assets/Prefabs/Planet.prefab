@@ -56,7 +56,8 @@ GameObject:
   - component: {fileID: 33113152719729944}
   - component: {fileID: 135022291448605742}
   - component: {fileID: 23356146451301020}
-  - component: {fileID: 114396891641276594}
+  - component: {fileID: 114720758886903090}
+  - component: {fileID: 114661728616396558}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Planet
@@ -1271,25 +1272,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Scrollbar+ScrollEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114396891641276594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1050411509479860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06c56eb6f8758cd4aaf737cd98ba33ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Planet_Title: {fileID: 114947660689213056}
-  Planet_Creator: {fileID: 114726933896891380}
-  Planet_Description: {fileID: 114724134899456774}
-  Planet_Year: {fileID: 114979268299334218}
-  Planet_Tag: {fileID: 114017739256949010}
-  Planet_Image: {fileID: 114465487263848872}
-  Planet_Menu: {fileID: 1108763982531660}
-  Travel_Selection: {fileID: 1688461248713054}
 --- !u!114 &114401112817139204
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1554,6 +1536,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114661728616396558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050411509479860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06c56eb6f8758cd4aaf737cd98ba33ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Planet_Title: {fileID: 0}
+  Planet_Creator: {fileID: 0}
+  Planet_Description: {fileID: 0}
+  Planet_Year: {fileID: 0}
+  Planet_Tag: {fileID: 0}
+  Planet_Image: {fileID: 0}
+  Planet_Menu: {fileID: 1108763982531660}
+  Travel_Selection: {fileID: 1688461248713054}
 --- !u!114 &114692730332563366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1581,6 +1582,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114720758886903090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050411509479860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6f0c3213f0970248881e5c47b2b1dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: 
+  creator: 
+  year: 
+  description: 
+  executable: 
+  des_tag: []
+  image: {fileID: 0}
 --- !u!114 &114724134899456774
 MonoBehaviour:
   m_ObjectHideFlags: 1
