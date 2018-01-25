@@ -9,6 +9,9 @@ using UnityEngine.UI;
 
 public class PlanetController : MonoBehaviour
 {
+    //offsets of various menus relative to the planet in viewing space (neg/pos effects: x => left/right, y=down/up, z=closer/farther)
+    [SerializeField] private Vector3 PlanetMenu_Offset = new Vector3(0, 0, 0);
+    [SerializeField] private Vector3 TravelMenu_Offset = new Vector3(0, 0, 0);
 
     //Planet Data Input on Planet Menu
     [SerializeField] private Text Planet_Title, Planet_Creator, Planet_Description, Planet_Year, Planet_Tag;
@@ -24,7 +27,7 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private GameObject Planet_Menu; //Entire Planet_Menu attached to each planet that shows planet data
 
     //Travel menu where user selects whether they want to travel or not. accessible by travelinteractable by clicking no
-    public GameObject Travel_Selection;
+    [SerializeField] private GameObject Travel_Selection;
 
     //Reference to the right controller to detect the trigger clicked
     private SteamVR_TrackedController rightController;
@@ -65,7 +68,7 @@ public class PlanetController : MonoBehaviour
         Planet_Data = gameObject.GetComponent<Planet>();
 
         //Positions the menu to the left of the planet and looking at initial camera
-        PositionMenus();
+        //PositionMenus();
 
         //Shrink the floating menus by a proportional size
         ScaleMenus(0.58f);
@@ -80,6 +83,11 @@ public class PlanetController : MonoBehaviour
 		tutorialsOnRightController = rightController.GetComponentsInChildren<Image>(true);
 
 	}
+
+    protected void Update()
+    {
+        PositionMenus();
+    }
 
     /*
      * SetPlanetInfoText: Sets the text on the description panel that appears by the planet when the user points their laser at it
@@ -138,15 +146,17 @@ public class PlanetController : MonoBehaviour
      */
     private void PositionMenus()
     {
-        Vector3 temp = Vector3.Cross(Planet_Data.transform.position, Vector3.up);
-        temp.Normalize();
-        temp *= 63f;
-        Vector3 closer = Vector3.Cross(Vector3.up, temp).normalized;
-        Planet_Menu.transform.position = new Vector3(temp.x, temp.y, temp.z) + Planet_Data.transform.position - 30 * closer;
+        
+        Vector3 planetOffset = transform.position - Camera.main.transform.position;
+        Quaternion menuOffsetRot = Quaternion.FromToRotation(Vector3.forward, planetOffset.normalized);
+        Vector3 pMenuOffset = menuOffsetRot * PlanetMenu_Offset;
+        Vector3 tMenuOffset = menuOffsetRot * TravelMenu_Offset;
+        
+        Planet_Menu.transform.position = transform.position + pMenuOffset;
         Planet_Menu.transform.LookAt(Camera.main.transform); //looks at the camera
         Planet_Menu.transform.Rotate(new Vector3(0, 180, 0)); //but it needs to be flipped around for some reason
 
-        Travel_Selection.transform.position = Planet_Data.transform.position * 0.7f + Vector3.up * 1.25f;
+        Travel_Selection.transform.position = transform.position + tMenuOffset;
         Travel_Selection.transform.LookAt(Camera.main.transform);
         Travel_Selection.transform.Rotate(new Vector3(0, 180, 0));
     }

@@ -116,7 +116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1117775780542910
 GameObject:
   m_ObjectHideFlags: 1
@@ -652,7 +652,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050411509479860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 580, y: 59.8, z: -24.4}
   m_LocalScale: {x: 72, y: 72, z: 72}
   m_Children:
   - {fileID: 224003301424573298}
@@ -1547,12 +1547,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c56eb6f8758cd4aaf737cd98ba33ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Planet_Title: {fileID: 0}
-  Planet_Creator: {fileID: 0}
-  Planet_Description: {fileID: 0}
-  Planet_Year: {fileID: 0}
-  Planet_Tag: {fileID: 0}
-  Planet_Image: {fileID: 0}
+  PlanetMenu_Offset: {x: 0, y: 0, z: -40}
+  TravelMenu_Offset: {x: 0, y: 0, z: -50}
+  Planet_Title: {fileID: 114947660689213056}
+  Planet_Creator: {fileID: 114097577412986850}
+  Planet_Description: {fileID: 114724134899456774}
+  Planet_Year: {fileID: 114979268299334218}
+  Planet_Tag: {fileID: 114017739256949010}
+  Planet_Image: {fileID: 114465487263848872}
   Planet_Menu: {fileID: 1108763982531660}
   Travel_Selection: {fileID: 1688461248713054}
 --- !u!114 &114692730332563366
