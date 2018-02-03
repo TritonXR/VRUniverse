@@ -17,26 +17,23 @@ function readFiles(dirname, callback) {
             });
         sum = array.length;
         array.forEach(function (filename) {
-                fs.readFile(dirname + filename, 'utf-8', function (err, content) {
-                    if (err) {
-                        onError(err);
-                        return;
-                    }
-                    var year = filename.split(".")[0];
-                    data[year] = content;
-                    counter++;
-                    if (counter === sum) {
-                        callback(data)
-                    }    
-                });
-            });   
-    
-    });
-    
+            fs.readFile(dirname + filename, 'utf-8', function (err, content) {
+                if (err) {
+                    onError(err);
+                    return;
+                }
+                var year = filename.split(".")[0];
+                data[year] = content;
+                counter++;
+                if (counter === sum) {
+                    callback(data)
+                }    
+            });
+        });   
+    });  
 } 
 
 router.get('/', function (req, res, next) {
-    
     readFiles('./data/VRClubUniverseData/', function (data) {
         console.log(data);
         res.render('projects', {
@@ -45,10 +42,4 @@ router.get('/', function (req, res, next) {
     });
 });
 
-
-  
-
-
-
-//{ "data" : JSON.stringify(data) }
 module.exports = router;
