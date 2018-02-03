@@ -4,16 +4,21 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var session = require('express-session');
+var passport = require('passport');
+var flash = require('connect-flash');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var projects = require('./routes/projects');
 var download = require('./routes/download');
 var upload = require('./routes/upload');
-var about = require('./routes/about')
+var about = require('./routes/about');
 
 var app = express();
-
+mongoose.connect('mongodb://rui:vruniverse@ds111478.mlab.com:11478/vruniverse');
+require('./config/passport');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -24,6 +29,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({secret: 'secret7', resave: false, saveUninitialized: false}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use("/data", express.static(path.join(__dirname, 'data')));
 
