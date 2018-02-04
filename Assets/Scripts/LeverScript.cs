@@ -23,9 +23,11 @@ public class LeverScript : MonoBehaviour {
 	void Update () {
         if (controllerTransform != null)
         {
-            //controllerTransform = other.transform;
-            Quaternion rotation = Quaternion.FromToRotation(transform.forward, controllerTransform.position - transform.position);
-            transform.localEulerAngles = new Vector3(rotation.x, 0, 0);
+			//controllerTransform = other.transform;
+			Vector3 direction = Vector3.ProjectOnPlane(controllerTransform.position - transform.position, transform.right).normalized;
+			//Debug.Log("right: " + transform.right + "; direction: " + direction +"; Dot: " + Vector3.Dot(direction, transform.right));
+			Quaternion rotation = Quaternion.FromToRotation(transform.forward, direction);
+			transform.rotation = rotation * transform.rotation;
         }
 
     }
@@ -33,6 +35,7 @@ public class LeverScript : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.tag.Equals("GameController"))
         {
+			Debug.Log("Found GameController");
             controllerTransform = other.transform;
             //Quaternion rotation = Quaternion.FromToRotation(transform.forward, controllerTransform.position - transform.position);
             //transform.localEulerAngles = new Vector3(rotation.x, 0, 0);
