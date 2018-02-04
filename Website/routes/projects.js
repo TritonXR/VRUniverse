@@ -42,4 +42,8 @@ router.get('/', function (req, res, next) {
     });
 });
 
+router.get('/:category', function(req, res, next) {
+    res.send(req.params.category);
+});
+
 module.exports = router;
