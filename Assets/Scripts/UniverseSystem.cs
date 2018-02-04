@@ -14,7 +14,7 @@ public class UniverseSystem : MonoBehaviour {
 
     //Gameobject acting as list of years
     public GameObject years;
-    public static List<Year> list_years;
+    public static List<Year> list_years; //why is this static? -Dana
 
     /*
 	 * PlanetPosition Variables
@@ -183,6 +183,9 @@ public class UniverseSystem : MonoBehaviour {
             //Gets the name of the year in the list of years
             string yearName = UniverseSystem.list_years[yearIndex].yr_name;
 
+            //Get the year object from the List via Index
+            Year year = UniverseSystem.list_years[yearIndex];
+
             //Open the JSON file with the name yr_name parameter passed in
             string jsonString = File.ReadAllText("VRClubUniverse_Data/" + yearName + ".json");
 
@@ -191,9 +194,6 @@ public class UniverseSystem : MonoBehaviour {
 
             //Create a JSONPlanet array and read the JSON file
             PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
-
-            //Initialize the planetPosition vector3 to systematically place planets in universe
-            planetPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
             //For each object in the JSONPlanet array
             foreach (PlanetJSON json_planet in universe)
@@ -206,10 +206,7 @@ public class UniverseSystem : MonoBehaviour {
                 planet.name = "Planet";
 
                 //Add a Planet component on the new planet game object to declare it a planet object
-                Planet currPlanet = planet.AddComponent<Planet>();
-
-                //Get the year object from the List via Index
-                Year year = UniverseSystem.list_years[yearIndex];
+                Planet currPlanet = planet.GetComponent<Planet>();
 
                 //Set the parent of the new Planet object to be the Planets gameobject
                 planet.transform.parent = year.planets.transform;
@@ -249,33 +246,19 @@ public class UniverseSystem : MonoBehaviour {
                 Rect rect = new Rect(0, 0, texture.width, texture.height);
                 currPlanet.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
 
-                //Set the planet's position to the current planetPosition vector3
-                planet.transform.position = planetPosition;
-
                 //Adds the read planet into the year
                 year.list_planets.Add(currPlanet);
 
             }
 
-            //Begin setting up positions
-            int listLength = UniverseSystem.list_years[yearIndex].list_planets.Count;
-            if (listLength <= 6)
+            OrbitManager orbitManager = OrbitManager.GetOrbitManager();
+            if(orbitManager != null)
             {
-                tracker = 0;
-                SetupSphere(23f, listLength, planetMaterial, UniverseSystem.list_years[yearIndex].list_planets);
+                orbitManager.PopulateOrbit(year.list_planets.ToArray());
             }
-            else if (listLength > 6 && listLength <= 11)
+            else
             {
-                tracker = 0;
-                SetupSphere(23f, 6, planetMaterial, UniverseSystem.list_years[yearIndex].list_planets);
-                SetupSphere(70f, listLength - 6, planetMaterial, UniverseSystem.list_years[yearIndex].list_planets);
-            }
-            else if (listLength > 11)
-            {
-                tracker = 0;
-                SetupSphere(23f, 6, planetMaterial, UniverseSystem.list_years[yearIndex].list_planets);
-                SetupSphere(70f, 5, planetMaterial, UniverseSystem.list_years[yearIndex].list_planets);
-                SetupSphere(120f, listLength - 11, planetMaterial, UniverseSystem.list_years[yearIndex].list_planets);
+                Debug.LogError("Could not find OrbitManager to populate planets.");
             }
 
         }
