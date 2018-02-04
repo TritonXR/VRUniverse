@@ -19,5 +19,7 @@ mixin project-mixin(data)
 									div.project-label Description : 
 									div.project-name #{data.Description}
 								div(class="row proj-data")
-									div.project-label Tags : 
-									div.project-name #{data.Tags}
+									div.project-label Tags :
+									-for (var key in data.Tags)
+										a.tag-link
+											span #{data.Tags[key]}

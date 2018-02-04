@@ -283,3 +283,31 @@ footer .container {
     position: absolute;
     right: 7px;
 }
+
+.tag-link {
+    padding-left : 3px;
+}
+
+a.tag-link:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a.tag-link span {
+    background-color: #fbfbfb;
+    font-size: 20px;
+    margin-right : 4px;
+    margin-left : 4px;
+    padding: 4px;
+    -moz-box-shadow: 0 0 1px #ccc;
+    -webkit-box-shadow: 0 0 1px #ccc;
+    box-shadow: 0px 1px 1px 1px #ccc;
+    color: #7b4ba8;
+    border-radius: 5px;
+    border-width: 2px;
+}
+
+a.tag-link span:hover {
+    background-color: #7b4ba8;
+    color: #fbfbfb;
+}
