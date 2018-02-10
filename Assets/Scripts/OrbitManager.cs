@@ -18,8 +18,6 @@ public class OrbitManager : MonoBehaviour {
 	public float AngleCeiling = 60.0f;                 //maximum angle planets can be above the horizon (in degrees)
 	public float AngleFloor = -10.0f;                  //minimum angle planets can be above the horizon (in degrees)
 	public float LinearSpeed = 20.0f;                  //speed at which the player's ship travels
-    public int OuterInnerRatio = 2;                    //how many planets are on the outer radius per planet on the inner radius
-    public float DirectionToStar = 90.0f;              //which direction to you look to see the star; 0=forward, 90=right, -90=left
     
 	private Planet[] planet_list;                  //list of planet game objects
 	public Light StarLight;                            //point light used to light the planets
@@ -55,7 +53,7 @@ public class OrbitManager : MonoBehaviour {
         //calculate and update player's position and rotation
 		Vector3 position = new Vector3(orbitRadius * Mathf.Cos(polarLocation), transform.position.y, orbitRadius * Mathf.Sin(polarLocation));
 		transform.position = position;
-        transform.eulerAngles = new Vector3(0, (270.0f - DirectionToStar) - (polarLocation * Mathf.Rad2Deg), 0);
+		transform.eulerAngles = new Vector3(0, 180.0f - (polarLocation * Mathf.Rad2Deg), 0);
 	}
 
     public void PopulateOrbit(Planet[] planets)
@@ -74,7 +72,7 @@ public class OrbitManager : MonoBehaviour {
             float epsilon = Random.Range(AngleFloor, AngleCeiling); //how far above the horizon this planet will be
 
             //distance from star this planet will be (note that even counts are farther from star than player, odd counts are closer)
-            float radius = orbitRadius + (((count + 1) % (OuterInnerRatio + 1) == 0) ? -1 : 1) * PlanetDist * Mathf.Cos(epsilon * Mathf.Deg2Rad);
+            float radius = orbitRadius + (1.0f - 2.0f * (count % 2)) * PlanetDist * Mathf.Cos(epsilon * Mathf.Deg2Rad);
 
             //distance above the player's orbit this planet will be
             float elevation = PlanetDist * Mathf.Sin(epsilon * Mathf.Deg2Rad);
