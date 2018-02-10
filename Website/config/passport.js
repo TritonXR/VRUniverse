@@ -14,7 +14,7 @@ passport.deserializeUser(function(id, done) {
 
 passport.use('local.signup', new LocalStrategy({
     usernameField: 'username',
-    passwordField: 'passport',
+    passwordField: 'password',
     passReqToCallback: true
 }, function(req, username, password, done) {
     User.findOne({'username': username}, function(err, user) {
@@ -22,7 +22,7 @@ passport.use('local.signup', new LocalStrategy({
             return done(err);
         }
         if(user) {
-            return done(null, false, {message: 'user already existed!'});
+            return done(null, false, {message: 'Username already in use'});
         }
         var newUser = new User();
         newUser.username = username;

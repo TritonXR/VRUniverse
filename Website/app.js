@@ -10,7 +10,7 @@ var passport = require('passport');
 var flash = require('connect-flash');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var user = require('./routes/user');
 var projects = require('./routes/projects');
 var download = require('./routes/download');
 var upload = require('./routes/upload');
@@ -38,10 +38,10 @@ app.use("/data", express.static(path.join(__dirname, 'data')));
 
 app.use('/', index);
 app.use('/about', about);
-app.use('/users', users);
 app.use('/projects', projects);
 app.use('/download', download);
 app.use('/upload', upload);
+app.use('/user/', user)
 
 
 //debug and demoing
