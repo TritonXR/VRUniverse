@@ -8,7 +8,8 @@ public class ExecutableSwitch : MonoBehaviour
 {
     private static ExecutableSwitch switcher = null;
 
-    public string defaultDatapath = "VRUniverse.exe";
+    [SerializeField] private string defaultDatapath = "VRUniverse.exe";
+    [SerializeField] private int delayTime = 500;
 
     private char[] delimiterList = { '/', '\\'};
     private bool isLoading;
@@ -26,17 +27,6 @@ public class ExecutableSwitch : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
 		appDatapath = Application.dataPath;
-		string[] pathComponents = appDatapath.Split(delimiterList);
-		appDatapath = "";
-		for (int count = 0; count < pathComponents.Length; count++)
-		{
-			if (pathComponents[count].Contains(" "))
-			{
-				pathComponents[count] = "\"" + pathComponents[count] + "\"";
-			}
-			appDatapath += pathComponents[count];
-			if (count < pathComponents.Length - 1) appDatapath += "\\";
-		}
 
 		Debug.Log("appDatapath: " + appDatapath);
     }
@@ -52,14 +42,13 @@ public class ExecutableSwitch : MonoBehaviour
         else isLoading = true;
 
 		if (datapath == null || datapath.Equals("")) datapath = defaultDatapath;
-		else datapath = datapath.Replace('/', '\\');
-		string helperDatapath = Application.dataPath + "\\..\\VRUniverse_Helper.bat";
+		string helperDatapath = Application.dataPath + "/../VRUniverse_Helper.exe";
 
 		Debug.Log("Starting: " + helperDatapath);
 
 		System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 		startInfo.FileName = helperDatapath;
-		startInfo.Arguments = appDatapath + datapath + " " + appDatapath + "\\..\\VRUniverse.exe";
+		startInfo.Arguments = "\"" + appDatapath + datapath + "\" \"" + appDatapath + "/../VRUniverse.exe\" " + delayTime;
 
 		Debug.Log("Arguments: " + startInfo.Arguments);
 
