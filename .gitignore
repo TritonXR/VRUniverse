@@ -5,7 +5,7 @@
 # Inverse ignore some stuff
 !/Assets/
 !/ProjectSettings/!.gitignore
-!VRUniverse_Helper.*
+!VRUniverse_Helper.bat
 
 # OS Stuff
 .DS_Store
