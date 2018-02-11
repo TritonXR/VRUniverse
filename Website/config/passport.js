@@ -18,7 +18,8 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 }, function(req, username, password, done) {
     req.checkBody('username', 'Enter username dumb ass').notEmpty();
-    req.checkBody('password', 'Invalid password').notEmpty().isLength({min: 4});
+    req.checkBody('password', 'Invalid password (min length: 4)').notEmpty().isLength({min: 4});
+    req.checkBody('addcode', 'Invalid invite code').notEmpty().matches(/^vrclub$/);
     var errors = req.validationErrors();
     if(errors){
         var messages = [];
