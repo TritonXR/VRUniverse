@@ -53,7 +53,7 @@ public class LeverScript : MonoBehaviour {
                 numActive++;
             }
         }
-        Debug.Log("Controller Count: " + touchingControllers.Count);
+        //Debug.Log("Controller Count: " + touchingControllers.Count);
 
         if (numActive > 0 && AcceptingInput)
         {
