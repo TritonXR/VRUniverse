@@ -7,7 +7,8 @@ var userSchema = new Schema({
 });
 
 userSchema.methods.validPassword = function(password) {
-    return this.password === password;
+    console.log(this.password + " vs. " + password);
+    return this.password===password;
 }
 
 module.exports = mongoose.model('User', userSchema);

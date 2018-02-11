@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/signup', function(req, res, next) {
     var messages = req.flash('error');
-    res.render('/signup', {
+    res.render('user/signup', {
         csrfToken: req.csrfToken(),
         messages: messages,
         hasErrors: messages.length > 0
@@ -21,14 +21,14 @@ router.get('/signup', function(req, res, next) {
 });
 
 router.post('/signup', passport.authenticate('local.signup', {
-    successRedirect: '/index',
-    failureRedirect: '/signup',
+    successRedirect: '/',
+    failureRedirect: '/user/signup',
     failureFlash: true
 }));
 
 router.get('/signin', function(req, res, next) {
     var messages = req.flash('error');
-    res.render('/signin', {
+    res.render('user/signin', {
         csrfToken: req.csrfToken(),
         messages: messages,
         hasErrors: messages.length > 0
@@ -37,7 +37,7 @@ router.get('/signin', function(req, res, next) {
 
 router.post('/signin', passport.authenticate('local.signin', {
     successRedirect: '/upload',
-    failureRedirect: '/signin',
+    failureRedirect: '/user/signin',
     failureFlash: true
 }));
 

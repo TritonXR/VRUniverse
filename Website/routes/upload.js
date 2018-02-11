@@ -15,6 +15,22 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage:storage});
 
+
+router.use( function(req, res, next) {
+    if (!req.isAuthenticated()) {
+    if (req.method == "GET") {
+        res.redirect('/user/signin');
+    } else {
+        res.json({
+            status: false,
+            msg: "logout"
+        })
+    }
+} else {
+    next();
+}
+});
+
 /* GET upload form. */
 router.get('/', function(req, res, next) {
     res.render('upload');
