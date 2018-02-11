@@ -8,6 +8,10 @@ public class OrbitManager : MonoBehaviour {
 
 	private const float FULL_CIRCLE = 2.0f * Mathf.PI; //const set for convenience and slight performance
 
+    public const float STOP = 0.0f;
+    public const float DEFAULT = 20.0f;
+    public const float FAST = 30.0f;
+
 	public float OrbitRadiusScaling = 10.0f;           //amount the radius is scaled with each additional planet
 	public float OrbitRadiusBase = 300.0f;             //base radius
 	public float PlanetDist = 150.0f;                  //how far the planets are from the player's orbit path
@@ -41,8 +45,11 @@ public class OrbitManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        //keeps angularSpeed up to date
+        angularSpeed = LinearSpeed / orbitRadius;
+
         //move the player a bit, make sure you don't overflow or run into other issues
-		polarLocation += angularSpeed * Time.deltaTime;
+        polarLocation += angularSpeed * Time.deltaTime;
 		while (polarLocation > FULL_CIRCLE) polarLocation -= FULL_CIRCLE;
 
         //calculate and update player's position and rotation
@@ -57,7 +64,7 @@ public class OrbitManager : MonoBehaviour {
         //calculates various parameters for the orbit
         float theta = FULL_CIRCLE / planet_list.Length;
         orbitRadius = OrbitRadiusScaling * planet_list.Length + OrbitRadiusBase;
-        angularSpeed = LinearSpeed / orbitRadius;
+        
 
         StarLight.range = 1.2f * (orbitRadius + PlanetDist);          //adjust range of point light so it actually illuminates all the planets
         MainCamera.farClipPlane = 2.1f * (orbitRadius + PlanetDist);  //adjust the camera far plane so all planets are rendered
@@ -87,4 +94,10 @@ public class OrbitManager : MonoBehaviour {
     {
         return ORBIT_MANAGER;
     }
+
+    public void ChangeOrbitSpeed(float speed) {
+        LinearSpeed = speed;
+    }
+
+
 }
