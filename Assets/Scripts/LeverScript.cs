@@ -13,7 +13,10 @@ public class LeverScript : MonoBehaviour {
     [SerializeField] private float STOP_MAX = 10.0f;
     [SerializeField] private float STOP_MIN = -10.0f;
 
-    [SerializeField] private float MAX_SPEED = 60.0f;
+    [SerializeField] private float MAX_SPEED = 120.0f;
+    [SerializeField] private float DEFAULT_SPEED = 60.0f;
+
+    [SerializeField] private float THROTTLE_SET_TIME = 0.5f;
 
     [SerializeField] private OrbitManager orbitManager;
 
@@ -21,10 +24,15 @@ public class LeverScript : MonoBehaviour {
 
     private List<Transform> touchingControllers;
 
+    private bool AcceptingInput;
+    private float StartingThrottle;
+    private float TargetThrottle;
+    private float CurrentInterpolation;
+
 	// Use this for initialization
 	void Start () {
         touchingControllers = new List<Transform>();
-        //lever = gameObject.GetComponentInChildren<GameObject>().;
+        AcceptingInput = true;
 	}
     
     // Update is called once per frame
@@ -45,8 +53,9 @@ public class LeverScript : MonoBehaviour {
                 numActive++;
             }
         }
+        Debug.Log("Controller Count: " + touchingControllers.Count);
 
-        if (numActive > 0)
+        if (numActive > 0 && AcceptingInput)
         {
             direction.Normalize();
             float x_rotation = Mathf.Clamp(-Mathf.Atan2(direction.y, direction.z) * Mathf.Rad2Deg, MIN_ROTATION, MAX_ROTATION);
@@ -90,5 +99,43 @@ public class LeverScript : MonoBehaviour {
             //Debug.Log("Uncollided with controller");
             touchingControllers.Remove(other.transform);
         }
+    }
+
+    public void SetThrottle(float speed)
+    {
+        speed = Mathf.Clamp(speed, 0.0f, 1.0f);
+        StartingThrottle = (transform.localEulerAngles.x > 180.0f) ? transform.localEulerAngles.x - 360.0f : transform.localEulerAngles.x;
+        if (speed > 0.0f)
+        {
+            TargetThrottle = STOP_MAX + speed * (MAX_ROTATION - STOP_MAX);
+        }
+        else if (speed < 0.0f)
+        {
+            TargetThrottle = STOP_MIN + speed * (MIN_ROTATION - STOP_MIN);
+        }
+        else
+        {
+            TargetThrottle = (STOP_MAX + STOP_MIN) / 2;
+        }
+        CurrentInterpolation = 0.0f;
+        AcceptingInput = false;
+        StartCoroutine(SmoothAcceleration());
+    }
+
+    public float GetDefaultThrottle()
+    {
+        return DEFAULT_SPEED / MAX_SPEED;
+    }
+
+    IEnumerator SmoothAcceleration()
+    {
+        while(CurrentInterpolation < 1.0f)
+        {
+            CurrentInterpolation += Time.deltaTime / THROTTLE_SET_TIME;
+            float x_rot = Mathf.Lerp(StartingThrottle, TargetThrottle, CurrentInterpolation);
+            transform.localEulerAngles = new Vector3(x_rot, transform.localEulerAngles.y, transform.localEulerAngles.z);
+            yield return null;
+        }
+        AcceptingInput = true;
     }
 }

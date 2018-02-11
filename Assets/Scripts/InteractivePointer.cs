@@ -11,6 +11,7 @@ public class InteractivePointer : MonoBehaviour {
     //Contains references to the color when the user is not pointing at a specific gameobject versus when they are
     [SerializeField] private Color inactiveColor;
     [SerializeField] private Color activeColor;
+    [SerializeField] private LeverScript lever;
 
     //Reference to the right controller
     private SteamVR_TrackedController controller;
@@ -176,6 +177,7 @@ public class InteractivePointer : MonoBehaviour {
     {
         //React to trigger click
         planet.SelectPlanet();
+        lever.SetThrottle(0.0f);
     }
 
     /*
@@ -195,6 +197,7 @@ public class InteractivePointer : MonoBehaviour {
         else
         {
             travelMenuButton.GetComponentInParent<PlanetController>().DeselectPlanet();
+            lever.SetThrottle(lever.GetDefaultThrottle());
         }
 	}
 }
