@@ -38,12 +38,16 @@ public class PlanetController : MonoBehaviour
     //Contains the tutorials to describe controls on the right controller (the pointer for selecting planets)
 	private Image[] tutorialsOnRightController;
 
+    [SerializeField] private Material normal;
+    [SerializeField] private Material selected;
+    [SerializeField] private Material highlighted;
+
     /*
      * ToggleMenu: Toggles the planet description floating menu whenever the user points at a planet
      * Parameters: bool status - true if the menu should be visible
      *                           false if the menu should be invisible
      */
-	private void ToggleMenu(bool status)
+    private void ToggleMenu(bool status)
     {
         Planet_Menu.SetActive(status);
     }
@@ -207,6 +211,7 @@ public class PlanetController : MonoBehaviour
     private void Highlight()
     {
         Renderer renderer = GetComponent<Renderer>();
+        renderer.sharedMaterial = highlighted;
     }
 
     /*
@@ -216,6 +221,7 @@ public class PlanetController : MonoBehaviour
     private void Dehighlight()
     {
         Renderer renderer = GetComponent<Renderer>();
+        renderer.sharedMaterial = normal;
     }
 
     /*
@@ -229,6 +235,7 @@ public class PlanetController : MonoBehaviour
 
         // unique highlight
         Renderer renderer = GetComponent<Renderer>();
+        renderer.sharedMaterial = selected;
 
         //Disable any tutorials remaining if they exist
         if (tutorialsOnRightController[1].gameObject.activeSelf)
