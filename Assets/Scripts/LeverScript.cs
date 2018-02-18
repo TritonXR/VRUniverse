@@ -18,6 +18,8 @@ public class LeverScript : MonoBehaviour {
 
     [SerializeField] private float THROTTLE_SET_TIME = 0.5f;
 
+    [SerializeField] private float NUM_VIB = 3;
+
     [SerializeField] private OrbitManager orbitManager;
 
     private const float FP_TOLERANCE = 0.001f;
@@ -28,6 +30,8 @@ public class LeverScript : MonoBehaviour {
     private float StartingThrottle;
     private float TargetThrottle;
     private float CurrentInterpolation;
+
+    SteamVR_TrackedController currController;
 
 	// Use this for initialization
 	void Start () {
@@ -51,6 +55,7 @@ public class LeverScript : MonoBehaviour {
                 contDir.x = 0;
                 direction += contDir.normalized;
                 numActive++;
+                currController = controller;
             }
         }
         //Debug.Log("Controller Count: " + touchingControllers.Count);
@@ -79,7 +84,26 @@ public class LeverScript : MonoBehaviour {
             {
                 orbitManager.LinearSpeed = 0.0f;
             }
+
+            
+            if(currController != null)
+            {
+                if (x_rot == STOP_MAX || x_rot == STOP_MAX + 20 || x_rot == STOP_MAX + 40 || x_rot == STOP_MAX + 60 || x_rot == MAX_ROTATION)
+                {
+                    Debug.Log("Should vibrate here MAX");
+                    SteamVR_Controller.Input((int)currController.controllerIndex).TriggerHapticPulse(250);
+                }
+
+                if (x_rot == STOP_MIN || x_rot == STOP_MIN - 20 || x_rot == STOP_MIN - 40 || x_rot == STOP_MIN - 60 || x_rot == MIN_ROTATION)
+                {
+                    Debug.Log("Should vibrate here MIN");
+                    SteamVR_Controller.Input((int)currController.controllerIndex).TriggerHapticPulse(250);
+                }
+            }
+           
         }
+
+        
 
     }
 
