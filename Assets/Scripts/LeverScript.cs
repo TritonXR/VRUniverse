@@ -83,6 +83,7 @@ public class LeverScript : MonoBehaviour {
             else
             {
                 orbitManager.LinearSpeed = 0.0f;
+                SetThrottle(0.0f);
             }
 
             
