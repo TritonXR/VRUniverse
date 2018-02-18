@@ -19,8 +19,9 @@ public class LeverScript : MonoBehaviour {
     [SerializeField] private float THROTTLE_SET_TIME = 0.5f;
 
     [SerializeField] private float NUM_VIB = 3;
+	[SerializeField] private ushort VIB_INTENSITY = 1500;
 
-    [SerializeField] private OrbitManager orbitManager;
+	[SerializeField] private OrbitManager orbitManager;
 
     private const float FP_TOLERANCE = 0.001f;
 
@@ -31,7 +32,7 @@ public class LeverScript : MonoBehaviour {
     private float TargetThrottle;
     private float CurrentInterpolation;
 
-    SteamVR_TrackedController currController;
+    //SteamVR_TrackedController currController;
 
 	// Use this for initialization
 	void Start () {
@@ -55,18 +56,46 @@ public class LeverScript : MonoBehaviour {
                 contDir.x = 0;
                 direction += contDir.normalized;
                 numActive++;
-                currController = controller;
             }
         }
-        //Debug.Log("Controller Count: " + touchingControllers.Count);
+		//Debug.Log("Controller Count: " + touchingControllers.Count);
 
-        if (numActive > 0 && AcceptingInput)
-        {
-            direction.Normalize();
-            float x_rotation = Mathf.Clamp(-Mathf.Atan2(direction.y, direction.z) * Mathf.Rad2Deg, MIN_ROTATION, MAX_ROTATION);
-            //Debug.Log("X_Rotation: " + x_rotation);
-            transform.localEulerAngles = new Vector3(x_rotation, transform.localEulerAngles.y, transform.localEulerAngles.z);
-        }
+		if (numActive > 0 && AcceptingInput)
+		{
+			direction.Normalize();
+			float x_rotation = Mathf.Clamp(-Mathf.Atan2(direction.y, direction.z) * Mathf.Rad2Deg, MIN_ROTATION, MAX_ROTATION);
+			//Debug.Log("X_Rotation: " + x_rotation);
+
+			bool vibrateController = false;
+			float old_x_rotation = (transform.localEulerAngles.x <= 180) ? transform.localEulerAngles.x : transform.localEulerAngles.x - 360;
+			if (x_rotation > STOP_MAX || old_x_rotation > STOP_MAX)
+			{
+				float angleInc = (MAX_ROTATION - STOP_MAX) / NUM_VIB;
+				float oldInc = Mathf.Floor((old_x_rotation - STOP_MAX) / angleInc);
+				float newInc = Mathf.Floor((x_rotation - STOP_MAX) / angleInc);
+				vibrateController = (oldInc != newInc);
+			}
+			else if (x_rotation < STOP_MIN || old_x_rotation < STOP_MIN)
+			{
+				float angleInc = (STOP_MIN - MIN_ROTATION) / NUM_VIB;
+				float oldInc = Mathf.Floor((STOP_MIN - old_x_rotation) / angleInc);
+				float newInc = Mathf.Floor((STOP_MIN - x_rotation) / angleInc);
+				vibrateController = (oldInc != newInc);
+			}
+
+
+			transform.localEulerAngles = new Vector3(x_rotation, transform.localEulerAngles.y, transform.localEulerAngles.z);
+
+			if (vibrateController)
+			{
+				Debug.Log("Should vibrate here");
+				foreach (Transform controller in touchingControllers)
+				{
+					SteamVR_Controller.Input((int)controller.GetComponent<SteamVR_TrackedController>().controllerIndex).TriggerHapticPulse(VIB_INTENSITY);
+				}
+				
+			}
+		}
 
         if(orbitManager != null)
         {
@@ -83,25 +112,8 @@ public class LeverScript : MonoBehaviour {
             else
             {
                 orbitManager.LinearSpeed = 0.0f;
-                SetThrottle(0.0f);
+				if (numActive <= 0 && AcceptingInput) SetThrottle(0.0f);
             }
-
-            
-            if(currController != null)
-            {
-                if (x_rot == STOP_MAX || x_rot == STOP_MAX + 20 || x_rot == STOP_MAX + 40 || x_rot == STOP_MAX + 60 || x_rot == MAX_ROTATION)
-                {
-                    Debug.Log("Should vibrate here MAX");
-                    SteamVR_Controller.Input((int)currController.controllerIndex).TriggerHapticPulse(250);
-                }
-
-                if (x_rot == STOP_MIN || x_rot == STOP_MIN - 20 || x_rot == STOP_MIN - 40 || x_rot == STOP_MIN - 60 || x_rot == MIN_ROTATION)
-                {
-                    Debug.Log("Should vibrate here MIN");
-                    SteamVR_Controller.Input((int)currController.controllerIndex).TriggerHapticPulse(250);
-                }
-            }
-           
         }
 
         
