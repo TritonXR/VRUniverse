@@ -201,13 +201,34 @@ public class PlanetController : MonoBehaviour
     }
 
     /*
+     * Highlight: highlight this planet
+     * Parameters: None
+     */
+    private void Highlight()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+    }
+
+    /*
+     * Highlight: highlight this planet
+     * Parameters: None
+     */
+    private void Dehighlight()
+    {
+        Renderer renderer = GetComponent<Renderer>();
+    }
+
+    /*
      * SelectPlanet: When the user pulls the trigger while pointing at the planet, it should display the travel confirmation menu and update the tutorials if needed
      * Parameters: None
      */
-    public void SelectPlanet()
+    public void SelectPlanet(IUI iui)
     {
-        //Activate the travel confirmation menu
-        Travel_Selection.SetActive(true);
+        //Turn on panel
+        iui.ShowDetail(this, Planet_Menu , Travel_Selection);
+
+        // unique highlight
+        Renderer renderer = GetComponent<Renderer>();
 
         //Disable any tutorials remaining if they exist
         if (tutorialsOnRightController[1].gameObject.activeSelf)
@@ -223,8 +244,7 @@ public class PlanetController : MonoBehaviour
      */
     public void DeselectPlanet()
     {
-        //Disable the confirmation travel panel
-        Travel_Selection.SetActive(false);
+        Dehighlight();
     }
 
     /*
@@ -233,9 +253,8 @@ public class PlanetController : MonoBehaviour
      */
     public void StartPointing()
     {
-
-        //Turn on menu when hovering
-        ToggleMenu(true);
+        //Highlight the planet
+        Highlight();
 
         //If this is the first time selecting a planet, perform change of tutorials
 		if (tutorial_firstSelection)
@@ -254,9 +273,10 @@ public class PlanetController : MonoBehaviour
     public void StopPointing()
     {
 
+        Dehighlight();
+
         //Turn off floating menu panel when not using
         ToggleMenu(false);
         
-    }
-    
+    }    
 }

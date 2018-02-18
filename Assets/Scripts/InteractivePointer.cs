@@ -12,6 +12,7 @@ public class InteractivePointer : MonoBehaviour {
     [SerializeField] private Color inactiveColor;
     [SerializeField] private Color activeColor;
     [SerializeField] private LeverScript lever;
+    [SerializeField] private IUI iui;
 
     //Reference to the right controller
     private SteamVR_TrackedController controller;
@@ -176,7 +177,7 @@ public class InteractivePointer : MonoBehaviour {
     private void HandlePlanetTriggerClicked(object sender, ClickedEventArgs e)
     {
         //React to trigger click
-        planet.SelectPlanet();
+        planet.SelectPlanet(iui);
         lever.SetThrottle(0.0f);
     }
 
@@ -196,7 +197,7 @@ public class InteractivePointer : MonoBehaviour {
         //If the button they clicked was the No confimration, deselect the planet/hide the menu
         else
         {
-            travelMenuButton.GetComponentInParent<PlanetController>().DeselectPlanet();
+            iui.HidePanel();
             lever.SetThrottle(lever.GetDefaultThrottle());
         }
 	}
