@@ -17,7 +17,7 @@ passport.use('local.signup', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, function(req, username, password, done) {
-    req.checkBody('username', 'Enter username dumb ass').notEmpty();
+    req.checkBody('username', 'Please enter your username').notEmpty();
     req.checkBody('password', 'Invalid password (min length: 4)').notEmpty().isLength({min: 4});
     req.checkBody('addcode', 'Invalid invite code').notEmpty().matches(/^vrclub$/);
     var errors = req.validationErrors();
@@ -52,8 +52,8 @@ passport.use('local.signin', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, function(req, username, password, done) {
-    req.checkBody('username', 'Enter username dumb ass').notEmpty();
-    req.checkBody('password', 'Please enter password').notEmpty();
+    req.checkBody('username', 'Please enter your username').notEmpty();
+    req.checkBody('password', 'Please enter your password').notEmpty();
     var errors = req.validationErrors();
     if(errors){
         var messages = [];
@@ -70,7 +70,7 @@ passport.use('local.signin', new LocalStrategy({
             return done(null, false, {message: 'no such user'});
         }
         if(!user.validPassword(password)) {
-            return done(null, false, {message: 'remember your fucking password retard'});
+            return done(null, false, {message: 'Wrong username or password'});
         }
         return done(null, user);
     });
