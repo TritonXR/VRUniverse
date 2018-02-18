@@ -47,7 +47,7 @@ public class YearController : MonoBehaviour
             //Begin changing years and starting teleport systems
             yearSelection.changeYears();
             UniverseSystem universeSystem = transform.root.GetComponent<UniverseSystem>();
-            universeSystem.StartCoroutine(universeSystem.TeleportToYear(yearSelection.SelectedYearIndex));
+            universeSystem.TeleportToYear(yearSelection.SelectedYearIndex);
 
             //Update tutorial system
             if (universeSystem.tutorial_YearTravel)

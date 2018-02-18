@@ -32,11 +32,11 @@ public class YearSelection : MonoBehaviour
         listYearNames = new List<int>();
 
         // Access the list of years and insert the int year into a list
-        for (int i = 0; i < UniverseSystem.list_years.Count; i++)
+        /*for (int i = 0; i < list_years.Count; i++)
         {
             //Adds the year names into a list
-            listYearNames.Add(int.Parse(UniverseSystem.list_years[i].yr_name));
-        }  
+            listYearNames.Add(int.Parse(list_years[i].yr_name));
+        }*/ 
 
 		//String that shows on the controller
 		if (string.IsNullOrEmpty(displayedYearString))
@@ -96,7 +96,7 @@ public class YearSelection : MonoBehaviour
             {
                 int newYear;
                 // if the current year is NOT the maximum index and user can go to the next year, 
-                if (int.Parse(displayedYearString) < (UniverseSystem.list_years.Count - 1))
+                /*if (int.Parse(displayedYearString) < (UniverseSystem.list_years.Count - 1))
                 {
                     // increment the displayed year
                     newYear = int.Parse(displayedYearString) + 1;
@@ -107,7 +107,7 @@ public class YearSelection : MonoBehaviour
                     // wrap around to beginning
                     newYear = 0;
                 }
-                displayedYearString = newYear.ToString();
+                displayedYearString = newYear.ToString();*/
             }
         }
         // Update the text on the screen
