@@ -47,6 +47,7 @@ exports.getProjectsFromTags = (tags, callback) => {
 	});	
 }
 
+//untested
 exports.getTagsFromProjectName = (name, callback) => {
 	var str = `SELECT DISTINCT tag from tags where tag_id in 
 				(select tag_id from map where planet_id in
