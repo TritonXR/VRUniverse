@@ -16,6 +16,7 @@ var projects = require('./routes/projects');
 var download = require('./routes/download');
 var upload = require('./routes/upload');
 var about = require('./routes/about');
+var filter = require('./routes/filter')
 
 var app = express();
 mongoose.connect('mongodb://rui:vruniverse@ds111478.mlab.com:11478/vruniverse');
@@ -43,7 +44,8 @@ app.use('/about', about);
 app.use('/projects', projects);
 app.use('/download', download);
 app.use('/upload', upload);
-app.use('/user/', user)
+app.use('/user/', user);
+app.use('/filter', filter);
 
 
 //debug and demoing

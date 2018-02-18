@@ -1,7 +1,8 @@
 extends header 
 include ./mixins/project-mixin.jade
 
-block content    
+block content
+	-console.log(json);    
 	-var data = JSON.parse(json);
 	-for(var prop in data)
 		div.container-fluid

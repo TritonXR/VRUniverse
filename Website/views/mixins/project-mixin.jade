@@ -21,5 +21,5 @@ mixin project-mixin(data)
 								div(class="row proj-data")
 									div.project-label Tags :
 									-for (var key in data.Tags)
-										a.tag-link
+										a.tag-link(href="/filter/#{data.Tags[key]}")
 											span #{data.Tags[key]}

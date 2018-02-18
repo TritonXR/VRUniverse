@@ -24,6 +24,7 @@
     "passport-local": "^1.0.0",
     "save": "^2.3.2",
     "serve-favicon": "~2.4.2",
+    "sqlite3": "^3.1.13",
     "util": "^0.10.3"
   }
 }

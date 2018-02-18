@@ -1,0 +1,13 @@
+extends header 
+include ./mixins/filter-mixin.jade
+
+block content
+
+	h2.text-center Searching For VR Projects with Tag #{tag}
+
+	-var data = JSON.parse(json);
+	-for(let i = 0; i < data.length; i++)
+		-let prop = JSON.parse(data[i])
+		div.container-fluid
+			+filter-mixin(prop)
+

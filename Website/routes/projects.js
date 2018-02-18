@@ -35,15 +35,10 @@ function readFiles(dirname, callback) {
 
 router.get('/', function (req, res, next) {
     readFiles('./data/VRClubUniverseData/', function (data) {
-        console.log(data);
         res.render('projects', {
             json:  JSON.stringify(data)
         });      
     });
-});
-
-router.get('/:category', function(req, res, next) {
-    res.send(req.params.category);
 });
 
 module.exports = router;
