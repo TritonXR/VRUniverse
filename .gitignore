@@ -20,3 +20,4 @@ Thumbs.db
 $RECYCLE.BIN/
 Desktop.ini
 Website/.idea/workspace.xml
+Website/node_modules
