@@ -23,7 +23,7 @@ exports.getProjectsFromTag = (tag, callback) => {
 }
 
 exports.getProjectsFromTags = (tags, callback) => {
-	
+
 	var baseStr = `SELECT DISTINCT * from planets where id in 
 	  				(select planet_id from map where tag_id in 
 	  					(select tag_id from tags where tag = '${tags[0]}'))`;
@@ -45,4 +45,21 @@ exports.getProjectsFromTags = (tags, callback) => {
 		    callback(rows);
 		});
 	});	
+}
+
+exports.getTagsFromProjectName = (name, callback) => {
+	var str = `SELECT DISTINCT tag from tags where tag_id in 
+				(select tag_id from map where planet_id in
+				(select planet_id from planets where name = '${name}'))`
+
+	db.serialize(() => {
+	  	db.all(str, (err, rows) => {
+
+		    if (err) {
+		      console.error(err.message);
+		    }
+		    callback(rows);
+		});
+	});	
+
 }
