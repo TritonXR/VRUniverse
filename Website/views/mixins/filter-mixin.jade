@@ -19,8 +19,8 @@ mixin filter-mixin(data)
 								div(class="row proj-data") 
 									div.project-label Description : 
 									div.project-name #{data.description}
-								//- div(class="row proj-data")
-									//- div.project-label Tags :
-									//- -for (var key in data.Tags)
-										//- a.tag-link(href="/filter/#{data.Tags[key]}")
-											//- span #{data.Tags[key]}
+								div(class="row proj-data")
+									div.project-label Tags :
+										-for (var key in tag)
+											a.tag-link(href="/filter/#{tag[key]}")
+												span #{tag[key]}
