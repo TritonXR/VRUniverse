@@ -1,25 +1,48 @@
-extends header 
-include ./mixins/download-form-element.jade
+extends header 	
+include ./mixins/filter-mixin.jade
 
 block content
-	br
-	br
+	style.
+		#navbar {
+			margin-bottom : 0px;
+			position : fixed;
+			width : 100%;
+			z-index : 100;
+		}
 
-	div.container-fluid
-		div.text-center
-			div.proj-header Choose projects and get a custom VR Club Universe executable!
-	div.container-fluid
-		div.col-md-8.col-md-offset-2.proj-container
-			form(action="/download" method="post")
-				div(class="form-check" style="padding-top: 25px;")
-					-var data = JSON.parse(json);
-					-for(var prop in data)
-						div.container-fluid
-							div.year
-								span(style="color : #7b4ba8; border : solid; border-color : grey; border-width : 1px;") #{prop}
-							-var inner_obj = JSON.parse(data[prop])
-							div(style="padding-bottom : 20px;")
-								-for (var key in inner_obj["PlanetJSON"])
-									+download-form-element(inner_obj["PlanetJSON"][key])
-				div.text-center
-					button(type="submit" class="btn btn-default") Submit
+		footer {
+			position : fixed;
+		}
+
+	-var searchTags = JSON.parse(tags);
+	div.sidenav-container
+		div.sidenav
+			h2.text-center Filter
+			div.sidenav-params
+				form(method="get" action="/filter/")
+					div.sidenav-params-container
+						-for (var tag in searchTags)
+							div
+								input(type="checkbox", name="#{searchTags[tag].tag}" class="download-checkbox", value="true" id="#{searchTags[tag].tag}")
+								label(for="#{searchTags[tag].tag}") #{searchTags[tag].tag}
+					button(type="submit" id="filterbutton").center-block.btn.btn-lg Search
+
+	div.download-content
+
+		-if (tagArr == null)
+			h2.text-center All Projects in VR Club Universe
+		-else if (tagArr.length == 1)
+			h2.text-center All Projects with Tag #{tagArr}
+		-else if (tagArr.length > 1)
+			h2.text-center All Projects with Tags #{tagArr}
+		-else if (tagArr.length == 0)
+			h2.text-center Can't find any projects with those tags!
+
+		-var data = JSON.parse(json);
+			-for(var prop in data)
+				div.container-fluid
+					+filter-mixin(data[prop])
+
+	script.
+		let arr = !{tagArr};
+		console.log(arr);

@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var fs = require("fs");
 var fs_extra = require("node-fs-extra");
+var db = require('./db.js');
+
 var data = {};
 var years = [];
 
@@ -48,11 +50,15 @@ function readFiles(dirname, callback) {
 /* GET users listing. */
 
 router.get('/', function (req, res, next) {
-    readFiles('./data/VRClubUniverseData/', function (data2) {
-        console.log(data);
-        data = data2;
-        res.render('download', {
-            json: JSON.stringify(data)
+
+    db.getAllTags(function(tags) {
+        console.log(tags);
+        db.getAllProjects(function(data) {
+            res.render('download', {
+                json: JSON.stringify(data),
+                tags : JSON.stringify(tags),
+                tagArray : null
+            });
         });
     });
 });

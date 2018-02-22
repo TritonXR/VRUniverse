@@ -7,6 +7,32 @@ var db = new sqlite3.Database(path.resolve( __dirname + './../db/universe.db'),
 	else console.log('Connected to the universe database!');
 });
 
+exports.getAllProjects = (callback) => {
+	db.serialize(() => {
+	  	db.all(`SELECT * from planets`, 
+	  			(err, rows) => {
+
+		    if (err) {
+		      console.error(err.message);
+		    }
+		    callback(rows);
+		});
+	});
+}
+
+exports.getAllTags = (callback) => {
+	db.serialize(() => {
+	  	db.all(`SELECT DISTINCT tag from tags`, 
+	  			(err, rows) => {
+
+		    if (err) {
+		      console.error(err.message);
+		    }
+		    callback(rows);
+		});
+	});
+}
+
 exports.getProjectsFromTag = (tag, callback) => {
 	db.serialize(() => {
 	  	db.all(`SELECT DISTINCT * from planets where id in 

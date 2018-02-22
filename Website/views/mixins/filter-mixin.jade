@@ -1,13 +1,12 @@
 mixin filter-mixin(data)
-		-console.log(data);
 		div.container-fluid
 			div.row
+				-console.log(typeof data)
 				div.col-md-10.col-md-offset-1.proj-container
 					div.container-fluid
 						div.row
 							div.col-md-10
 								div.proj-header #{data.name}
-
 						div.row
 							div.col-md-2(align="center")
 								img(src="/data/VRClubUniverseData/VR_Demos/#{data.year}/#{data.executable}/#{data.image}" class="project-img")
@@ -19,8 +18,8 @@ mixin filter-mixin(data)
 								div(class="row proj-data") 
 									div.project-label Description : 
 									div.project-name #{data.description}
-								div(class="row proj-data")
-									div.project-label Tags :
-										-for (var key in tag)
-											a.tag-link(href="/filter/#{tag[key]}")
-												span #{tag[key]}
+								//- div(class="row proj-data")
+									//- div.project-label Tags :
+										//- for (var key in tagArr)
+											//- a.tag-link(href="/filter/#{tagArr[key]}")
+												//- span #{tagArr[key]}

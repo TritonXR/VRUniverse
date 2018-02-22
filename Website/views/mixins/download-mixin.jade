@@ -1,0 +1,25 @@
+mixin download-mixin(data)
+		div.container-fluid
+			div.row
+				div.col-md-10.col-md-offset-1.proj-container
+					div.container-fluid
+						div.row
+							div.col-md-10
+								div.proj-header #{data.Name}
+
+						div.row
+							div.col-md-2(align="center")
+								img(src="/data/VRClubUniverseData/VR_Demos/#{data.Year}/#{data.Executable}/#{data.Image}" class="project-img")
+							div.col-md-8.col-md-offset-2
+								div(class="row proj-data")
+								div(class="row proj-data")
+									div.project-label Creator(s) : 
+									div.project-name #{data.Creator}
+								div(class="row proj-data") 
+									div.project-label Description : 
+									div.project-name #{data.Description}
+								div(class="row proj-data")
+									div.project-label Tags :
+									-for (var key in data.Tags)
+										a.tag-link(href="/filter/#{data.Tags[key]}")
+											span #{data.Tags[key]}
