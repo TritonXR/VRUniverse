@@ -9,7 +9,7 @@ public class YearSelectMain : MonoBehaviour {
     private List<YearSelectGo> yearButtons;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         if (instance != null && instance != this)
         {
             Destroy(this);
@@ -26,7 +26,20 @@ public class YearSelectMain : MonoBehaviour {
 
     public void IncrementYear(int increment)
     {
+        foreach(YearSelectGo year in yearButtons)
+        {
+            year.YearValue = year.YearValue + increment;
+        }
+    }
 
+    public void RegisterYearButton(YearSelectGo year)
+    {
+        if(!yearButtons.Contains(year)) yearButtons.Add(year);
+    }
+
+    public void DeregisterYearButton(YearSelectGo year)
+    {
+        if (yearButtons.Contains(year)) yearButtons.Remove(year);
     }
 
     public static YearSelectMain GetInstance()

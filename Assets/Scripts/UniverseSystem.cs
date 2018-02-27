@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO; // Important for getting files from directory
-
+using System;
 
 /*
  * Name: UniverseSystem.cs
@@ -11,6 +11,8 @@ using System.IO; // Important for getting files from directory
  */
 
 public class UniverseSystem : MonoBehaviour {
+
+    const string LOBBY_YEAR_STRING = "Year";
 
 	private static UniverseSystem instance; //part of singleton pattern
 
@@ -347,6 +349,26 @@ public class UniverseSystem : MonoBehaviour {
 		return list_years[index];
 	}
 
+    public int GetYearIndex(int yearValue)
+    {
+        int index = -1;
+        for(int count = 0; count < list_years.Count; count++)
+        {
+            if(Int32.Parse(list_years[count].yr_name) == yearValue)
+            {
+                index = count;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    public string GetCurrentYear()
+    {
+        if (atYear == -1) return LOBBY_YEAR_STRING;
+        return list_years[atYear].yr_name;
+    }
 
     /*
      * TESTING INPUT TO GETTING YEAR AND PLANETS

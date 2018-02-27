@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class LeverScript : MonoBehaviour {
 
-    //[SerializeField] private GameObject lever;
-    //[SerializeField] private GameObject handle;
+    private static LeverScript instance;
 
     [SerializeField] private float MAX_ROTATION = 75.0f;
     [SerializeField] private float MIN_ROTATION = -75.0f;
@@ -29,8 +28,17 @@ public class LeverScript : MonoBehaviour {
     private float TargetThrottle;
     private float CurrentInterpolation;
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else instance = this;
+    }
+
+    // Use this for initialization
+    void Start () {
         touchingControllers = new List<Transform>();
         AcceptingInput = true;
 	}
@@ -137,5 +145,10 @@ public class LeverScript : MonoBehaviour {
             yield return null;
         }
         AcceptingInput = true;
+    }
+
+    public static LeverScript GetInstance()
+    {
+        return instance;
     }
 }

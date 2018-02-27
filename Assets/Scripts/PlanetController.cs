@@ -7,7 +7,7 @@ using UnityEngine.UI;
  * Utilized on: Planet.prefab that is instantiated with every planet/project
  */
 
-public class PlanetController : MonoBehaviour
+public class PlanetController : MonoBehaviour, PointableObject
 {
     //offsets of various menus relative to the planet in viewing space (neg/pos effects: x => left/right, y=down/up, z=closer/farther)
     [SerializeField] private Vector3 PlanetMenu_Offset = new Vector3(0, 0, 0);
@@ -30,13 +30,13 @@ public class PlanetController : MonoBehaviour
     [SerializeField] private GameObject Travel_Selection;
 
     //Reference to the right controller to detect the trigger clicked
-    private SteamVR_TrackedController rightController;
+    //private SteamVR_TrackedController rightController;
 
     //Check if this is the first time the user is selecting a planet (so as not to repeat the tutorial everytime)
 	private bool tutorial_firstSelection = true;
 
     //Contains the tutorials to describe controls on the right controller (the pointer for selecting planets)
-	private Image[] tutorialsOnRightController;
+	//private Image[] tutorialsOnRightController;
 
     /*
      * ToggleMenu: Toggles the planet description floating menu whenever the user points at a planet
@@ -56,7 +56,7 @@ public class PlanetController : MonoBehaviour
     {
       
         //Find the right controller
-        SetRightController();
+        //SetRightController();
 
         //Turn off floating menu panel by default
         ToggleMenu(false);
@@ -80,7 +80,7 @@ public class PlanetController : MonoBehaviour
         SetExecutableString();
 
 		// Get Tutorials on right controller
-		tutorialsOnRightController = rightController.GetComponentsInChildren<Image>(true);
+		//tutorialsOnRightController = rightController.GetComponentsInChildren<Image>(true);
 
 	}
 
@@ -184,7 +184,7 @@ public class PlanetController : MonoBehaviour
      * SetRightController: Find the right controller by iterating through all the possible controllers and checking if they don't contain the YearSelection object (which belongs to the left controller)
      * Parameters: None
      */
-    private void SetRightController()
+    /*private void SetRightController()
     {
         //Get array of controllers starting from the CameraRig camera
         SteamVR_TrackedController[] controllerSearch = Camera.main.transform.root.GetComponentsInChildren<SteamVR_TrackedController>(true);
@@ -198,7 +198,7 @@ public class PlanetController : MonoBehaviour
                 rightController = controllerSearch[i];
             }
         }
-    }
+    }*/
 
     /*
      * SelectPlanet: When the user pulls the trigger while pointing at the planet, it should display the travel confirmation menu and update the tutorials if needed
@@ -210,10 +210,10 @@ public class PlanetController : MonoBehaviour
         Travel_Selection.SetActive(true);
 
         //Disable any tutorials remaining if they exist
-        if (tutorialsOnRightController[1].gameObject.activeSelf)
+        /*if (tutorialsOnRightController[1].gameObject.activeSelf)
         {
             tutorialsOnRightController[1].gameObject.SetActive(false); //turn off label 4 for selecting a planet
-        }
+        }*/
 
     }
 
@@ -226,37 +226,40 @@ public class PlanetController : MonoBehaviour
         //Disable the confirmation travel panel
         Travel_Selection.SetActive(false);
     }
+    
 
     /*
-     * StartPointing: Called when user's laser collides with the planet to toggle the description menu and make changes to tutorial on right controller
+     * PointerStart: Called when user's laser collides with the planet to toggle the description menu and make changes to tutorial on right controller
      * Parameters: None
      */
-    public void StartPointing()
+    public void PointerStart()
     {
-
         //Turn on menu when hovering
         ToggleMenu(true);
 
         //If this is the first time selecting a planet, perform change of tutorials
-		if (tutorial_firstSelection)
-		{
-			tutorialsOnRightController[0].gameObject.SetActive(false); //turn off label 3 for pointing at a planet
-			tutorialsOnRightController[1].transform.parent.gameObject.SetActive(true); //turn on label 4 for selecting a planet
-			tutorial_firstSelection = false;
-		}
+        if (tutorial_firstSelection)
+        {
+            //tutorialsOnRightController[0].gameObject.SetActive(false); //turn off label 3 for pointing at a planet
+            //tutorialsOnRightController[1].transform.parent.gameObject.SetActive(true); //turn on label 4 for selecting a planet
+            tutorial_firstSelection = false;
+        }
+    }
 
-	}
+    public void PointerClick()
+    {
+        SelectPlanet();
+        LeverScript.GetInstance().SetThrottle(0.0f);
+    }
 
     /*
-     * StopPointing: Calls when the user points their laser away from the planet to disable the description menu
+     * PointerStop: Calls when the user points their laser away from the planet to disable the description menu
      * Parameters: None
      */
-    public void StopPointing()
+    public void PointerStop()
     {
-
         //Turn off floating menu panel when not using
         ToggleMenu(false);
-        
     }
-    
+
 }

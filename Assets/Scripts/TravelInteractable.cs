@@ -8,7 +8,7 @@ using System.IO;
  * Utilized on: Planet.prefab
  */
 
-public class TravelInteractable : MonoBehaviour
+public class TravelInteractable : MonoBehaviour, PointableObject
 {
     //Check if searching for yes or no answer
     public bool isYes; 
@@ -19,35 +19,42 @@ public class TravelInteractable : MonoBehaviour
     //Access to the planet executable string
     public string executableString;
 
-    /*
-     * StartHoverButton: Called whenever the user points at the travel menu button.
-     * Parameters: GameObject obj - reference to the button, should be itself
-     */
-    public void StartHoverButton(GameObject obj)
+    void Start()
     {
-        //Gets reference to the highlight
-        highlight = obj.GetComponent<Image>();
+        highlight = GetComponent<Image>();
+    }
 
+    /*
+     * PointerStart: Called whenever the user points at the travel menu button.
+     */
+    public void PointerStart()
+    {
         //Enable the highlight to show it is being hovered on
         highlight.enabled = true;
         
     }
 
     /*
-     * StopHoverButton: Called whenever the user stops pointing at the travel menu button.
-     * Parameters: GameObject obj - reference to the button, should be itself
+     * PointerStop: Called whenever the user stops pointing at the travel menu button.
      */
-    public void StopHoverButton(GameObject obj)
+    public void PointerStop()
     {
-        //Gets reference to the highlight if it doesn't exist
-        if (!highlight)
-        {
-            highlight = obj.GetComponent<Image>();
-        }
-
         //Disable the highlight
         highlight.enabled = false;
-        highlight = null;
+    }
+
+    public void PointerClick()
+    {
+        if(isYes)
+        {
+            BeginTravel();
+        }
+        else
+        {
+            GetComponentInParent<PlanetController>().DeselectPlanet();
+            LeverScript lever = LeverScript.GetInstance();
+            lever.SetThrottle(lever.GetDefaultThrottle());
+        }
     }
 
     /*
@@ -57,11 +64,10 @@ public class TravelInteractable : MonoBehaviour
     public void BeginTravel()
     {
         //Save the current year in an output text file
-        YearSelection yearSelection = Camera.main.transform.root.GetComponentInChildren<YearSelection>(true);
 
         //Write the year index to the following path
         string path = "VRClubUniverse_Data/saveData.txt";
-        string currentYear = yearSelection.SelectedYearIndex.ToString();
+        string currentYear = UniverseSystem.GetInstance().GetCurrentYear();
         Debug.Log("Writing current year to saveData file, year Index: " + currentYear);
         File.WriteAllText(path, currentYear);
 

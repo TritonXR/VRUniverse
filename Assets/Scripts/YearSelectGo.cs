@@ -1,38 +1,50 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class YearSelectGo : MonoBehaviour {
+public class YearSelectGo : MonoBehaviour, PointableObject
+{
 
-    [SerializeField]
-    private int YearValue
+    public int YearValue
     {
         get
         {
-            return YearValue;
+            return yearValue;
         }
 
         set
         {
-            YearValue = value;
-            YearString = value.ToString();
-            YearText.text = YearString;
+            yearValue = value;
+            yearString = value.ToString();
+            yearText.text = yearString;
         }
     }
-    [SerializeField] private Text YearText;
-    private string YearString;
-    
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-    
+    [SerializeField] private int yearValue;
+    [SerializeField] private Text yearText;
 
+    private string yearString;
+
+    void Start()
+    {
+        YearSelectMain.GetInstance().RegisterYearButton(this);
+    }
+
+    public void PointerStart()
+    {
+        return;
+    }
+
+    public void PointerClick()
+    {
+        UniverseSystem universe = UniverseSystem.GetInstance();
+        universe.TeleportToYear(universe.GetYearIndex(YearValue));
+    }
+
+    public void PointerStop()
+    {
+        return;
+    }
 }
