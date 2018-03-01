@@ -21,7 +21,7 @@ public class OrbitManager : MonoBehaviour {
     public int OuterInnerRatio = 2;                    //how many planets are on the outer radius per planet on the inner radius
     public float DirectionToStar = 90.0f;              //which direction to you look to see the star; 0=forward, 90=right, -90=left
     
-	private Planet[] planet_list;                  //list of planet game objects
+	private PlanetController[] planet_list;                  //list of planet game objects
 	public Light StarLight;                            //point light used to light the planets
 	public Camera MainCamera;                          //main scene camera
 
@@ -40,7 +40,7 @@ public class OrbitManager : MonoBehaviour {
             Destroy(this);
         }
 
-        PopulateOrbit(new Planet[0]);
+        PopulateOrbit(new PlanetController[0]);
 	}
 	
 	// Update is called once per frame
@@ -58,7 +58,7 @@ public class OrbitManager : MonoBehaviour {
         transform.eulerAngles = new Vector3(0, (270.0f - DirectionToStar) - (polarLocation * Mathf.Rad2Deg), 0);
 	}
 
-    public void PopulateOrbit(Planet[] planets)
+    public void PopulateOrbit(PlanetController[] planets)
     {
         planet_list = planets;
         //calculates various parameters for the orbit

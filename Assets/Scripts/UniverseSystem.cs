@@ -208,8 +208,8 @@ public class UniverseSystem : MonoBehaviour {
 				//Set the name of the planet game object in hierarchy
 				planet.name = "Planet";
 
-				//Add a Planet component on the new planet game object to declare it a planet object
-				Planet currPlanet = planet.GetComponent<Planet>();
+                //Add a Planet component on the new planet game object to declare it a planet object
+                PlanetController currPlanet = planet.GetComponent<PlanetController>();
 
 				//Set the parent of the new Planet object to be the Planets gameobject
 				planet.transform.parent = year.planets.transform;
@@ -277,8 +277,8 @@ public class UniverseSystem : MonoBehaviour {
 	{
 		Debug.Log("Destroying Planets from year: " + list_years[prevYear].yr_name);
 
-		//Get the list of planets existing in the previous year
-		Planet[] list_planets = list_years[prevYear].planets.GetComponentsInChildren<Planet>();
+        //Get the list of planets existing in the previous year
+        PlanetController[] list_planets = list_years[prevYear].planets.GetComponentsInChildren<PlanetController>();
 
 		//Iterate through the list and destroy the planet gameobjects
 		for (int i = 0; i < list_planets.Length; i++)
