@@ -6,7 +6,10 @@ public class YearSelectMain : MonoBehaviour {
 
     private static YearSelectMain instance;
 
-    private List<YearSelectGo> yearButtons;
+    [SerializeField] private YearSelectGo[] yearButtons;
+    [SerializeField] private int primaryYearButtonIndex;
+
+    private int minYear, maxYear;
 
 	// Use this for initialization
 	void Awake () {
@@ -15,35 +18,47 @@ public class YearSelectMain : MonoBehaviour {
             Destroy(this);
         }
         else instance = this;
-
-        yearButtons = new List<YearSelectGo>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    void Start()
+    {
+        StartCoroutine(EndOfStartFrame());
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
     public void IncrementYear(int increment)
     {
-        foreach(YearSelectGo year in yearButtons)
+        UniverseSystem.GetInstance().GetYearRange(out minYear, out maxYear);
+        if (yearButtons.Length >= 1)
         {
-            year.YearValue = year.YearValue + increment;
+            int adjustedPrimaryYear = yearButtons[primaryYearButtonIndex].YearValue + increment;
+            if (adjustedPrimaryYear <= maxYear && adjustedPrimaryYear >= minYear)
+            {
+                foreach (YearSelectGo year in yearButtons)
+                {
+                    year.YearValue = year.YearValue + increment;
+                }
+            }
         }
-    }
-
-    public void RegisterYearButton(YearSelectGo year)
-    {
-        if(!yearButtons.Contains(year)) yearButtons.Add(year);
-    }
-
-    public void DeregisterYearButton(YearSelectGo year)
-    {
-        if (yearButtons.Contains(year)) yearButtons.Remove(year);
     }
 
     public static YearSelectMain GetInstance()
     {
         return instance;
+    }
+
+    IEnumerator EndOfStartFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        UniverseSystem.GetInstance().GetYearRange(out minYear, out maxYear);
+
+        for(int index = 0; index < yearButtons.Length; index++)
+        {
+            yearButtons[index].YearValue = maxYear - primaryYearButtonIndex + index;
+        }
     }
 }

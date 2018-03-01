@@ -9,7 +9,7 @@ public class YearSelectShift : MonoBehaviour, PointableObject {
 
     [SerializeField] private YearShift ShiftDirection;
 
-    public void PointerStart()
+    public void PointerEnter()
     {
         return;
     }
@@ -34,7 +34,7 @@ public class YearSelectShift : MonoBehaviour, PointableObject {
         YearSelectMain.GetInstance().IncrementYear(increment);
     }
 
-    public void PointerStop()
+    public void PointerExit()
     {
         return;
     }

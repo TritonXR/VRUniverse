@@ -27,7 +27,7 @@ public class TravelInteractable : MonoBehaviour, PointableObject
     /*
      * PointerStart: Called whenever the user points at the travel menu button.
      */
-    public void PointerStart()
+    public void PointerEnter()
     {
         //Enable the highlight to show it is being hovered on
         highlight.enabled = true;
@@ -37,7 +37,7 @@ public class TravelInteractable : MonoBehaviour, PointableObject
     /*
      * PointerStop: Called whenever the user stops pointing at the travel menu button.
      */
-    public void PointerStop()
+    public void PointerExit()
     {
         //Disable the highlight
         highlight.enabled = false;

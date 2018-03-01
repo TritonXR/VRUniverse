@@ -17,34 +17,52 @@ public class YearSelectGo : MonoBehaviour, PointableObject
         set
         {
             yearValue = value;
-            yearString = value.ToString();
+            yearIndex = UniverseSystem.GetInstance().GetYearIndex(yearValue);
+
+            if (yearIndex == -1)
+            {
+                yearString = "--";
+                yearText.color = disabledColor;
+            }
+            else
+            {
+                yearString = value.ToString();
+                yearText.color = defaultColor;
+            }
+
             yearText.text = yearString;
         }
     }
 
-    [SerializeField] private int yearValue;
     [SerializeField] private Text yearText;
+    [SerializeField] private Color defaultColor;
+    [SerializeField] private Color highlghtColor;
+    [SerializeField] private Color disabledColor;
+
+    private int yearValue;
+    private int yearIndex;
 
     private string yearString;
 
     void Start()
     {
-        YearSelectMain.GetInstance().RegisterYearButton(this);
+        
     }
 
-    public void PointerStart()
+    public void PointerEnter()
     {
+        if(yearIndex != -1) yearText.color = highlghtColor;
         return;
     }
 
     public void PointerClick()
     {
-        UniverseSystem universe = UniverseSystem.GetInstance();
-        universe.TeleportToYear(universe.GetYearIndex(YearValue));
+        if(yearIndex != -1) UniverseSystem.GetInstance().TeleportToYear(yearIndex);
     }
 
-    public void PointerStop()
+    public void PointerExit()
     {
+        if (yearIndex != -1) yearText.color = defaultColor;
         return;
     }
 }

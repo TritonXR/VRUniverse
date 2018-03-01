@@ -84,7 +84,7 @@ public class InteractivePointer : MonoBehaviour {
 			SetPointerColor(true);
 
             //Have planet react to the pointing
-            targetObject.PointerStart();
+            targetObject.PointerEnter();
 
             //Ensure that the user didn't already click on the planet
             if (!isTriggerClickable)
@@ -124,7 +124,7 @@ public class InteractivePointer : MonoBehaviour {
             SetPointerColor(false);
 
             //Have planet stopped reacting
-            targetObject.PointerStart();
+            targetObject.PointerExit();
 
             //Ensure that the user didn't already click on the menu
             if (isTriggerClickable)
@@ -173,7 +173,7 @@ public class InteractivePointer : MonoBehaviour {
 
 public interface PointableObject
 {
-    void PointerStart();
+    void PointerEnter();
     void PointerClick();
-    void PointerStop();
+    void PointerExit();
 }

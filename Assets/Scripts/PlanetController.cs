@@ -232,7 +232,7 @@ public class PlanetController : MonoBehaviour, PointableObject
      * PointerStart: Called when user's laser collides with the planet to toggle the description menu and make changes to tutorial on right controller
      * Parameters: None
      */
-    public void PointerStart()
+    public void PointerEnter()
     {
         //Turn on menu when hovering
         ToggleMenu(true);
@@ -256,7 +256,7 @@ public class PlanetController : MonoBehaviour, PointableObject
      * PointerStop: Calls when the user points their laser away from the planet to disable the description menu
      * Parameters: None
      */
-    public void PointerStop()
+    public void PointerExit()
     {
         //Turn off floating menu panel when not using
         ToggleMenu(false);

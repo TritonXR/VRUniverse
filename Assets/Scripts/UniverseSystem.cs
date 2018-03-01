@@ -364,6 +364,18 @@ public class UniverseSystem : MonoBehaviour {
         return index;
     }
 
+    public void GetYearRange(out int min, out int max)
+    {
+        min = max = Int32.Parse(list_years[0].yr_name);
+
+        for(int index = 1; index < list_years.Count; index++)
+        {
+            int yearValue = Int32.Parse(list_years[index].yr_name);
+            if (yearValue < min) min = yearValue;
+            else if (yearValue > max) max = yearValue;
+        }
+    }
+
     public string GetCurrentYear()
     {
         if (atYear == -1) return LOBBY_YEAR_STRING;
