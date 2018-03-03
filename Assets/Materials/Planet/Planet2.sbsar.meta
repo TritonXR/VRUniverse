@@ -1,0 +1,909 @@
+fileFormatVersion: 2
+guid: f9db76ea901dbf44daf36ebb55f6c96c
+timeCreated: 1519513714
+licenseType: Free
+SubstanceImporter:
+  externalObjects: {}
+  serializedVersion: 5
+  materialInstances:
+  - serializedVersion: 16
+    name: Planet
+    prototypeName: Planet
+    shaderName: 
+    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+    shaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
+    renderQueue: -1
+    lightmapFlags: 1
+    inputs:
+    - name: Base_Color
+      value:
+        scalar[0]: 1
+        scalar[1]: 1
+        scalar[2]: 1
+        scalar[3]: 1
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Quantize
+      value:
+        scalar[0]: 25
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: height_depth
+      value:
+        scalar[0]: 0.31
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: normal_intensity
+      value:
+        scalar[0]: 105.4
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Base_Roughness
+      value:
+        scalar[0]: 0.986
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Scale
+      value:
+        scalar[0]: 4.31
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Disorder
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Cracks_Scale
+      value:
+        scalar[0]: 55.7
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Peaks_Color
+      value:
+        scalar[0]: 1
+        scalar[1]: 0.8482759
+        scalar[2]: 0
+        scalar[3]: 1
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Grunge_Color
+      value:
+        scalar[0]: 0.24137926
+        scalar[1]: 1
+        scalar[2]: 0
+        scalar[3]: 1
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: $outputsize
+      value:
+        scalar[0]: 8
+        scalar[1]: 8
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: $randomseed
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: position
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
+        stringvalue: 
+    - name: normalWS
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: triplanar
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: inputmaps
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Metallic_Value
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: quantize_planet
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Large_Shape_Scale
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Large_Shape_Disorder
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: ls_low
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: ls_high
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: ls_mid
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: ls_out_low
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: ls_out_high
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: ls_blur
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Bevel_Distance
+      value:
+        scalar[0]: -1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Moutain_Pre-Blur
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Pre-Low
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Pre-High
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Pre-Mid
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Pre-Low_Out
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Pre-High_Out
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Post-Blur
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Post-Low
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Post-High
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Post-Mid
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Post-Low_Out
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Post-High_Out
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Mountain_Blend_Amount
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Rocky_Cracks
+      value:
+        scalar[0]: 0.065
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Rocky_Balance
+      value:
+        scalar[0]: 0.467
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Rocky_Contrast
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Rocky_Blend
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Speckle_Scale
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Speckle_Disorder
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Speckle_Height_Blend
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Speckle_Roughness
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Speckle_Color
+      value:
+        scalar[0]: 1
+        scalar[1]: 1
+        scalar[2]: 1
+        scalar[3]: 1
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Speckle_Color_Blend
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Crack_Edge_Width
+      value:
+        scalar[0]: 0.66
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Crack_Cleanup
+      value:
+        scalar[0]: -1.1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Crack_Warp
+      value:
+        scalar[0]: 0.06
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Crack_Blend
+      value:
+        scalar[0]: 0.701
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Crack_Emission_Color
+      value:
+        scalar[0]: 0.272
+        scalar[1]: 0.27681783
+        scalar[2]: 0.9705882
+        scalar[3]: 1
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Crack_Emission_Blend
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Final_Height_Low
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Final_Height_High
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Final_Height_Mid
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Final_Height_Low_Out
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Final_Height_High_Out
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Secondary_Color_Scale
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Secondary_Color
+      value:
+        scalar[0]: 0.86
+        scalar[1]: 0.847068
+        scalar[2]: 0.7912
+        scalar[3]: 1
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Secondary_Color_Blend
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Tertiary_Scale
+      value:
+        scalar[0]: 4.8
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Tertiary_Disorder
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Tertiary_Noise_Roughness
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Tertiary_Color
+      value:
+        scalar[0]: 0.85
+        scalar[1]: 0.78574
+        scalar[2]: 0.6205
+        scalar[3]: 1
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Tertiary_Blend
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Tertiary_Roughness
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Peaks_Color_Blend
+      value:
+        scalar[0]: 0.995
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Peak_Low
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Peak_High
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Peak_Mid
+      value:
+        scalar[0]: 0.5
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Peaks_Low_Out
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Peaks_High_Out
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Grunge_Balance
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Grunge_Contrast
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Grunge_Offset
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Grunge_Blending
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Pole_Size
+      value:
+        scalar[0]: 0.99
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Pole_Color
+      value:
+        scalar[0]: 1
+        scalar[1]: 1
+        scalar[2]: 1
+        scalar[3]: 1
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: Pole_Blend
+      value:
+        scalar[0]: 0.462
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: water_level
+      value:
+        scalar[0]: 0.939
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: water_darkness
+      value:
+        scalar[0]: 0.279
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: edges_wetness
+      value:
+        scalar[0]: 0.128
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: edges_wetness_distance
+      value:
+        scalar[0]: 0.123
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: depth_blur_amount
+      value:
+        scalar[0]: 0.135
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: depth_blur_opacity
+      value:
+        scalar[0]: 0.381
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: sludge_color
+      value:
+        scalar[0]: 0.17517301
+        scalar[1]: 0.88235295
+        scalar[2]: 0.8486719
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: sludge_depth
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: sludge_opacity
+      value:
+        scalar[0]: 1
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: frost
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: frost_intensity
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    - name: frost_cracks
+      value:
+        scalar[0]: 0
+        scalar[1]: 0
+        scalar[2]: 0
+        scalar[3]: 0
+        texture: {instanceID: 0}
+        stringvalue: 
+    materialInformation:
+      serializedVersion: 5
+      offset: {x: 0, y: 0}
+      scale: {x: 1, y: 1}
+      generateMipmaps: 1
+      generateAllOutputs: 0
+      animationUpdateRate: 42
+    materialProperties:
+      serializedVersion: 3
+      texEnvs:
+      - _BumpMap:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _DetailAlbedoMap:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _DetailMask:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _DetailNormalMap:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _EmissionMap:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _MainTex:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _MetallicGlossMap:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _OcclusionMap:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _ParallaxMap:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      floats:
+      - _BumpScale: 1
+      - _Cutoff: 0.5
+      - _DetailNormalMapScale: 1
+      - _DstBlend: 0
+      - _GlossMapScale: 0
+      - _Glossiness: 0.5
+      - _GlossyReflections: 1
+      - _Metallic: 0
+      - _Mode: 0
+      - _OcclusionStrength: 1
+      - _Parallax: 0.0077
+      - _SmoothnessTextureChannel: 0
+      - _SpecularHighlights: 1
+      - _SrcBlend: 1
+      - _UVSec: 0
+      - _ZWrite: 1
+      colors:
+      - _Color: {r: 1, g: 1, b: 1, a: 1}
+      - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    textureParameters:
+    - name: Planet_basecolor
+      alphaSource: 6
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Planet_normal
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Planet_metallic
+      alphaSource: 7
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Planet_height
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Planet_ambientOcculsion
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Planet_emissive
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    - name: Planet_roughness
+      alphaSource: 0
+      filterMode: 1
+      aniso: 1
+      wrapMode: 0
+    textureAssignments:
+    - shaderProp: _MainTex
+      material: {instanceID: 0}
+      baseUID: 734120941
+    - shaderProp: _BumpMap
+      material: {instanceID: 0}
+      baseUID: 734120943
+    - shaderProp: _EmissionMap
+      material: {instanceID: 0}
+      baseUID: 779253489
+    - shaderProp: _MetallicGlossMap
+      material: {instanceID: 0}
+      baseUID: 734120939
+    - shaderProp: _OcclusionMap
+      material: {instanceID: 0}
+      baseUID: 780560608
+    - shaderProp: _ParallaxMap
+      material: {instanceID: 0}
+      baseUID: 799990042
+    buildTargetSettings:
+    - serializedVersion: 2
+      buildTarget: 
+      textureWidth: 512
+      textureHeight: 512
+      textureFormat: 0
+      loadingBehavior: 1
+  deletedPrototypes: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
