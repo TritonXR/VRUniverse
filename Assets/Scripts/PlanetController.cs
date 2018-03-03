@@ -128,9 +128,12 @@ public class PlanetController : MonoBehaviour, PointableObject
             LeverScript lever = LeverScript.GetInstance();
             lever.SetThrottle(lever.GetDefaultThrottle());
             PlanetDisplay disp = PlanetDisplay.GetInstance();
-            //disp.gameObject.SetActive(true);
-            disp.SetViewTarget(transform);
-            disp.UpdateInfo(title, creator, description, year, des_tag, image);
+            if (disp.GetViewTarget() == transform)
+            {
+                disp.SetVisible(false);
+                disp.SetViewTarget(null);
+                disp.GetTravelInteractable().executableString = "";
+            }
 
             isSelected = false;
         }
@@ -138,8 +141,10 @@ public class PlanetController : MonoBehaviour, PointableObject
         {
             LeverScript.GetInstance().SetThrottle(0.0f);
             PlanetDisplay disp = PlanetDisplay.GetInstance();
-            //disp.gameObject.SetActive(false);
-            disp.SetViewTarget(null);
+            disp.SetVisible(true);
+            disp.SetViewTarget(transform);
+            disp.UpdateInfo(title, creator, description, year, des_tag, image);
+            disp.GetTravelInteractable().executableString = @"../VRClubUniverse_Data/VR_Demos/" + year + @"/" + executable + @"/" + executable + @".exe";
 
             isSelected = true;
         }

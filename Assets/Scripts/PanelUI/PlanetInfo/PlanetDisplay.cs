@@ -14,9 +14,10 @@ public class PlanetDisplay : MonoBehaviour {
     [SerializeField] private float orbitRadius; //how far the canvas is from the orbit anchor
     [SerializeField] private Vector2 baseOffsetDirection; //this gets normalized, so you just need the direction roughly correct
     [SerializeField] private Vector2 additionalOffset; //this doesn't get normalized, it's in addition to the base offset
+    [SerializeField] private TravelInteractable travelConfirmButton;
 
     private Transform targetPlanet;
-
+    private Canvas renderedCanvas;
 
     private void Awake()
     {
@@ -31,6 +32,8 @@ public class PlanetDisplay : MonoBehaviour {
     void Start () {
         targetPlanet = null;
         baseOffsetDirection.Normalize();
+        renderedCanvas = GetComponent<Canvas>();
+        renderedCanvas.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -40,11 +43,16 @@ public class PlanetDisplay : MonoBehaviour {
             Vector3 targetPlanetOffset = targetPlanet.position - orbitAnchor.position;
             Vector3 rightOffsetDir = Vector3.Cross(targetPlanetOffset, Vector3.up).normalized;
             Vector3 upOffsetDir = Vector3.Cross(rightOffsetDir, targetPlanetOffset).normalized;
+            //Debug.Log("Distance to target: " + targetPlanetOffset.magnitude);
 
             float planetRadius = Vector3.Dot(targetPlanet.localScale, Vector3.one) / 6.0f; //divide by 3 to get average scaling, divide by 2 to get from diameter to radius
+            //Debug.Log("Planet radius: " + planetRadius);
             float radiusForOffset = planetRadius / targetPlanetOffset.magnitude * orbitRadius;
+            //Debug.Log("radiusForOffset: " + radiusForOffset);
             float rightOffset = baseOffsetDirection.x * radiusForOffset + additionalOffset.x;
+            //Debug.Log("rightOffset: " + rightOffset);
             float upOffset = baseOffsetDirection.y * radiusForOffset + additionalOffset.y;
+            //Debug.Log("upOffset: " + upOffset);
             transform.position = targetPlanetOffset.normalized * orbitRadius + rightOffsetDir * rightOffset + upOffsetDir * upOffset + orbitAnchor.position;
 
             transform.LookAt(targetViewer);
@@ -55,6 +63,11 @@ public class PlanetDisplay : MonoBehaviour {
     public void SetViewTarget(Transform target)
     {
         targetPlanet = target;
+    }
+
+    public Transform GetViewTarget()
+    {
+        return targetPlanet;
     }
 
     public void UpdateInfo(string title, string creator, string desc, string year, string[] tags, Sprite image)
@@ -82,6 +95,16 @@ public class PlanetDisplay : MonoBehaviour {
 
         Planet_Tag.text = tagText;
         Planet_Image.sprite = image; //Uses the image component to set the sprite of what the picture should be
+    }
+
+    public void SetVisible(bool visible)
+    {
+        renderedCanvas.enabled = visible;
+    }
+
+    public TravelInteractable GetTravelInteractable()
+    {
+        return travelConfirmButton;
     }
 
     public static PlanetDisplay GetInstance()

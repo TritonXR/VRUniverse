@@ -42,6 +42,7 @@ public class ExecutableSwitch : MonoBehaviour
         else isLoading = true;
 
 		if (datapath == null || datapath.Equals("")) datapath = defaultDatapath;
+        if (!datapath.StartsWith("/")) datapath = "/" + datapath;
 		string helperDatapath = Application.dataPath + "/../VRUniverse_Helper.exe";
 
 		Debug.Log("Starting: " + helperDatapath);

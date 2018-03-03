@@ -307,6 +307,10 @@ public class UniverseSystem : MonoBehaviour {
 			DestroyPlanets(atYear);
 		}
 
+        PlanetDisplay disp = PlanetDisplay.GetInstance();
+        disp.SetVisible(false);
+        disp.SetViewTarget(null);
+
 		//Create the new year with planets
 		CreateYear(newYear);
 
