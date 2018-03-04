@@ -1,0 +1,214 @@
+fileFormatVersion: 2
+guid: 47a50888fecd249edbcaefc889014e4a
+timeCreated: 1520124227
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Body
+    100002: Cube
+    100004: Cube_000
+    100006: Cube_001
+    100008: Cube_002
+    100010: Cube_003
+    100012: Cube_004
+    100014: Cube_005
+    100016: Cube_006
+    100018: Cube_007
+    100020: Cube_008
+    100022: Cube_009
+    100024: Cylinder_001
+    100026: Glass_Front
+    100028: Left_Door
+    100030: Platform
+    100032: Right_Door
+    100034: //RootNode
+    100036: Side_Bodies
+    100038: Side_Bodies_001
+    100040: Side_Bodies_002
+    100042: Side_Bodies_003
+    100044: Side_Bodies_004
+    400000: Body
+    400002: Cube
+    400004: Cube_000
+    400006: Cube_001
+    400008: Cube_002
+    400010: Cube_003
+    400012: Cube_004
+    400014: Cube_005
+    400016: Cube_006
+    400018: Cube_007
+    400020: Cube_008
+    400022: Cube_009
+    400024: Cylinder_001
+    400026: Glass_Front
+    400028: Left_Door
+    400030: Platform
+    400032: Right_Door
+    400034: //RootNode
+    400036: Side_Bodies
+    400038: Side_Bodies_001
+    400040: Side_Bodies_002
+    400042: Side_Bodies_003
+    400044: Side_Bodies_004
+    2100000: unnamed
+    2100002: Material_012
+    2100004: Material_002
+    2100006: None__Material_Diffuse_Color
+    2100008: Material_005
+    2100010: LeftDoorbottom__Logo_VR_Club_png
+    2100012: LeftDoorTop
+    2100014: None__Logo_Final_Square_lowres_png
+    2100016: LeftDoorTop__Logo_Final_Square_lowres_png
+    2100018: Material_009
+    2100020: Material_008__Logo_VR_Club_png_002
+    2100022: Material_011
+    2100024: Material_001__Logo_VR_Club_png_002
+    2300000: Body
+    2300002: Cube
+    2300004: Cube_000
+    2300006: Cube_001
+    2300008: Cube_002
+    2300010: Cube_003
+    2300012: Cube_004
+    2300014: Cube_005
+    2300016: Cube_006
+    2300018: Cube_007
+    2300020: Cube_008
+    2300022: Cube_009
+    2300024: Cylinder_001
+    2300026: Glass_Front
+    2300028: Left_Door
+    2300030: Platform
+    2300032: Right_Door
+    2300034: Side_Bodies
+    2300036: Side_Bodies_001
+    2300038: Side_Bodies_002
+    2300040: Side_Bodies_003
+    2300042: Side_Bodies_004
+    3300000: Body
+    3300002: Cube
+    3300004: Cube_000
+    3300006: Cube_001
+    3300008: Cube_002
+    3300010: Cube_003
+    3300012: Cube_004
+    3300014: Cube_005
+    3300016: Cube_006
+    3300018: Cube_007
+    3300020: Cube_008
+    3300022: Cube_009
+    3300024: Cylinder_001
+    3300026: Glass_Front
+    3300028: Left_Door
+    3300030: Platform
+    3300032: Right_Door
+    3300034: Side_Bodies
+    3300036: Side_Bodies_001
+    3300038: Side_Bodies_002
+    3300040: Side_Bodies_003
+    3300042: Side_Bodies_004
+    4300000: Side_Bodies_004
+    4300002: Side_Bodies_003
+    4300004: Side_Bodies_002
+    4300006: Side_Bodies_001
+    4300008: Cube_009
+    4300010: Cylinder_001
+    4300012: Cube_008
+    4300014: Cube_007
+    4300016: Cube_006
+    4300018: Cube_005
+    4300020: Cube_004
+    4300022: Cube_003
+    4300024: Cube_001
+    4300026: Cube
+    4300028: Side_Bodies
+    4300030: Glass_Front
+    4300032: Platform
+    4300034: Right_Door
+    4300036: Left_Door
+    4300038: Body
+    4300040: Cube_000
+    4300042: Cube_002
+    7400000: Default Take
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
