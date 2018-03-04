@@ -16,7 +16,7 @@ router.get('/*', function(req, res, next) {
 	}
 
 	if (tagArr.length == 0) {
-		res.redirect('/download');
+		res.redirect('/projects');
 		return;
 	}
 

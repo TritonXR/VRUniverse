@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var fs = require("fs");
+var db = require('./db.js');
+
 
 function readFiles(dirname, callback) {
     var data = {};
@@ -33,12 +35,32 @@ function readFiles(dirname, callback) {
     });  
 } 
 
+
 router.get('/', function (req, res, next) {
-    readFiles('./data/VRClubUniverseData/', function (data) {
-        res.render('projects', {
-            json:  JSON.stringify(data)
-        });      
+
+    db.getAllTags(function(tags) {
+        db.getAllProjects(function(data) {
+            res.render('download', {
+                json: JSON.stringify(data),
+                tags : JSON.stringify(tags),
+                tagArray : null
+            });
+        });
     });
 });
+
+function updateShow(projs, callback) {
+    for (index in projs["PlanetJSON"]) {
+        if (projs["PlanetJSON"][index].Name != key) {
+            projs["PlanetJSON"][index].Show = false;
+        }
+        //console.log("AAAAA " + JSON.stringify(projs["PlanetJSON"][index]));
+        if (index == projs["PlanetJSON"].length - 1) {
+            console.log("callback!!!!");
+            callback(projs);
+        }
+    }
+    
+}
 
 module.exports = router;

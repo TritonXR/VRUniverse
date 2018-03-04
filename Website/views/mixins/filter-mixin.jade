@@ -1,7 +1,6 @@
 mixin filter-mixin(data)
 		div.container-fluid
 			div.row
-				-console.log(typeof data)
 				div.col-md-10.col-md-offset-1.proj-container
 					div.container-fluid
 						div.row
@@ -18,8 +17,15 @@ mixin filter-mixin(data)
 								div(class="row proj-data") 
 									div.project-label Description : 
 									div.project-name #{data.description}
-								//- div(class="row proj-data")
-									//- div.project-label Tags :
-										//- for (var key in tagArr)
-											//- a.tag-link(href="/filter/#{tagArr[key]}")
-												//- span #{tagArr[key]}
+								div(class="row proj-data")
+									div.project-label Tags :
+										- data.tags = data.tags.replace(new RegExp("'", 'g'), '');
+										- data.tags = data.tags.substring(1, data.tags.length - 1)
+										- data.tags = data.tags.split(",");
+										- for (let i = 0; i < data.tags.length; i++) {
+											- data.tags[i] = data.tags[i].trim().substring(1, data.tags[i].length);
+										- }
+											- for (var key in data.tags)
+												a.tag-link(href="/filter/?#{data.tags[key]}=true")
+													span #{data.tags[key]}
+										

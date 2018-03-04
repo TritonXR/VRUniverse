@@ -50,32 +50,12 @@ function readFiles(dirname, callback) {
 /* GET users listing. */
 
 router.get('/', function (req, res, next) {
-
-    db.getAllTags(function(tags) {
-        console.log(tags);
-        db.getAllProjects(function(data) {
-            res.render('download', {
-                json: JSON.stringify(data),
-                tags : JSON.stringify(tags),
-                tagArray : null
-            });
-        });
+    readFiles('./data/VRClubUniverseData/', function (data) {
+        res.render('projects', {
+            json:  JSON.stringify(data)
+        });      
     });
 });
-
-function updateShow(projs, callback) {
-    for (index in projs["PlanetJSON"]) {
-        if (projs["PlanetJSON"][index].Name != key) {
-            projs["PlanetJSON"][index].Show = false;
-        }
-        //console.log("AAAAA " + JSON.stringify(projs["PlanetJSON"][index]));
-        if (index == projs["PlanetJSON"].length - 1) {
-            console.log("callback!!!!");
-            callback(projs);
-        }
-    }
-    
-}
 
 router.post('/', function (req, res, next) {
     if (!data) {
