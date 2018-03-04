@@ -25,6 +25,8 @@ mixin filter-mixin(data)
 										- for (let i = 0; i < data.tags.length; i++) {
 											- data.tags[i] = data.tags[i].trim().substring(1, data.tags[i].length);
 										- }
+										-data.tags.push("" + data.year);
+										-console.log(data.tags);
 											- for (var key in data.tags)
 												a.tag-link(href="/filter/?#{data.tags[key]}=true")
 													span #{data.tags[key]}

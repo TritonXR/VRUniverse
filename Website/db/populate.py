@@ -1,8 +1,8 @@
 import sqlite3
 import json
 
-year = 2017
-data = json.load(open('../data/VRClubUniverseData/' + str(year) + '.json'))
+year = str(2017)
+data = json.load(open('../data/VRClubUniverseData/' + year + '.json'))
 conn = sqlite3.connect('universe.db')
 
 planet_insert_sql = "INSERT INTO planets (name, creator, description, year, image, executable, tags) VALUES(?, ?, ?, ?, ?, ?, ?)" 
@@ -30,7 +30,7 @@ def populateTags():
     for planet in data['PlanetJSON']:
         for tag in planet['Tags']:
             conn.execute(tag_insert_sql, (tag, ));
-            conn.commit(); 
+            conn.commit();
             
 
 def populateMapper():
@@ -45,5 +45,18 @@ def populateMapper():
             conn.execute(map_insert_sql, (id, tag_id));
         conn.commit();
 
-populateMapper();
+def populateMapperWithYears():
+    for planet in data['PlanetJSON']:
+        id = None;
+        for i in conn.execute('SELECT id from planets where name = ?', (convert(planet['Name']),)):
+            id = i[0];
 
+            tag_id = None;
+            for i in conn.execute('SELECT tag_id from tags where tag = ?', (year,)):
+                tag_id = i[0]
+            conn.execute(map_insert_sql, (id, tag_id));
+        conn.commit();
+
+conn.execute(tag_insert_sql, (year,));
+conn.commit();
+populateMapperWithYears();
