@@ -6,8 +6,11 @@ using UnityEngine;
  * Description: Contains methods for the blue particle light speed travel effect that happens when traveling between years
  * Utilized on: HyperspeedController particle system gameobject
  */
+   
 
 public class Hyperspeed : MonoBehaviour {
+
+    [SerializeField] Transform spaceShip;
 
     // Holds the particle system for hyperspeed
     private ParticleSystem hyperspeed;
@@ -35,6 +38,24 @@ public class Hyperspeed : MonoBehaviour {
 
         // Pause the particle system because we don't want it to play automatically
         hyperspeed.Pause();
+
+        //Vector3 rot = spaceShip.rotation.eulerAngles;
+        //rot = new Vector3(rot.x, rot.y + 180, rot.z);
+        //gameObject.transform.rotation = Quaternion.Euler(rot);
+       
+
+    }
+
+    void Update ()
+    {
+        //gameObject.transform.position = new Vector3(spaceShip.position.x + 30.0f, spaceShip.position.y, spaceShip.position.z);
+
+        //Vector3 rot = spaceShip.rotation.eulerAngles;
+        //gameObject.transform.rotation.rot
+        //rot = new Vector3(rot.x, gameObject.transform.rotation.y, rot.z);         
+        //gameObject.transform.rotation = Quaternion.Euler(rot);
+
+        
 
     }
 
