@@ -249,6 +249,11 @@ public class UniverseSystem : MonoBehaviour {
                 //Adds the read planet into the year
                 year.list_planets.Add(currPlanet);
 
+				Renderer rend = currPlanet.GetComponent<Renderer>();
+				Material material = Instantiate(rend.material);
+				rend.material =material;
+				ChangeValue val = GetComponentInChildren<ChangeValue>();
+				val.change(rend, currPlanet.title, int.Parse(currPlanet.year));
             }
 
             OrbitManager orbitManager = OrbitManager.GetOrbitManager();
