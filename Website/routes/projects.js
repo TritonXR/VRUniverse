@@ -40,7 +40,7 @@ router.get('/', function (req, res, next) {
 
     db.getAllTags(function(tags) {
         db.getAllProjects(function(data) {
-            res.render('download', {
+            res.render('projects', {
                 json: JSON.stringify(data),
                 tags : JSON.stringify(tags),
                 tagArray : null

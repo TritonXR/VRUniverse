@@ -51,7 +51,7 @@ function readFiles(dirname, callback) {
 
 router.get('/', function (req, res, next) {
     readFiles('./data/VRClubUniverseData/', function (data) {
-        res.render('projects', {
+        res.render('download', {
             json:  JSON.stringify(data)
         });      
     });
