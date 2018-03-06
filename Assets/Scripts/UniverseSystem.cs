@@ -215,39 +215,39 @@ public class UniverseSystem : MonoBehaviour {
 				planet.transform.parent = year.planets.transform;
 
 				//Set the planet's name
-				currPlanet.title = json_planet.Name;
+				currPlanet.data.title = json_planet.Name;
 
 				//Set the planet's creator
-				currPlanet.creator = json_planet.Creator;
+				currPlanet.data.creator = json_planet.Creator;
 
 				//Set the planet's description
-				currPlanet.description = json_planet.Description;
+				currPlanet.data.description = json_planet.Description;
 
-				//Set the planet's year
-				currPlanet.year = json_planet.Year.ToString();
+                //Set the planet's year
+                currPlanet.data.year = json_planet.Year.ToString();
 
 				//Set the planet's executable path
-				currPlanet.executable = json_planet.Executable;
+				currPlanet.data.executable = json_planet.Executable;
 
 				//Set the planet's tags by creating a string array of the same length
-				currPlanet.des_tag = new string[json_planet.Tags.Length];
+				currPlanet.data.des_tag = new string[json_planet.Tags.Length];
 
 				//For each tag in the json planet
 				for (int i = 0; i < json_planet.Tags.Length; i++)
 				{
 					// Set the tag of the current planet equal to the json tag
-					currPlanet.des_tag[i] = json_planet.Tags[i];
+					currPlanet.data.des_tag[i] = json_planet.Tags[i];
 				}
 
 				//Get the planet's image with path
 				string imageName = "/" + json_planet.Image;
 
 				//Turn the image from path URL into a Sprite to set
-				byte[] bytes = File.ReadAllBytes("VRClubUniverse_Data/VR_Demos/" + currPlanet.year + "/" + currPlanet.executable + "/" + imageName);
+				byte[] bytes = File.ReadAllBytes("VRClubUniverse_Data/VR_Demos/" + currPlanet.data.year + "/" + currPlanet.data.executable + "/" + imageName);
 				Texture2D texture = new Texture2D(0, 0);
 				texture.LoadImage(bytes);
 				Rect rect = new Rect(0, 0, texture.width, texture.height);
-				currPlanet.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+				currPlanet.data.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
 
 				//Adds the read planet into the year
 				year.list_planets.Add(currPlanet);

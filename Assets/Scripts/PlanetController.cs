@@ -7,19 +7,21 @@ using UnityEngine.UI;
  * Utilized on: Planet.prefab that is instantiated with every planet/project
  */
 
-public class PlanetController : MonoBehaviour, PointableObject
+public struct PlanetData
 {
-    //offsets of various menus relative to the planet in viewing space (neg/pos effects: x => left/right, y=down/up, z=closer/farther)
-    [SerializeField] private Vector3 PlanetMenu_Offset = new Vector3(0, 0, 0);
-    [SerializeField] private Vector3 TravelMenu_Offset = new Vector3(0, 0, 0);
-
     public string title, creator, year, description, executable;
     public string[] des_tag;
     public Sprite image;
+}
+
+public class PlanetController : MonoBehaviour, PointableObject
+{
+    private static PlanetController selectedPlanet = null;
+
+    public PlanetData data;
 
     //Check if this is the first time the user is selecting a planet (so as not to repeat the tutorial everytime)
 	private bool tutorial_firstSelection = true;
-    private bool isSelected;
 
     /*
      * Start: Sets planet information, positions, scales, references to controller, planets, menus, and tutorials
@@ -27,7 +29,6 @@ public class PlanetController : MonoBehaviour, PointableObject
      */
     protected void Start()
     {
-        isSelected = false;
 
 	}
 
@@ -123,7 +124,7 @@ public class PlanetController : MonoBehaviour, PointableObject
 
     public void PointerClick()
     {
-        if(isSelected)
+        if(selectedPlanet == this)
         {
             LeverScript lever = LeverScript.GetInstance();
             lever.SetThrottle(lever.GetDefaultThrottle());
@@ -135,7 +136,7 @@ public class PlanetController : MonoBehaviour, PointableObject
                 disp.GetTravelInteractable().SetExeString("");
             }
 
-            isSelected = false;
+            selectedPlanet = null;
         }
         else
         {
@@ -143,10 +144,10 @@ public class PlanetController : MonoBehaviour, PointableObject
             PlanetDisplay disp = PlanetDisplay.GetInstance();
             disp.SetVisible(true);
             disp.SetViewTarget(transform);
-            disp.UpdateInfo(title, creator, description, year, des_tag, image);
-            disp.GetTravelInteractable().SetExeString(@"../VRClubUniverse_Data/VR_Demos/" + year + @"/" + executable + @"/" + executable + @".exe");
+            disp.UpdateInfo(data.title, data.creator, data.description, data.year, data.des_tag, data.image);
+            disp.GetTravelInteractable().SetExeString(@"../VRClubUniverse_Data/VR_Demos/" + data.year + @"/" + data.executable + @"/" + data.executable + @".exe");
 
-            isSelected = true;
+            selectedPlanet = this;
         }
         
     }
