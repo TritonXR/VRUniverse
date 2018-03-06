@@ -48,7 +48,7 @@ public class PlanetController : MonoBehaviour, PointableObject
         for (int i = 0; i < travelPanels.Length; i++)
         {
             //If the panel is a Yes button, set the string in which to travel to 
-            if (travelPanels[i].isYes)
+            if (travelPanels[i].IsYesButton())
             {
                 //travelPanels[i].executableString = "/../VRClubUniverse_Data/VR_Demos/" + int.Parse(Planet_Year.text) + "/" + Planet_Executable + "/" + Planet_Executable + ".exe";
             }
@@ -132,7 +132,7 @@ public class PlanetController : MonoBehaviour, PointableObject
             {
                 disp.SetVisible(false);
                 disp.SetViewTarget(null);
-                disp.GetTravelInteractable().executableString = "";
+                disp.GetTravelInteractable().SetExeString("");
             }
 
             isSelected = false;
@@ -144,7 +144,7 @@ public class PlanetController : MonoBehaviour, PointableObject
             disp.SetVisible(true);
             disp.SetViewTarget(transform);
             disp.UpdateInfo(title, creator, description, year, des_tag, image);
-            disp.GetTravelInteractable().executableString = @"../VRClubUniverse_Data/VR_Demos/" + year + @"/" + executable + @"/" + executable + @".exe";
+            disp.GetTravelInteractable().SetExeString(@"../VRClubUniverse_Data/VR_Demos/" + year + @"/" + executable + @"/" + executable + @".exe");
 
             isSelected = true;
         }

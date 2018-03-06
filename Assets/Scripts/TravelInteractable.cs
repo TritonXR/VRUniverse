@@ -11,17 +11,17 @@ using System.IO;
 public class TravelInteractable : MonoBehaviour, PointableObject
 {
     //Check if searching for yes or no answer
-    public bool isYes; 
+    [SerializeField] private bool isYes; 
 
     //Image component to show the highlight of the pointed selection
-    private Image highlight;
+    [SerializeField] private Image highlight;
 
     //Access to the planet executable string
-    public string executableString;
+    [SerializeField] private string executableString;
 
     void Start()
     {
-        highlight = GetComponent<Image>();
+        
     }
 
     /*
@@ -75,6 +75,21 @@ public class TravelInteractable : MonoBehaviour, PointableObject
         Debug.Log("loading executable: " + executableString);
         ExecutableSwitch.LoadExe(executableString);
         
+    }
+
+    public bool IsYesButton()
+    {
+        return isYes;
+    }
+
+    public void SetExeString(string exe)
+    {
+        executableString = exe;
+    }
+
+    public string GetExeString()
+    {
+        return executableString;
     }
 
 }
