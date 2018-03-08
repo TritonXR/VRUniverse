@@ -10,9 +10,6 @@ using System.IO;
 
 public class TravelInteractable : MonoBehaviour, PointableObject
 {
-    //Check if searching for yes or no answer
-    [SerializeField] private bool isYes; 
-
     //Image component to show the highlight of the pointed selection
     [SerializeField] private Image highlight;
 
@@ -45,16 +42,7 @@ public class TravelInteractable : MonoBehaviour, PointableObject
 
     public void PointerClick()
     {
-        if(isYes)
-        {
-            BeginTravel();
-        }
-        else
-        {
-            GetComponentInParent<PlanetController>().DeselectPlanet();
-            LeverScript lever = LeverScript.GetInstance();
-            lever.SetThrottle(lever.GetDefaultThrottle());
-        }
+        BeginTravel();
     }
 
     /*
@@ -75,11 +63,6 @@ public class TravelInteractable : MonoBehaviour, PointableObject
         Debug.Log("loading executable: " + executableString);
         ExecutableSwitch.LoadExe(executableString);
         
-    }
-
-    public bool IsYesButton()
-    {
-        return isYes;
     }
 
     public void SetExeString(string exe)

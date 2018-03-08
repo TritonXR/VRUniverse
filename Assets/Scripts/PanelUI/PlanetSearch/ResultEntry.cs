@@ -6,11 +6,15 @@ using UnityEngine.UI;
 
 public class ResultEntry : MonoBehaviour, PointableObject {
 
-    private Text entryText;
+    [SerializeField] private Text planetTitleText;
+    [SerializeField] private Text planetYearText;
+    [SerializeField] private Image planetImage;
 
-	// Use this for initialization
-	void Start () {
-        entryText = GetComponent<Text>();
+    private Image entryBorder;
+
+    // Use this for initialization
+    void Start () {
+        entryBorder = GetComponent<Image>();
 	}
 	
 	// Update is called once per frame
@@ -22,11 +26,17 @@ public class ResultEntry : MonoBehaviour, PointableObject {
     {
         if(planet.title.Equals(""))
         {
-            entryText.text = "";
+            planetYearText.text = planetTitleText.text = "";
+            planetImage.enabled = false;
+            entryBorder.enabled = false;
         }
         else
         {
-            entryText.text = planet.title + " (" + planet.year + ")";
+            planetTitleText.text = "Name: " + planet.title;
+            planetYearText.text = "Year: " + planet.year;
+            planetImage.enabled = true;
+            planetImage.sprite = planet.image;
+            entryBorder.enabled = true;
         }
     }
 

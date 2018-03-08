@@ -9,10 +9,12 @@ public class ResultDisplay : MonoBehaviour {
     [SerializeField] private ResultEntry[] entry_list;
     [SerializeField] private ResultShift upButton;
     [SerializeField] private ResultShift downButton;
+	[SerializeField] private Canvas resultsCanvas;
 
     private List<PlanetData> planetSearchResults;
     private int topEntryIndex, maxTopEntryIndex;
     private PlanetData dummyPlanet;
+	private BoxCollider[] buttonColliders;
 
     private void Awake()
     {
@@ -31,6 +33,8 @@ public class ResultDisplay : MonoBehaviour {
         dummyPlanet.title = dummyPlanet.creator = dummyPlanet.description = dummyPlanet.executable = dummyPlanet.year = "";
         dummyPlanet.des_tag = new string[0];
         dummyPlanet.image = null;
+
+		buttonColliders = GetComponentsInChildren<BoxCollider> ();
 
         UpdateDisplayedEntries();
     }
@@ -85,6 +89,13 @@ public class ResultDisplay : MonoBehaviour {
             downButton.SetButtonEnabled(topEntryIndex == maxTopEntryIndex);
         }
     }
+
+	public void SetVisible(bool visible) {
+		resultsCanvas.enabled = visible;
+		foreach (BoxCollider col in buttonColliders) {
+			col.enabled = visible;
+		}
+	}
 
     public static ResultDisplay GetInstance()
     {

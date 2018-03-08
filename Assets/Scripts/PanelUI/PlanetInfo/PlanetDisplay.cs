@@ -18,6 +18,7 @@ public class PlanetDisplay : MonoBehaviour {
 
     private Transform targetPlanet;
     private Canvas renderedCanvas;
+	private BoxCollider[] buttonColliders;
 
     private void Awake()
     {
@@ -34,6 +35,10 @@ public class PlanetDisplay : MonoBehaviour {
         baseOffsetDirection.Normalize();
         renderedCanvas = GetComponent<Canvas>();
         renderedCanvas.enabled = false;
+		buttonColliders = GetComponentsInChildren<BoxCollider> ();
+		foreach (BoxCollider col in buttonColliders) {
+			col.enabled = false;
+		}
 	}
 	
 	// Update is called once per frame
@@ -100,6 +105,9 @@ public class PlanetDisplay : MonoBehaviour {
     public void SetVisible(bool visible)
     {
         renderedCanvas.enabled = visible;
+		foreach (BoxCollider col in buttonColliders) {
+			col.enabled = visible;
+		}
     }
 
     public TravelInteractable GetTravelInteractable()
