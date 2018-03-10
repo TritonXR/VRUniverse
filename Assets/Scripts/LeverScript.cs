@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeverScript : MonoBehaviour {
 
@@ -18,7 +19,11 @@ public class LeverScript : MonoBehaviour {
 
     [SerializeField] private float THROTTLE_SET_TIME = 0.5f;
 
+    [SerializeField] private float DISPLAYED_SPEED_CORRECTION = -1.0f;
+
     [SerializeField] private OrbitManager orbitManager;
+
+    [SerializeField] private Text speedNumber;
 
     private const float FP_TOLERANCE = 0.001f;
 
@@ -33,6 +38,8 @@ public class LeverScript : MonoBehaviour {
 	void Start () {
         touchingControllers = new List<Transform>();
         AcceptingInput = true;
+        //Debug.Log("Default speed: " + DEFAULT_SPEED);
+        SetLabel(DEFAULT_SPEED);
 	}
     
     // Update is called once per frame
@@ -69,17 +76,24 @@ public class LeverScript : MonoBehaviour {
             //Debug.Log("X_Rotation: " + x_rot);
             if (x_rot > STOP_MAX && x_rot <= MAX_ROTATION + FP_TOLERANCE)
             {
+                //Debug.Log("linear speed: " + orbitManager.LinearSpeed);
                 orbitManager.LinearSpeed = (x_rot - STOP_MAX) / (MAX_ROTATION - STOP_MAX) * MAX_SPEED;
             }
             else if(x_rot < 360.0f + STOP_MIN && x_rot >= 360.0f + MIN_ROTATION - FP_TOLERANCE)
             {
+                //Debug.Log("linear speed: " + orbitManager.LinearSpeed);
                 orbitManager.LinearSpeed = (x_rot - (360.0f + STOP_MIN)) / (STOP_MIN - MIN_ROTATION) * MAX_SPEED;
             }
             else
             {
+                //Debug.Log("linear speed: " + orbitManager.LinearSpeed);
                 orbitManager.LinearSpeed = 0.0f;
             }
+
         }
+
+        SetLabel(orbitManager.LinearSpeed);
+        //Debug.Log("target throttle: " + TargetThrottle.ToString());
 
     }
 
@@ -117,9 +131,16 @@ public class LeverScript : MonoBehaviour {
         {
             TargetThrottle = (STOP_MAX + STOP_MIN) / 2;
         }
+        //SetLabel(TargetThrottle);
         CurrentInterpolation = 0.0f;
         AcceptingInput = false;
         StartCoroutine(SmoothAcceleration());
+    }
+
+    private void SetLabel(float target)
+    {
+        target = target * DISPLAYED_SPEED_CORRECTION;
+        speedNumber.text = "Speed: " + target.ToString("N0");
     }
 
     public float GetDefaultThrottle()
