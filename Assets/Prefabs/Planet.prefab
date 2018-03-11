@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c56eb6f8758cd4aaf737cd98ba33ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shader1: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  shader2: {fileID: 4800000, guid: 0f31fbd9255731d498587c16a3817956, type: 3}
 --- !u!122 &122392091406829142
 Halo:
   m_ObjectHideFlags: 1
