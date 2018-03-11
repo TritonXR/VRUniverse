@@ -1,10 +1,10 @@
 var sqlite3 = require('sqlite3').verbose();
 var path = require('path');
-
-var db = new sqlite3.Database(path.resolve( __dirname + './../db/universe.db'),
-							sqlite3.OPEN_READONLY, (err) => {
+var db_path = (process.env.UNIVERSE_DB_DEV) ? 'test_universe.db' : 'universe.db';
+var db = new sqlite3.Database(path.resolve( __dirname + '/../db/' + db_path),
+							sqlite3.OPEN_READWRITE, (err) => {
 	if (err) console.error(err.message);
-	else console.log('Connected to the universe database!');
+	else console.log('Connected to the ' + db_path + ' database!');
 });
 
 exports.getAllProjects = (callback) => {
@@ -73,6 +73,72 @@ exports.getProjectsFromTags = (tags, callback) => {
 	});	
 }
 
+exports.createEntry = (json, callback) => {
+
+	let vals = [json.Name, json.Creator , json.Description , json.Year, 
+				json.Image, json.Executable, "[ " + json.Tags.toString() + " ]"];
+
+	let createPlanetEntry = `INSERT INTO planets (name, creator, description, 
+								year, image, executable, tags) 
+									VALUES ( ` + vals.map(val => ' ? ').join(' , ') + " );";
+
+	let createTagsEntry = `INSERT OR IGNORE INTO tags (tag) VALUES ` + json.Tags.map(tag => '(?)').join(' , ');  
+
+	let createMapperEntry = `INSERT INTO map (planet_id, tag_id) VALUES `;
+
+	let lastID = null;
+
+	db.serialize(() => {
+	  	db.run(createPlanetEntry, vals, (err) => {
+
+		    if (err) {
+		      console.error(err.message);
+		    }
+		    else {
+		    	db.all(`SELECT id from planets where name= '${json.Name}'`, function (err, rows) {
+		    		if (err) {
+		    			console.error(err.message);
+		    		}
+		    		else lastID = rows[0].id;
+		    	});
+		    }
+
+		});
+		db.run(createTagsEntry, json.Tags, (err) => {
+			if (err) {
+		      console.error(err.message);
+		    }
+		});
+		this.getTagIDsFromTags(json.Tags, function(tags) {
+			createMapperEntry += tags.map(val => `(${lastID}, ${val.tag_id})`).join(' , ');
+			console.log(createMapperEntry);
+			db.serialize(() => {
+				db.run(createMapperEntry, function(err) {
+					if (err) {
+						console.error(err.message);
+					}
+				})
+			});
+		});
+
+		callback({success : true})
+	});
+}
+
+exports.getTagIDsFromTags = (tags, callback) => {
+	let sql = `SELECT tag_id from tags where tag in (` + tags.map(tag => '(?)').join(' , ') + ");";
+	db.serialize(() => {
+		db.all(sql, tags, (err, rows) => {
+			if (err) {
+				console.error(err.message);
+			}
+			else {
+				callback(rows);
+			}
+		});
+	});
+}
+
 //untested
 exports.getTagsFromProjectName = (name, callback) => {
 	var str = `SELECT DISTINCT tag from tags where tag_id in 
@@ -88,5 +154,5 @@ exports.getTagsFromProjectName = (name, callback) => {
 		    callback(rows);
 		});
 	});	
-
 }
+

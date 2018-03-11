@@ -20,13 +20,18 @@ mixin filter-mixin(data)
 								div(class="row proj-data")
 									div.project-label Tags :
 										- data.tags = data.tags.replace(new RegExp("'", 'g'), '');
-										- data.tags = data.tags.substring(1, data.tags.length - 1)
+
+										- data.tags = data.tags.substring(1, data.tags.length - 1);
 										- data.tags = data.tags.split(",");
+
 										- for (let i = 0; i < data.tags.length; i++) {
-											- data.tags[i] = data.tags[i].trim().substring(1, data.tags[i].length);
+											-if (data.tags[i].charAt(0) == 'u') {
+												- data.tags[i] = data.tags[i].trim().substring(1, data.tags[i].length);
+											-}
 										- }
-										-data.tags.push("" + data.year);
 										-console.log(data.tags);
+
+										-data.tags.push("" + data.year);
 											- for (var key in data.tags)
 												a.tag-link(href="/filter/?#{data.tags[key]}=true")
 													span #{data.tags[key]}

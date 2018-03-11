@@ -3,6 +3,7 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 var multer = require('multer');
+var db = require('./db.js');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -48,6 +49,7 @@ router.post('/', upload.any(), function(req, res) {
     if(!fs.existsSync(exec_dir + year))
     {
         fs.mkdirSync(exec_dir + year);
+        console.log("hahah ")
         var options = options || {};
         options.flag = 'wx';
         var content = { PlanetJSON: []};
@@ -74,6 +76,7 @@ router.post('/', upload.any(), function(req, res) {
         }
     });
     findFile('.png', function(filename){
+        console.log("here");
         if(filename)
         {
             fs.rename(filename,
@@ -145,7 +148,10 @@ router.post('/', upload.any(), function(req, res) {
         }
     });
 
-    res.send("haha");
+    db.createEntry(proj, function(status) {
+        res.json(status);
+    });
+
 });
 
 function findFile(extension, cb){

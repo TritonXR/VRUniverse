@@ -24,13 +24,13 @@ router.get('/*', function(req, res, next) {
 		db.getProjectsFromTags(tagArr, function(query) {
 
 			if (query == null || query.length === 0) {
-				res.render('download', {json : JSON.stringify(query), 
+				res.render('projects', {json : JSON.stringify(query), 
 										tagArr : [],
 										tags : JSON.stringify(data)
 										});
 			}
 			else {
-				res.render('download', {json : JSON.stringify(query), 
+				res.render('projects', {json : JSON.stringify(query), 
 										tagArr : tagArr,
 										tags : JSON.stringify(data)
 										});
