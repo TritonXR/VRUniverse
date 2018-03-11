@@ -10,6 +10,8 @@ public class CategoryManager : MonoBehaviour {
 	private Canvas renderedCanvas;
 	private BoxCollider[] buttonColliders;
 
+	private SQLiteTags database;
+
 	void Awake()
 	{
 		if (instance != null && instance != this)
@@ -24,6 +26,7 @@ public class CategoryManager : MonoBehaviour {
 		selectedCategories = new List<string>();
 		renderedCanvas = GetComponent<Canvas>();
 		buttonColliders = GetComponentsInChildren<BoxCollider>();
+		database = GetComponent<SQLiteTags> ();
 	}
 	
 	// Update is called once per frame
@@ -46,6 +49,8 @@ public class CategoryManager : MonoBehaviour {
 		string[] tags = selectedCategories.ToArray();
 
 		List<PlanetData> searchResults = new List<PlanetData>();
+
+		searchResults = database.Select (tags);
 
 		//TODO: remove these lines when you have actual results
 		PlanetData testData;
