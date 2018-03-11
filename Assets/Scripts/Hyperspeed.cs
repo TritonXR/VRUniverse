@@ -6,11 +6,19 @@ using UnityEngine;
  * Description: Contains methods for the blue particle light speed travel effect that happens when traveling between years
  * Utilized on: HyperspeedController particle system gameobject
  */
+   
 
 public class Hyperspeed : MonoBehaviour {
 
+    [SerializeField] Transform spaceShip;
+    [SerializeField] Light pointLight;
+    [SerializeField] Light dirLight;
+    [SerializeField] AudioClip departureSound;
+    [SerializeField] AudioClip arrivalSound;
+
     // Holds the particle system for hyperspeed
-    private ParticleSystem hyperspeed;
+    private ParticleSystem hyperspeedStart;
+    private ParticleSystem hyperspeedEnd;
 
     // The sound that plays when user hyperspeed activates to a year
     private AudioSource hyperspeedSound;
@@ -31,10 +39,28 @@ public class Hyperspeed : MonoBehaviour {
         lt = GetComponentInChildren<Light>();
 
         // Get the hyperspeed particle system in this gameobject
-        hyperspeed = gameObject.GetComponent<ParticleSystem>();
+        hyperspeedStart = gameObject.GetComponent<ParticleSystem>();
 
         // Pause the particle system because we don't want it to play automatically
-        hyperspeed.Pause();
+        hyperspeedStart.Pause();
+
+        //Vector3 rot = spaceShip.rotation.eulerAngles;
+        //rot = new Vector3(rot.x, rot.y + 180, rot.z);
+        //gameObject.transform.rotation = Quaternion.Euler(rot);
+       
+
+    }
+
+    void Update ()
+    {
+        //gameObject.transform.position = new Vector3(spaceShip.position.x + 30.0f, spaceShip.position.y, spaceShip.position.z);
+
+        //Vector3 rot = spaceShip.rotation.eulerAngles;
+        //gameObject.transform.rotation.rot
+        //rot = new Vector3(rot.x, gameObject.transform.rotation.y, rot.z);         
+        //gameObject.transform.rotation = Quaternion.Euler(rot);
+
+        
 
     }
 
@@ -47,22 +73,31 @@ public class Hyperspeed : MonoBehaviour {
     {
 
         // Play the animation particle system
-        hyperspeed.Play();
-
+        if(forward) hyperspeedStart.Play();
+        //if (true) hyperspeed.startLifetime = 15;
+        //else hyperspeed.main.
+        
         // Check if the light is null
-        if (lt != null)
+        if (dirLight != null)
         {
+            if (forward) hyperspeedSound.clip = departureSound;
+            else hyperspeedSound.clip = arrivalSound;
+
             // Increase intensity of light and travel to the year sequence
             if (forward)
             {
+                Debug.Log("Going forward hyperspeed");               
+
                 // Play the sound effect
                 hyperspeedSound.Play();
+                pointLight.enabled = false;
+                //dirLight.enabled = false;
 
                 // Change the lighting in 2 seconds
-                for (float i = 0; i < 2; i += Time.deltaTime)
+                for (float i = 0; i < 3; i += Time.deltaTime)
                 {
                     // Lerp to the lighting to see the change in a span of 2 seconds
-                    lt.intensity = Mathf.Lerp(1f, 0.5f, i / 2.0f);
+                    dirLight.intensity = Mathf.Lerp(1f, 0.3f, i / 2.0f);
                     yield return null;
                 }
 
@@ -71,24 +106,35 @@ public class Hyperspeed : MonoBehaviour {
             // Decrease intensity of light and stop traveling to the year sequence
             else
             {
+                Debug.Log("Arriving in hyperspeed");
+                hyperspeedSound.Play();
+
                 // Change the lighting in 2 seconds
-                for (float i = 0; i < 2; i += Time.deltaTime)
+                for (float i = 0; i < 1; i += Time.deltaTime)
                 {
                     // Lerp to the lighting to see the change in a span of 2 seconds
-                    lt.intensity = Mathf.Lerp(0.5f, 1f, i / 2.0f);
+                    dirLight.intensity = Mathf.Lerp(0.3f, 1f, i / 2.0f);
                     yield return null;
                 }
+                //dirLight.enabled = true;
+                pointLight.enabled = true;
             }
         }
 
+        // Stop the particle animation
+        if(!forward) hyperspeedStart.Stop();
+
         // Wait for 1 second then stop the sound
-        yield return new WaitForSecondsRealtime(1);
+        if (forward) yield return new WaitForSecondsRealtime(1);
+        else yield return new WaitForSecondsRealtime(3);
+       
 
         // Stop the sound
         hyperspeedSound.Stop();
 
-        // Stop the particle animation
-        hyperspeed.Stop();
+        
+
+
     }
 
 }

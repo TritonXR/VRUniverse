@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 23356146451301020}
   - component: {fileID: 114720758886903090}
   - component: {fileID: 114661728616396558}
+  - component: {fileID: 122392091406829142}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Planet
@@ -652,7 +653,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050411509479860}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 580, y: 59.8, z: -24.4}
+  m_LocalPosition: {x: 667.82904, y: 146.0308, z: 115.230446}
   m_LocalScale: {x: 72, y: 72, z: 72}
   m_Children:
   - {fileID: 224003301424573298}
@@ -674,7 +675,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 047b78a961cb77a438e00d2032c44b98, type: 2}
+  - {fileID: 478332149, guid: f9db76ea901dbf44daf36ebb55f6c96c, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1547,10 +1548,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c56eb6f8758cd4aaf737cd98ba33ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetMenu_Offset: {x: 0, y: 0, z: -40}
-  TravelMenu_Offset: {x: 0, y: 0, z: -50}
+  PlanetMenu_Offset: {x: 0, y: 0, z: 0}
+  TravelMenu_Offset: {x: 0, y: 0, z: 0}
   Planet_Title: {fileID: 114947660689213056}
-  Planet_Creator: {fileID: 114097577412986850}
+  Planet_Creator: {fileID: 114726933896891380}
   Planet_Description: {fileID: 114724134899456774}
   Planet_Year: {fileID: 114979268299334218}
   Planet_Tag: {fileID: 114017739256949010}
@@ -1707,7 +1708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0090af35b86cea42bf4fffcf10a2764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isYes: 1
+  isYes: 0
   executableString: 
 --- !u!114 &114838292392222488
 MonoBehaviour:
@@ -1971,6 +1972,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 2017
+--- !u!122 &122392091406829142
+Halo:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1050411509479860}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4288322202
+  m_Size: 45
 --- !u!135 &135022291448605742
 SphereCollider:
   m_ObjectHideFlags: 1

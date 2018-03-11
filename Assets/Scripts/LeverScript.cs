@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeverScript : MonoBehaviour {
 
@@ -17,7 +18,14 @@ public class LeverScript : MonoBehaviour {
 
     [SerializeField] private float THROTTLE_SET_TIME = 0.5f;
 
+    [SerializeField] private float NUM_VIB = 3;
+    [SerializeField] private ushort VIB_INTENSITY = 1500;
+
+    [SerializeField] private float DISPLAYED_SPEED_CORRECTION = -1.0f;
+
     [SerializeField] private OrbitManager orbitManager;
+
+    [SerializeField] private Text speedNumber;
 
     private const float FP_TOLERANCE = 0.001f;
 
@@ -41,6 +49,8 @@ public class LeverScript : MonoBehaviour {
     void Start () {
         touchingControllers = new List<Transform>();
         AcceptingInput = true;
+        //Debug.Log("Default speed: " + DEFAULT_SPEED);
+        SetLabel(DEFAULT_SPEED);
 	}
     
     // Update is called once per frame
@@ -68,33 +78,65 @@ public class LeverScript : MonoBehaviour {
             direction.Normalize();
             float x_rotation = Mathf.Clamp(-Mathf.Atan2(direction.y, direction.z) * Mathf.Rad2Deg, MIN_ROTATION, MAX_ROTATION);
             //Debug.Log("X_Rotation: " + x_rotation);
+
+            bool vibrateController = false;
+            float old_x_rotation = (transform.localEulerAngles.x <= 180) ? transform.localEulerAngles.x : transform.localEulerAngles.x - 360;
+            if (x_rotation > STOP_MAX || old_x_rotation > STOP_MAX)
+            {
+                float angleInc = (MAX_ROTATION - STOP_MAX) / NUM_VIB;
+                float oldInc = Mathf.Floor((old_x_rotation - STOP_MAX) / angleInc);
+                float newInc = Mathf.Floor((x_rotation - STOP_MAX) / angleInc);
+                vibrateController = (oldInc != newInc);
+            }
+            else if (x_rotation < STOP_MIN || old_x_rotation < STOP_MIN)
+            {
+                float angleInc = (STOP_MIN - MIN_ROTATION) / NUM_VIB;
+                float oldInc = Mathf.Floor((STOP_MIN - old_x_rotation) / angleInc);
+                float newInc = Mathf.Floor((STOP_MIN - x_rotation) / angleInc);
+                vibrateController = (oldInc != newInc);
+            }
+
+
             transform.localEulerAngles = new Vector3(x_rotation, transform.localEulerAngles.y, transform.localEulerAngles.z);
+
+            if (vibrateController)
+            {
+                Debug.Log("Should vibrate here");
+                foreach (Transform controller in touchingControllers)
+                {
+                    SteamVR_Controller.Input((int)controller.GetComponent<SteamVR_TrackedController>().controllerIndex).TriggerHapticPulse(VIB_INTENSITY);
+                }
+
+            }
         }
 
         if(orbitManager != null)
         {
             float x_rot = transform.localEulerAngles.x;
-            //Debug.Log("X_Rotation: " + x_rot);
+            
             if (x_rot > STOP_MAX && x_rot <= MAX_ROTATION + FP_TOLERANCE)
-            {
+            {                
                 orbitManager.LinearSpeed = (x_rot - STOP_MAX) / (MAX_ROTATION - STOP_MAX) * MAX_SPEED;
             }
             else if(x_rot < 360.0f + STOP_MIN && x_rot >= 360.0f + MIN_ROTATION - FP_TOLERANCE)
-            {
+            {                
                 orbitManager.LinearSpeed = (x_rot - (360.0f + STOP_MIN)) / (STOP_MIN - MIN_ROTATION) * MAX_SPEED;
             }
             else
-            {
+            {                
                 orbitManager.LinearSpeed = 0.0f;
+                if (numActive <= 0 && AcceptingInput) SetThrottle(0.0f);
             }
+
         }
+
+        SetLabel(orbitManager.LinearSpeed);        
 
     }
 
     void OnTriggerEnter(Collider other) {
         if (other.tag.Equals("GameController") && !touchingControllers.Contains(other.transform))
-        {
-            //Debug.Log("Collided with controller: " + other.name);
+        {            
             touchingControllers.Add(other.transform);
         }
 
@@ -103,8 +145,7 @@ public class LeverScript : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         if (touchingControllers.Contains(other.transform))
-        {
-            //Debug.Log("Uncollided with controller");
+        {            
             touchingControllers.Remove(other.transform);
         }
     }
@@ -125,9 +166,16 @@ public class LeverScript : MonoBehaviour {
         {
             TargetThrottle = (STOP_MAX + STOP_MIN) / 2;
         }
+        
         CurrentInterpolation = 0.0f;
         AcceptingInput = false;
         StartCoroutine(SmoothAcceleration());
+    }
+
+    private void SetLabel(float target)
+    {
+        target = target * DISPLAYED_SPEED_CORRECTION;
+        speedNumber.text = "Speed: " + target.ToString("N0");
     }
 
     public float GetDefaultThrottle()

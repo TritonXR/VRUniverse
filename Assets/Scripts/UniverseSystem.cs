@@ -53,7 +53,9 @@ public class UniverseSystem : MonoBehaviour {
 		else instance = this;
 	}
 
-	/*
+    [SerializeField] private GameObject HyperSpeedController;
+
+    /*
      * Start: Initialize years, skybox, and load previously saved year if existing
      * Parameters: None
      */
@@ -252,19 +254,31 @@ public class UniverseSystem : MonoBehaviour {
 				//Adds the read planet into the year
 				year.list_planets.Add(currPlanet);
 
-			}
+				Renderer rend = currPlanet.GetComponent<Renderer>();
+				Material material = Instantiate(rend.material);
+				rend.material =material;
+				ChangeValue val = GetComponentInChildren<ChangeValue>();
+				val.change(rend, currPlanet.title, int.Parse(currPlanet.year));
+            }
 
-			OrbitManager orbitManager = OrbitManager.GetOrbitManager();
-			if (orbitManager != null)
-			{
-				orbitManager.PopulateOrbit(year.list_planets.ToArray());
-			}
-			else
-			{
-				Debug.LogError("Could not find OrbitManager to populate planets.");
-			}
+            OrbitManager orbitManager = OrbitManager.GetOrbitManager();
+            if(orbitManager != null)
+            {
+                orbitManager.PopulateOrbit(year.list_planets.ToArray());
+            }
+            else
+            {
+                Debug.LogError("Could not find OrbitManager to populate planets.");
+            }
 
-		}
+        }
+
+        // Handles case if the year traveling to is the new year
+        else {
+
+            // There shouldn't be any planets in the Home year
+
+        }
 
 
 	}
@@ -298,6 +312,7 @@ public class UniverseSystem : MonoBehaviour {
      * Parameters: int newYear - the year to travel to so as to create the year 
      *             bool useAnimation - default is true. Won't use animation if going from a project back to a year
      */
+     /*
 	public void TeleportToYear(int newYear, bool useAnimation = true)
 	{
 		//Check if there have been planets created before
@@ -305,7 +320,15 @@ public class UniverseSystem : MonoBehaviour {
 		{
 			//Destroy planets in the previous year
 			DestroyPlanets(atYear);
-		}
+		}*/
+
+    public IEnumerator TeleportToYear(int newYear, bool useAnimation = true)
+    {
+        //Check to ensure user doesn't try to travel multiple times
+        yearSelection.isTravelling = true;
+
+        //Start teleportation system traveling there by calling from Hyperspeed script
+        if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(true));
 
         PlanetDisplay disp = PlanetDisplay.GetInstance();
         disp.SetVisible(false);
@@ -371,6 +394,8 @@ public class UniverseSystem : MonoBehaviour {
     public void GetYearRange(out int min, out int max)
     {
         min = max = Int32.Parse(list_years[0].yr_name);
+        //Start teleportation system ending by Hyperspeed script call
+        //if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
 
         for(int index = 1; index < list_years.Count; index++)
         {
