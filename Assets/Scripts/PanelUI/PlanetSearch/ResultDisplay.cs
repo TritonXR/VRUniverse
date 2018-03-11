@@ -36,7 +36,7 @@ public class ResultDisplay : MonoBehaviour {
 
 		buttonColliders = GetComponentsInChildren<BoxCollider> ();
 
-        UpdateDisplayedEntries();
+		StartCoroutine(PostStartBehaviors());
     }
 
     // Update is called once per frame
@@ -82,18 +82,25 @@ public class ResultDisplay : MonoBehaviour {
         else
         {
             for (int index = 0; index < entry_list.Length; index++) {
-                entry_list[index].DisplayPlanet(planetSearchResults[index + topEntryIndex]);
+				if (index + topEntryIndex < planetSearchResults.Count) {
+					entry_list[index].DisplayPlanet(planetSearchResults[index + topEntryIndex]);
+				} else {
+					entry_list[index].DisplayPlanet(dummyPlanet);
+				}
             }
 
-            upButton.SetButtonEnabled(topEntryIndex == 0);
-            downButton.SetButtonEnabled(topEntryIndex == maxTopEntryIndex);
+            upButton.SetButtonEnabled(topEntryIndex > 0);
+            downButton.SetButtonEnabled(topEntryIndex < maxTopEntryIndex);
         }
     }
 
 	public void SetVisible(bool visible) {
 		resultsCanvas.enabled = visible;
-		foreach (BoxCollider col in buttonColliders) {
-			col.enabled = visible;
+		if (!visible) {
+			foreach (BoxCollider col in buttonColliders)
+				col.enabled = false;
+		} else {
+			UpdateDisplayedEntries ();
 		}
 	}
 
@@ -101,4 +108,9 @@ public class ResultDisplay : MonoBehaviour {
     {
         return instance;
     }
+
+	private IEnumerator PostStartBehaviors() {
+		yield return new WaitForEndOfFrame();
+		UpdateDisplayedEntries();
+	}
 }

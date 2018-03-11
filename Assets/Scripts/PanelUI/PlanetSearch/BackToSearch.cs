@@ -43,5 +43,8 @@ public class BackToSearch : MonoBehaviour, PointableObject {
 			col.enabled = false;
 		}
 		highlight.enabled = false;
+
+		CategoryManager.GetInstance().SetVisible(true);
+		ResultDisplay.GetInstance().SetVisible(true);
 	}
 }

@@ -20,7 +20,7 @@ public class PlanetDisplay : MonoBehaviour {
     private Canvas renderedCanvas;
 	private BoxCollider[] buttonColliders;
 
-    private void Awake()
+    void Awake()
     {
         if (instance != null && instance != this)
         {

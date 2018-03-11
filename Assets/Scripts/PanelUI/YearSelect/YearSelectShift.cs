@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class YearSelectShift : MonoBehaviour, PointableObject {
 
-    public enum YearShift {IncrementYear, DecrementYear};
+    public enum YearShiftAmount {IncrementYear, DecrementYear};
 
-    [SerializeField] private YearShift ShiftDirection;
+    [SerializeField] private YearShiftAmount ShiftDirection;
 
     public void PointerEnter()
     {
@@ -20,10 +20,10 @@ public class YearSelectShift : MonoBehaviour, PointableObject {
 
         switch (ShiftDirection)
         {
-            case YearShift.IncrementYear:
+            case YearShiftAmount.IncrementYear:
                 increment = 1;
                 break;
-            case YearShift.DecrementYear:
+            case YearShiftAmount.DecrementYear:
                 increment = -1;
                 break;
             default:
