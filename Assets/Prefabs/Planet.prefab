@@ -1548,8 +1548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06c56eb6f8758cd4aaf737cd98ba33ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlanetMenu_Offset: {x: 0, y: 0, z: -40}
-  TravelMenu_Offset: {x: 0, y: 0, z: -50}
+  PlanetMenu_Offset: {x: 0, y: 0, z: 0}
+  TravelMenu_Offset: {x: 0, y: 0, z: 0}
   Planet_Title: {fileID: 114947660689213056}
   Planet_Creator: {fileID: 114726933896891380}
   Planet_Description: {fileID: 114724134899456774}
@@ -1708,7 +1708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0090af35b86cea42bf4fffcf10a2764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isYes: 1
+  isYes: 0
   executableString: 
 --- !u!114 &114838292392222488
 MonoBehaviour:
