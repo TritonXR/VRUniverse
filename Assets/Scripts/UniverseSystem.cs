@@ -97,7 +97,7 @@ public class UniverseSystem : MonoBehaviour {
 		File.Delete(path);
 
 		//Teleport to year but skip the hyperspeed
-		TeleportToYear(int.Parse(readText), false);
+		StartCoroutine(TeleportToYear(int.Parse(readText), false));
 
 		//Handle jump in tutorial system
 		if (tutorial_YearSelection != null) tutorial_YearSelection.SetActive(false);
@@ -258,7 +258,7 @@ public class UniverseSystem : MonoBehaviour {
 				Material material = Instantiate(rend.material);
 				rend.material =material;
 				ChangeValue val = GetComponentInChildren<ChangeValue>();
-				val.change(rend, currPlanet.title, int.Parse(currPlanet.year));
+				val.change(rend, currPlanet.data.title, int.Parse(currPlanet.data.year));
             }
 
             OrbitManager orbitManager = OrbitManager.GetOrbitManager();
@@ -324,8 +324,12 @@ public class UniverseSystem : MonoBehaviour {
 
     public IEnumerator TeleportToYear(int newYear, bool useAnimation = true)
     {
-        //Check to ensure user doesn't try to travel multiple times
-        yearSelection.isTravelling = true;
+		//Check if there have been planets created before
+		if (atYear != -1)
+		{
+			//Destroy planets in the previous year
+			DestroyPlanets(atYear);
+		}
 
         //Start teleportation system traveling there by calling from Hyperspeed script
         if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(true));
@@ -362,8 +366,13 @@ public class UniverseSystem : MonoBehaviour {
 		}
 		RenderSettings.skybox = skybox;
 
-		//Set the year user is currently at to the new year
 		atYear = newYear;
+
+		//Start teleportation system ending by Hyperspeed script call
+		if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
+
+		//Set the year user is currently at to the new year
+		//atYear = newYear;
 	}
 
 	public int GetNumYears()
@@ -394,9 +403,7 @@ public class UniverseSystem : MonoBehaviour {
     public void GetYearRange(out int min, out int max)
     {
         min = max = Int32.Parse(list_years[0].yr_name);
-        //Start teleportation system ending by Hyperspeed script call
-        //if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
-
+    
         for(int index = 1; index < list_years.Count; index++)
         {
             int yearValue = Int32.Parse(list_years[index].yr_name);

@@ -57,7 +57,8 @@ public class YearSelectGo : MonoBehaviour, PointableObject
 
     public void PointerClick()
     {
-        if(yearIndex != -1) UniverseSystem.GetInstance().TeleportToYear(yearIndex);
+		if (yearIndex != -1)
+			StartCoroutine (UniverseSystem.GetInstance ().TeleportToYear (yearIndex));
     }
 
     public void PointerExit()
