@@ -43,6 +43,8 @@ public class UniverseSystem : MonoBehaviour {
     //Reference to the controller menus that allow user to select a year
 	private YearSelection yearSelection;
 
+    [SerializeField] private GameObject HyperSpeedController;
+
     /*
      * Start: Initialize years, skybox, and load previously saved year if existing
      * Parameters: None
@@ -353,7 +355,7 @@ public class UniverseSystem : MonoBehaviour {
         yearSelection.isTravelling = true;
 
         //Start teleportation system traveling there by calling from Hyperspeed script
-        if(useAnimation) yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(true));
+        if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(true));
 
         //Check if there have been planets created before
         if (atYear != -1)
@@ -391,7 +393,7 @@ public class UniverseSystem : MonoBehaviour {
         RenderSettings.skybox = skybox;
 
         //Start teleportation system ending by Hyperspeed script call
-        if(useAnimation) yield return StartCoroutine(GetComponentInChildren<Hyperspeed>().Travel(false));
+        if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
 
         //Set the year user is currently at to the new year
         atYear = newYear;
