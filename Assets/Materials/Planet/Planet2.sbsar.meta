@@ -10,8 +10,8 @@ SubstanceImporter:
     name: Planet
     prototypeName: Planet
     shaderName: 
-    shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-    shaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
+    shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+    shaderKeywords: _EMISSION _NORMALMAP _PARALLAXMAP
     renderQueue: -1
     lightmapFlags: 1
     inputs:
@@ -809,15 +809,15 @@ SubstanceImporter:
           texture: {instanceID: 0}
           scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
-      - _MetallicGlossMap:
-          texture: {instanceID: 0}
-          scale: {x: 1, y: 1}
-          offset: {x: 0, y: 0}
       - _OcclusionMap:
           texture: {instanceID: 0}
           scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
       - _ParallaxMap:
+          texture: {instanceID: 0}
+          scale: {x: 1, y: 1}
+          offset: {x: 0, y: 0}
+      - _SpecGlossMap:
           texture: {instanceID: 0}
           scale: {x: 1, y: 1}
           offset: {x: 0, y: 0}
@@ -841,6 +841,7 @@ SubstanceImporter:
       colors:
       - _Color: {r: 1, g: 1, b: 1, a: 1}
       - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+      - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     textureParameters:
     - name: Planet_basecolor
       alphaSource: 6
@@ -887,9 +888,6 @@ SubstanceImporter:
     - shaderProp: _EmissionMap
       material: {instanceID: 0}
       baseUID: 779253489
-    - shaderProp: _MetallicGlossMap
-      material: {instanceID: 0}
-      baseUID: 734120939
     - shaderProp: _OcclusionMap
       material: {instanceID: 0}
       baseUID: 780560608
