@@ -53,6 +53,7 @@ public class CategoryManager : MonoBehaviour {
 		searchResults = database.Select (tags);
 
 		//TODO: remove these lines when you have actual results
+        /*
 		PlanetData testData;
 		testData.creator = testData.description = testData.executable = testData.title = "Testing 123";
 		testData.year = "2018";
@@ -62,6 +63,7 @@ public class CategoryManager : MonoBehaviour {
 			testData.title = "Test " + i;
 			searchResults.Add(testData);
 		}
+        */
 
 		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
 	}

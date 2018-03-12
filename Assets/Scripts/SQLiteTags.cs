@@ -13,19 +13,17 @@ public class SQLiteTags : MonoBehaviour
 
     private void Start()
     {
+        planetList = new List<PlanetData>();
         dbPath = "URI=file:" + "Assets/Database" + "/universe.db";          
-        Debug.Log(dbPath);
         string[] category = {"Beginner Project", "Relaxation"};
         Select(category);
-		planetList = new List<PlanetData> ();
+		
     }
 
 	public List<PlanetData> Select(string[] tags)
     {
-        Debug.Log("start");
         using (var conn = new SqliteConnection(dbPath))
         {
-            Debug.Log("Conn");
             conn.Open();
 
             using (var cmd = conn.CreateCommand())
@@ -46,7 +44,6 @@ public class SQLiteTags : MonoBehaviour
                     string index = "tags" + i.ToString();
 
                     cmd.CommandText += "INTERSECT SELECT DISTINCT* from planets where id in (select planet_id from map where tag_id in (select tag_id from tags where tag = @"+index+"))";
-                    Debug.Log(cmd.CommandText);
                     cmd.Parameters.Add(new SqliteParameter
                     {
                         ParameterName = index,
@@ -55,25 +52,28 @@ public class SQLiteTags : MonoBehaviour
 
 	            }
                     
-                Debug.Log("tag1");
-
-
-            Debug.Log("display begin");
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-					/*
-                    var id = reader.GetInt32(0);
-                    var Name = reader.GetString(1);
-                    var text = string.Format("{0}: {1}", id, Name);
-                    Debug.Log(text);
-                    */
 					PlanetData planet = new PlanetData ();
 					planet.title = reader.GetString (1);
 					planet.creator = reader.GetString (2);
 					planet.description = reader.GetString (3);
 					planet.year = (reader.GetInt32 (4)).ToString();
 					planet.executable = reader.GetString (6);
+                    string db_tags = reader.GetString(7);
+                    db_tags = db_tags.Replace("u'", "");
+                    db_tags = db_tags.Replace("'", "");
+                    db_tags = db_tags.Replace("[", "");
+                    db_tags = db_tags.Replace("]", "");
+
+                    planet.des_tag = db_tags.Split(',');
+                    Debug.Log("tags: ");
+                    for (int i = 0; i < planet.des_tag.Length; i++)
+                    {
+                        Debug.Log(planet.des_tag[i]);
+                    }
+
 
 					byte[] bytes = File.ReadAllBytes("VRClubUniverse_Data/VR_Demos/" + planet.year + "/" + planet.executable + "/" + reader.GetString (5));
 					Texture2D texture = new Texture2D(0, 0);
@@ -83,7 +83,6 @@ public class SQLiteTags : MonoBehaviour
 
 					planetList.Add (planet);
                 }
-                Debug.Log("display end");
             }
         }
 
