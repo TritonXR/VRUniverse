@@ -74,8 +74,8 @@ public class UniverseSystem : MonoBehaviour {
 		//Set the original color of the application to original color
 		ResetSkyboxColor();
 
-		//Path where the save data is located
-		string path = "VRClubUniverse_Data/saveData.txt";
+        //Path where the save data is located
+        string path = Application.dataPath + "/../VRClubUniverse_Data/saveData.txt";
 
         CurrentlyTraveling = false;
 
@@ -99,8 +99,10 @@ public class UniverseSystem : MonoBehaviour {
 		//Delete the file to restart the experience in the originally state
 		File.Delete(path);
 
-		//Teleport to year but skip the hyperspeed
-		StartCoroutine(TeleportToYear(int.Parse(readText), false));
+        int yearIndex = GetYearIndex(int.Parse(readText));
+
+        //Teleport to year but skip the hyperspeed
+        StartCoroutine(TeleportToYear(yearIndex, false));
 
 		//Handle jump in tutorial system
 		if (tutorial_YearSelection != null) tutorial_YearSelection.SetActive(false);
