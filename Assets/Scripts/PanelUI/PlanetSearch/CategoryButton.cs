@@ -25,19 +25,33 @@ public class CategoryButton : MonoBehaviour, PointableObject {
 
 	public void PointerEnter()
 	{
-		categoryIcon.color = highlightColor;
+        CategoryManager manager = CategoryManager.GetInstance();
+        if (!manager.CheckIfSelected(categoryName))
+        {
+            categoryIcon.color = highlightColor;
+        }
 	}
 
 	public void PointerClick()
 	{
+
 		CategoryManager manager = CategoryManager.GetInstance();
+        manager.ToggleSelected(categoryName);
+
+        if (manager.CheckIfSelected(categoryName))
+            categoryIcon.color = selectedColor;
+        else
+            categoryIcon.color = highlightColor;
+
+        /*
 		if (manager.CheckIfSelected(categoryName))
 			categoryIcon.color = selectedColor;
 		else
 			categoryIcon.color = defaultColor;
 
 		manager.ToggleSelected(categoryName);
-	}
+        */
+    }
 
 	public void PointerExit()
 	{
