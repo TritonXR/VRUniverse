@@ -66,7 +66,11 @@ public class PlanetController : MonoBehaviour, PointableObject
             tutorial_firstSelection = false;
         }
 
-		Highlight ("hover"); // highlights the planet
+        if (selectedPlanet != this)
+        {
+            Highlight("hover"); // highlights the planet
+        }
+		
     }
 
     public void PointerClick()
@@ -84,6 +88,8 @@ public class PlanetController : MonoBehaviour, PointableObject
             }
 
             selectedPlanet = null;
+
+            Highlight("none"); // disables highlights
         }
         else
         {
@@ -94,10 +100,16 @@ public class PlanetController : MonoBehaviour, PointableObject
             disp.UpdateInfo(data.title, data.creator, data.description, data.year, data.des_tag, data.image);
             disp.GetTravelInteractable().SetExeString(@"../VRClubUniverse_Data/VR_Demos/" + data.year + @"/" + data.executable + @"/" + data.executable + @".exe");
 
+            if (selectedPlanet != null)
+            {
+                selectedPlanet.Highlight("none");
+            }
             selectedPlanet = this;
+
+            Highlight("selected");
         }
 
-		Highlight ("selected");
+		
         
     }
 
@@ -110,10 +122,13 @@ public class PlanetController : MonoBehaviour, PointableObject
         //Turn off floating menu panel when not using
         //ToggleMenu(false);
 
-		Highlight ("none"); // disables highlights
+        if (selectedPlanet != this)
+        {
+            Highlight("none"); // disables highlights
+        }
     }
 
-	private void Highlight(string version) {
+	public void Highlight(string version) {
 		switch (version)
 		{
 		case "hover":

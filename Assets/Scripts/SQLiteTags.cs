@@ -15,9 +15,6 @@ public class SQLiteTags : MonoBehaviour
     {
         planetList = new List<PlanetData>();
         dbPath = "URI=file:" + "Assets/Database" + "/universe.db";          
-        string[] category = {"Beginner Project", "Relaxation"};
-        Select(category);
-		
     }
 
 	public List<PlanetData> Select(string[] tags)
@@ -68,7 +65,6 @@ public class SQLiteTags : MonoBehaviour
                     db_tags = db_tags.Replace("]", "");
 
                     planet.des_tag = db_tags.Split(',');
-                    Debug.Log("tags: ");
                     for (int i = 0; i < planet.des_tag.Length; i++)
                     {
                         Debug.Log(planet.des_tag[i]);
