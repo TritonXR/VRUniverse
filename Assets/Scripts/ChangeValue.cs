@@ -61,12 +61,11 @@ public class ChangeValue : MonoBehaviour {
 		}
 
 		crackscale = (newname + year) % 30 * 2;
-		print("The variable is :"+crackscale);
 		crackwarping = newname % 100 / 100.0f;
 		waterlevel = newname*2  % 100 / 100.0f;
-		print ("case color 3: " + basecolor);
 
 		applyChange (rend,basecolor,peakcolor,sludgecolor,crackscale,crackwarping,waterlevel);
+        Debug.Log("Setting material for " + name + " to be basecolor: " + basecolor);
 	}
 
 	void applyChange(Renderer rend,Color basecolor,Color peakcolor,Color sludgecolor,float crackscale,float crackwarping,float waterlevel) {

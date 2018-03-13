@@ -52,13 +52,7 @@ public class CategoryManager : MonoBehaviour {
 
         if (tags.Length > 0)
         {
-            Debug.Log("Grabbing from database");
             searchResults = database.Select(tags);
-        }
-        
-        for (int i = 0; i < searchResults.Count; i++)
-        {
-            Debug.Log("Result: " + searchResults[i].title);
         }
 
 		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);

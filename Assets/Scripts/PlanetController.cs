@@ -145,6 +145,27 @@ public class PlanetController : MonoBehaviour, PointableObject
 			rend.material.shader = shader1;
 			break;
 		}
+        //CheckPlanetTextures();
 	}  
+
+    /*
+    public void CheckPlanetTextures()
+    {
+        GameObject system = UniverseSystem.GetInstance().gameObject;
+        if (system == null)
+        {
+            Debug.Log("system is null");
+        }
+        ChangeValue val = system.GetComponentInChildren<ChangeValue>();
+        if (val == null)
+        {
+            Debug.Log("change value is null");
+        }
+        Debug.Log("data title: " + data.title);
+        Debug.Log("data year: " + data.year);
+        Debug.Log("renderer: " + rend);
+        val.change(rend, data.title, int.Parse(data.year));
+    }
+    */
 
 }
