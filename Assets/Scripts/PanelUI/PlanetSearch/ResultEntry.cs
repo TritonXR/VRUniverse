@@ -59,6 +59,7 @@ public class ResultEntry : MonoBehaviour, PointableObject {
 		if (!data.title.Equals ("")) {
 			DetailedEntry infoPanel = DetailedEntry.GetInstance();
 			infoPanel.UpdateInfo(data.title, data.creator, data.description, data.year, data.des_tag, data.image);
+            infoPanel.GetTravelButton().SetExeString(data.executable);
 			infoPanel.SetVisible (true);
 			ResultDisplay.GetInstance().SetVisible(false);
 			CategoryManager.GetInstance().SetVisible(false);

@@ -27,7 +27,7 @@ public class YearSelectGo : MonoBehaviour, PointableObject
             else
             {
                 yearString = value.ToString();
-                yearText.color = defaultColor;
+                yearText.color = IsCurrentYear() ? currentYearColor : defaultColor;
             }
 
             yearText.text = yearString;
@@ -36,8 +36,9 @@ public class YearSelectGo : MonoBehaviour, PointableObject
 
     [SerializeField] private Text yearText;
     [SerializeField] private Color defaultColor;
-    [SerializeField] private Color highlghtColor;
+    [SerializeField] private Color highlightColor;
     [SerializeField] private Color disabledColor;
+    [SerializeField] private Color currentYearColor;
 
     private int yearValue;
     private int yearIndex;
@@ -46,24 +47,41 @@ public class YearSelectGo : MonoBehaviour, PointableObject
 
     void Start()
     {
-        
     }
 
     public void PointerEnter()
     {
-        if(yearIndex != -1) yearText.color = highlghtColor;
-        return;
+        if (yearIndex != -1)
+        {
+            yearText.color = highlightColor;
+        }
     }
 
     public void PointerClick()
     {
-		if (yearIndex != -1)
-			StartCoroutine (UniverseSystem.GetInstance ().TeleportToYear (yearIndex));
+        if (yearIndex != -1 && !UniverseSystem.GetInstance().IsCurrentlyTraveling())
+        {
+            StartCoroutine(UniverseSystem.GetInstance().TeleportToYear(yearIndex));
+            YearSelectMain.GetInstance().SetPrimaryYear(yearValue);
+        }
     }
 
     public void PointerExit()
     {
-        if (yearIndex != -1) yearText.color = defaultColor;
+        if (yearIndex != -1)
+        {
+            yearText.color = IsCurrentYear() ? currentYearColor : defaultColor;
+        }
         return;
+    }
+
+    private bool IsCurrentYear()
+    {
+        int result = -1;
+        if (Int32.TryParse(UniverseSystem.GetInstance().GetCurrentYear(), out result))
+        {
+            return result == yearValue;
+        }
+        else return false;
     }
 }

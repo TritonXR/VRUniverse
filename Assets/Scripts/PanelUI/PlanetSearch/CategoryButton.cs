@@ -41,16 +41,7 @@ public class CategoryButton : MonoBehaviour, PointableObject {
         if (manager.CheckIfSelected(categoryName))
             categoryIcon.color = selectedColor;
         else
-            categoryIcon.color = highlightColor;
-
-        /*
-		if (manager.CheckIfSelected(categoryName))
-			categoryIcon.color = selectedColor;
-		else
-			categoryIcon.color = defaultColor;
-
-		manager.ToggleSelected(categoryName);
-        */
+            categoryIcon.color = defaultColor;
     }
 
 	public void PointerExit()

@@ -46,6 +46,14 @@ public class YearSelectMain : MonoBehaviour {
         }
     }
 
+    public void SetPrimaryYear(int year)
+    {
+        for (int index = 0; index < yearButtons.Length; index++)
+        {
+            yearButtons[index].YearValue = year - primaryYearButtonIndex + index;
+        }
+    }
+
     public static YearSelectMain GetInstance()
     {
         return instance;

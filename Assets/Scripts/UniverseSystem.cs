@@ -34,9 +34,12 @@ public class UniverseSystem : MonoBehaviour {
 
 	//Reference to the planet gameobject that will have the planet component
 	[SerializeField] private GameObject prefab_planet;
+    [SerializeField] private GameObject HyperSpeedController;
 
-	//Holds original skybox color
-	private Color origSkyboxColor;
+    //Holds original skybox color
+    private Color origSkyboxColor;
+
+    private bool CurrentlyTraveling;
 
 	//Holds tutorial menus
 	public GameObject tutorial_YearSelection;
@@ -52,9 +55,7 @@ public class UniverseSystem : MonoBehaviour {
 		}
 		else instance = this;
 	}
-
-    [SerializeField] private GameObject HyperSpeedController;
-
+    
     /*
      * Start: Initialize years, skybox, and load previously saved year if existing
      * Parameters: None
@@ -75,6 +76,8 @@ public class UniverseSystem : MonoBehaviour {
 
 		//Path where the save data is located
 		string path = "VRClubUniverse_Data/saveData.txt";
+
+        CurrentlyTraveling = false;
 
 		//Teleport to previously saved year if exist
 		if (File.Exists(path))
@@ -306,24 +309,16 @@ public class UniverseSystem : MonoBehaviour {
 
 	/*
      * Handles teleportation to a new year. Calls CreateYear and Destroys previous year
-     */
-	/*
+     * 
      * TeleportToYear: Handles teleportation to a new year. Calls CreateYear and Destroys previous year
      * Parameters: int newYear - the year to travel to so as to create the year 
      *             bool useAnimation - default is true. Won't use animation if going from a project back to a year
      */
-     /*
-	public void TeleportToYear(int newYear, bool useAnimation = true)
-	{
-		//Check if there have been planets created before
-		if (atYear != -1)
-		{
-			//Destroy planets in the previous year
-			DestroyPlanets(atYear);
-		}*/
 
     public IEnumerator TeleportToYear(int newYear, bool useAnimation = true)
     {
+        CurrentlyTraveling = true;
+
 		//Check if there have been planets created before
 		if (atYear != -1)
 		{
@@ -331,12 +326,17 @@ public class UniverseSystem : MonoBehaviour {
 			DestroyPlanets(atYear);
 		}
 
+        atYear = newYear;
+
         //Start teleportation system traveling there by calling from Hyperspeed script
-        if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(true));
+        if (useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(true));
 
         PlanetDisplay disp = PlanetDisplay.GetInstance();
-        disp.SetVisible(false);
-        disp.SetViewTarget(null);
+        if (disp != null)
+        {
+            disp.SetVisible(false);
+            disp.SetViewTarget(null);
+        }
 
 		//Create the new year with planets
 		CreateYear(newYear);
@@ -366,13 +366,10 @@ public class UniverseSystem : MonoBehaviour {
 		}
 		RenderSettings.skybox = skybox;
 
-		atYear = newYear;
-
 		//Start teleportation system ending by Hyperspeed script call
 		if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
 
-		//Set the year user is currently at to the new year
-		//atYear = newYear;
+        CurrentlyTraveling = false;
 	}
 
 	public int GetNumYears()
@@ -414,8 +411,13 @@ public class UniverseSystem : MonoBehaviour {
 
     public string GetCurrentYear()
     {
-        if (atYear == -1) return LOBBY_YEAR_STRING;
+        if (atYear == -1 || atYear > list_years.Count) return LOBBY_YEAR_STRING;
         return list_years[atYear].yr_name;
+    }
+
+    public bool IsCurrentlyTraveling()
+    {
+        return CurrentlyTraveling;
     }
 
     /*
