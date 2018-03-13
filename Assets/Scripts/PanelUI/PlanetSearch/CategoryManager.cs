@@ -52,10 +52,8 @@ public class CategoryManager : MonoBehaviour {
 
         if (tags.Length > 0)
         {
-            searchResults = database.Select(tags);
+            database.Select(tags);
         }
-
-		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
 	}
 
 	public void SetVisible(bool visible)
@@ -69,4 +67,5 @@ public class CategoryManager : MonoBehaviour {
 	public static CategoryManager GetInstance() {
 		return instance;
 	}
+
 }
