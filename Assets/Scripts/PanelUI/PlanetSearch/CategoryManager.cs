@@ -50,20 +50,16 @@ public class CategoryManager : MonoBehaviour {
 
 		List<PlanetData> searchResults = new List<PlanetData>();
 
-		searchResults = database.Select (tags);
-
-		//TODO: remove these lines when you have actual results
-        /*
-		PlanetData testData;
-		testData.creator = testData.description = testData.executable = testData.title = "Testing 123";
-		testData.year = "2018";
-		testData.des_tag = new string[2] {"Test1", "Test2"};
-		testData.image = null;
-		for (int i = 0; i < 10; i++) {
-			testData.title = "Test " + i;
-			searchResults.Add(testData);
-		}
-        */
+        if (tags.Length > 0)
+        {
+            Debug.Log("Grabbing from database");
+            searchResults = database.Select(tags);
+        }
+        
+        for (int i = 0; i < searchResults.Count; i++)
+        {
+            Debug.Log("Result: " + searchResults[i].title);
+        }
 
 		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
 	}

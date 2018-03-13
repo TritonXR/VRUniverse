@@ -13,8 +13,9 @@ public class SQLiteTags : MonoBehaviour
 
     private void Start()
     {
-        planetList = new List<PlanetData>();
-        dbPath = "URI=file:" + "Assets/Database" + "/universe.db";          
+        //planetList = new List<PlanetData>();
+        //dbPath = "URI=file:" + "Assets/Database" + "/universe.db";   
+        dbPath = "URI=file:" + "VRClubUniverse_Data" + "/universe.db";
     }
 
 	public List<PlanetData> Select(string[] tags)
@@ -50,6 +51,7 @@ public class SQLiteTags : MonoBehaviour
 	            }
                     
                 var reader = cmd.ExecuteReader();
+                planetList = new List<PlanetData>();
                 while (reader.Read())
                 {
 					PlanetData planet = new PlanetData ();
@@ -65,10 +67,6 @@ public class SQLiteTags : MonoBehaviour
                     db_tags = db_tags.Replace("]", "");
 
                     planet.des_tag = db_tags.Split(',');
-                    for (int i = 0; i < planet.des_tag.Length; i++)
-                    {
-                        Debug.Log(planet.des_tag[i]);
-                    }
 
 
 					byte[] bytes = File.ReadAllBytes("VRClubUniverse_Data/VR_Demos/" + planet.year + "/" + planet.executable + "/" + reader.GetString (5));
