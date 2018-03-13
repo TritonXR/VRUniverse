@@ -14,9 +14,9 @@ public class SQLiteTags : MonoBehaviour
     private void Start()
     {
 #if UNITY_EDITOR
-        dbPath = "URI=file:" + "Assets/Database" + "/universe.db";
+        dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverse_Data" + "/universe.db";
 #else
-        dbPath = "URI=file:" + "VRClubUniverse_Data" + "/universe.db";
+        dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverse_Data" + "/universe.db";
 #endif
     }
 
