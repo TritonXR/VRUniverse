@@ -206,8 +206,10 @@ public class UniverseSystem : MonoBehaviour {
 			PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
 			//For each object in the JSONPlanet array
-			foreach (PlanetJSON json_planet in universe)
+			//foreach (PlanetJSON json_planet in universe)
+            for (int i = 0; i < universe.Length; i++)
 			{
+                PlanetJSON json_planet = universe[i];
 
 				//Instantiate a Planet object with a Planet component on it
 				GameObject planet = Instantiate(prefab_planet, planetPosition, Quaternion.identity);
@@ -240,10 +242,10 @@ public class UniverseSystem : MonoBehaviour {
 				currPlanet.data.des_tag = new string[json_planet.Tags.Length];
 
 				//For each tag in the json planet
-				for (int i = 0; i < json_planet.Tags.Length; i++)
+				for (int j = 0; j < json_planet.Tags.Length; j++)
 				{
 					// Set the tag of the current planet equal to the json tag
-					currPlanet.data.des_tag[i] = json_planet.Tags[i];
+					currPlanet.data.des_tag[j] = json_planet.Tags[j];
 				}
 
 				//Get the planet's image with path
@@ -263,7 +265,14 @@ public class UniverseSystem : MonoBehaviour {
 				Material material = Instantiate(rend.material);
 				rend.material =material;
 				ChangeValue val = GetComponentInChildren<ChangeValue>();
-				val.change(rend, currPlanet.data.title, int.Parse(currPlanet.data.year));
+                if (i > universe.Length / 2)
+                {
+                    val.change(rend, currPlanet.data.title, int.Parse(currPlanet.data.year), false);
+                }
+                else
+                {
+                    val.change(rend, currPlanet.data.title, int.Parse(currPlanet.data.year), true);
+                }
             }
 
             OrbitManager orbitManager = OrbitManager.GetOrbitManager();
