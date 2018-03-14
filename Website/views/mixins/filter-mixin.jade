@@ -19,17 +19,16 @@ mixin filter-mixin(data)
 									div.project-name #{data.description}
 								div(class="row proj-data")
 									div.project-label Tags :
+																			-console.log(data.tags);
+
 										- data.tags = data.tags.replace(new RegExp("'", 'g'), '');
 
 										- data.tags = data.tags.substring(1, data.tags.length - 1);
 										- data.tags = data.tags.split(",");
 
 										- for (let i = 0; i < data.tags.length; i++) {
-											-if (data.tags[i].charAt(0) == 'u') {
 												- data.tags[i] = data.tags[i].trim().substring(1, data.tags[i].length);
-											-}
 										- }
-										-console.log(data.tags);
 
 										-data.tags.push("" + data.year);
 											- for (var key in data.tags)

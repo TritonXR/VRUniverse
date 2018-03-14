@@ -4,6 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var multer = require('multer');
 var db = require('./db.js');
+var unzip = require('unzip');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -103,16 +104,19 @@ router.post('/', upload.any(), function(req, res) {
         }
     });
 
-    findFile('.exe', function(filename){
+    findFile('.zip', function(filename){
         if(filename)
         {
-            fs.rename(filename,
+            /*fs.rename(filename,
                 exec_dir + year + '/' + projectname + '/'+ projectname + '.exe',
                 function(err){
                     if(err){
                         console.log(err);
                     }
                 });
+            upload_exec = projectname;*/
+
+            fs.createReadStream(filename).pipe(unzip.Extract({ path: exec_dir + year + '/' + projectname + '/'+ projectname + '.exe' }));
             upload_exec = projectname;
         }
     });
@@ -149,7 +153,8 @@ router.post('/', upload.any(), function(req, res) {
     });
 
     db.createEntry(proj, function(status) {
-        res.json(status);
+        proj.Tags.map(x => 'u' + x)
+        res.send('Successfully Uploaded Project!');
     });
 
 });
