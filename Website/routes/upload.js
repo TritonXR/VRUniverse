@@ -35,7 +35,11 @@ router.use( function(req, res, next) {
 
 /* GET upload form. */
 router.get('/', function(req, res, next) {
-    res.render('upload');
+    db.getAllTags((tags) => {
+        //tags = tags.map(x => x['tag'].trim());
+        console.log(tags);
+        res.render('upload', {"tags" : tags});
+    });
 });
 
 
@@ -44,6 +48,7 @@ router.post('/', upload.any(), function(req, res) {
     var projectname = req.body.project;
     var upload_image = '';
     var upload_exec = '';
+    console.log(req.body)
 
     var json_dir = "./data/VRClubUniverseData/";
     var exec_dir = "./data/VRClubUniverseData/VR_Demos/";
@@ -122,7 +127,7 @@ router.post('/', upload.any(), function(req, res) {
     });
 
     var tags = req.body.tags;
-    var tag_arr = tags.split(",");
+    var tag_arr = tags;
     var proj = {
         Name: projectname,
         Creator: req.body.members,
@@ -153,7 +158,6 @@ router.post('/', upload.any(), function(req, res) {
     });
 
     db.createEntry(proj, function(status) {
-        proj.Tags.map(x => 'u' + x)
         res.send('Successfully Uploaded Project!');
     });
 

@@ -13,7 +13,6 @@ block content
 							div.col-xs-6
 								label.form-label Year :
 								select(class="form-control" id="year" name="year")
-									option 2015
 									option 2016
 									option 2017
 									option 2018
@@ -25,7 +24,10 @@ block content
 						label.form-label Project Members : 
 						input(type="text" class="form-control" id="members" name="members")
 						label.form-label Tags : 
-						input(type="text" class="form-control" id="tags" name="tags")
+						select(name="tags" multiple class="form-control" id="tags")
+							-for (let i in tags) {
+								option(value="#{tags[i]['tag']}") #{tags[i]['tag']}
+							-}
 						label.form-label Upload an Image : 
 						input(type="file" class="form-control" id="picture" name="image")
 
@@ -33,5 +35,12 @@ block content
 						input(type="file" class="form-control" accept=".zip" id="exec" name="exec")
 					div.text-center
 						button(type="submit" class="btn btn-default") Submit!
+	script(src="/public/javascripts/typeahead.js")
+	link(href="/stylesheets/tagsinput.css")
 
+	script.
 
+		$(document).ready(function() {
+			$('#tags').multiselect();
+			$('#tags').hide();
+		});
