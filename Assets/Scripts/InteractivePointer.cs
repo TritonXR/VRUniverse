@@ -11,6 +11,7 @@ public class InteractivePointer : MonoBehaviour {
     //Contains references to the color when the user is not pointing at a specific gameobject versus when they are
     [SerializeField] private Color inactiveColor;
     [SerializeField] private Color activeColor;
+    [SerializeField] private LeverScript lever;
 
     //Reference to the right controller
     private SteamVR_TrackedController controller;
@@ -18,9 +19,8 @@ public class InteractivePointer : MonoBehaviour {
     //Reference to the steamvr laser
     private SteamVR_LaserPointer laser;
 
-    //Reference to the planet or menu to check for when interacting with objects 
-    private PlanetController planet;
-    private TravelInteractable travelMenuButton;
+    //Reference to the planet or menu to check for when interacting with objects
+    private PointableObject targetObject;
 
     //Check to ensure user doesn't click on a gameobject multiple times
     private bool isTriggerClickable = false;
@@ -75,17 +75,16 @@ public class InteractivePointer : MonoBehaviour {
 	private void HandlePointerIn(object sender, PointerEventArgs e)
     {
         //Initialize references of the object the laser collided with
-        planet = e.target.GetComponent<PlanetController>();
-		travelMenuButton = e.target.GetComponent<TravelInteractable>();
+        targetObject = e.target.GetComponent<PointableObject>();
 
         //Check if the pointer is pointed at a planet
-        if (planet) 
+        if (targetObject != null) 
         {
 			//Activate the laser to be green
 			SetPointerColor(true);
 
             //Have planet react to the pointing
-            planet.StartPointing();
+            targetObject.PointerEnter();
 
             //Ensure that the user didn't already click on the planet
             if (!isTriggerClickable)
@@ -93,28 +92,19 @@ public class InteractivePointer : MonoBehaviour {
                 isTriggerClickable = true;
 
                 //Set a delegate so that the user can click on the planet as long as they are pointing at it
-                controller.TriggerClicked += HandlePlanetTriggerClicked;
+                controller.TriggerClicked += HandlePointerClick;
             }
         }
+    }
 
-        //Check if the pointer is pointed at a travelMenu
-        else if (travelMenuButton)
-        {
-			//Activate the laser to be green
-			SetPointerColor(true);
-
-            //Have travel menu react to pointing
-			travelMenuButton.StartHoverButton(e.target.gameObject);
-
-            //Ensure that the user didn't already click on the menu
-            if (!isTriggerClickable)
-            {
-                isTriggerClickable = true;
-
-                //Set a delegate so that the user can click on the menu as long as they are pointing at it
-                controller.TriggerClicked += HandleMenuTriggerClicked;
-            }
-        }
+    /*
+     * HandlePointerOut: Called whenever the user clicks on a gameobject with a PointableObject script
+     * Parameters: object sender - contains method info
+     *             PointerClickedEventArgsEventArgs e - contains the hit information such as the gameobject being collided with
+     */
+    private void HandlePointerClick(object sender, ClickedEventArgs e)
+    {
+        targetObject.PointerClick();
     }
 
     /*
@@ -125,17 +115,16 @@ public class InteractivePointer : MonoBehaviour {
     private void HandlePointerOut(object sender, PointerEventArgs e)
     {
         //Initialize references of the object the laser collided with
-        planet = e.target.GetComponent<PlanetController>();
-		travelMenuButton = e.target.GetComponent<TravelInteractable>();
+        targetObject = e.target.GetComponent<PointableObject>();
 
         //Check if the pointer stopped pointing at a planet
-        if (planet)
+        if (targetObject != null)
         {
-			//Deactivate the laser to be red
-			SetPointerColor(false);
+            //Deactivate the laser to be red
+            SetPointerColor(false);
 
             //Have planet stopped reacting
-            planet.StopPointing();
+            targetObject.PointerExit();
 
             //Ensure that the user didn't already click on the menu
             if (isTriggerClickable)
@@ -143,26 +132,7 @@ public class InteractivePointer : MonoBehaviour {
                 isTriggerClickable = false;
                 
                 //Disable delegate
-                controller.TriggerClicked -= HandlePlanetTriggerClicked;
-            }
-        }
-
-        //Check if pointer stopped pointing at a travele menu
-        else if (travelMenuButton)
-        {
-			//Deactivate the laser to be red
-			SetPointerColor(false);
-
-            //Have travel menu stopped reacting
-            travelMenuButton.StopHoverButton(e.target.gameObject);
-
-            //Ensure that the user didn't already click on the menu
-            if (isTriggerClickable)
-            {
-                isTriggerClickable = false;
-
-                //Disable delegate
-                controller.TriggerClicked -= HandleMenuTriggerClicked;
+                controller.TriggerClicked -= HandlePointerClick;
             }
         }
     }
@@ -171,18 +141,19 @@ public class InteractivePointer : MonoBehaviour {
      * HandlePlanetTriggerClicked: Called whenever the user pulls the trigger when pointing at a planet
      * Parameters: object sender - contains method info
      *             PointerEventArgs e - contains the hit information such as the gameobject being collided with
-     */
+     *
     private void HandlePlanetTriggerClicked(object sender, ClickedEventArgs e)
     {
         //React to trigger click
         planet.SelectPlanet();
+        lever.SetThrottle(0.0f);
     }
 
     /*
      * HandleMenuTriggerClicked: Called whenever the user pulls the trigger when pointing at a travel menu
      * Parameters: object sender - contains method info
      *             PointerEventArgs e - contains the hit information such as the gameobject being collided with
-     */
+     *
     private void HandleMenuTriggerClicked(object sender, ClickedEventArgs e)
 	{
         //If the button they clicked was the Yes confirmation, travel to the planet
@@ -195,6 +166,14 @@ public class InteractivePointer : MonoBehaviour {
         else
         {
             travelMenuButton.GetComponentInParent<PlanetController>().DeselectPlanet();
+            lever.SetThrottle(lever.GetDefaultThrottle());
         }
-	}
+	}*/
+}
+
+public interface PointableObject
+{
+    void PointerEnter();
+    void PointerClick();
+    void PointerExit();
 }

@@ -8,10 +8,12 @@ public class ExecutableSwitch : MonoBehaviour
 {
     private static ExecutableSwitch switcher = null;
 
-    public string defaultDatapath = "VRUniverse.exe";
+    [SerializeField] private string defaultDatapath = "VRUniverse.exe";
+    [SerializeField] private int delayTime = 500;
 
-    private char[] delimiterList = { '/', '\\', '.' };
+    private char[] delimiterList = { '/', '\\'};
     private bool isLoading;
+	private string appDatapath;
 
     private void Awake()
     {
@@ -23,6 +25,10 @@ public class ExecutableSwitch : MonoBehaviour
         isLoading = false;
 
         DontDestroyOnLoad(gameObject);
+
+		appDatapath = Application.dataPath;
+
+		Debug.Log("appDatapath: " + appDatapath);
     }
 
     void OnDestroy()
@@ -30,22 +36,24 @@ public class ExecutableSwitch : MonoBehaviour
         if(switcher == this) switcher = null;
     }
 
-    public void LoadExecutable(string datapath)
-    {
-        string[] splitDatapath = datapath.Split(delimiterList);
-        string processName = splitDatapath[splitDatapath.Length - 2]; //should extract the process name
-
-        LoadExecutable(datapath, processName);
-    }
-
-    public void LoadExecutable(string datapath, string processName)
+   public void LoadExecutable(string datapath)
     {
         if (isLoading) return;
         else isLoading = true;
-        if (datapath == null || datapath.Equals("")) datapath = defaultDatapath;
 
-        System.Diagnostics.Process childProcess = System.Diagnostics.Process.Start(Application.dataPath + datapath);
-        System.Diagnostics.Process rebootProcess = System.Diagnostics.Process.Start(Application.dataPath + "/../ProcessRebooter.exe", "VRUniverse.exe " + processName);
+		if (datapath == null || datapath.Equals("")) datapath = defaultDatapath;
+        if (!datapath.StartsWith("/")) datapath = "/" + datapath;
+		string helperDatapath = Application.dataPath + "/../VRUniverse_Helper.exe";
+
+		Debug.Log("Starting: " + helperDatapath);
+
+		System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+		startInfo.FileName = helperDatapath;
+		startInfo.Arguments = "\"" + appDatapath + datapath + "\" \"" + appDatapath + "/../VRUniverse.exe\" " + delayTime;
+
+		Debug.Log("Arguments: " + startInfo.Arguments);
+
+		System.Diagnostics.Process rebootProcess = System.Diagnostics.Process.Start(startInfo);
 
         Application.Quit();
     }

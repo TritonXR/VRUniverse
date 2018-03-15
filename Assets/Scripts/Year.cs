@@ -13,7 +13,7 @@ public class Year : MonoBehaviour {
     public string yr_name;
 
     //Holds the list of planets existing in the year
-    public List<Planet> list_planets;
+    public List<PlanetController> list_planets;
 
     //The parent of planets in the hierarchy
     public GameObject planets;
@@ -25,7 +25,7 @@ public class Year : MonoBehaviour {
     void Awake()
     {
         //Initialize the planets list that will hold the list of planets in the year being read from the JSON file
-        list_planets = new List<Planet>();
+        list_planets = new List<PlanetController>();
 
         //Initialize the planets gameobject that will act as parent for all the planets in the year
         planets = new GameObject();
