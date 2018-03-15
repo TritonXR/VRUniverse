@@ -54,8 +54,6 @@ public class TravelInteractable : MonoBehaviour, PointableObject
         //Save the current year in an output text file
 
         //Write the year index to the following path
-        //string path = "VRClubUniverseData/saveData.txt";
-
         string path;
         #if UNITY_EDITOR
             path = "Website/data/VRClubUniverseData/saveData.txt";

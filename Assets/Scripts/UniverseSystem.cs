@@ -269,18 +269,10 @@ public class UniverseSystem : MonoBehaviour {
 				}
 
 				//Get the planet's image with path
-				string imageName = "/" + json_planet.Image;
-
+				currPlanet.data.image_name = json_planet.Image;
+                
                 //Turn the image from path URL into a Sprite to set
-                //byte[] bytes = File.ReadAllBytes("VRClubUniverseData/VR_Demos/" + currPlanet.data.year + "/" + currPlanet.data.executable + "/" + imageName);
-
-                byte[] bytes;
-
-                #if UNITY_EDITOR
-                    bytes = File.ReadAllBytes("Website/data/VRClubUniverseData/VR_Demos/" + currPlanet.data.year + "/" + currPlanet.data.executable + "/" + imageName);
-                #elif UNITY_STANDALONE
-                    bytes = File.ReadAllBytes("VRClubUniverseData/VR_Demos/" + currPlanet.data.year + "/" + currPlanet.data.executable + "/" + imageName);
-                #endif
+                byte[] bytes = File.ReadAllBytes(ExecutableSwitch.GetFullPath(currPlanet.data.image_name, currPlanet.data.executable, currPlanet.data.year));
 
                 Texture2D texture = new Texture2D(0, 0);
 				texture.LoadImage(bytes);

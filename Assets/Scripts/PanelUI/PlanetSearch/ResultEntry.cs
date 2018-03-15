@@ -42,8 +42,16 @@ public class ResultEntry : MonoBehaviour, PointableObject {
         {
             planetTitleText.text = "Name: " + planet.title;
             planetYearText.text = "Year: " + planet.year;
-            planetImage.enabled = true;
-            planetImage.sprite = planet.image;
+            if(planet.image != null)
+            {
+                planetImage.enabled = true;
+                planetImage.sprite = planet.image;
+            }
+            else
+            {
+                planetImage.enabled = false;
+            }
+            
             entryBorder.enabled = true;
 			buttonCollider.enabled = true;
         }
@@ -59,7 +67,7 @@ public class ResultEntry : MonoBehaviour, PointableObject {
 		if (!data.title.Equals ("")) {
 			DetailedEntry infoPanel = DetailedEntry.GetInstance();
 			infoPanel.UpdateInfo(data.title, data.creator, data.description, data.year, data.des_tag, data.image);
-            infoPanel.GetTravelButton().SetExeString(data.executable);
+            infoPanel.GetTravelButton().SetExeString(ExecutableSwitch.GetFullPath(data.executable + ".exe", data.executable, data.year));
 			infoPanel.SetVisible (true);
 			ResultDisplay.GetInstance().SetVisible(false);
 			CategoryManager.GetInstance().SetVisible(false);

@@ -99,7 +99,16 @@ public class PlanetDisplay : MonoBehaviour {
         }
 
         Planet_Tag.text = tagText;
-        Planet_Image.sprite = image; //Uses the image component to set the sprite of what the picture should be
+        if(image != null)
+        {
+            Planet_Image.enabled = true;
+            Planet_Image.sprite = image; //Uses the image component to set the sprite of what the picture should be
+        }
+        else
+        {
+            Planet_Image.enabled = false;
+        }
+        
     }
 
     public void SetVisible(bool visible)
