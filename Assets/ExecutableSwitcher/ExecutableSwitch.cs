@@ -20,11 +20,9 @@ public class ExecutableSwitch : MonoBehaviour
         if (switcher == null) switcher = this;
         else
         {
-            Destroy(gameObject);
+            Destroy(this);
         }
         isLoading = false;
-
-        DontDestroyOnLoad(gameObject);
 
 		appDatapath = Application.dataPath;
 
@@ -42,14 +40,13 @@ public class ExecutableSwitch : MonoBehaviour
         else isLoading = true;
 
 		if (datapath == null || datapath.Equals("")) datapath = defaultDatapath;
-        if (!datapath.StartsWith("/")) datapath = "/" + datapath;
 		string helperDatapath = Application.dataPath + "/../VRUniverse_Helper.exe";
 
 		Debug.Log("Starting: " + helperDatapath);
 
 		System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 		startInfo.FileName = helperDatapath;
-		startInfo.Arguments = "\"" + appDatapath + datapath + "\" \"" + appDatapath + "/../VRUniverse.exe\" " + delayTime;
+		startInfo.Arguments = "\"" + datapath + "\" \"" + appDatapath + "/../VRUniverse.exe\" " + delayTime;
 
 		Debug.Log("Arguments: " + startInfo.Arguments);
 
@@ -79,5 +76,10 @@ public class ExecutableSwitch : MonoBehaviour
     {
         if (switcher == null) Debug.LogError("ExecutableSwitcher Error: No ExecutableSwitch script exists in this scene!");
         else switcher.LoadExecutable(datapath);
+    }
+
+    public static string GetFullPath(string filename, string foldername, string year)
+    {
+        return Application.dataPath + @"/../VRClubUniverse_Data/VR_Demos/" + year + @"/" + foldername + @"/" + filename;
     }
 }

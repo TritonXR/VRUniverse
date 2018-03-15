@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class ResultDisplay : MonoBehaviour {
@@ -15,6 +16,9 @@ public class ResultDisplay : MonoBehaviour {
     private int topEntryIndex, maxTopEntryIndex;
     private PlanetData dummyPlanet;
 	private BoxCollider[] buttonColliders;
+
+    private bool isLoadingImages;
+    private bool restartImageLoading;
 
     private void Awake()
     {
@@ -34,7 +38,10 @@ public class ResultDisplay : MonoBehaviour {
         dummyPlanet.des_tag = new string[0];
         dummyPlanet.image = null;
 
-		buttonColliders = GetComponentsInChildren<BoxCollider> ();
+		buttonColliders = GetComponentsInChildren<BoxCollider>();
+
+        isLoadingImages = false;
+        restartImageLoading = false;
 
 		StartCoroutine(PostStartBehaviors());
     }
@@ -49,6 +56,8 @@ public class ResultDisplay : MonoBehaviour {
         planetSearchResults = searchResults;
         topEntryIndex = 0;
         maxTopEntryIndex = planetSearchResults.Count - entry_list.Length;
+        if (isLoadingImages) restartImageLoading = true;
+        else StartCoroutine(LoadPlanetImages());
         UpdateDisplayedEntries();
     }
 
@@ -113,4 +122,30 @@ public class ResultDisplay : MonoBehaviour {
 		yield return new WaitForEndOfFrame();
 		UpdateDisplayedEntries();
 	}
+
+    private IEnumerator LoadPlanetImages()
+    {
+        isLoadingImages = true;
+
+        for(int index = 0; index < planetSearchResults.Count; index++)
+        {
+            yield return null;
+            yield return null;
+            if (restartImageLoading)
+            {
+                index = 0;
+                restartImageLoading = false;
+            }
+            PlanetData planet = planetSearchResults[index];
+            byte[] bytes = File.ReadAllBytes(ExecutableSwitch.GetFullPath(planet.image_name, planet.executable, planet.year));
+            Texture2D texture = new Texture2D(0, 0);
+            texture.LoadImage(bytes);
+            Rect rect = new Rect(0, 0, texture.width, texture.height);
+            planet.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+            planetSearchResults[index] = planet;
+            if (index >= topEntryIndex && index < entry_list.Length + topEntryIndex) entry_list[index - topEntryIndex].DisplayPlanet(planet);
+        }
+
+        isLoadingImages = false;
+    }
 }

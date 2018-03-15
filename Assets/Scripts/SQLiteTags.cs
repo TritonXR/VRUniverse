@@ -56,12 +56,14 @@ public class SQLiteTags : MonoBehaviour
                 planetList = new List<PlanetData>();
                 while (reader.Read())
                 {
-					PlanetData planet = new PlanetData ();
+					PlanetData planet = new PlanetData();
 					planet.title = reader.GetString(1);
 					planet.creator = reader.GetString(2);
 					planet.description = reader.GetString(3);
 					planet.year = (reader.GetInt32(4)).ToString();
-					planet.executable = @"../VRClubUniverse_Data/VR_Demos/" + planet.year + @"/" + reader.GetString(6) + @"/" + reader.GetString(6) + @".exe";
+                    planet.image_name = reader.GetString(5);
+					planet.executable = reader.GetString(6);
+                    planet.image = null;
                     string db_tags = reader.GetString(7);
                     db_tags = db_tags.Replace("u'", "");
                     db_tags = db_tags.Replace("'", "");
@@ -69,13 +71,6 @@ public class SQLiteTags : MonoBehaviour
                     db_tags = db_tags.Replace("]", "");
 
                     planet.des_tag = db_tags.Split(',');
-
-
-					byte[] bytes = File.ReadAllBytes("VRClubUniverse_Data/VR_Demos/" + planet.year + "/" + reader.GetString(6) + "/" + reader.GetString (5));
-					Texture2D texture = new Texture2D(0, 0);
-					texture.LoadImage(bytes);
-					Rect rect = new Rect(0, 0, texture.width, texture.height);
-					planet.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
 
 					planetList.Add (planet);
                 }

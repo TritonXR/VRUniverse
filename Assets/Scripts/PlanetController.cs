@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public struct PlanetData
 {
-    public string title, creator, year, description, executable;
+    public string title, creator, year, description, executable, image_name;
     public string[] des_tag;
     public Sprite image;
 }
@@ -98,7 +98,7 @@ public class PlanetController : MonoBehaviour, PointableObject
             disp.SetVisible(true);
             disp.SetViewTarget(transform);
             disp.UpdateInfo(data.title, data.creator, data.description, data.year, data.des_tag, data.image);
-            disp.GetTravelInteractable().SetExeString(@"../VRClubUniverse_Data/VR_Demos/" + data.year + @"/" + data.executable + @"/" + data.executable + @".exe");
+            disp.GetTravelInteractable().SetExeString(ExecutableSwitch.GetFullPath(data.executable + ".exe", data.executable, data.year));
 
             if (selectedPlanet != null)
             {
