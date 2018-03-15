@@ -5,6 +5,9 @@
 # Inverse ignore some stuff
 !/Assets/
 !/ProjectSettings/!.gitignore
+!/Website/
+!/deploy.sh
+!/VRClubUniverse_Data/!/ProjectSettings/!.gitignore
 !VRUniverse_Helper.bat
 
 # OS Stuff
@@ -16,3 +19,5 @@ ehthumbs.db
 Thumbs.db
 $RECYCLE.BIN/
 Desktop.ini
+Website/.idea/workspace.xml
+Website/node_modules

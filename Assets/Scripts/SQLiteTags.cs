@@ -13,10 +13,11 @@ public class SQLiteTags : MonoBehaviour
 
     private void Start()
     {
+
 #if UNITY_EDITOR
-        dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverse_Data" + "/universe.db";
-#else
-        dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverse_Data" + "/universe.db";
+        dbPath = "URI=file:" + Application.dataPath + "/../Website/data/VRClubUniverseData/universe.db";
+#elif UNITY_STANDALONE
+        dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverseData/universe.db";
 #endif
     }
 
@@ -64,6 +65,7 @@ public class SQLiteTags : MonoBehaviour
                     planet.image_name = reader.GetString(5);
 					planet.executable = reader.GetString(6);
                     planet.image = null;
+
                     string db_tags = reader.GetString(7);
                     db_tags = db_tags.Replace("u'", "");
                     db_tags = db_tags.Replace("'", "");

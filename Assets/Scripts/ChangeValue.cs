@@ -27,7 +27,7 @@ public class ChangeValue : MonoBehaviour {
 //
 
 
-	public void change(Renderer rend, string name, int year){
+	public void change(Renderer rend, string name, int year, bool renderImmediately){
 		Color oricolor1 = Color.yellow;
 		Color oricolor2 = Color.blue;
 	    Color basecolor;
@@ -64,11 +64,10 @@ public class ChangeValue : MonoBehaviour {
 		crackwarping = newname % 100 / 100.0f;
 		waterlevel = newname*2  % 100 / 100.0f;
 
-		applyChange (rend,basecolor,peakcolor,sludgecolor,crackscale,crackwarping,waterlevel);
-        Debug.Log("Setting material for " + name + " to be basecolor: " + basecolor);
+		applyChange (rend,basecolor,peakcolor,sludgecolor,crackscale,crackwarping,waterlevel, renderImmediately);
 	}
 
-	void applyChange(Renderer rend,Color basecolor,Color peakcolor,Color sludgecolor,float crackscale,float crackwarping,float waterlevel) {
+	void applyChange(Renderer rend,Color basecolor,Color peakcolor,Color sludgecolor,float crackscale,float crackwarping,float waterlevel, bool renderImmediately) {
 		ProceduralMaterial substance = rend.sharedMaterial as ProceduralMaterial;
 		if (substance) {
 
@@ -80,7 +79,15 @@ public class ChangeValue : MonoBehaviour {
 			substance.SetProceduralFloat("Cracks warping",crackwarping);
 
 			substance.SetProceduralFloat("Water Level",waterlevel);
-			substance.RebuildTextures();
+
+            if (renderImmediately)
+            {
+                substance.RebuildTexturesImmediately();
+            }
+            else
+            {
+                substance.RebuildTextures();
+            }
 
 		}
 	}

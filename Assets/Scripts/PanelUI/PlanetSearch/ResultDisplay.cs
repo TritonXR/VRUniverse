@@ -137,7 +137,9 @@ public class ResultDisplay : MonoBehaviour {
                 restartImageLoading = false;
             }
             PlanetData planet = planetSearchResults[index];
+
             byte[] bytes = File.ReadAllBytes(ExecutableSwitch.GetFullPath(planet.image_name, planet.executable, planet.year));
+
             Texture2D texture = new Texture2D(0, 0);
             texture.LoadImage(bytes);
             Rect rect = new Rect(0, 0, texture.width, texture.height);

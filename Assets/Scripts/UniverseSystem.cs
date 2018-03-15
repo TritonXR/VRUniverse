@@ -74,8 +74,14 @@ public class UniverseSystem : MonoBehaviour {
 		//Set the original color of the application to original color
 		ResetSkyboxColor();
 
-		//Path where the save data is located
-		string path = "VRClubUniverse_Data/saveData.txt";
+        //Path where the save data is located
+        string path;
+        #if UNITY_EDITOR
+            //path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
+            path = Application.dataPath + "/../Website/data/VRClubUniverseData/saveData.txt";
+        #elif UNITY_STANDALONE
+            path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
+        #endif
 
         CurrentlyTraveling = false;
 
@@ -99,8 +105,10 @@ public class UniverseSystem : MonoBehaviour {
 		//Delete the file to restart the experience in the originally state
 		File.Delete(path);
 
-		//Teleport to year but skip the hyperspeed
-		StartCoroutine(TeleportToYear(int.Parse(readText), false));
+        int yearIndex = GetYearIndex(int.Parse(readText));
+
+        //Teleport to year but skip the hyperspeed
+        StartCoroutine(TeleportToYear(yearIndex, false));
 
 		//Handle jump in tutorial system
 		if (tutorial_YearSelection != null) tutorial_YearSelection.SetActive(false);
@@ -138,11 +146,18 @@ public class UniverseSystem : MonoBehaviour {
 		//Set UniverseSystem as the parent object of the years gameobject
 		years.transform.parent = gameObject.transform;
 
-		//Get the information of a directory in persistent data path
-		DirectoryInfo dir = new DirectoryInfo("VRClubUniverse_Data");
+        //Get the information of a directory in persistent data path
+        //DirectoryInfo dir = new DirectoryInfo("VRClubUniverseData");
 
-		//TESTING
-		Debug.Log("Reading JSON files from VRClubUniverse_Data");
+        DirectoryInfo dir;
+        #if UNITY_EDITOR
+            dir = new DirectoryInfo("Website/data/VRClubUniverseData");
+        #elif UNITY_STANDALONE
+            dir = new DirectoryInfo("VRClubUniverseData");
+        #endif
+
+        //TESTING
+        Debug.Log("Reading JSON files from VRClubUniverseData");
 
 		//Get the file info by getting files with JSON path to get list of JSON files in directory
 		FileInfo[] info = dir.GetFiles("*.json");
@@ -194,18 +209,27 @@ public class UniverseSystem : MonoBehaviour {
 			//Get the year object from the List via Index
 			Year year = list_years[yearIndex];
 
-			//Open the JSON file with the name yr_name parameter passed in
-			string jsonString = File.ReadAllText("VRClubUniverse_Data/" + yearName + ".json");
+            //Open the JSON file with the name yr_name parameter passed in
+            //string jsonString = File.ReadAllText("VRClubUniverseData/" + yearName + ".json");
+            string jsonString;
 
-			//TESTING
-			Debug.Log("Jsonstring is: " + jsonString);
+            #if UNITY_EDITOR
+                jsonString = File.ReadAllText("Website/data/VRClubUniverseData/" + yearName + ".json");
+            #elif UNITY_STANDALONE
+                jsonString = File.ReadAllText("VRClubUniverseData/" + yearName + ".json");
+            #endif
+
+            //TESTING
+            Debug.Log("Jsonstring is: " + jsonString);
 
 			//Create a JSONPlanet array and read the JSON file
 			PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
 			//For each object in the JSONPlanet array
-			foreach (PlanetJSON json_planet in universe)
+			//foreach (PlanetJSON json_planet in universe)
+            for (int i = 0; i < universe.Length; i++)
 			{
+                PlanetJSON json_planet = universe[i];
 
 				//Instantiate a Planet object with a Planet component on it
 				GameObject planet = Instantiate(prefab_planet, planetPosition, Quaternion.identity);
@@ -238,18 +262,19 @@ public class UniverseSystem : MonoBehaviour {
 				currPlanet.data.des_tag = new string[json_planet.Tags.Length];
 
 				//For each tag in the json planet
-				for (int i = 0; i < json_planet.Tags.Length; i++)
+				for (int j = 0; j < json_planet.Tags.Length; j++)
 				{
 					// Set the tag of the current planet equal to the json tag
-					currPlanet.data.des_tag[i] = json_planet.Tags[i];
+					currPlanet.data.des_tag[j] = json_planet.Tags[j];
 				}
 
 				//Get the planet's image with path
 				currPlanet.data.image_name = json_planet.Image;
+                
+                //Turn the image from path URL into a Sprite to set
+                byte[] bytes = File.ReadAllBytes(ExecutableSwitch.GetFullPath(currPlanet.data.image_name, currPlanet.data.executable, currPlanet.data.year));
 
-				//Turn the image from path URL into a Sprite to set
-				byte[] bytes = File.ReadAllBytes(ExecutableSwitch.GetFullPath(currPlanet.data.image_name, currPlanet.data.executable, currPlanet.data.year));
-				Texture2D texture = new Texture2D(0, 0);
+                Texture2D texture = new Texture2D(0, 0);
 				texture.LoadImage(bytes);
 				Rect rect = new Rect(0, 0, texture.width, texture.height);
 				currPlanet.data.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
@@ -261,7 +286,14 @@ public class UniverseSystem : MonoBehaviour {
 				Material material = Instantiate(rend.material);
 				rend.material =material;
 				ChangeValue val = GetComponentInChildren<ChangeValue>();
-				val.change(rend, currPlanet.data.title, int.Parse(currPlanet.data.year));
+                if (i > universe.Length / 2)
+                {
+                    val.change(rend, currPlanet.data.title, int.Parse(currPlanet.data.year), false);
+                }
+                else
+                {
+                    val.change(rend, currPlanet.data.title, int.Parse(currPlanet.data.year), true);
+                }
             }
 
             OrbitManager orbitManager = OrbitManager.GetOrbitManager();
