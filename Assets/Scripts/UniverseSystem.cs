@@ -151,10 +151,10 @@ public class UniverseSystem : MonoBehaviour {
 
         DirectoryInfo dir;
         #if UNITY_EDITOR
-            dir = new DirectoryInfo("Website/data/VRClubUniverseData");
-        #elif UNITY_STANDALONE
-            dir = new DirectoryInfo("VRClubUniverseData");
-        #endif
+            dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData");
+#elif UNITY_STANDALONE
+            dir = new DirectoryInfo(Application.dataPath + "/../VRClubUniverseData");
+#endif
 
         //TESTING
         Debug.Log("Reading JSON files from VRClubUniverseData");
@@ -213,11 +213,11 @@ public class UniverseSystem : MonoBehaviour {
             //string jsonString = File.ReadAllText("VRClubUniverseData/" + yearName + ".json");
             string jsonString;
 
-            #if UNITY_EDITOR
-                jsonString = File.ReadAllText("Website/data/VRClubUniverseData/" + yearName + ".json");
-            #elif UNITY_STANDALONE
-                jsonString = File.ReadAllText("VRClubUniverseData/" + yearName + ".json");
-            #endif
+#if UNITY_EDITOR
+            jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/" + yearName + ".json");
+#elif UNITY_STANDALONE
+            jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/" + yearName + ".json");
+#endif
 
             //TESTING
             Debug.Log("Jsonstring is: " + jsonString);

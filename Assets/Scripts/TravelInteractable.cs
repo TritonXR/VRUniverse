@@ -56,10 +56,10 @@ public class TravelInteractable : MonoBehaviour, PointableObject
         //Write the year index to the following path
         string path;
         #if UNITY_EDITOR
-            path = "Website/data/VRClubUniverseData/saveData.txt";
-        #elif UNITY_STANDALONE
-            path = "VRClubUniverseData/saveData.txt";
-        #endif
+            path = Application.dataPath + "/../Website/data/VRClubUniverseData/saveData.txt";
+#elif UNITY_STANDALONE
+            path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
+#endif
 
         string currentYear = UniverseSystem.GetInstance().GetCurrentYear();
         Debug.Log("Writing current year to saveData file, year Index: " + currentYear);
