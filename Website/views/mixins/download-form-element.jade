@@ -1,0 +1,7 @@
+mixin download-form-element(data)
+	div.row(style="padding-bottom : 20px;")
+		div.checkbox
+			div.col-md-10.col-md-offset-1
+				input(type="radio" value="#{data.Year}" class="form-check-input" name="#{data.Name}")
+				label.form-check-label(style="font-weight : bold; font-size : 26px;") #{data.Name}
+

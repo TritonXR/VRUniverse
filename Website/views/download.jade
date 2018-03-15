@@ -1,0 +1,15 @@
+extends header 
+include ./mixins/project-mixin.jade
+
+block content
+	-var data = JSON.parse(json);
+	-for(var prop in data)
+		-console.log(typeof data[prop]);
+		div.container-fluid
+			div(style="margin-top: 30px;").row
+				div.col-md-8.year
+					span #{prop}
+			-var inner_obj = JSON.parse(data[prop])
+			-for (var key in inner_obj["PlanetJSON"])
+					+project-mixin(inner_obj["PlanetJSON"][key])
+
