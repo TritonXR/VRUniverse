@@ -83,7 +83,7 @@ public class ExecutableSwitch : MonoBehaviour
 #if UNITY_EDITOR
         return Application.dataPath + @"/../Website/data/VRClubUniverseData/VR_Demos/" + year + "/" + foldername + "/" + filename;
 #elif UNITY_STANDALONE
-        return Application.dataPath + @"/../VRClubUniverse_Data/VR_Demos/" + year + @"/" + foldername + @"/" + filename;
+        return Application.dataPath + @"/../VRClubUniverseData/VR_Demos/" + year + @"/" + foldername + @"/" + filename;
 #endif
     }
 }

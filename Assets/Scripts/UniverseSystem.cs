@@ -77,7 +77,6 @@ public class UniverseSystem : MonoBehaviour {
         //Path where the save data is located
         string path;
         #if UNITY_EDITOR
-            //path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
             path = Application.dataPath + "/../Website/data/VRClubUniverseData/saveData.txt";
         #elif UNITY_STANDALONE
             path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
@@ -150,14 +149,14 @@ public class UniverseSystem : MonoBehaviour {
         //DirectoryInfo dir = new DirectoryInfo("VRClubUniverseData");
 
         DirectoryInfo dir;
-        #if UNITY_EDITOR
-            dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData");
+#if UNITY_EDITOR
+        dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData");
 #elif UNITY_STANDALONE
             dir = new DirectoryInfo(Application.dataPath + "/../VRClubUniverseData");
 #endif
 
         //TESTING
-        Debug.Log("Reading JSON files from VRClubUniverseData");
+        Debug.Log("Reading JSON files from " + dir.Name);
 
 		//Get the file info by getting files with JSON path to get list of JSON files in directory
 		FileInfo[] info = dir.GetFiles("*.json");
