@@ -1,5 +1,9 @@
 Initialize engine version: 5.6.0f3 (497a0f351392)
 GfxDevice: creating device client; threaded=1
+VR: OpenVR Error! OpenVR failed initialization with error code VRInitError_Init_ShuttingDown: "VR system shutting down (119)"!
+ 
+(Filename:  Line: 1028)
+
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
     Renderer: NVIDIA GeForce GTX 980 (ID=0x13c0)
@@ -21,38 +25,30 @@ Platform assembly: D:\VR Club Universe Development\VRUniverse\Website\data\VRClu
 Loading D:\VR Club Universe Development\VRUniverse\Website\data\VRClubUniverseData\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\VR Club Universe Development\VRUniverse\Website\data\VRClubUniverseData\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.VR.dll (this message is harmless)
 Loading D:\VR Club Universe Development\VRUniverse\Website\data\VRClubUniverseData\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\UnityEngine.VR.dll into Unity Child Domain
-- Completed reload, in  0.015 seconds
+- Completed reload, in  0.032 seconds
 Platform assembly: D:\VR Club Universe Development\VRUniverse\Website\data\VRClubUniverseData\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\VR Club Universe Development\VRUniverse\Website\data\VRClubUniverseData\VR_Demos\2017\CrashAVisualExperience\CrashAVisualExperience_Data\Managed\System.dll (this message is harmless)
 <RI> Initializing input.
 <RI> Input initialized.
 desktop: 1920x1200 59Hz; virtual: 1920x1200 at 0,0
 <RI> Initialized touch support.
-OpenVR initialized!
+VR: OpenVR Error! OpenVR failed initialization with error code VRInitError_Init_ShuttingDown: "VR system shutting down (119)"!
  
-(Filename:  Line: 424)
+(Filename:  Line: 1028)
 
-UnloadTime: 0.565671 ms
-Connected to lighthouse:LHR-EFB7C2B3
+VR: OpenVR Error! OpenVR failed initialization with error code VRInitError_Init_ShuttingDown: "VR system shutting down (119)"!
  
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+(Filename:  Line: 1028)
 
+UnloadTime: 1.453913 ms
 Number of controllers: 2
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 6 worker threads for Enlighten.
-  Thread -> id: 25f8 -> priority: 1 
-  Thread -> id: 2254 -> priority: 1 
-  Thread -> id: 1568 -> priority: 1 
-  Thread -> id: 11a0 -> priority: 1 
-  Thread -> id: 1bf0 -> priority: 1 
-  Thread -> id: 2e8 -> priority: 1 
-Detected Menu Button Click
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-OpenVR Shutdown
- 
-(Filename:  Line: 889)
-
+  Thread -> id: 19d4 -> priority: 1 
+  Thread -> id: 1dcc -> priority: 1 
+  Thread -> id: 7f0 -> priority: 1 
+  Thread -> id: 29fc -> priority: 1 
+  Thread -> id: 6e8 -> priority: 1 
+  Thread -> id: 648 -> priority: 1 

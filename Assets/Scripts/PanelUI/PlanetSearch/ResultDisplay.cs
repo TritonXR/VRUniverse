@@ -109,7 +109,7 @@ public class ResultDisplay : MonoBehaviour {
 			foreach (BoxCollider col in buttonColliders)
 				col.enabled = false;
 		} else {
-			UpdateDisplayedEntries ();
+			UpdateDisplayedEntries();
 		}
 	}
 

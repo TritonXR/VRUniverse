@@ -113,10 +113,7 @@ public class PlanetDisplay : MonoBehaviour {
 
     public void SetVisible(bool visible)
     {
-        if (renderedCanvas)
-        {
-            renderedCanvas.enabled = visible;
-        }
+        if(renderedCanvas != null) renderedCanvas.enabled = visible;
         if (buttonColliders != null)
         {
             foreach (BoxCollider col in buttonColliders)

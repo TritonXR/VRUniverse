@@ -149,14 +149,14 @@ public class UniverseSystem : MonoBehaviour {
         //DirectoryInfo dir = new DirectoryInfo("VRClubUniverseData");
 
         DirectoryInfo dir;
-        #if UNITY_EDITOR
-            dir = new DirectoryInfo("Website/data/VRClubUniverseData");
-        #elif UNITY_STANDALONE
-            dir = new DirectoryInfo("VRClubUniverseData");
-        #endif
+#if UNITY_EDITOR
+        dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData");
+#elif UNITY_STANDALONE
+            dir = new DirectoryInfo(Application.dataPath + "/../VRClubUniverseData");
+#endif
 
         //TESTING
-        Debug.Log("Reading JSON files from VRClubUniverseData");
+        Debug.Log("Reading JSON files from " + dir.Name);
 
 		//Get the file info by getting files with JSON path to get list of JSON files in directory
 		FileInfo[] info = dir.GetFiles("*.json");
@@ -212,11 +212,11 @@ public class UniverseSystem : MonoBehaviour {
             //string jsonString = File.ReadAllText("VRClubUniverseData/" + yearName + ".json");
             string jsonString;
 
-            #if UNITY_EDITOR
-                jsonString = File.ReadAllText("Website/data/VRClubUniverseData/" + yearName + ".json");
-            #elif UNITY_STANDALONE
-                jsonString = File.ReadAllText("VRClubUniverseData/" + yearName + ".json");
-            #endif
+#if UNITY_EDITOR
+            jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/" + yearName + ".json");
+#elif UNITY_STANDALONE
+            jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/" + yearName + ".json");
+#endif
 
             //TESTING
             Debug.Log("Jsonstring is: " + jsonString);
