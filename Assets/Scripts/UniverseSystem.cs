@@ -302,7 +302,18 @@ public class UniverseSystem : MonoBehaviour {
             }
             else
             {
-                Debug.LogError("Could not find OrbitManager to populate planets.");
+                Debug.LogError("Could not find OrbitManager to populate planets. Waiting for OrbitManager...");
+                StartCoroutine(WaitForOrbit(year));
+                /*
+                orbitManager = OrbitManager.GetOrbitManager();
+                if (orbitManager != null)
+                {
+                    orbitManager.PopulateOrbit(year.list_planets.ToArray());
+                } else
+                {
+                    Debug.LogError("Still could not find OrbitManager to populate planets.");
+                }
+                */
             }
 
         }
@@ -317,11 +328,32 @@ public class UniverseSystem : MonoBehaviour {
 
 	}
 
-	/*
+    public IEnumerator WaitForOrbit(Year year)
+    {
+        OrbitManager orbitManager = OrbitManager.GetOrbitManager();
+        yield return new WaitUntil(() => OrbitManager.GetOrbitManager() != null);
+        orbitManager = OrbitManager.GetOrbitManager();
+        if (orbitManager != null)
+        {
+            orbitManager.PopulateOrbit(year.list_planets.ToArray());
+        } else
+        {
+            Debug.LogError("Still could not find OrbitManager to populate planets.");
+        }
+        /*
+        while (orbitManager == null)
+        {
+            yield return null;
+            orbitManager = OrbitManager.GetOrbitManager();
+        }
+        */
+    }
+
+    /*
      * DestroyPlanets: Destroys the planets in the year the user was currently at
      * Parameters: int prevYear - reference to the year the user just left
      */
-	public void DestroyPlanets(int prevYear)
+    public void DestroyPlanets(int prevYear)
 	{
 		Debug.Log("Destroying Planets from year: " + list_years[prevYear].yr_name);
 
