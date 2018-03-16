@@ -77,7 +77,6 @@ public class UniverseSystem : MonoBehaviour {
         //Path where the save data is located
         string path;
         #if UNITY_EDITOR
-            //path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
             path = Application.dataPath + "/../Website/data/VRClubUniverseData/saveData.txt";
         #elif UNITY_STANDALONE
             path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";

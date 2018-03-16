@@ -113,10 +113,17 @@ public class PlanetDisplay : MonoBehaviour {
 
     public void SetVisible(bool visible)
     {
-        renderedCanvas.enabled = visible;
-		foreach (BoxCollider col in buttonColliders) {
-			col.enabled = visible;
-		}
+        if (renderedCanvas)
+        {
+            renderedCanvas.enabled = visible;
+        }
+        if (buttonColliders != null)
+        {
+            foreach (BoxCollider col in buttonColliders)
+            {
+                col.enabled = visible;
+            }
+        }
     }
 
     public TravelInteractable GetTravelInteractable()
