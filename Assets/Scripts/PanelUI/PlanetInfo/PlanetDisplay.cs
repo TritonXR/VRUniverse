@@ -60,10 +60,14 @@ public class PlanetDisplay : MonoBehaviour {
             //Debug.Log("upOffset: " + upOffset);
             transform.position = targetPlanetOffset.normalized * orbitRadius + rightOffsetDir * rightOffset + upOffsetDir * upOffset + orbitAnchor.position;
 
-            transform.LookAt(targetViewer);
+            transform.LookAt(targetViewer, upOffsetDir);
             transform.Rotate(new Vector3(0, 180, 0));
+
+            //float directionAngle = Mathf.Atan2(transform.position.z - orbitAnchor.position.z, transform.position.x - orbitAnchor.position.x) * Mathf.Rad2Deg;
+            //float elevationAngle = Mathf.Atan2(targetPlanetOffset.y, Mathf.Sqrt(targetPlanetOffset.x * targetPlanetOffset.x + targetPlanetOffset.z * targetPlanetOffset.z)) * Mathf.Rad2Deg;
+            //transform.rotation = Quaternion.Euler(-elevationAngle, directionAngle, 0.0f);
         }
-	}
+    }
 
     public void SetViewTarget(Transform target)
     {
