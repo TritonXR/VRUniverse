@@ -102,16 +102,13 @@ router.post('/', function (req, res, next) {
     });*/
     
     Object.keys(req.body).forEach(function(k) {
-        console.log(fulldata[k]);
         if (filtered.hasOwnProperty(fulldata[k].Year)) {
-            filtered[k][fulldata[k].Year].PlanetJSON.push(fulldata[k]);
+            filtered[fulldata[k].Year].PlanetJSON.push(fulldata[k]);
         }
         else {
             filtered[fulldata[k].Year] = {'PlanetJSON' : [fulldata[k]]}
         }
     });
-
-    console.log(filtered);
 
     res.json({'whahahahaha' : 'hahahaha'});    
 })
