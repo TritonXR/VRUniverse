@@ -5,6 +5,7 @@ var fs_extra = require("node-fs-extra");
 var db = require('./db.js');
 
 var data = {};
+var fulldata = {};
 var years = [];
 
 function readFiles(dirname, callback) {
@@ -12,30 +13,30 @@ function readFiles(dirname, callback) {
     var counter = 0;
     var sum;
     fs.readdir(dirname, function (err, filenames) {
-        console.log("doing read dir");
         if (err) {
             console.log(err);
             return;
         }
-        console.log(typeof filenames);
         var array = filenames
             .filter(function (filename) {
                 return filename.substr(-5) === '.json';
             });
         sum = array.length;
         array.forEach(function (filename) {
-            console.log(dirname + filename);
             fs.readFile(dirname + filename, 'utf-8', function (err, content) {
                 if (err) {
                     onError(err);
                     return;
                 }
-                console.log("doing read file");
+
                 var year = filename.split(".")[0];
                 years.push(year);
                 data[year] = content;
+                JSON.parse(content).PlanetJSON.forEach(function(elem) {
+                    fulldata[elem.Name] = elem;
+                });
                 counter++;
-                console.log("counter is " + counter);
+
                 if (counter === sum) {
                     callback(data)
                 }
@@ -58,7 +59,9 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-    if (!data) {
+
+    let filtered = {};
+    /*if (!data) {
         console.log("data is empty!");
         readFiles('./data/VRClubUniverseData/', function (data2) {
             data = data2;
@@ -92,8 +95,25 @@ router.post('/', function (req, res, next) {
             }
             res.render('download_success');
         }
-    }); 
+    });*/
+
+    /*years.forEach((year) => {
+        console.log(JSON.parse(data[year]));
+    });*/
     
+    Object.keys(req.body).forEach(function(k) {
+        console.log(fulldata[k]);
+        if (filtered.hasOwnProperty(fulldata[k].Year)) {
+            filtered[k][fulldata[k].Year].PlanetJSON.push(fulldata[k]);
+        }
+        else {
+            filtered[fulldata[k].Year] = {'PlanetJSON' : [fulldata[k]]}
+        }
+    });
+
+    console.log(filtered);
+
+    res.json({'whahahahaha' : 'hahahaha'});    
 })
 
 module.exports = router;

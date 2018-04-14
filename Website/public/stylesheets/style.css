@@ -71,7 +71,6 @@ html {
 	font-size: 30px;
 	margin-bottom: 20px;
 	font-weight: bold;
-    font-fa
 
 }
 .year{
@@ -251,6 +250,7 @@ footer {
   font-size: 16px;
   height: 6%;
   border-radius: 3px;
+  z-index: -100;
 }
 
 footer .container {
@@ -375,5 +375,34 @@ a.tag-link span:hover {
     min-height: 86.7vh;
     margin-top: 100px;
 }
+
+.checkbox-n {
+    display: none;
+}
+
+.checkbox-n:checked + .proj-container {
+    padding-top : 30px;
+    padding-bottom : 30px;
+    margin-bottom : 50px;
+    border-radius: 6px;
+    background-color: white;
+    -moz-box-shadow: 0 0 3px #ccc;
+    -webkit-box-shadow: 0 0 3px #ccc;
+    box-shadow: 0px 1px 1px 2px #ccc;
+    border : 3px solid #7b4ba8;
+}
+
+.checkbox-n:checked .proj-header {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #7b4ba8;
+}
+
+.download-submit {
+    margin-bottom: 100px;
+}
+
 
 

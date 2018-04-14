@@ -1,12 +1,12 @@
 mixin project-mixin(data)
 		div.container-fluid
 			div.row
-				div.col-md-10.col-md-offset-1.proj-container
+				input(type="checkbox" id="#{data.Name}" name="#{data.Name}").checkbox-n
+				label(for="#{data.Name}").col-md-10.col-md-offset-1.proj-container
 					div.container-fluid
 						div.row
 							div.col-md-10
 								div.proj-header #{data.Name}
-
 						div.row
 							div.col-md-2(align="center")
 								img(src="/data/VRClubUniverseData/VR_Demos/#{data.Year}/#{data.Executable}/#{data.Image}" class="project-img")
