@@ -146,7 +146,17 @@ public class PlanetController : MonoBehaviour, PointableObject
 			break;
 		}
         //CheckPlanetTextures();
-	}  
+	} 
+
+    public void ReceiveSprite(Sprite image)
+    {
+        Debug.Log("PlanetController received Sprite");
+        data.image = image;
+        if(selectedPlanet == this)
+        {
+            PlanetDisplay.GetInstance().UpdateInfo(data.title, data.creator, data.description, data.year, data.des_tag, data.image);
+        }
+    }
 
     /*
     public void CheckPlanetTextures()

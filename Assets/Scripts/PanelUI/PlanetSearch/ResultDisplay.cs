@@ -13,6 +13,7 @@ public class ResultDisplay : MonoBehaviour {
 	[SerializeField] private Canvas resultsCanvas;
 
     private List<PlanetData> planetSearchResults;
+    private List<int> planetsWaitingForImages;
     private int topEntryIndex, maxTopEntryIndex;
     private PlanetData dummyPlanet;
 	private BoxCollider[] buttonColliders;
@@ -32,6 +33,7 @@ public class ResultDisplay : MonoBehaviour {
     // Use this for initialization
     void Start() {
         planetSearchResults = null;
+        planetsWaitingForImages = new List<int>();
         topEntryIndex = 0;
 
         dummyPlanet.title = dummyPlanet.creator = dummyPlanet.description = dummyPlanet.executable = dummyPlanet.year = "";
@@ -56,9 +58,18 @@ public class ResultDisplay : MonoBehaviour {
         planetSearchResults = searchResults;
         topEntryIndex = 0;
         maxTopEntryIndex = planetSearchResults.Count - entry_list.Length;
-        if (isLoadingImages) restartImageLoading = true;
-        else StartCoroutine(LoadPlanetImages());
         UpdateDisplayedEntries();
+        List<string> imagePaths = new List<string>();
+        List<PassSprite> callbacks = new List<PassSprite>();
+        planetsWaitingForImages.Clear();
+        for(int index = 0; index < planetSearchResults.Count; index++)
+        {
+            PlanetData planet = planetSearchResults[index];
+            planetsWaitingForImages.Add(index);
+            imagePaths.Add(ExecutableSwitch.GetFullPath(planet.image_name, planet.executable, planet.year));
+            callbacks.Add(ReceiveSprite);
+        }
+        ImageLoader.GetInstance().LoadImages(imagePaths, callbacks);
     }
 
     public void ShiftDisplayedResults(int shiftUpAmount)
@@ -113,6 +124,20 @@ public class ResultDisplay : MonoBehaviour {
 		}
 	}
 
+    public void ReceiveSprite(Sprite image)
+    {
+        int planetIndex = planetsWaitingForImages[0];
+        PlanetData planet = planetSearchResults[planetIndex];
+        planet.image = image;
+        planetSearchResults[planetIndex] = planet;
+        planetsWaitingForImages.RemoveAt(0);
+
+        if(planetIndex >= topEntryIndex && planetIndex < topEntryIndex + entry_list.Length)
+        {
+            entry_list[planetIndex - topEntryIndex].ReceiveSprite(image);
+        }
+    }
+
     public static ResultDisplay GetInstance()
     {
         return instance;
@@ -122,32 +147,4 @@ public class ResultDisplay : MonoBehaviour {
 		yield return new WaitForEndOfFrame();
 		UpdateDisplayedEntries();
 	}
-
-    private IEnumerator LoadPlanetImages()
-    {
-        isLoadingImages = true;
-
-        for(int index = 0; index < planetSearchResults.Count; index++)
-        {
-            yield return null;
-            yield return null;
-            if (restartImageLoading)
-            {
-                index = 0;
-                restartImageLoading = false;
-            }
-            PlanetData planet = planetSearchResults[index];
-
-            byte[] bytes = File.ReadAllBytes(ExecutableSwitch.GetFullPath(planet.image_name, planet.executable, planet.year));
-
-            Texture2D texture = new Texture2D(0, 0);
-            texture.LoadImage(bytes);
-            Rect rect = new Rect(0, 0, texture.width, texture.height);
-            planet.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
-            planetSearchResults[index] = planet;
-            if (index >= topEntryIndex && index < entry_list.Length + topEntryIndex) entry_list[index - topEntryIndex].DisplayPlanet(planet);
-        }
-
-        isLoadingImages = false;
-    }
 }
