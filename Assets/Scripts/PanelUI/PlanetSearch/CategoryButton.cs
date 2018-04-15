@@ -51,4 +51,8 @@ public class CategoryButton : MonoBehaviour, PointableObject {
 		else
 			categoryIcon.color = defaultColor;
 	}
+
+	public void Deselect(){
+		categoryIcon.color = defaultColor;
+	}
 }

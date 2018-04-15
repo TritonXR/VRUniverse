@@ -9,6 +9,8 @@ public class CategoryManager : MonoBehaviour {
 	private List<string> selectedCategories;
 	private Canvas renderedCanvas;
 	private BoxCollider[] buttonColliders;
+	private CategoryButton[] categoryButtons;
+
 
 	private SQLiteTags database;
 
@@ -26,6 +28,7 @@ public class CategoryManager : MonoBehaviour {
 		selectedCategories = new List<string>();
 		renderedCanvas = GetComponent<Canvas>();
 		buttonColliders = GetComponentsInChildren<BoxCollider>();
+		categoryButtons = GetComponentsInChildren<CategoryButton> ();
 		database = GetComponent<SQLiteTags> ();
 	}
 	
@@ -69,4 +72,17 @@ public class CategoryManager : MonoBehaviour {
 	public static CategoryManager GetInstance() {
 		return instance;
 	}
+
+	public void ResetAll(List<string> selectedCategories){
+		selectedCategories.Clear();
+		for (int i = 0; i < categoryButtons.Length; i++) {
+			categoryButtons [i].Deselect ();
+		}
+		List<PlanetData> searchResults = new List<PlanetData>();
+		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
+	}
+
+	public List<string> getSelectedCategories(){
+		return this.selectedCategories;
+	} 
 }
