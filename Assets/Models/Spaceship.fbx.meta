@@ -1,0 +1,211 @@
+fileFormatVersion: 2
+guid: acb04b2d529732a47b063444d4ec8553
+timeCreated: 1523913293
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Body
+    100002: Cube
+    100004: Cube.000
+    100006: Cube.001
+    100008: Cube.002
+    100010: Cube.003
+    100012: Cube.004
+    100014: Cube.005
+    100016: Cube.006
+    100018: Cube.007
+    100020: Cube.008
+    100022: Cube.009
+    100024: Cylinder.001
+    100026: Glass Front
+    100028: Left Door
+    100030: Platform
+    100032: Right Door
+    100034: Side Bodies
+    100036: Side Bodies.001
+    100038: Side Bodies.002
+    100040: Side Bodies.003
+    100042: Side Bodies.004
+    100044: //RootNode
+    400000: Body
+    400002: Cube
+    400004: Cube.000
+    400006: Cube.001
+    400008: Cube.002
+    400010: Cube.003
+    400012: Cube.004
+    400014: Cube.005
+    400016: Cube.006
+    400018: Cube.007
+    400020: Cube.008
+    400022: Cube.009
+    400024: Cylinder.001
+    400026: Glass Front
+    400028: Left Door
+    400030: Platform
+    400032: Right Door
+    400034: Side Bodies
+    400036: Side Bodies.001
+    400038: Side Bodies.002
+    400040: Side Bodies.003
+    400042: Side Bodies.004
+    400044: //RootNode
+    2100000: lambert1
+    2100002: Material.012
+    2100004: Material.002
+    2100006: Material.005
+    2100008: LeftDoorbottom
+    2100010: LeftDoorTop
+    2100012: Material.009
+    2100014: Material.008
+    2100016: Material.011
+    2100018: Material.001
+    2300000: Body
+    2300002: Cube
+    2300004: Cube.000
+    2300006: Cube.001
+    2300008: Cube.002
+    2300010: Cube.003
+    2300012: Cube.004
+    2300014: Cube.005
+    2300016: Cube.006
+    2300018: Cube.007
+    2300020: Cube.008
+    2300022: Cube.009
+    2300024: Cylinder.001
+    2300026: Glass Front
+    2300028: Left Door
+    2300030: Platform
+    2300032: Right Door
+    2300034: Side Bodies
+    2300036: Side Bodies.001
+    2300038: Side Bodies.002
+    2300040: Side Bodies.003
+    2300042: Side Bodies.004
+    3300000: Body
+    3300002: Cube
+    3300004: Cube.000
+    3300006: Cube.001
+    3300008: Cube.002
+    3300010: Cube.003
+    3300012: Cube.004
+    3300014: Cube.005
+    3300016: Cube.006
+    3300018: Cube.007
+    3300020: Cube.008
+    3300022: Cube.009
+    3300024: Cylinder.001
+    3300026: Glass Front
+    3300028: Left Door
+    3300030: Platform
+    3300032: Right Door
+    3300034: Side Bodies
+    3300036: Side Bodies.001
+    3300038: Side Bodies.002
+    3300040: Side Bodies.003
+    3300042: Side Bodies.004
+    4300000: Side Bodies.004
+    4300002: Side Bodies.003
+    4300004: Side Bodies.002
+    4300006: Side Bodies.001
+    4300008: Cube.009
+    4300010: Cylinder.001
+    4300012: Cube.008
+    4300014: Cube.007
+    4300016: Cube.006
+    4300018: Cube.005
+    4300020: Cube.004
+    4300022: Cube.003
+    4300024: Cube.001
+    4300026: Cube
+    4300028: Side Bodies
+    4300030: Glass Front
+    4300032: Platform
+    4300034: Right Door
+    4300036: Left Door
+    4300038: Body
+    4300040: Cube.000
+    4300042: Cube.002
+    7400000: Take 001
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
