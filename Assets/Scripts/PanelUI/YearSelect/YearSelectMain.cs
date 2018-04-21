@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO; // Important for getting files from directory
+using System;
 
 public class YearSelectMain : MonoBehaviour {
 
@@ -69,4 +71,15 @@ public class YearSelectMain : MonoBehaviour {
             yearButtons[index].YearValue = maxYear - primaryYearButtonIndex + index;
         }
     }
+
+	public int NumberOfPlanets (int year){
+		#if UNITY_EDITOR
+		string jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/" + year.ToString() + ".json");
+		#elif UNITY_STANDALONE
+		jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/" + yearName + ".json");
+		#endif
+		PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
+
+		return universe.Length;
+	}
 }

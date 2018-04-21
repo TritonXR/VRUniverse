@@ -30,7 +30,7 @@ public class YearSelectGo : MonoBehaviour, PointableObject
                 yearText.color = IsCurrentYear() ? currentYearColor : defaultColor;
             }
 
-            yearText.text = yearString;
+			yearText.text = yearString+ " (" +YearSelectMain.GetInstance().NumberOfPlanets(value)+")";
         }
     }
 
