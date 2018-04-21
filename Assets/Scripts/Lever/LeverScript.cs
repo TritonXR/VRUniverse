@@ -8,11 +8,15 @@ public class LeverScript {
 
     private LeverVariant lever;
 
-    private LeverScript() { }
+    private LeverScript()
+    {
+        lever = null;
+    }
 
     public void SetThrottle(float speed)
     {
         if (lever != null) lever.SetThrottle(speed);
+        else Debug.LogWarning("No lever registered, can't set throttle!");
     }
 
     public float GetDefaultThrottle()
@@ -33,7 +37,7 @@ public class LeverScript {
 
     public bool RegisterLever(LeverVariant lever)
     {
-        if (lever == null)
+        if (this.lever == null)
         {
             this.lever = lever;
             return true;

@@ -38,7 +38,7 @@ public class ImageLoader : MonoBehaviour {
         {
             if(receivedDataQueue.Count > 0)
             {
-                Debug.Log("Handling queued texture");
+                //Debug.Log("Handling queued texture");
                 if(callbacks.Count > 0)
                 {
                     Texture2D texture = new Texture2D(0, 0);
@@ -54,7 +54,7 @@ public class ImageLoader : MonoBehaviour {
                 }
                 else
                 {
-                    Debug.Log("Clearing data queue");
+                    //Debug.Log("Clearing data queue");
                     receivedDataQueue.Clear();
                 }
             }
@@ -63,7 +63,7 @@ public class ImageLoader : MonoBehaviour {
 
     public void LoadImages(List<string> imagePaths, List<PassSprite> spriteCallbacks)
     {
-        Debug.Log("Loading Images");
+        //Debug.Log("Loading Images");
         if(loadWorker != null)
         {
             loadWorker.Abort();
