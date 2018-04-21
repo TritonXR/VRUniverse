@@ -47,6 +47,9 @@ public class UniverseSystem : MonoBehaviour {
 	public GameObject tutorial_PlanetSelection;
 	public GameObject tutorial_PlanetTravel;
 
+    //panels to disable while traveling
+    [SerializeField] private Canvas[] panels;
+
 	void Awake()
 	{
 		if (instance != null && instance != this)
@@ -394,8 +397,18 @@ public class UniverseSystem : MonoBehaviour {
 
         atYear = newYear;
 
+        bool[] reenablePanels = new bool[panels.Length];
+
         //Start teleportation system traveling there by calling from Hyperspeed script
-        if (useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(true));
+        if (useAnimation)
+        {
+            for(int index = 0; index < panels.Length; index++)
+            {
+                reenablePanels[index] = panels[index].enabled;
+                panels[index].enabled = false;
+            }
+            yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(true));
+        }
 
         PlanetDisplay disp = PlanetDisplay.GetInstance();
         if (disp != null)
@@ -432,8 +445,15 @@ public class UniverseSystem : MonoBehaviour {
 		}
 		RenderSettings.skybox = skybox;
 
-		//Start teleportation system ending by Hyperspeed script call
-		if(useAnimation) yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
+        //Start teleportation system ending by Hyperspeed script call
+        if (useAnimation)
+        {
+            for (int index = 0; index < panels.Length; index++)
+            {
+                panels[index].enabled = reenablePanels[index];
+            }
+            yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
+        }
 
         CurrentlyTraveling = false;
 	}
