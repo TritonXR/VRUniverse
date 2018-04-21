@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class ResetButton : MonoBehaviour, PointableObject {
 
 	[SerializeField] private Image resetIcon;
-	[SerializeField] private Color defaultColor;
-	[SerializeField] private Color highlightColor;
+	[SerializeField] private Color defaultColor= new Color(182, 252, 255);
+	[SerializeField] private Color highlightColor1 = Color.green;
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +21,7 @@ public class ResetButton : MonoBehaviour, PointableObject {
 
 	public void PointerEnter()
 	{
-		resetIcon.color = highlightColor;
+        resetIcon.color = highlightColor1;
 	}
 
 	public void PointerClick()
@@ -35,6 +35,6 @@ public class ResetButton : MonoBehaviour, PointableObject {
 
 	public void PointerExit()
 	{
-		resetIcon.color = highlightColor;
+		resetIcon.color = defaultColor;
 	}
 }
