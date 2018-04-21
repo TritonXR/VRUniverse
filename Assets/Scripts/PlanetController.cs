@@ -41,6 +41,7 @@ public class PlanetController : MonoBehaviour, PointableObject
     {
 		// Get the renderer on start
 		rend = GetComponent<Renderer>();
+
 	}
 
     protected void Update()
@@ -116,8 +117,16 @@ public class PlanetController : MonoBehaviour, PointableObject
     {
         if (selectedPlanet != null)
         {
+
             LeverScript lever = LeverScript.GetInstance();
             lever.SetThrottle(lever.GetDefaultThrottle());
+            PlanetDisplay disp = PlanetDisplay.GetInstance();
+            if (disp.GetViewTarget() == selectedPlanet.transform)
+            {
+                disp.SetVisible(false);
+                disp.SetViewTarget(null);
+                disp.GetTravelInteractable().SetExeString("");
+            }
             selectedPlanet.Highlight("none");
             selectedPlanet = null;
 

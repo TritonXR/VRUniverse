@@ -25,6 +25,9 @@ public class ExitInteractable : MonoBehaviour, PointableObject
     void Start()
     {
         //selectedPlanet = updatedCanvas.gameObject.GetComponent<PlanetDisplay>().targetplanet.gameObject.GetComponent<PlanetController>();
+        //highlight.enabled = true;
+
+
     }
 
     /*
@@ -33,7 +36,7 @@ public class ExitInteractable : MonoBehaviour, PointableObject
     public void PointerEnter()
     {
         //Enable the highlight to show it is being hovered on
-        highlight.enabled = true;
+        highlight.color = Color.red;
     }
 
     /*
@@ -41,8 +44,8 @@ public class ExitInteractable : MonoBehaviour, PointableObject
      */
     public void PointerExit()
     {
-        //Disable the highlight
-        highlight.enabled = false;
+        highlight.color = Color.blue;
+
     }
 
     public void PointerClick()
