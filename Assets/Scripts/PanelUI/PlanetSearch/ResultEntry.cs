@@ -14,6 +14,8 @@ public class ResultEntry : MonoBehaviour, PointableObject {
 	private PlanetData data;
 	private BoxCollider buttonCollider;
 
+    private PassSprite detailedEntryCallback;
+
     // Use this for initialization
     void Start () {
         entryBorder = GetComponent<Image>();
@@ -21,6 +23,7 @@ public class ResultEntry : MonoBehaviour, PointableObject {
 		data.des_tag = new string[0];
 		data.image = null;
 		buttonCollider = GetComponent<BoxCollider>();
+        detailedEntryCallback = null;
 	}
 	
 	// Update is called once per frame
@@ -31,6 +34,7 @@ public class ResultEntry : MonoBehaviour, PointableObject {
     public void DisplayPlanet(PlanetData planet)
     {
 		data = planet;
+        detailedEntryCallback = null;
         if(planet.title.Equals(""))
         {
             planetYearText.text = planetTitleText.text = "";
@@ -71,11 +75,22 @@ public class ResultEntry : MonoBehaviour, PointableObject {
 			infoPanel.SetVisible (true);
 			ResultDisplay.GetInstance().SetVisible(false);
 			CategoryManager.GetInstance().SetVisible(false);
+
+            detailedEntryCallback = infoPanel.ReceiveSprite;
 		}
     }
 
     public void PointerExit()
     {
         return;
+    }
+
+    public void ReceiveSprite(Sprite image)
+    {
+        data.image = image;
+        planetImage.sprite = image;
+        planetImage.enabled = true;
+
+        if (detailedEntryCallback != null) detailedEntryCallback(image);
     }
 }
