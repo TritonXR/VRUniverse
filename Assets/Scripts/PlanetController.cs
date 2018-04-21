@@ -41,6 +41,7 @@ public class PlanetController : MonoBehaviour, PointableObject
     {
 		// Get the renderer on start
 		rend = GetComponent<Renderer>();
+
 	}
 
     protected void Update()
@@ -109,9 +110,29 @@ public class PlanetController : MonoBehaviour, PointableObject
             Highlight("selected");
         }
 
-		
         
     }
+
+    public static void DeselectPlanet()
+    {
+        if (selectedPlanet != null)
+        {
+
+            LeverScript lever = LeverScript.GetInstance();
+            lever.SetThrottle(lever.GetDefaultThrottle());
+            PlanetDisplay disp = PlanetDisplay.GetInstance();
+            if (disp.GetViewTarget() == selectedPlanet.transform)
+            {
+                disp.SetVisible(false);
+                disp.SetViewTarget(null);
+                disp.GetTravelInteractable().SetExeString("");
+            }
+            selectedPlanet.Highlight("none");
+            selectedPlanet = null;
+
+        }
+    }
+
 
     /*
      * PointerStop: Calls when the user points their laser away from the planet to disable the description menu
