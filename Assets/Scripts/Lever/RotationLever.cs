@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LeverScript : MonoBehaviour {
-
-    private static LeverScript instance;
-
+public class RotationLever : MonoBehaviour, LeverVariant
+{
     [SerializeField] private float MAX_ROTATION = 75.0f;
     [SerializeField] private float MIN_ROTATION = -75.0f;
 
@@ -38,21 +36,21 @@ public class LeverScript : MonoBehaviour {
 
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (!LeverScript.GetInstance().RegisterLever(this))
         {
             Destroy(this);
         }
-        else instance = this;
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         touchingControllers = new List<Transform>();
         AcceptingInput = true;
         //Debug.Log("Default speed: " + DEFAULT_SPEED);
         SetLabel(DEFAULT_SPEED);
-	}
-    
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -110,33 +108,34 @@ public class LeverScript : MonoBehaviour {
             }
         }
 
-        if(orbitManager != null)
+        if (orbitManager != null)
         {
             float x_rot = transform.localEulerAngles.x;
-            
+
             if (x_rot > STOP_MAX && x_rot <= MAX_ROTATION + FP_TOLERANCE)
-            {                
+            {
                 orbitManager.LinearSpeed = (x_rot - STOP_MAX) / (MAX_ROTATION - STOP_MAX) * MAX_SPEED;
             }
-            else if(x_rot < 360.0f + STOP_MIN && x_rot >= 360.0f + MIN_ROTATION - FP_TOLERANCE)
-            {                
+            else if (x_rot < 360.0f + STOP_MIN && x_rot >= 360.0f + MIN_ROTATION - FP_TOLERANCE)
+            {
                 orbitManager.LinearSpeed = (x_rot - (360.0f + STOP_MIN)) / (STOP_MIN - MIN_ROTATION) * MAX_SPEED;
             }
             else
-            {                
+            {
                 orbitManager.LinearSpeed = 0.0f;
                 if (numActive <= 0 && AcceptingInput) SetThrottle(0.0f);
             }
 
         }
 
-        SetLabel(orbitManager.LinearSpeed);        
+        SetLabel(orbitManager.LinearSpeed);
 
     }
 
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter(Collider other)
+    {
         if (other.tag.Equals("GameController") && !touchingControllers.Contains(other.transform))
-        {            
+        {
             touchingControllers.Add(other.transform);
         }
 
@@ -145,7 +144,7 @@ public class LeverScript : MonoBehaviour {
     private void OnTriggerExit(Collider other)
     {
         if (touchingControllers.Contains(other.transform))
-        {            
+        {
             touchingControllers.Remove(other.transform);
         }
     }
@@ -166,7 +165,7 @@ public class LeverScript : MonoBehaviour {
         {
             TargetThrottle = (STOP_MAX + STOP_MIN) / 2;
         }
-        
+
         CurrentInterpolation = 0.0f;
         AcceptingInput = false;
         StartCoroutine(SmoothAcceleration());
@@ -185,7 +184,7 @@ public class LeverScript : MonoBehaviour {
 
     IEnumerator SmoothAcceleration()
     {
-        while(CurrentInterpolation < 1.0f)
+        while (CurrentInterpolation < 1.0f)
         {
             CurrentInterpolation += Time.deltaTime / THROTTLE_SET_TIME;
             float x_rot = Mathf.Lerp(StartingThrottle, TargetThrottle, CurrentInterpolation);
@@ -193,10 +192,5 @@ public class LeverScript : MonoBehaviour {
             yield return null;
         }
         AcceptingInput = true;
-    }
-
-    public static LeverScript GetInstance()
-    {
-        return instance;
     }
 }

@@ -1290,7 +1290,7 @@ GameObject:
   - component: {fileID: 33585726546498342}
   - component: {fileID: 23155845917201662}
   - component: {fileID: 136558445834141596}
-  - component: {fileID: 114069115800896670}
+  - component: {fileID: 114326533692018052}
   m_Layer: 8
   m_Name: pivot
   m_TagString: Untagged
@@ -3162,14 +3162,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1441597123553552}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.37, y: -0.102, z: -1.36}
   m_LocalScale: {x: 0.10202516, y: 0.26370376, z: 0.26370376}
   m_Children:
   - {fileID: 4511836954097138}
   m_Father: {fileID: 4469940662183780}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4798064121713070
 Transform:
   m_ObjectHideFlags: 1
@@ -5517,29 +5517,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114069115800896670
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1441597123553552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f08a3fd72505748438703029d1a6374b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MAX_ROTATION: 80
-  MIN_ROTATION: -75
-  STOP_MAX: 10
-  STOP_MIN: -10
-  MAX_SPEED: -120
-  DEFAULT_SPEED: -60
-  THROTTLE_SET_TIME: 0.5
-  NUM_VIB: 3
-  VIB_INTENSITY: 1500
-  DISPLAYED_SPEED_CORRECTION: -1
-  orbitManager: {fileID: 114417082529768204}
-  speedNumber: {fileID: 114167200724101406}
 --- !u!114 &114070917088357564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6610,6 +6587,29 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114326533692018052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1441597123553552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d1e85a12e16db44b655bc92e5f0915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MAX_OFFSET: 0.15
+  MIN_OFFSET: -0.15
+  STOP_MAX: 0.025
+  STOP_MIN: -0.025
+  MAX_SPEED: -120
+  DEFAULT_SPEED: -60
+  THROTTLE_SET_TIME: 0.5
+  NUM_VIB: 3
+  VIB_INTENSITY: 1500
+  DISPLAYED_SPEED_CORRECTION: -1
+  orbitManager: {fileID: 114417082529768204}
+  speedNumber: {fileID: 114167200724101406}
 --- !u!114 &114332262601982130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7347,7 +7347,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inactiveColor: {r: 0.90588236, g: 0, b: 0, a: 0}
   activeColor: {r: 0, g: 1, b: 0.2551725, a: 0}
-  lever: {fileID: 0}
 --- !u!114 &114512023196515496
 MonoBehaviour:
   m_ObjectHideFlags: 1
