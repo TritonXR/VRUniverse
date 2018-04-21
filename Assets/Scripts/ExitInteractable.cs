@@ -17,13 +17,14 @@ public class ExitInteractable : MonoBehaviour, PointableObject
     //Image component to show the highlight of the pointed selection
     [SerializeField] private Image highlight;
     [SerializeField] private Canvas updatedCanvas;
-    
+    [SerializeField] private PlanetController selectedPlanet;
+
     //Access to the planet executable string
     //[SerializeField] private string executableString;
 
     void Start()
     {
-
+        //selectedPlanet = updatedCanvas.gameObject.GetComponent<PlanetDisplay>().targetplanet.gameObject.GetComponent<PlanetController>();
     }
 
     /*
@@ -55,8 +56,9 @@ public class ExitInteractable : MonoBehaviour, PointableObject
      */
     public void Exit()
     {
-        //updatedCanvas = GetComponentInParent<Canvas>();
+        //selectedPlane = GetComponentInParent<>();
         updatedCanvas.enabled = false;
+        PlanetController.DeselectPlanet();
     }
 
 

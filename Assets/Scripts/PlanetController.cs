@@ -109,9 +109,21 @@ public class PlanetController : MonoBehaviour, PointableObject
             Highlight("selected");
         }
 
-		
         
     }
+
+    public static void DeselectPlanet()
+    {
+        if (selectedPlanet != null)
+        {
+            LeverScript lever = LeverScript.GetInstance();
+            lever.SetThrottle(lever.GetDefaultThrottle());
+            selectedPlanet.Highlight("none");
+            selectedPlanet = null;
+
+        }
+    }
+
 
     /*
      * PointerStop: Calls when the user points their laser away from the planet to disable the description menu
