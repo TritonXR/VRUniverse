@@ -224,8 +224,10 @@ public class UniverseSystem : MonoBehaviour {
 			//Create a JSONPlanet array and read the JSON file
 			PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
-			//For each object in the JSONPlanet array
-			//foreach (PlanetJSON json_planet in universe)
+            //For each object in the JSONPlanet array
+            //foreach (PlanetJSON json_planet in universe)
+            List<string> imagePaths = new List<string>();
+            List<PassSprite> callbacks = new List<PassSprite>();
             for (int i = 0; i < universe.Length; i++)
 			{
                 PlanetJSON json_planet = universe[i];
@@ -271,12 +273,10 @@ public class UniverseSystem : MonoBehaviour {
 				currPlanet.data.image_name = json_planet.Image;
                 
                 //Turn the image from path URL into a Sprite to set
-                byte[] bytes = File.ReadAllBytes(ExecutableSwitch.GetFullPath(currPlanet.data.image_name, currPlanet.data.executable, currPlanet.data.year));
-
-                Texture2D texture = new Texture2D(0, 0);
-				texture.LoadImage(bytes);
-				Rect rect = new Rect(0, 0, texture.width, texture.height);
-				currPlanet.data.image = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+                imagePaths.Add(ExecutableSwitch.GetFullPath(currPlanet.data.image_name, currPlanet.data.executable, currPlanet.data.year));
+                callbacks.Add(currPlanet.ReceiveSprite);
+                
+                currPlanet.data.image = null;
 
 				//Adds the read planet into the year
 				year.list_planets.Add(currPlanet);
@@ -294,6 +294,8 @@ public class UniverseSystem : MonoBehaviour {
                     val.change(rend, currPlanet.data.title, int.Parse(currPlanet.data.year), true);
                 }
             }
+
+            ImageLoader.GetInstance().LoadImages(imagePaths, callbacks);
 
             OrbitManager orbitManager = OrbitManager.GetOrbitManager();
             if(orbitManager != null)
@@ -381,6 +383,7 @@ public class UniverseSystem : MonoBehaviour {
     public IEnumerator TeleportToYear(int newYear, bool useAnimation = true)
     {
         CurrentlyTraveling = true;
+        ImageLoader.GetInstance().CancelLoading();
 
 		//Check if there have been planets created before
 		if (atYear != -1)

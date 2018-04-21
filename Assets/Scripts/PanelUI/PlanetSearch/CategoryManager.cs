@@ -9,8 +9,7 @@ public class CategoryManager : MonoBehaviour {
 	private List<string> selectedCategories;
 	private Canvas renderedCanvas;
 	private BoxCollider[] buttonColliders;
-	private CategoryButton[] categoryButtons;
-
+    private CategoryButton[] categoryButtons;
 
 	private SQLiteTags database;
 
@@ -48,7 +47,6 @@ public class CategoryManager : MonoBehaviour {
 			selectedCategories.Add(category);
 		}
 
-		//TODO: pass tags to database, get planet data
 		string[] tags = selectedCategories.ToArray();
 
 		List<PlanetData> searchResults = new List<PlanetData>();
@@ -56,6 +54,10 @@ public class CategoryManager : MonoBehaviour {
         if (tags.Length > 0)
         {
             searchResults = database.Select(tags);
+        }
+        else
+        {
+            searchResults = database.SelectAllPlanets();
         }
 
 		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);

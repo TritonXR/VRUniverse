@@ -20,6 +20,7 @@ public class OrbitManager : MonoBehaviour {
 	public float LinearSpeed = 20.0f;                  //speed at which the player's ship travels
     public int OuterInnerRatio = 2;                    //how many planets are on the outer radius per planet on the inner radius
     public float DirectionToStar = 90.0f;              //which direction to you look to see the star; 0=forward, 90=right, -90=left
+    public float StartingLocation = 45.0f;             //what angle of the orbit is between the ship and first planet at start
     
 	private PlanetController[] planet_list;                  //list of planet game objects
 	public Light StarLight;                            //point light used to light the planets
@@ -86,8 +87,8 @@ public class OrbitManager : MonoBehaviour {
 
         }
 
-        //player starts at angle 0
-        polarLocation = 0.0f;
+        //player starts at some offset before 0
+        polarLocation = 360.0f - StartingLocation;
     }
 
     public static OrbitManager GetOrbitManager()
