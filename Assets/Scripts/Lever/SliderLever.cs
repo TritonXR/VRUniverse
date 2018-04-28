@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class SliderLever : MonoBehaviour, LeverVariant
 {
-    [SerializeField] private float MAX_OFFSET = 0.15f;
-    [SerializeField] private float MIN_OFFSET = -0.15f;
+    [SerializeField] private float MAX_OFFSET = 1;
+    [SerializeField] private float MIN_OFFSET = -1;
 
-    [SerializeField] private float STOP_MAX = 0.025f;
-    [SerializeField] private float STOP_MIN = -0.025f;
+    [SerializeField] private float STOP_MAX = 0.1f;
+    [SerializeField] private float STOP_MIN = -0.1f;
 
     [SerializeField] private float MAX_SPEED = 120.0f;
     [SerializeField] private float DEFAULT_SPEED = 60.0f;
@@ -22,12 +22,14 @@ public class SliderLever : MonoBehaviour, LeverVariant
     [SerializeField] private float DISPLAYED_SPEED_CORRECTION = -1.0f;
 
     [SerializeField] private OrbitManager orbitManager;
-    [SerializeField] private Transform slideAnchor;
+    [SerializeField] private Transform ForwardAnchor;
+    [SerializeField] private Transform RearAnchor;
     [SerializeField] private Text speedNumber;
 
     private const float FP_TOLERANCE = 0.001f;
 
-    float currentOffset;
+    private float currentOffset;
+    private float maxOffsetDistance;
 
     private List<Transform> touchingControllers;
 
@@ -59,6 +61,9 @@ public class SliderLever : MonoBehaviour, LeverVariant
         {
             currentOffset = STOP_MIN + DEFAULT_SPEED / MAX_SPEED * (MIN_OFFSET - STOP_MIN);
         }
+        transform.position = Vector3.Lerp(RearAnchor.position, ForwardAnchor.position, currentOffset / 2.0f + 0.5f);
+
+        maxOffsetDistance = Vector3.Distance(ForwardAnchor.position, RearAnchor.position) / 2.0f;
     }
 
     // Update is called once per frame
@@ -73,9 +78,7 @@ public class SliderLever : MonoBehaviour, LeverVariant
             if (controller == null) Debug.LogWarning("No TrackedController script found!");
             if (controller != null && controller.triggerPressed)
             {
-                Vector3 contDir = transform.parent.InverseTransformPoint(t.position) - transform.localPosition;
-                contDir.x = 0;
-                controllerPos += contDir.normalized;
+                controllerPos += controller.transform.position;
                 numActive++;
             }
         }
@@ -84,7 +87,10 @@ public class SliderLever : MonoBehaviour, LeverVariant
         if (numActive > 0 && AcceptingInput)
         {
             controllerPos /= numActive;
-            float nextOffset = Mathf.Clamp(Vector3.Dot(controllerPos - slideAnchor.position, slideAnchor.forward), MIN_OFFSET, MAX_OFFSET);
+            Vector3 centralAnchor = (ForwardAnchor.position + RearAnchor.position) / 2;
+            Vector3 forwardDirection = (ForwardAnchor.position - RearAnchor.position).normalized;
+
+            float nextOffset = Mathf.Clamp(Vector3.Dot(controllerPos - centralAnchor, forwardDirection) / maxOffsetDistance, MIN_OFFSET, MAX_OFFSET);
 
             bool vibrateController = false;
             if (nextOffset > STOP_MAX || currentOffset > STOP_MAX)
@@ -102,7 +108,7 @@ public class SliderLever : MonoBehaviour, LeverVariant
                 vibrateController = (oldInc != newInc);
             }
 
-            transform.position = slideAnchor.position + slideAnchor.forward * nextOffset;
+            transform.position = Vector3.Lerp(RearAnchor.position, ForwardAnchor.position, nextOffset / 2.0f + 0.5f);
             currentOffset = nextOffset;
 
             if (vibrateController)
@@ -122,20 +128,19 @@ public class SliderLever : MonoBehaviour, LeverVariant
             {
                 orbitManager.LinearSpeed = (currentOffset - STOP_MAX) / (MAX_OFFSET - STOP_MAX) * MAX_SPEED;
             }
-            else if (currentOffset < 360.0f + STOP_MIN && currentOffset >= 360.0f + MIN_OFFSET - FP_TOLERANCE)
+            else if (currentOffset < STOP_MIN && currentOffset >= MIN_OFFSET - FP_TOLERANCE)
             {
-                orbitManager.LinearSpeed = (currentOffset - (360.0f + STOP_MIN)) / (STOP_MIN - MIN_OFFSET) * MAX_SPEED;
+                orbitManager.LinearSpeed = (currentOffset - STOP_MIN) / (STOP_MIN - MIN_OFFSET) * MAX_SPEED;
             }
             else
             {
                 orbitManager.LinearSpeed = 0.0f;
-                if (numActive <= 0 && AcceptingInput) SetThrottle(0.0f);
+                if (numActive <= 0 && AcceptingInput && Mathf.Abs(currentOffset - (STOP_MAX + STOP_MIN) / 2.0f) > FP_TOLERANCE) SetThrottle(0.0f);
             }
 
         }
 
         SetLabel(orbitManager.LinearSpeed);
-
     }
 
     void OnTriggerEnter(Collider other)
@@ -194,7 +199,7 @@ public class SliderLever : MonoBehaviour, LeverVariant
         {
             CurrentInterpolation += Time.deltaTime / THROTTLE_SET_TIME;
             currentOffset = Mathf.Lerp(StartingThrottle, TargetThrottle, CurrentInterpolation);
-            transform.position = slideAnchor.position + slideAnchor.forward * currentOffset;
+            transform.position = Vector3.Lerp(RearAnchor.position, ForwardAnchor.position, currentOffset / 2.0f + 0.5f);
             yield return null;
         }
         AcceptingInput = true;
