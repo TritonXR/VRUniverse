@@ -46,6 +46,7 @@ public class YearSelectGo : MonoBehaviour, PointableObject
     private string yearString;
 
     void Start()
+
     {
     }
 

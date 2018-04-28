@@ -12,6 +12,7 @@ public class ResetButton : MonoBehaviour, PointableObject {
 	// Use this for initialization
 	void Start () {
 		resetIcon.color = defaultColor;
+
 	}
 
 	// Update is called once per frame
