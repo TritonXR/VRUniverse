@@ -80,9 +80,9 @@ public class UniverseSystem : MonoBehaviour {
         //Path where the save data is located
         string path;
         #if UNITY_EDITOR
-            path = Application.dataPath + "/../Website/data/VRClubUniverseData/saveData.txt"; //saveData.txt doesn't exist on my site
+            path = Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/saveData.txt"; //saveData.txt doesn't exist on my site
         #elif UNITY_STANDALONE
-            path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
+            path = Application.dataPath + "/../VRClubUniverseData/Vive/saveData.txt";
         #endif
 
         CurrentlyTraveling = false;
@@ -153,9 +153,9 @@ public class UniverseSystem : MonoBehaviour {
 
         DirectoryInfo dir;
 #if UNITY_EDITOR
-        dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData");
+        dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive");
 #elif UNITY_STANDALONE
-            dir = new DirectoryInfo(Application.dataPath + "/../VRClubUniverseData");
+        dir = new DirectoryInfo(Application.dataPath + "/../VRClubUniverseData/Vive");
 #endif
 
         //TESTING
@@ -216,9 +216,9 @@ public class UniverseSystem : MonoBehaviour {
             string jsonString;
 
 #if UNITY_EDITOR
-            jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/" + yearName + ".json");
+            jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/" + yearName + ".json");
 #elif UNITY_STANDALONE
-            jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/" + yearName + ".json");
+            jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/Vive/" + yearName + ".json");
 #endif
 
             //TESTING
@@ -520,6 +520,17 @@ public class UniverseSystem : MonoBehaviour {
         {
             tutorial_YearTravel.SetActive(true);
             tutorial_YearSelection.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            StartCoroutine(TeleportToYear(0));
+        } else if (Input.GetKeyDown(KeyCode.B))
+        {
+            StartCoroutine(TeleportToYear(1));
+        } else if (Input.GetKeyDown(KeyCode.C))
+        {
+            StartCoroutine(TeleportToYear(2));
         }
     }
 

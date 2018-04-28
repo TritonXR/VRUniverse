@@ -56,9 +56,9 @@ public class TravelInteractable : MonoBehaviour, PointableObject
         //Write the year index to the following path
         string path;
 #if UNITY_EDITOR
-            path = Application.dataPath + "/../Website/data/VRClubUniverseData/saveData.txt"; //saveData not exist on my side
+            path = Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/saveData.txt"; //saveData not exist on my side
 #elif UNITY_STANDALONE
-            path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
+            path = Application.dataPath + "/../VRClubUniverseData/Vive/saveData.txt"; //Change everything under VRClubUniverseData to VR../Vive/
 #endif
 
         string currentYear = UniverseSystem.GetInstance().GetCurrentYear();
