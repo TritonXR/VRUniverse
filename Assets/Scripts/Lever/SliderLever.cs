@@ -22,12 +22,11 @@ public class SliderLever : MonoBehaviour, LeverVariant
     [SerializeField] private float DISPLAYED_SPEED_CORRECTION = -1.0f;
 
     [SerializeField] private OrbitManager orbitManager;
-
+    [SerializeField] private Transform slideAnchor;
     [SerializeField] private Text speedNumber;
 
     private const float FP_TOLERANCE = 0.001f;
 
-    private Vector3 baseLocation;
     float currentOffset;
 
     private List<Transform> touchingControllers;
@@ -39,7 +38,7 @@ public class SliderLever : MonoBehaviour, LeverVariant
 
     void Awake()
     {
-        if(!LeverScript.GetInstance().RegisterLever(this))
+        if (!LeverScript.GetInstance().RegisterLever(this))
         {
             Destroy(this);
         }
@@ -52,8 +51,14 @@ public class SliderLever : MonoBehaviour, LeverVariant
         AcceptingInput = true;
         //Debug.Log("Default speed: " + DEFAULT_SPEED);
         SetLabel(DEFAULT_SPEED);
-        baseLocation = transform.position;
-        currentOffset = 0.0f;
+        if (DEFAULT_SPEED * MAX_SPEED > 0.0f)
+        {
+            currentOffset = STOP_MAX + DEFAULT_SPEED / MAX_SPEED * (MAX_OFFSET - STOP_MAX);
+        }
+        else
+        {
+            currentOffset = STOP_MIN + DEFAULT_SPEED / MAX_SPEED * (MIN_OFFSET - STOP_MIN);
+        }
     }
 
     // Update is called once per frame
@@ -79,7 +84,7 @@ public class SliderLever : MonoBehaviour, LeverVariant
         if (numActive > 0 && AcceptingInput)
         {
             controllerPos /= numActive;
-            float nextOffset = Mathf.Clamp(Vector3.Dot(controllerPos - baseLocation, transform.up), MIN_OFFSET, MAX_OFFSET);
+            float nextOffset = Mathf.Clamp(Vector3.Dot(controllerPos - slideAnchor.position, slideAnchor.forward), MIN_OFFSET, MAX_OFFSET);
 
             bool vibrateController = false;
             if (nextOffset > STOP_MAX || currentOffset > STOP_MAX)
@@ -97,12 +102,12 @@ public class SliderLever : MonoBehaviour, LeverVariant
                 vibrateController = (oldInc != newInc);
             }
 
-            transform.position = baseLocation + transform.up * nextOffset;
+            transform.position = slideAnchor.position + slideAnchor.forward * nextOffset;
             currentOffset = nextOffset;
 
             if (vibrateController)
             {
-                Debug.Log("Should vibrate here");
+                //Debug.Log("Should vibrate here");
                 foreach (Transform controller in touchingControllers)
                 {
                     SteamVR_Controller.Input((int)controller.GetComponent<SteamVR_TrackedController>().controllerIndex).TriggerHapticPulse(VIB_INTENSITY);
@@ -152,7 +157,7 @@ public class SliderLever : MonoBehaviour, LeverVariant
 
     public void SetThrottle(float speed)
     {
-        speed = Mathf.Clamp(speed, 0.0f, 1.0f);
+        speed = Mathf.Clamp(speed, -1.0f, 1.0f);
         StartingThrottle = currentOffset;
         if (speed > 0.0f)
         {
@@ -189,7 +194,7 @@ public class SliderLever : MonoBehaviour, LeverVariant
         {
             CurrentInterpolation += Time.deltaTime / THROTTLE_SET_TIME;
             currentOffset = Mathf.Lerp(StartingThrottle, TargetThrottle, CurrentInterpolation);
-            transform.position = baseLocation + transform.up * currentOffset;
+            transform.position = slideAnchor.position + slideAnchor.forward * currentOffset;
             yield return null;
         }
         AcceptingInput = true;

@@ -151,7 +151,7 @@ public class RotationLever : MonoBehaviour, LeverVariant
 
     public void SetThrottle(float speed)
     {
-        speed = Mathf.Clamp(speed, 0.0f, 1.0f);
+        speed = Mathf.Clamp(speed, -1.0f, 1.0f);
         StartingThrottle = (transform.localEulerAngles.x > 180.0f) ? transform.localEulerAngles.x - 360.0f : transform.localEulerAngles.x;
         if (speed > 0.0f)
         {

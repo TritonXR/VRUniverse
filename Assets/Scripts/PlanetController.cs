@@ -171,7 +171,7 @@ public class PlanetController : MonoBehaviour, PointableObject
 
     public void ReceiveSprite(Sprite image)
     {
-        Debug.Log("PlanetController received Sprite");
+        //Debug.Log("PlanetController received Sprite");
         data.image = image;
         if(selectedPlanet == this)
         {
