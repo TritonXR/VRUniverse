@@ -2,7 +2,7 @@ doctype html
 html
 	head
 		title VRUniverse
-		link(rel='stylesheet', href='/public/stylesheets/style.css')
+		link(rel='stylesheet', href='/public/stylesheets/universe.min.css')
 		link(rel='stylesheet', href='/public/stylesheets/bootstrap.min.css')
 		link(rel='stylesheet', href='/public/stylesheets/css/font-awesome.min.css')
 
@@ -14,26 +14,21 @@ html
 
 	body(style="background-color : #fbfbfb; min-height : 100%;")
 		div#body
-			div(class="navbar navbar-default" role="navigation" id="navbar")
-				div.container-fluid
-					div.navbar-header
-						button(type="button", class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse")
-							span.icon-bar
-							span.icon-bar
-							span.icon-bar
-						a(class="navbar-brand" href="/" style="font-size : 25px; font-family : 'Nunito', sans-serif; font-weight : bold;") VRUniverse
-					div(class="navbar-collapse collapse" id="navbar-collapse")
-						ul.nav.navbar-nav.navbar-right
-							li
-								a(href="/user/signup").hvr-underline-from-center Sign Up
-							li
-								a(href="/about").hvr-underline-from-center About
-							li
-								a(href="/projects").hvr-underline-from-center Projects
-							li
-								a(href="/download").hvr-underline-from-center Download
-							li 
-								a(href="/upload").hvr-underline-from-center Upload
+			div.u-nav
+				div.u-nav__link.u-nav__link-brand VRUniverse
+				div.u-nav__link.u-nav__link-toggle
+					div.fa.fa-bars
+				nav.u-nav__items.u-nav__items--right
+					div.u-nav__link
+						a(href="/user/signup").hvr-underline-from-center Sign Up
+					div.u-nav__link
+						a(href="/about").hvr-underline-from-center About
+					div.u-nav__link
+						a(href="/projects").hvr-underline-from-center Projects
+					div.u-nav__link
+						a(href="/download").hvr-underline-from-center Download
+					div.u-nav__link
+						a(href="/upload").hvr-underline-from-center Upload
 
 		block content
 

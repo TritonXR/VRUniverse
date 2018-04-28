@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node_modules/.bin/gulp"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -29,6 +29,12 @@
     "util": "^0.10.3"
   },
   "devDependencies": {
+    "browser-sync": "^2.23.7",
+    "gulp": "^3.9.1",
+    "gulp-if": "^2.0.2",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
     "nodemon": "^1.17.3"
   }
 }

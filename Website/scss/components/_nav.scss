@@ -1,0 +1,84 @@
+
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 150px;
+    height: 50px;
+    padding-top: 0;
+}
+
+#navbar a {
+	color: white;
+}
+
+.qtr-label {
+    text-align: center;
+    padding-top : 30px;
+    font-size : 30px;
+    color : #7b4ba8;
+    font-weight: bold;
+    padding-bottom: 7px;
+}
+
+#navbar ul a {
+	font-size: 20px;
+}
+
+.u-nav {
+    background-color: $default-purple;
+    display: flex;
+    padding: 16px;
+    font-family: sans-serif;
+    font-size: 1.9rem;
+    color: white;
+
+    @media only screen and (max-width: 768px) {
+        flex-direction: column;
+    }
+
+    &__items {
+        display: flex;
+        margin-left: auto;
+        @media only screen and (max-width: 768px) {
+            flex-direction: column;
+            display: none;
+        }
+
+        &--right {
+            @media only screen and (max-width: 768px) {
+                margin-right: 0;
+            }
+        }
+    }
+
+    &__link {
+        padding-right: 1rem;
+        padding-left: 1rem;
+
+        &-brand {
+
+        }
+
+        a {
+            color: white;
+        }
+
+        &-toggle {
+            display: none;
+
+            @media only screen and (max-width: 768px) {
+                align-self: flex-end;
+                display: initial;
+                position: absolute;
+                cursor: pointer;
+            }
+
+            &-show {
+                @media only screen and (max-width: 768px) {
+                    display: flex;
+                    margin-left: auto;
+                    margin-right:auto;
+                }
+            }
+        }
+    }
+}

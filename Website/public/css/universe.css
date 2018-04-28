@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+/* line 3, scss/_base.scss */
+html {
+  height: 100%; }
+
+/* line 3, scss/universe.scss */
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%; }
+
+/* line 1, scss/components/_nav.scss */
+#navbar {
+  background-color: #7b4ba8; }
+
+/* line 5, scss/components/_nav.scss */
+.navbar-brand,
+.navbar-nav li a {
+  line-height: 150px;
+  height: 50px;
+  padding-top: 0; }
+
+/* line 12, scss/components/_nav.scss */
+#navbar a {
+  color: white; }
+
+/* line 16, scss/components/_nav.scss */
+.qtr-label {
+  text-align: center;
+  padding-top: 30px;
+  font-size: 30px;
+  color: #7b4ba8;
+  font-weight: bold;
+  padding-bottom: 7px; }
+
+/* line 25, scss/components/_nav.scss */
+#navbar ul a {
+  font-size: 20px; }
+
+/* line 29, scss/components/_nav.scss */
+.nav {
+  background-color: #46ACC2;
+  display: flex;
+  padding: 16px;
+  font-family: sans-serif;
+  color: white; }
+  @media only screen and (max-width: 768px) {
+    /* line 29, scss/components/_nav.scss */
+    .nav {
+      flex-direction: column; } }
+  /* line 40, scss/components/_nav.scss */
+  .nav__items {
+    display: flex; }
+    @media only screen and (max-width: 768px) {
+      /* line 40, scss/components/_nav.scss */
+      .nav__items {
+        flex-direction: column;
+        display: none; } }
+    @media only screen and (max-width: 768px) {
+      /* line 48, scss/components/_nav.scss */
+      .nav__items--right {
+        margin-left: 0; } }
+  /* line 55, scss/components/_nav.scss */
+  .nav__link {
+    padding-right: 8px; }
+    /* line 62, scss/components/_nav.scss */
+    .nav__link-toggle {
+      display: none; }
+      @media only screen and (max-width: 768px) {
+        /* line 62, scss/components/_nav.scss */
+        .nav__link-toggle {
+          align-self: flex-end;
+          display: initial;
+          position: absolute;
+          cursor: pointer; } }
+      @media only screen and (max-width: 768px) {
+        /* line 72, scss/components/_nav.scss */
+        .nav__link-toggle-show {
+          display: flex; } }

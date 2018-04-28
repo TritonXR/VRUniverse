@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+html {
+  height: 100%; }
+
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%; }
+
+#navbar {
+  background-color: #7b4ba8; }
+
+.navbar-brand,
+.navbar-nav li a {
+  line-height: 150px;
+  height: 50px;
+  padding-top: 0; }
+
+#navbar a {
+  color: white; }
+
+.qtr-label {
+  text-align: center;
+  padding-top: 30px;
+  font-size: 30px;
+  color: #7b4ba8;
+  font-weight: bold;
+  padding-bottom: 7px; }
+
+#navbar ul a {
+  font-size: 20px; }
+
+.nav {
+  background-color: #46ACC2;
+  display: flex;
+  padding: 16px;
+  font-family: sans-serif;
+  color: white; }
+  @media only screen and (max-width: 768px) {
+    .nav {
+      flex-direction: column; } }
+  .nav__items {
+    display: flex; }
+    @media only screen and (max-width: 768px) {
+      .nav__items {
+        flex-direction: column;
+        display: none; } }
+    @media only screen and (max-width: 768px) {
+      .nav__items--right {
+        margin-left: 0; } }
+  .nav__link {
+    padding-right: 8px; }
+    .nav__link-toggle {
+      display: none; }
+      @media only screen and (max-width: 768px) {
+        .nav__link-toggle {
+          align-self: flex-end;
+          display: initial;
+          position: absolute;
+          cursor: pointer; } }
+      @media only screen and (max-width: 768px) {
+        .nav__link-toggle-show {
+          display: flex; } }
