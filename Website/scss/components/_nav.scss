@@ -1,30 +1,5 @@
-
-.navbar-brand,
-.navbar-nav li a {
-    line-height: 150px;
-    height: 50px;
-    padding-top: 0;
-}
-
-#navbar a {
-	color: white;
-}
-
-.qtr-label {
-    text-align: center;
-    padding-top : 30px;
-    font-size : 30px;
-    color : #7b4ba8;
-    font-weight: bold;
-    padding-bottom: 7px;
-}
-
-#navbar ul a {
-	font-size: 20px;
-}
-
 .u-nav {
-    background-color: $default-purple;
+    background: transparent;
     display: flex;
     padding: 16px;
     font-family: sans-serif;
@@ -60,6 +35,10 @@
 
         a {
             color: white;
+
+            &:hover {
+                color: white;
+            }
         }
 
         &-toggle {

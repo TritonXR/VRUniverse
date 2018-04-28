@@ -1,35 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito");
-html {
-  height: 100%; }
-
-html {
+html, body {
   margin: 0;
   padding: 0;
+  width: 100%;
   height: 100%;
-  width: 100%; }
-
-.navbar-brand,
-.navbar-nav li a {
-  line-height: 150px;
-  height: 50px;
-  padding-top: 0; }
-
-#navbar a {
-  color: white; }
-
-.qtr-label {
-  text-align: center;
-  padding-top: 30px;
-  font-size: 30px;
-  color: #7b4ba8;
-  font-weight: bold;
-  padding-bottom: 7px; }
-
-#navbar ul a {
-  font-size: 20px; }
+  background-color: #fbfbfb; }
 
 .u-nav {
-  background-color: #7b4ba8;
+  background: transparent;
   display: flex;
   padding: 16px;
   font-family: sans-serif;
@@ -53,6 +31,8 @@ html {
     padding-left: 1rem; }
     .u-nav__link a {
       color: white; }
+      .u-nav__link a:hover {
+        color: white; }
     .u-nav__link-toggle {
       display: none; }
       @media only screen and (max-width: 768px) {
@@ -66,3 +46,48 @@ html {
           display: flex;
           margin-left: auto;
           margin-right: auto; } }
+
+.video__background {
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -99; }
+  .video__background iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; }
+
+.video__foreground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; }
+
+.hero {
+  background: linear-gradient(-15deg, #B4A0E5 0, #B4A0E5 30%, #7b4ba8 30%, #7b4ba8 100%);
+  height: 100%;
+  width: 100%; }
+  .hero__index {
+    height: 100%;
+    width: 100%; }
+    .hero__index-content {
+      color: white;
+      padding-top: 14rem;
+      font-size: 6rem;
+      margin-left: 6rem;
+      font-family: 'Nunito', sans-serif; }
+      .hero__index-content_text {
+        margin-top: 2rem;
+        font-size: 2rem; }
+    .hero__index-video {
+      height: 300px;
+      width: 500px;
+      margin-left: 5rem; }
