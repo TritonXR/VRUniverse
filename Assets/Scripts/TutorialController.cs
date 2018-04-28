@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TutorialController : MonoBehaviour {
 
+    private static TutorialController instance;
+
     [SerializeField]
     private GameObject welcomeTutorial_1; // headset. disappear when specific action is completed
     [SerializeField]
@@ -17,14 +19,64 @@ public class TutorialController : MonoBehaviour {
     [SerializeField]
     private GameObject lever_6; // be there forever
 
+    int tutorialsFinished;
+
+    const float FP_TOLERANCE = 0.001f;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else instance = this;
+    }
 
     // Use this for initialization
     void Start () {
-		
-	}
+        tutorialsFinished = 0;
+        welcomeTutorial_1.SetActive(true);
+        yearTutorial_2.SetActive(false);
+        categoryTutorial_3.SetActive(false);
+        searchTutorial_4.SetActive(false);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(tutorialsFinished == 0 && Mathf.Abs(OrbitManager.GetOrbitManager().LinearSpeed) < FP_TOLERANCE)
+        {
+            tutorialsFinished++;
+            welcomeTutorial_1.SetActive(false);
+            yearTutorial_2.SetActive(true);
+        }
+
+        if (tutorialsFinished == 1 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
+        {
+            tutorialsFinished++;
+
+            yearTutorial_2.SetActive(false);
+            categoryTutorial_3.SetActive(true);
+        }
+
+        if(tutorialsFinished == 2 && CategoryManager.GetInstance().GetNumSelected() > 0)
+        {
+            tutorialsFinished++;
+
+            categoryTutorial_3.SetActive(false);
+            searchTutorial_4.SetActive(true);
+        }
+
 	}
+
+    public void SkipTutorials()
+    {
+        tutorialsFinished = 4;
+        welcomeTutorial_1.SetActive(false);
+    }
+
+    public static TutorialController GetInstance()
+    {
+        return instance;
+    }
 }

@@ -12,7 +12,7 @@ using System;
 
 public class UniverseSystem : MonoBehaviour {
 
-    const string LOBBY_YEAR_STRING = "Year";
+    public const string LOBBY_YEAR_STRING = "Year";
 
 	private static UniverseSystem instance; //part of singleton pattern
 
@@ -41,12 +41,6 @@ public class UniverseSystem : MonoBehaviour {
 
     private bool CurrentlyTraveling;
 
-	//Holds tutorial menus
-	public GameObject tutorial_YearSelection;
-	public GameObject tutorial_YearTravel;
-	public GameObject tutorial_PlanetSelection;
-	public GameObject tutorial_PlanetTravel;
-
 	void Awake()
 	{
 		if (instance != null && instance != this)
@@ -67,9 +61,6 @@ public class UniverseSystem : MonoBehaviour {
 
 		//Creates the years object and handles initializing the list of years
 		ReadYearsFromJSON();
-
-		//Set activate the tutorial for selecting a year on the left controller
-		if (tutorial_YearSelection != null) tutorial_YearSelection.SetActive(true);
 
 		//Set the original color of the application to original color
 		ResetSkyboxColor();
@@ -109,9 +100,7 @@ public class UniverseSystem : MonoBehaviour {
         //Teleport to year but skip the hyperspeed
         StartCoroutine(TeleportToYear(yearIndex, false));
 
-		//Handle jump in tutorial system
-		if (tutorial_YearSelection != null) tutorial_YearSelection.SetActive(false);
-		if (tutorial_PlanetSelection != null) tutorial_PlanetSelection.SetActive(true);
+        TutorialController.GetInstance().SkipTutorials();
 	}
 
 	/*
@@ -493,11 +482,6 @@ public class UniverseSystem : MonoBehaviour {
     void Update()
     {
 
-        if (tutorial_YearTravel != null && tutorial_YearSelection != null && !tutorial_YearTravel.activeSelf)
-        {
-            tutorial_YearTravel.SetActive(true);
-            tutorial_YearSelection.SetActive(false);
-        }
     }
 
 	public static UniverseSystem GetInstance()

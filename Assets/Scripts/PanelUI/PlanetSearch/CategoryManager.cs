@@ -58,6 +58,11 @@ public class CategoryManager : MonoBehaviour {
 		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
 	}
 
+    public int GetNumSelected()
+    {
+        return selectedCategories.Count;
+    }
+
 	public void SetVisible(bool visible)
 	{
 		renderedCanvas.enabled = visible;
