@@ -56,7 +56,7 @@ public class TravelInteractable : MonoBehaviour, PointableObject
         //Write the year index to the following path
         string path;
 #if UNITY_EDITOR
-            path = Application.dataPath + "/../Website/data/VRClubUniverseData/saveData.txt";
+            path = Application.dataPath + "/../Website/data/VRClubUniverseData/saveData.txt"; //saveData not exist on my side
 #elif UNITY_STANDALONE
             path = Application.dataPath + "/../VRClubUniverseData/saveData.txt";
 #endif
