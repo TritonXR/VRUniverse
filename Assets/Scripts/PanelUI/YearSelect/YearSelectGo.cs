@@ -26,11 +26,11 @@ public class YearSelectGo : MonoBehaviour, PointableObject
             }
             else
             {
-                yearString = value.ToString();
+                yearString = value.ToString() + " (" + YearSelectMain.GetInstance().NumberOfPlanets(value) + ")";
                 yearText.color = IsCurrentYear() ? currentYearColor : defaultColor;
             }
 
-			yearText.text = yearString+ " (" +YearSelectMain.GetInstance().NumberOfPlanets(value)+")";
+			yearText.text = yearString;
         }
     }
 

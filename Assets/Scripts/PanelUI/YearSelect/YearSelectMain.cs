@@ -71,9 +71,9 @@ public class YearSelectMain : MonoBehaviour {
 
 	public int NumberOfPlanets (int year){
 		#if UNITY_EDITOR
-		string jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/" + year.ToString() + ".json");
+		string jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/" + year.ToString() + ".json");
 		#elif UNITY_STANDALONE
-		jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/" + yearName + ".json");
+		jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/Vive/" + yearName + ".json");
 		#endif
 		PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
