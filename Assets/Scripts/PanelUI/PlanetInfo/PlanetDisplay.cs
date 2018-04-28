@@ -14,9 +14,9 @@ public class PlanetDisplay : MonoBehaviour {
     [SerializeField] private float orbitRadius; //how far the canvas is from the orbit anchor
     [SerializeField] private Vector2 baseOffsetDirection; //this gets normalized, so you just need the direction roughly correct
     [SerializeField] private Vector2 additionalOffset; //this doesn't get normalized, it's in addition to the base offset
-    [SerializeField] private TravelInteractable travelConfirmButton;
-
-    private Transform targetPlanet;
+    [SerializeField] private TravelInteractable travelConfirmButton; 
+    [SerializeField] private ExitInteractable exitButton;
+    public Transform targetPlanet;
     private Canvas renderedCanvas;
 	private BoxCollider[] buttonColliders;
 
@@ -122,6 +122,11 @@ public class PlanetDisplay : MonoBehaviour {
                 col.enabled = visible;
             }
         }
+    }
+
+    public ExitInteractable GetExitInteractable()
+    {
+        return exitButton;
     }
 
     public TravelInteractable GetTravelInteractable()

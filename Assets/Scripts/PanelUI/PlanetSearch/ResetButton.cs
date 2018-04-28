@@ -29,8 +29,7 @@ public class ResetButton : MonoBehaviour, PointableObject {
 	{
 
 		CategoryManager manager = CategoryManager.GetInstance();
-		List<string> selectedCategories = manager.getSelectedCategories ();
-		manager.ResetAll (selectedCategories);
+		manager.ResetAll();
 	
 	}
 

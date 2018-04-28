@@ -34,6 +34,7 @@ public class CategoryManager : MonoBehaviour {
 		database = GetComponent<SQLiteTags> ();
 		count ();
 
+        StartCoroutine(EndOfStartFrame());
 	}
 	
 	// Update is called once per frame
@@ -80,13 +81,12 @@ public class CategoryManager : MonoBehaviour {
 		return instance;
 	}
 
-	public void ResetAll(List<string> selectedCategories){
-		selectedCategories.Clear();
+	public void ResetAll(){
 		for (int i = 0; i < categoryButtons.Length; i++) {
-			categoryButtons [i].Deselect ();
+			categoryButtons[i].Deselect();
 		}
-		List<PlanetData> searchResults = new List<PlanetData>();
-		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
+        selectedCategories.Clear();
+		ResultDisplay.GetInstance().DisplaySearchResults(database.SelectAllPlanets());
 	}
 
 	public List<string> getSelectedCategories(){
@@ -107,7 +107,12 @@ public class CategoryManager : MonoBehaviour {
 				categoryButtons [i].setCount(database.SelectAllPlanets().Count);
 			}
 			selectedCategories.Clear();
-//			categoryButtons[i].setCount(100);
 		}
 	}
+
+    private IEnumerator EndOfStartFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        ResultDisplay.GetInstance().DisplaySearchResults(database.SelectAllPlanets());
+    }
 }

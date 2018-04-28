@@ -15,9 +15,10 @@ public class SQLiteTags : MonoBehaviour
     {
 
 #if UNITY_EDITOR
-        dbPath = "URI=file:" + Application.dataPath + "/../Website/data/VRClubUniverseData/universe.db";
+        //dbPath = "URI=file:" + Application.dataPath + "/../Website/data/VRClubUniverseData/vive.db";
+        dbPath = "URI=file:" + Application.dataPath + "/../Website/db/vive.db";
 #elif UNITY_STANDALONE
-        dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverseData/universe.db";
+        dbPath = "URI=file:" + Application.dataPath + "/../Website/db/vive.db";
 #endif
     }
 
