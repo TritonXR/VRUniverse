@@ -73,7 +73,7 @@ public class YearSelectMain : MonoBehaviour {
 		#if UNITY_EDITOR
 		string jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/" + year.ToString() + ".json");
 		#elif UNITY_STANDALONE
-		jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/Vive/" + yearName + ".json");
+		string jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/Vive/" + year.ToString() + ".json");
 		#endif
 		PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
 
