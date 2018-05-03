@@ -1,24 +1,23 @@
 mixin filter-mixin(data)
 		div.container-fluid
 			div.row
-				div.col-md-10.col-md-offset-1.proj-container
+				div.col-md-10.col-md-offset-1.projects__elem-container
 					div.container-fluid
 						div.row
 							div.col-md-10
-								div.proj-header #{data.name}
+								div.projects__elem-name #{data.name}
 						div.row
 							div.col-md-2(align="center")
-								img(src="/data/VRClubUniverseData/VR_Demos/#{data.year}/#{data.executable}/#{data.image}" class="project-img")
-							div.col-md-8.col-md-offset-2
-								div(class="row proj-data")
-								div(class="row proj-data")
-									div.project-label Creator(s) : 
-									div.project-name #{data.creator}
-								div(class="row proj-data") 
-									div.project-label Description : 
-									div.project-name #{data.description}
-								div(class="row proj-data")
-									div.project-label Tags :
+								img(src="/data/VRClubUniverseData/VR_Demos/#{data.year}/#{data.executable}/#{data.image}").projects__elem-img
+							div.col-md-8.col-md-offset-2.projects__elem-data
+								div(class="row projects__elem-data__row")
+									div.projects__elem-data__row-title Creator(s) : 
+									div.projects__elem-data__row-data #{data.creator}
+								div(class="row projects__elem-data__row") 
+									div.projects__elem-data__row-title Description : 
+									div.projects__elem-data__row-data #{data.description}
+								div(class="row projects__elem-data__row")
+									div.projects__elem-data__row-title Tags :
 																			-console.log(data.tags);
 
 										- data.tags = data.tags.replace(new RegExp("'", 'g'), '');
@@ -32,6 +31,6 @@ mixin filter-mixin(data)
 
 										-data.tags.push("" + data.year);
 											- for (var key in data.tags)
-												a.tag-link(href="/filter/?#{data.tags[key]}=true")
+												a.projects__elem-tag(href="/filter/?#{data.tags[key]}=true")
 													span #{data.tags[key]}
 										

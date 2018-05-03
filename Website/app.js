@@ -15,7 +15,6 @@ var user = require('./routes/user');
 var projects = require('./routes/projects');
 var download = require('./routes/download');
 var upload = require('./routes/upload');
-var about = require('./routes/about');
 var filter = require('./routes/filter')
 
 var app = express();
@@ -40,7 +39,6 @@ app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use("/data", express.static(path.join(__dirname, 'data')));
 
 app.use('/', index);
-app.use('/about', about);
 app.use('/projects', projects);
 app.use('/download', download);
 app.use('/upload', upload);

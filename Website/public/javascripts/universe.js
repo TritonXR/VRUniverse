@@ -5,4 +5,5 @@ $(document).ready(function() {
   }
   document.querySelector('.u-nav__link-toggle')
     .addEventListener('click', classToggle);
+
 });

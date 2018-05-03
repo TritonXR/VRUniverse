@@ -16,16 +16,18 @@
 
 			@media (max-width: 576px){
 				font-size: 3rem;
+				text-align: center;
+				margin-left: 0;
 			}
 
 			&_text {
 				margin-top: 2rem;
 				font-size: 2rem;
 
-				@media (max-width: 992px){
+				/*@media (max-width: 992px){
 					margin-bottom: 3%;
 					width: 100%;
-				}
+				}*/
 			}
 		}
 
