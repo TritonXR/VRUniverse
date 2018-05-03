@@ -376,6 +376,7 @@ public class UniverseSystem : MonoBehaviour {
     {
         CurrentlyTraveling = true;
         ImageLoader.GetInstance().CancelLoading();
+        PlanetController.DeselectPlanet();
 
 		//Check if there have been planets created before
 		if (atYear != -1)

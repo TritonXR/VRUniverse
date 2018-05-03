@@ -46,6 +46,7 @@ public class TutorialController : MonoBehaviour {
 	void Update () {
 		if(tutorialsFinished == 0 && Mathf.Abs(OrbitManager.GetOrbitManager().LinearSpeed) < FP_TOLERANCE)
         {
+            Debug.Log("Finished first tutorial");
             tutorialsFinished++;
             welcomeTutorial_1.SetActive(false);
             yearTutorial_2.SetActive(true);
@@ -53,6 +54,7 @@ public class TutorialController : MonoBehaviour {
 
         if (tutorialsFinished == 1 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
         {
+            Debug.Log("Finished second tutorial");
             tutorialsFinished++;
 
             yearTutorial_2.SetActive(false);
@@ -61,6 +63,7 @@ public class TutorialController : MonoBehaviour {
 
         if(tutorialsFinished == 2 && CategoryManager.GetInstance().GetNumSelected() > 0)
         {
+            Debug.Log("Finished third tutorial");
             tutorialsFinished++;
 
             categoryTutorial_3.SetActive(false);
@@ -71,6 +74,7 @@ public class TutorialController : MonoBehaviour {
 
     public void SkipTutorials()
     {
+        Debug.Log("Skipping Tutorials");
         tutorialsFinished = 4;
         welcomeTutorial_1.SetActive(false);
     }
