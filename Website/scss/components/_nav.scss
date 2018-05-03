@@ -1,10 +1,12 @@
 .u-nav {
-    background: transparent;
+    background: $default-purple;
     display: flex;
     padding: 16px;
     font-family: sans-serif;
     font-size: 1.9rem;
     color: white;
+    padding-left: 6rem;
+    padding-right: 6rem;
 
     @media only screen and (max-width: 768px) {
         flex-direction: column;
@@ -30,7 +32,8 @@
         padding-left: 1rem;
 
         &-brand {
-
+            font-family: 'Nunito', sans-serif;
+            font-size: 2.1rem;
         }
 
         a {

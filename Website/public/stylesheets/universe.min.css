@@ -4,15 +4,24 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: #fbfbfb; }
+  background-color: #fbfbfb;
+  overflow-x: hidden; }
 
+* {
+  font-family: 'Nunito', sans-serif; }
+
+/*.wrap {
+  min-height: calc(100vh - 89px);
+}*/
 .u-nav {
-  background: transparent;
+  background: #7b4ba8;
   display: flex;
   padding: 16px;
   font-family: sans-serif;
   font-size: 1.9rem;
-  color: white; }
+  color: white;
+  padding-left: 6rem;
+  padding-right: 6rem; }
   @media only screen and (max-width: 768px) {
     .u-nav {
       flex-direction: column; } }
@@ -29,6 +38,9 @@ html, body {
   .u-nav__link {
     padding-right: 1rem;
     padding-left: 1rem; }
+    .u-nav__link-brand {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2.1rem; }
     .u-nav__link a {
       color: white; }
       .u-nav__link a:hover {
@@ -72,9 +84,10 @@ html, body {
   pointer-events: none; }
 
 .hero {
-  background: linear-gradient(-15deg, #B4A0E5 0, #B4A0E5 30%, #7b4ba8 30%, #7b4ba8 100%);
-  height: 100%;
-  width: 100%; }
+  background: linear-gradient(to bottom right, #7b4ba8 33%, #9c59db 66%, #bb82f2);
+  width: 100%;
+  margin-bottom: 7%;
+  height: 93%; }
   .hero__index {
     height: 100%;
     width: 100%; }
@@ -82,8 +95,7 @@ html, body {
       color: white;
       padding-top: 14rem;
       font-size: 6rem;
-      margin-left: 6rem;
-      font-family: 'Nunito', sans-serif; }
+      margin-left: 6rem; }
       .hero__index-content_text {
         margin-top: 2rem;
         font-size: 2rem; }
@@ -91,3 +103,60 @@ html, body {
       height: 300px;
       width: 500px;
       margin-left: 5rem; }
+
+.about {
+  width: 100%;
+  margin-bottom: 9rem; }
+  .about__text {
+    font-size: 2rem; }
+    .about__text p {
+      margin-bottom: 1.5rem; }
+  .about__label {
+    color: #7b4ba8;
+    font-size: 3.8rem;
+    margin-left: 6rem; }
+  .about__tagline {
+    text-align: center;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+    font-style: italic;
+    color: #686868; }
+  .about__video {
+    border-radius: 4px;
+    margin-bottom: 2rem; }
+  .about__quarter {
+    margin-bottom: 4rem;
+    margin-top: 4rem; }
+    .about__quarter-label {
+      color: #7b4ba8; }
+    .about__quarter-members {
+      padding-top: 2rem; }
+    .about__quarter-img {
+      border-radius: 4px; }
+
+.footer {
+  width: 100%;
+  height: 15%;
+  background: #7b4ba8;
+  /*bottom: 0;
+	position: absolute;*/ }
+  .footer__container {
+    margin-left: 6rem;
+    height: 100%;
+    margin-right: 6rem; }
+  .footer__text {
+    font-size: 2rem;
+    color: white;
+    margin-top: 3.5rem;
+    float: left;
+    width: 100%; }
+    .footer__text-github {
+      float: right;
+      font-size: 2rem; }
+    .footer__text-link {
+      color: white;
+      text-decoration: underline; }
+    .footer__text-link:hover {
+      text-decoration: none;
+      color: white; }

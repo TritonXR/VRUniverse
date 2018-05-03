@@ -1,10 +1,8 @@
 .hero {
-	background: linear-gradient(-15deg, 
-								$beach-blue 0, $beach-blue 30%, 
-								$default-purple 30%, $default-purple 100%);
-
-	height: 100%;
+	background: linear-gradient(to bottom right, $default-purple 33%, $gradient-purple-1 66%, $gradient-purple-2);
 	width: 100%;
+	margin-bottom: 7%;
+	height: 93%;
 
 	&__index {
 		height: 100%;
@@ -14,7 +12,6 @@
 			padding-top: 14rem;
 			font-size: 6rem;
 			margin-left: 6rem;
-			font-family: 'Nunito', sans-serif;
 
 			&_text {
 				margin-top: 2rem;

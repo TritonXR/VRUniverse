@@ -1,6 +1,12 @@
 extends header
 
 block content
+
+	style.
+		.u-nav {
+			background: transparent;
+		}
+
 	div.hero
 		include ./includes/nav.jade
 
@@ -9,4 +15,6 @@ block content
 				div.col-md-12.hero__index-content VR Universe
 					div.row
 						div.col-md-5.hero__index-content_text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempus semper congue. Mauris efficitur orci odio, vitae laoreet nulla ornare a. Phasellus finibus sapien arcu, quis aliquam odio congue non. Cras rhoncus quam ut orci vulputate, ac placerat sapien ultrices. Donec quis euismod justo, quis lobortis arcu. Cras tristique, nisl et vehicula mollis, arcu justo tincidunt purus, id accumsan sem nisi eu urna. Duis ut est nec risus facilisis lacinia suscipit congue felis.
-						iframe(src="https://www.youtube.com/embed/eQo5MkgLEhk?autoplay=1&loop=1&playlist=eQo5MkgLEhk" frameborder="0" allowfullscreen).hero__index-video
+						//
+							iframe(src="https://www.youtube.com/embed/eQo5MkgLEhk?autoplay=1&loop=1&playlist=eQo5MkgLEhk" frameborder="0" allowfullscreen).hero__index-video
+	include ./about.jade

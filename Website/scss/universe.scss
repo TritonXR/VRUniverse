@@ -5,8 +5,16 @@ html, body {
   padding: 0;
   width:100%;
   height: 100%;
-  background-color : #fbfbfb; 
+  background-color : #fbfbfb;
+  overflow-x:hidden;
 }
 
+* {
+	  font-family: 'Nunito', sans-serif;
+}
+
+/*.wrap {
+  min-height: calc(100vh - 89px);
+}*/
 
 @import 'components/all';
