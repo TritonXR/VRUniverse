@@ -9,8 +9,11 @@ public class CategoryManager : MonoBehaviour {
 	private List<string> selectedCategories;
 	private Canvas renderedCanvas;
 	private BoxCollider[] buttonColliders;
+    private CategoryButton[] categoryButtons;
 
 	private SQLiteTags database;
+
+
 
 	void Awake()
 	{
@@ -23,10 +26,15 @@ public class CategoryManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		selectedCategories = new List<string>();
 		renderedCanvas = GetComponent<Canvas>();
 		buttonColliders = GetComponentsInChildren<BoxCollider>();
+		categoryButtons = GetComponentsInChildren<CategoryButton> ();
 		database = GetComponent<SQLiteTags> ();
+		count ();
+
+        StartCoroutine(EndOfStartFrame());
 	}
 	
 	// Update is called once per frame
@@ -45,7 +53,6 @@ public class CategoryManager : MonoBehaviour {
 			selectedCategories.Add(category);
 		}
 
-		//TODO: pass tags to database, get planet data
 		string[] tags = selectedCategories.ToArray();
 
 		List<PlanetData> searchResults = new List<PlanetData>();
@@ -53,6 +60,10 @@ public class CategoryManager : MonoBehaviour {
         if (tags.Length > 0)
         {
             searchResults = database.Select(tags);
+        }
+        else
+        {
+            searchResults = database.SelectAllPlanets();
         }
 
 		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
@@ -74,4 +85,39 @@ public class CategoryManager : MonoBehaviour {
 	public static CategoryManager GetInstance() {
 		return instance;
 	}
+
+	public void ResetAll(){
+		for (int i = 0; i < categoryButtons.Length; i++) {
+			categoryButtons[i].Deselect();
+		}
+        selectedCategories.Clear();
+		ResultDisplay.GetInstance().DisplaySearchResults(database.SelectAllPlanets());
+	}
+
+	public List<string> getSelectedCategories(){
+		return this.selectedCategories;
+	} 
+
+	public void count(){
+		for (int i = 0; i < categoryButtons.Length; i++) {
+			selectedCategories.Add (categoryButtons [i].GetCategory());
+			string[] tags = selectedCategories.ToArray();
+
+			if (tags.Length > 0)
+			{
+				categoryButtons [i].setCount(database.Select(tags).Count);
+			}
+			else
+			{
+				categoryButtons [i].setCount(database.SelectAllPlanets().Count);
+			}
+			selectedCategories.Clear();
+		}
+	}
+
+    private IEnumerator EndOfStartFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        ResultDisplay.GetInstance().DisplaySearchResults(database.SelectAllPlanets());
+    }
 }
