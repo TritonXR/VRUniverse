@@ -87,7 +87,7 @@ html, body {
   background: linear-gradient(to bottom right, #7b4ba8 33%, #9c59db 66%, #bb82f2);
   width: 100%;
   margin-bottom: 7%;
-  height: 93%; }
+  min-height: 93%; }
   .hero__index {
     height: 100%;
     width: 100%; }
@@ -96,9 +96,16 @@ html, body {
       padding-top: 14rem;
       font-size: 6rem;
       margin-left: 6rem; }
+      @media (max-width: 576px) {
+        .hero__index-content {
+          font-size: 3rem; } }
       .hero__index-content_text {
         margin-top: 2rem;
         font-size: 2rem; }
+        @media (max-width: 992px) {
+          .hero__index-content_text {
+            margin-bottom: 3%;
+            width: 100%; } }
     .hero__index-video {
       height: 300px;
       width: 500px;

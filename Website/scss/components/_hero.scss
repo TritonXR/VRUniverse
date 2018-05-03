@@ -2,20 +2,30 @@
 	background: linear-gradient(to bottom right, $default-purple 33%, $gradient-purple-1 66%, $gradient-purple-2);
 	width: 100%;
 	margin-bottom: 7%;
-	height: 93%;
+	min-height: 93%;
 
 	&__index {
 		height: 100%;
 		width: 100%;
+
 		&-content {
 			color: white;
 			padding-top: 14rem;
 			font-size: 6rem;
 			margin-left: 6rem;
 
+			@media (max-width: 576px){
+				font-size: 3rem;
+			}
+
 			&_text {
 				margin-top: 2rem;
 				font-size: 2rem;
+
+				@media (max-width: 992px){
+					margin-bottom: 3%;
+					width: 100%;
+				}
 			}
 		}
 
