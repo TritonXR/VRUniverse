@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO; // Important for getting files from directory
+using System;
 
 public class YearSelectMain : MonoBehaviour {
 
     private static YearSelectMain instance;
 
     [SerializeField] private YearSelectGo[] yearButtons;
-    [SerializeField] private int primaryYearButtonIndex;
 
     private int minYear, maxYear;
 
@@ -35,8 +36,9 @@ public class YearSelectMain : MonoBehaviour {
         UniverseSystem.GetInstance().GetYearRange(out minYear, out maxYear);
         if (yearButtons.Length >= 1)
         {
-            int adjustedPrimaryYear = yearButtons[primaryYearButtonIndex].YearValue + increment;
-            if (adjustedPrimaryYear <= maxYear && adjustedPrimaryYear >= minYear)
+            int adjustedMaxYear = yearButtons[0].YearValue + increment;
+            int adjustedMinYear = yearButtons[yearButtons.Length - 1].YearValue + increment;
+            if (adjustedMinYear <= maxYear && adjustedMaxYear >= minYear)
             {
                 foreach (YearSelectGo year in yearButtons)
                 {
@@ -50,7 +52,7 @@ public class YearSelectMain : MonoBehaviour {
     {
         for (int index = 0; index < yearButtons.Length; index++)
         {
-            yearButtons[index].YearValue = year - primaryYearButtonIndex + index;
+            yearButtons[index].YearValue = year - index;
         }
     }
 
@@ -64,9 +66,17 @@ public class YearSelectMain : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         UniverseSystem.GetInstance().GetYearRange(out minYear, out maxYear);
 
-        for(int index = 0; index < yearButtons.Length; index++)
-        {
-            yearButtons[index].YearValue = maxYear - primaryYearButtonIndex + index;
-        }
+        SetPrimaryYear(maxYear);
     }
+
+	public int NumberOfPlanets (int year){
+		#if UNITY_EDITOR
+		string jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/" + year.ToString() + ".json");
+		#elif UNITY_STANDALONE
+		jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/Vive/" + yearName + ".json");
+		#endif
+		PlanetJSON[] universe = JsonHelper.FromJson<PlanetJSON>(jsonString);
+
+		return universe.Length;
+	}
 }

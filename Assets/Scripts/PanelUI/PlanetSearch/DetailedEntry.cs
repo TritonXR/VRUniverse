@@ -58,7 +58,16 @@ public class DetailedEntry : MonoBehaviour {
 		}
 
 		Planet_Tag.text = tagText;
-		Planet_Image.sprite = image; //Uses the image component to set the sprite of what the picture should be
+        if (image != null)
+        {
+            Planet_Image.sprite = image; //Uses the image component to set the sprite of what the picture should be
+            Planet_Image.enabled = true;
+        }
+        else
+        {
+            Planet_Image.enabled = false;
+        }
+
 	}
 
 	public void SetVisible(bool visible)
@@ -73,8 +82,16 @@ public class DetailedEntry : MonoBehaviour {
 		return travelButton;
 	}
 
+    public void ReceiveSprite(Sprite image)
+    {
+        Planet_Image.sprite = image;
+        Planet_Image.enabled = true;
+    }
+
 	public static DetailedEntry GetInstance()
 	{
 		return instance;
 	}
+
+
 }
