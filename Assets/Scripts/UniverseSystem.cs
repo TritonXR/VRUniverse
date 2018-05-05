@@ -385,8 +385,6 @@ public class UniverseSystem : MonoBehaviour {
 			DestroyPlanets(atYear);
 		}
 
-        atYear = newYear;
-
         bool[] reenablePanels = new bool[panels.Length];
 
         //Start teleportation system traveling there by calling from Hyperspeed script
@@ -435,6 +433,9 @@ public class UniverseSystem : MonoBehaviour {
 		}
 		RenderSettings.skybox = skybox;
 
+        atYear = newYear;
+        YearSelectMain.GetInstance().SetPrimaryYear(Int32.Parse(list_years[atYear].yr_name));
+
         //Start teleportation system ending by Hyperspeed script call
         if (useAnimation)
         {
@@ -444,7 +445,6 @@ public class UniverseSystem : MonoBehaviour {
             }
             yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
         }
-
         CurrentlyTraveling = false;
 	}
 

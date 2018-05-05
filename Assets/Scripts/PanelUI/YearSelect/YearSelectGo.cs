@@ -63,7 +63,6 @@ public class YearSelectGo : MonoBehaviour, PointableObject
         if (yearIndex != -1 && !UniverseSystem.GetInstance().IsCurrentlyTraveling())
         {
             StartCoroutine(UniverseSystem.GetInstance().TeleportToYear(yearIndex));
-            YearSelectMain.GetInstance().SetPrimaryYear(yearValue);
         }
     }
 

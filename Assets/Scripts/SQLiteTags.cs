@@ -18,7 +18,7 @@ public class SQLiteTags : MonoBehaviour
         //dbPath = "URI=file:" + Application.dataPath + "/../Website/data/VRClubUniverseData/vive.db";
         dbPath = "URI=file:" + Application.dataPath + "/../Website/db/vive.db";
 #elif UNITY_STANDALONE
-        dbPath = "URI=file:" + Application.dataPath + "/../Website/db/vive.db";
+        dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverseData/Vive/vive.db";
 #endif
     }
 
