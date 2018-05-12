@@ -77,7 +77,7 @@ public class PlanetController : MonoBehaviour, PointableObject
     {
         if(selectedPlanet == this)
         {
-            LeverScript lever = LeverScript.GetInstance();
+            OculusLever lever = OculusLever.GetInstance();
             lever.SetThrottle(lever.GetDefaultThrottle());
             PlanetDisplay disp = PlanetDisplay.GetInstance();
             if (disp.GetViewTarget() == transform)
@@ -93,7 +93,7 @@ public class PlanetController : MonoBehaviour, PointableObject
         }
         else
         {
-            LeverScript.GetInstance().SetThrottle(0.0f);
+            OculusLever.GetInstance().SetThrottle(0.0f);
             PlanetDisplay disp = PlanetDisplay.GetInstance();
             disp.SetVisible(true);
             disp.SetViewTarget(transform);

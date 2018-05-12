@@ -498,6 +498,12 @@ public class UniverseSystem : MonoBehaviour {
             tutorial_YearTravel.SetActive(true);
             tutorial_YearSelection.SetActive(false);
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log("Travelling to some year");
+            StartCoroutine(TeleportToYear(1,false));
+        }
     }
 
 	public static UniverseSystem GetInstance()
