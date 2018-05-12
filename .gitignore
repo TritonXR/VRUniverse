@@ -8,7 +8,7 @@
 !/Website/
 !/deploy.sh
 !/VRClubUniverse_Data/!/ProjectSettings/!.gitignore
-!VRUniverse_Helper.bat
+!VRUniverse_Helper
 
 # OS Stuff
 .DS_Store
