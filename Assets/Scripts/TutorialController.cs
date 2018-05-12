@@ -6,25 +6,12 @@ public class TutorialController : MonoBehaviour {
 
     private static TutorialController instance;
 
-    [SerializeField]
-    private GameObject welcomeTutorial_1; // headset. disappear when specific action is completed
-    [SerializeField]
-    private GameObject yearTutorial_2;
-    [SerializeField]
-    private GameObject categoryTutorial_3;
-    [SerializeField]
-    private GameObject searchTutorial_4;
-    [SerializeField]
-    private GameObject exit_5; // be there forever
-    [SerializeField]
-    private GameObject lever_6; // be there forever
-    [SerializeField]
-    private GameObject tutorialSpawnPoint; // spawn point
-
-    [SerializeField] private float tutorialHoldTime = 1.0f;
-    [SerializeField] private float tutorialMoveTime = 1.0f;
-
+    [SerializeField] private GameObject[] tutorialPanels;
+    [SerializeField] private GameObject tutorialSpawnPoint; // spawn point
+    
     int tutorialsFinished = 0;
+
+    bool tutorialDismissed = false;
 
     const float FP_TOLERANCE = 0.001f;
 
@@ -39,69 +26,44 @@ public class TutorialController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        welcomeTutorial_1.SetActive(false);
-        yearTutorial_2.SetActive(false);
-        categoryTutorial_3.SetActive(false);
-        searchTutorial_4.SetActive(false);
+        foreach (GameObject tutorial in tutorialPanels) tutorial.SetActive(false);
 
-        switch(tutorialsFinished)
+        if (tutorialsFinished < tutorialPanels.Length)
         {
-            case 0:
-                StartCoroutine(SpawnAndMoveTutorial(welcomeTutorial_1));
-                break;
-            case 1:
-                StartCoroutine(SpawnAndMoveTutorial(yearTutorial_2));
-                break;
-            case 2:
-                StartCoroutine(SpawnAndMoveTutorial(categoryTutorial_3));
-                break;
-            case 3:
-                StartCoroutine(SpawnAndMoveTutorial(searchTutorial_4));
-                break;
-            default:
-                break;
+            tutorialPanels[tutorialsFinished].SetActive(true);
+            tutorialPanels[tutorialsFinished].GetComponent<TutorialMove>().StartFollowing();
         }
-
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if(tutorialsFinished == 0 && Mathf.Abs(OrbitManager.GetOrbitManager().LinearSpeed) < FP_TOLERANCE)
+        if (tutorialsFinished == 0 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
         {
-            Debug.Log("Finished first tutorial");
-            tutorialsFinished++;
-            welcomeTutorial_1.SetActive(false);
-            StartCoroutine(SpawnAndMoveTutorial(yearTutorial_2));
+            AdvanceTutorial();
         }
-
-        if (tutorialsFinished == 1 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
+        if (tutorialsFinished == 1 && CategoryManager.GetInstance().GetNumSelected() > 0)
         {
-            Debug.Log("Finished second tutorial");
-            tutorialsFinished++;
-
-            yearTutorial_2.SetActive(false);
-            StartCoroutine(SpawnAndMoveTutorial(categoryTutorial_3));
+            AdvanceTutorial();
         }
-
-        if(tutorialsFinished == 2 && CategoryManager.GetInstance().GetNumSelected() > 0)
-        {
-            Debug.Log("Finished third tutorial");
-            tutorialsFinished++;
-
-            categoryTutorial_3.SetActive(false);
-            StartCoroutine(SpawnAndMoveTutorial(searchTutorial_4));
-        }
-
 	}
 
     public void SkipTutorials()
     {
         Debug.Log("Skipping Tutorials");
-        tutorialsFinished = 4;
-        welcomeTutorial_1.SetActive(false);
-        yearTutorial_2.SetActive(false);
-        categoryTutorial_3.SetActive(false);
-        searchTutorial_4.SetActive(false);
+        foreach (GameObject tutorial in tutorialPanels) tutorial.SetActive(false);
+        tutorialsFinished = tutorialPanels.Length;
+    }
+
+    public void DismissCurrentTutorial()
+    {
+        if(tutorialDismissed)
+        {
+            AdvanceTutorial();
+        }
+        else
+        {
+            tutorialDismissed = true;
+        }
     }
 
     public static TutorialController GetInstance()
@@ -109,32 +71,17 @@ public class TutorialController : MonoBehaviour {
         return instance;
     }
 
-    private IEnumerator SpawnAndMoveTutorial(GameObject tutorial)
+    public void AdvanceTutorial()
     {
-        Vector3 targetPosition = tutorial.transform.localPosition;
-        Quaternion targetRotation = tutorial.transform.localRotation;
-        Vector3 startPosition = tutorialSpawnPoint.transform.position;
-        Quaternion startRotation = tutorialSpawnPoint.transform.rotation;
-        
-        if (tutorial.transform.parent != null)
+        if(tutorialsFinished < tutorialPanels.Length)
         {
-            startPosition = tutorial.transform.parent.InverseTransformPoint(startPosition);
-            startRotation = Quaternion.Inverse(tutorial.transform.parent.rotation) * startRotation;
-        }
-
-        float currInterpolation = 0.0f;
-        tutorial.transform.localPosition = startPosition;
-        tutorial.transform.localRotation = startRotation;
-        tutorial.SetActive(true);
-
-        yield return new WaitForSeconds(tutorialHoldTime);
-
-        while(currInterpolation < 1.0f)
-        {
-            yield return null;
-            currInterpolation += Time.deltaTime / tutorialMoveTime;
-            tutorial.transform.localPosition = Vector3.Lerp(startPosition, targetPosition, currInterpolation);
-            tutorial.transform.localRotation = Quaternion.Slerp(startRotation, targetRotation, currInterpolation);
+            tutorialPanels[tutorialsFinished].SetActive(false);
+            tutorialsFinished++;
+            if (tutorialsFinished < tutorialPanels.Length)
+            {
+                tutorialPanels[tutorialsFinished].SetActive(true);
+                tutorialPanels[tutorialsFinished].GetComponent<TutorialMove>().StartFollowing();
+            }
         }
     }
 }
