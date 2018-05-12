@@ -48,9 +48,12 @@ public class UniverseSystem : MonoBehaviour {
 	public GameObject tutorial_PlanetTravel;
 
     //panels to disable while traveling
-    [SerializeField] private Canvas[] panels;
+    //[SerializeField] private Canvas[] panels;
+    
+    [SerializeField] public Canvas[] panels; //make it public in order to be controlled by a outside button 
 
-	void Awake()
+
+    void Awake()
 	{
 		if (instance != null && instance != this)
 		{
@@ -522,7 +525,7 @@ public class UniverseSystem : MonoBehaviour {
             tutorial_YearSelection.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        /*if (Input.GetKeyDown(KeyCode.A))
         {
             StartCoroutine(TeleportToYear(0));
         } else if (Input.GetKeyDown(KeyCode.B))
@@ -531,7 +534,7 @@ public class UniverseSystem : MonoBehaviour {
         } else if (Input.GetKeyDown(KeyCode.C))
         {
             StartCoroutine(TeleportToYear(2));
-        }
+        }*/
     }
 
 	public static UniverseSystem GetInstance()
