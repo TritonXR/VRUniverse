@@ -116,6 +116,9 @@ public class SearchPanelsControl : MonoBehaviour {
                 clearPanels();
                 turnup = false;
             }
+            //other.gameObject.GetComponent<SteamVR_TrackedController>().controllerIndex.TriggerHapticPulse(VIB_INTENSITY);
+            SteamVR_Controller.Input((int)other.GetComponent<SteamVR_TrackedController>().controllerIndex).TriggerHapticPulse(1000);
+
         }
     }
 
