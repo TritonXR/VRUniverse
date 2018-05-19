@@ -19,18 +19,19 @@ var upload = multer({storage:storage});
 
 
 router.use( function(req, res, next) {
+
     if (!req.isAuthenticated()) {
-    if (req.method == "GET") {
-        res.redirect('/user/signin');
+        if (req.method == "GET") {
+            res.redirect('/user/signin');
+        } else {
+            res.json({
+                status: false,
+                msg: "logout"
+            })
+        }
     } else {
-        res.json({
-            status: false,
-            msg: "logout"
-        })
+        next();
     }
-} else {
-    next();
-}
 });
 
 /* GET upload form. */

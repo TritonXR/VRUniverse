@@ -23,11 +23,25 @@
 			&_text {
 				margin-top: 2rem;
 				font-size: 2rem;
+				padding-left: 0 !important;
+			}
+		}
+	}
 
-				/*@media (max-width: 992px){
-					margin-bottom: 3%;
-					width: 100%;
-				}*/
+	&__container {
+		padding-top: 6rem;
+		margin-left: 3rem;
+
+		&-img {
+			//transform: rotate(20deg);
+			max-width: 100%;
+   			max-height: 100%;
+
+   			@media (max-width: 964px){
+   				max-width: 75%;
+   				display: block;
+   				margin-left: auto;
+   				margin-right: auto;
 			}
 		}
 

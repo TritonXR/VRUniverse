@@ -11,10 +11,11 @@ block content
 		include ./includes/nav.jade
 
 		div.container-fluid.hero__index
-			div.row
-				div.col-md-12.hero__index-content VR Universe
-					div.row
-						div.col-md-5.hero__index-content_text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempus semper congue. Mauris efficitur orci odio, vitae laoreet nulla ornare a. Phasellus finibus sapien arcu, quis aliquam odio congue non. Cras rhoncus quam ut orci vulputate, ac placerat sapien ultrices. Donec quis euismod justo, quis lobortis arcu. Cras tristique, nisl et vehicula mollis, arcu justo tincidunt purus, id accumsan sem nisi eu urna. Duis ut est nec risus facilisis lacinia suscipit congue felis.
-						//
-							iframe(src="https://www.youtube.com/embed/eQo5MkgLEhk?autoplay=1&loop=1&playlist=eQo5MkgLEhk" frameborder="0" allowfullscreen).hero__index-video
+			div.col-md-6.hero__index-content
+				div.container-fluid
+					div VR Universe
+					div.hero__index-content_text Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur tempus semper congue. Mauris efficitur orci odio, vitae laoreet nulla ornare a. Phasellus finibus sapien arcu, quis aliquam odio congue non. Cras rhoncus quam ut orci vulputate, ac placerat sapien ultrices. Donec quis euismod justo, quis lobortis arcu. Cras tristique, nisl et vehicula mollis, arcu justo tincidunt purus, id accumsan sem nisi eu urna. Duis ut est nec risus facilisis lacinia suscipit congue felis.
+			div.col-md-5.hero__container
+				img(src='/public/images/VRUniverseLogo.png').hero__container-img
+	
 	include ./about.jade

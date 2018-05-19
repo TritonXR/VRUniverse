@@ -1,22 +1,30 @@
 extends ../header
 block content
     include ../includes/nav.jade
+    style.
+        footer {
+            position: absolute;
+            bottom: 0;
+        }
+
     div.row
         div.col-md-4.col-md-offset-4
             h1 Sign Up
-            if hasErrors
-                div.alert.alert-danger
-                    for message in messages
-                        p #{message}
-            form(action="/user/signup" method="post")
-                div.form-group
-                    label.form-label Username :
-                    input(type="text" id="username" name="username" class="form-control")
-                div.form-group
-                    label.form-label Password :
-                    input(type="password" id="password" name="password" class="form-control")
-                div.form-group
-                    label.form-label Invite Code: ( use code: vrclub for now )
-                    input(type="text" id="addcode" name="addcode" class="form-control")
-                input(type="hidden" name="_csrf" value=csrfToken)
-                button(type="submit" class="btn btn-default") Sign Up
+            //-
+                if hasErrors
+                    div.alert.alert-danger
+                        for message in messages
+                            p #{message}
+                form(action="/user/signup" method="post")
+                    div.form-group
+                        label.form-label Username :
+                        input(type="text" id="username" name="username" class="form-control")
+                    div.form-group
+                        label.form-label Password :
+                        input(type="password" id="password" name="password" class="form-control")
+                    div.form-group
+                        label.form-label Invite Code: ( use code: vrclub for now )
+                        input(type="text" id="addcode" name="addcode" class="form-control")
+                    input(type="hidden" name="_csrf" value=csrfToken)
+                    button(type="submit" class="btn btn-default") Sign Up
+            a(href="https://github.com/login/oauth/authorize?client_id=552a4d5399f4c47e15de&scope=read:org") hahahahha

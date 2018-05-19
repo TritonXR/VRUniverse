@@ -8,9 +8,11 @@ Get to the Website code with `cd Website` from your VRUniverse home
 
 Make sure you have `npm` and `node` working on your system. Installing `node` should install `npm`.
 
-Get website dependencies with `npm install`
+Get website dependencies with `npm install` or `npm i` if you're cool 
 
 Run website with `npm start`
+
+Get the 
 
 or 
 
