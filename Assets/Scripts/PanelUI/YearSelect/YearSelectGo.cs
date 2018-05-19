@@ -26,11 +26,11 @@ public class YearSelectGo : MonoBehaviour, PointableObject
             }
             else
             {
-                yearString = value.ToString();
+                yearString = value.ToString() + " (" + YearSelectMain.GetInstance().NumberOfPlanets(value) + ")";
                 yearText.color = IsCurrentYear() ? currentYearColor : defaultColor;
             }
 
-            yearText.text = yearString;
+			yearText.text = yearString;
         }
     }
 
@@ -46,6 +46,7 @@ public class YearSelectGo : MonoBehaviour, PointableObject
     private string yearString;
 
     void Start()
+
     {
     }
 
@@ -62,7 +63,6 @@ public class YearSelectGo : MonoBehaviour, PointableObject
         if (yearIndex != -1 && !UniverseSystem.GetInstance().IsCurrentlyTraveling())
         {
             StartCoroutine(UniverseSystem.GetInstance().TeleportToYear(yearIndex));
-            YearSelectMain.GetInstance().SetPrimaryYear(yearValue);
         }
     }
 

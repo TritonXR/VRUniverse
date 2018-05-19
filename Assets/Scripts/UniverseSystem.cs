@@ -12,7 +12,7 @@ using System;
 
 public class UniverseSystem : MonoBehaviour {
 
-    const string LOBBY_YEAR_STRING = "Year";
+    public const string LOBBY_YEAR_STRING = "Year";
 
 	private static UniverseSystem instance; //part of singleton pattern
 
@@ -41,12 +41,6 @@ public class UniverseSystem : MonoBehaviour {
 
     private bool CurrentlyTraveling;
 
-	//Holds tutorial menus
-	public GameObject tutorial_YearSelection;
-	public GameObject tutorial_YearTravel;
-	public GameObject tutorial_PlanetSelection;
-	public GameObject tutorial_PlanetTravel;
-
     //panels to disable while traveling
     //[SerializeField] private Canvas[] panels;
     
@@ -73,9 +67,6 @@ public class UniverseSystem : MonoBehaviour {
 
 		//Creates the years object and handles initializing the list of years
 		ReadYearsFromJSON();
-
-		//Set activate the tutorial for selecting a year on the left controller
-		if (tutorial_YearSelection != null) tutorial_YearSelection.SetActive(true);
 
 		//Set the original color of the application to original color
 		ResetSkyboxColor();
@@ -115,9 +106,7 @@ public class UniverseSystem : MonoBehaviour {
         //Teleport to year but skip the hyperspeed
         StartCoroutine(TeleportToYear(yearIndex, false));
 
-		//Handle jump in tutorial system
-		if (tutorial_YearSelection != null) tutorial_YearSelection.SetActive(false);
-		if (tutorial_PlanetSelection != null) tutorial_PlanetSelection.SetActive(true);
+        TutorialController.GetInstance().SkipTutorials();
 	}
 
 	/*
@@ -390,6 +379,7 @@ public class UniverseSystem : MonoBehaviour {
     {
         CurrentlyTraveling = true;
         ImageLoader.GetInstance().CancelLoading();
+        PlanetController.DeselectPlanet();
 
 		//Check if there have been planets created before
 		if (atYear != -1)
@@ -397,8 +387,6 @@ public class UniverseSystem : MonoBehaviour {
 			//Destroy planets in the previous year
 			DestroyPlanets(atYear);
 		}
-
-        atYear = newYear;
 
         bool[] reenablePanels = new bool[panels.Length];
 
@@ -448,6 +436,9 @@ public class UniverseSystem : MonoBehaviour {
 		}
 		RenderSettings.skybox = skybox;
 
+        atYear = newYear;
+        YearSelectMain.GetInstance().SetPrimaryYear(Int32.Parse(list_years[atYear].yr_name));
+
         //Start teleportation system ending by Hyperspeed script call
         if (useAnimation)
         {
@@ -457,7 +448,6 @@ public class UniverseSystem : MonoBehaviour {
             }
             yield return StartCoroutine(HyperSpeedController.GetComponentInChildren<Hyperspeed>().Travel(false));
         }
-
         CurrentlyTraveling = false;
 	}
 
@@ -518,13 +508,6 @@ public class UniverseSystem : MonoBehaviour {
      */
     void Update()
     {
-
-        if (tutorial_YearTravel != null && tutorial_YearSelection != null && !tutorial_YearTravel.activeSelf)
-        {
-            tutorial_YearTravel.SetActive(true);
-            tutorial_YearSelection.SetActive(false);
-        }
-
         /*if (Input.GetKeyDown(KeyCode.A))
         {
             StartCoroutine(TeleportToYear(0));
@@ -535,6 +518,7 @@ public class UniverseSystem : MonoBehaviour {
         {
             StartCoroutine(TeleportToYear(2));
         }*/
+
     }
 
 	public static UniverseSystem GetInstance()

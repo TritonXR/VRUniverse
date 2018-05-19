@@ -24,7 +24,7 @@ public class OrbitManager : MonoBehaviour {
     
 	private PlanetController[] planet_list;                  //list of planet game objects
 	public Light StarLight;                            //point light used to light the planets
-	public Camera MainCamera;                          //main scene camera
+	public Camera[] Camera_list;                          //main scene camera
 
 	private float angularSpeed;
 	private float polarLocation;
@@ -65,10 +65,12 @@ public class OrbitManager : MonoBehaviour {
         //calculates various parameters for the orbit
         float theta = FULL_CIRCLE / planet_list.Length;
         orbitRadius = OrbitRadiusScaling * planet_list.Length + OrbitRadiusBase;
-        
 
         StarLight.range = 1.2f * (orbitRadius + PlanetDist);          //adjust range of point light so it actually illuminates all the planets
-        MainCamera.farClipPlane = 2.1f * (orbitRadius + PlanetDist);  //adjust the camera far plane so all planets are rendered
+        foreach (Camera camera in Camera_list)
+        {
+            camera.farClipPlane = 2.1f * (orbitRadius + PlanetDist);  //adjust the camera far plane so all planets are rendered
+        }
 
         for (int count = 0; count < planet_list.Length; count++)
         {

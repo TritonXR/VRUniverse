@@ -11,13 +11,15 @@ public class CategoryButton : MonoBehaviour, PointableObject {
 	[SerializeField] private Color selectedColor;
 
 	[SerializeField] string categoryName;
-
+	[SerializeField] public int count;
+	[SerializeField] private Text info;
 
 	// Use this for initialization
 	void Start () {
 		categoryIcon.color = defaultColor;
+
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		
@@ -58,6 +60,13 @@ public class CategoryButton : MonoBehaviour, PointableObject {
 
     public string GetCategory()
     {
-        return categoryName;
+		return categoryName;
     }
+
+	public void setCount(int num)
+	{
+		this.count = num;
+		info = GetComponentInChildren<Text> ();
+		info.text = categoryName.ToUpper() + " ("+count+")";
+	}
 }

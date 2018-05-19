@@ -13,6 +13,8 @@ public class CategoryManager : MonoBehaviour {
 
 	private SQLiteTags database;
 
+
+
 	void Awake()
 	{
 		if (instance != null && instance != this)
@@ -24,11 +26,13 @@ public class CategoryManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		selectedCategories = new List<string>();
 		renderedCanvas = GetComponent<Canvas>();
 		buttonColliders = GetComponentsInChildren<BoxCollider>();
 		categoryButtons = GetComponentsInChildren<CategoryButton> ();
 		database = GetComponent<SQLiteTags> ();
+		count ();
 
         StartCoroutine(EndOfStartFrame());
 	}
@@ -65,6 +69,11 @@ public class CategoryManager : MonoBehaviour {
 		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
 	}
 
+    public int GetNumSelected()
+    {
+        return selectedCategories.Count;
+    }
+
 	public void SetVisible(bool visible)
 	{
 		renderedCanvas.enabled = visible;
@@ -87,6 +96,23 @@ public class CategoryManager : MonoBehaviour {
 
 	public List<string> getSelectedCategories(){
 		return this.selectedCategories;
+	} 
+
+	public void count(){
+		for (int i = 0; i < categoryButtons.Length; i++) {
+			selectedCategories.Add (categoryButtons [i].GetCategory());
+			string[] tags = selectedCategories.ToArray();
+
+			if (tags.Length > 0)
+			{
+				categoryButtons [i].setCount(database.Select(tags).Count);
+			}
+			else
+			{
+				categoryButtons [i].setCount(database.SelectAllPlanets().Count);
+			}
+			selectedCategories.Clear();
+		}
 	}
 
     private IEnumerator EndOfStartFrame()
