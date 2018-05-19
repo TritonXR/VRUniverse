@@ -148,6 +148,11 @@ public class SearchPanelsControl : MonoBehaviour {
         }
     }
 
+    public bool GetIfPanelsEnabled()
+    {
+        return turnup;
+    }
+
     public static SearchPanelsControl GetInstance()
     {
         return instance;

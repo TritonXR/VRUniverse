@@ -41,11 +41,15 @@ public class TutorialController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (tutorialsFinished == 0 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
+        if (tutorialsFinished == 0 && SearchPanelsControl.GetInstance().GetIfPanelsEnabled())
         {
             AdvanceTutorial();
         }
-        if (tutorialsFinished == 1 && CategoryManager.GetInstance().GetNumSelected() > 0)
+        if (tutorialsFinished == 1 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
+        {
+            AdvanceTutorial();
+        }
+        if (tutorialsFinished == 2 && CategoryManager.GetInstance().GetNumSelected() > 0)
         {
             AdvanceTutorial();
         }
