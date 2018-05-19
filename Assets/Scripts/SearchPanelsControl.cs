@@ -8,10 +8,21 @@ public class SearchPanelsControl : MonoBehaviour {
     // new panels = UniverseSystem.GetInstance().GetComponent<Canvas>();
     private Canvas[] newpanels;
     private bool turnup;
+    private static SearchPanelsControl instance;
     [SerializeField] private Text displaytext;
     // private ToggleButton 
 
     // Use this for initialization
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else instance = this;
+    }
+
+
     void Start () {
         newpanels = UniverseSystem.GetInstance().panels;
         turnup = false;
@@ -39,6 +50,7 @@ public class SearchPanelsControl : MonoBehaviour {
 
     public void displayPanels()
     {
+        turnup = true;
         //SearchResultsCanvas --> ResultDisplay GetComponentsInChildren<Box Collider>
         //CategoiresCanvas --> CategoryManager
         for (int index = 0; index < newpanels.Length; index++)
@@ -73,6 +85,7 @@ public class SearchPanelsControl : MonoBehaviour {
 
     public void clearPanels()
     {
+        turnup = false;
         for (int index = 0; index < newpanels.Length; index++)
         {
             if (newpanels[index].GetComponent<CategoryManager>() != null) //access PanelLeft
@@ -109,12 +122,12 @@ public class SearchPanelsControl : MonoBehaviour {
             if (turnup == false)
             {
                 displayPanels();
-                turnup = true;
+                //turnup = true;
             }
             else
             {
                 clearPanels();
-                turnup = false;
+                //turnup = false;
             }
             //other.gameObject.GetComponent<SteamVR_TrackedController>().controllerIndex.TriggerHapticPulse(VIB_INTENSITY);
             SteamVR_Controller.Input((int)other.GetComponent<SteamVR_TrackedController>().controllerIndex).TriggerHapticPulse(1000);
@@ -135,7 +148,10 @@ public class SearchPanelsControl : MonoBehaviour {
         }
     }
 
-
+    public static SearchPanelsControl GetInstance()
+    {
+        return instance;
+    }
 
 
 

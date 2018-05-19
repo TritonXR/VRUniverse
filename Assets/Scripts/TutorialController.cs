@@ -9,6 +9,8 @@ public class TutorialController : MonoBehaviour {
     [SerializeField] private GameObject[] tutorialPanels;
     [SerializeField] private GameObject tutorialSpawnPoint; // spawn point
     
+
+
     int tutorialsFinished = 0;
 
     bool tutorialDismissed = false;
@@ -33,6 +35,8 @@ public class TutorialController : MonoBehaviour {
             tutorialPanels[tutorialsFinished].SetActive(true);
             tutorialPanels[tutorialsFinished].GetComponent<TutorialMove>().StartFollowing();
         }
+
+
     }
 	
 	// Update is called once per frame
@@ -52,6 +56,8 @@ public class TutorialController : MonoBehaviour {
         Debug.Log("Skipping Tutorials");
         foreach (GameObject tutorial in tutorialPanels) tutorial.SetActive(false);
         tutorialsFinished = tutorialPanels.Length;
+        SearchPanelsControl.GetInstance().displayPanels();
+        
     }
 
     public void DismissCurrentTutorial()
