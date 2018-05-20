@@ -36,6 +36,9 @@ public class UniverseSystem : MonoBehaviour {
 	[SerializeField] private GameObject prefab_planet;
     [SerializeField] private GameObject HyperSpeedController;
 
+    [SerializeField] public bool isOculus;
+
+
     //Holds original skybox color
     private Color origSkyboxColor;
 
@@ -71,9 +74,11 @@ public class UniverseSystem : MonoBehaviour {
         //Path where the save data is located
         string path;
         #if UNITY_EDITOR
-            path = Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/saveData.txt"; //saveData.txt doesn't exist on my site
+            if (isOculus) path = Application.dataPath + "/../Website/data/VRClubUniverseData/Oculus/saveData.txt"; //saveData.txt doesn't exist on my site
+            else path = Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/saveData.txt"; //saveData.txt doesn't exist on my site
         #elif UNITY_STANDALONE
-            path = Application.dataPath + "/../VRClubUniverseData/Vive/saveData.txt";
+            if (isOculus) path = Application.dataPath + "/../VRClubUniverseData/Oculus/saveData.txt";
+            else path = Application.dataPath + "/../VRClubUniverseData/Vive/saveData.txt";
         #endif
 
         CurrentlyTraveling = false;
@@ -85,6 +90,11 @@ public class UniverseSystem : MonoBehaviour {
 		}
 
 	}
+
+    public bool GetOculusBool()
+    {
+        return isOculus;
+    }
 
 	/*
      * ReloadYear: If the user is returning from traveling to a planet, reload the year that they originally came from
@@ -142,9 +152,11 @@ public class UniverseSystem : MonoBehaviour {
 
         DirectoryInfo dir;
 #if UNITY_EDITOR
-        dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive");
+        if (isOculus) dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData/Oculus");
+        else dir = new DirectoryInfo(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive");
 #elif UNITY_STANDALONE
-        dir = new DirectoryInfo(Application.dataPath + "/../VRClubUniverseData/Vive");
+        if(isOculus) dir = new DirectoryInfo(Application.dataPath + "/../VRClubUniverseData/Oculus");
+        else dir = new DirectoryInfo(Application.dataPath + "/../VRClubUniverseData/Vive");
 #endif
 
         //TESTING
@@ -205,9 +217,11 @@ public class UniverseSystem : MonoBehaviour {
             string jsonString;
 
 #if UNITY_EDITOR
-            jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/" + yearName + ".json");
+            if (isOculus) jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/Oculus/" + yearName + ".json");
+            else jsonString = File.ReadAllText(Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/" + yearName + ".json");
 #elif UNITY_STANDALONE
-            jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/Vive/" + yearName + ".json");
+            if (isOculus) jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/Oculus/" + yearName + ".json");
+            else jsonString = File.ReadAllText(Application.dataPath + "/../VRClubUniverseData/Vive/" + yearName + ".json");
 #endif
 
             //TESTING

@@ -11,14 +11,18 @@ public class SQLiteTags : MonoBehaviour
 
 	private List<PlanetData> planetList;
 
+    [SerializeField] public UniverseSystem USystem;
+
     private void Start()
     {
 
 #if UNITY_EDITOR
         //dbPath = "URI=file:" + Application.dataPath + "/../Website/data/VRClubUniverseData/vive.db";
-        dbPath = "URI=file:" + Application.dataPath + "/../Website/db/vive.db";
+        if (USystem.GetOculusBool()) dbPath = "URI=file:" + Application.dataPath + "/../Website/db/oculus.db";
+        else dbPath = "URI=file:" + Application.dataPath + "/../Website/db/vive.db";
 #elif UNITY_STANDALONE
-        dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverseData/Vive/vive.db";
+        if (USystem.GetOculusBool()) dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverseData/Oculus/oculus.db";
+        else dbPath = "URI=file:" + Application.dataPath + "/../VRClubUniverseData/Vive/vive.db";
 #endif
     }
 

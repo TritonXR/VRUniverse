@@ -10,6 +10,9 @@ public class ExecutableSwitch : MonoBehaviour
 
     [SerializeField] private string defaultDatapath = "VRUniverse.exe";
     [SerializeField] private int delayTime = 500;
+    [SerializeField] public UniverseSystem USystem;
+
+    [SerializeField] public static bool isOculus;
 
     private char[] delimiterList = { '/', '\\'};
     private bool isLoading;
@@ -17,6 +20,7 @@ public class ExecutableSwitch : MonoBehaviour
 
     private void Awake()
     {
+        isOculus = USystem.GetOculusBool();
         if (switcher == null) switcher = this;
         else
         {
@@ -27,6 +31,8 @@ public class ExecutableSwitch : MonoBehaviour
 		appDatapath = Application.dataPath;
 
 		Debug.Log("appDatapath: " + appDatapath);
+
+        
     }
 
     void OnDestroy()
@@ -46,9 +52,11 @@ public class ExecutableSwitch : MonoBehaviour
 
 		System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 		startInfo.FileName = helperDatapath;
-		startInfo.Arguments = "\"" + datapath + "\" \"" + appDatapath + "/../VRUniverse.exe\" " + delayTime;
+		if (isOculus) startInfo.Arguments = "\"" + datapath + "\" \"" + appDatapath + "/../VRUniverse_Oculus.exe\" " + delayTime;
+        else startInfo.Arguments = "\"" + datapath + "\" \"" + appDatapath + "/../VRUniverse.exe\" " + delayTime;
 
-		Debug.Log("Arguments: " + startInfo.Arguments);
+
+        Debug.Log("Arguments: " + startInfo.Arguments);
 
 		System.Diagnostics.Process rebootProcess = System.Diagnostics.Process.Start(startInfo);
 
@@ -81,9 +89,11 @@ public class ExecutableSwitch : MonoBehaviour
     public static string GetFullPath(string filename, string foldername, string year)
     {
 #if UNITY_EDITOR
-        return Application.dataPath + @"/../Website/data/VRClubUniverseData/Vive/" + year + "/" + foldername + "/" + filename;
+        if (isOculus) return Application.dataPath + @"/../Website/data/VRClubUniverseData/Oculus/" + year + "/" + foldername + "/" + filename;
+        else return Application.dataPath + @"/../Website/data/VRClubUniverseData/Vive/" + year + "/" + foldername + "/" + filename;
 #elif UNITY_STANDALONE
-        return Application.dataPath + @"/../VRClubUniverseData/Vive/" + year + @"/" + foldername + @"/" + filename;
+        if (isOculus) return Application.dataPath + @"/../VRClubUniverseData/Oculus/" + year + @"/" + foldername + @"/" + filename;
+        else return Application.dataPath + @"/../VRClubUniverseData/Vive/" + year + @"/" + foldername + @"/" + filename;
 #endif
     }
 }

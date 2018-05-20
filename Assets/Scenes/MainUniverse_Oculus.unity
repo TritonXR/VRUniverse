@@ -9616,6 +9616,7 @@ MonoBehaviour:
   prefab_planet: {fileID: 1050411509479860, guid: 35c773cbc260b2641a16447075a68031,
     type: 2}
   HyperSpeedController: {fileID: 603548164}
+  isOculus: 1
   panels:
   - {fileID: 329267795}
   - {fileID: 1967237880}
@@ -10547,15 +10548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e89a571e42f506d49a126505d3759a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  welcomeTutorial_1: {fileID: 1378083231}
-  yearTutorial_2: {fileID: 1334672592}
-  categoryTutorial_3: {fileID: 226087148}
-  searchTutorial_4: {fileID: 42231169}
-  exit_5: {fileID: 222608458}
-  lever_6: {fileID: 1366274610}
+  tutorialPanels: []
   tutorialSpawnPoint: {fileID: 1620195211}
-  tutorialHoldTime: 10
-  tutorialMoveTime: 2
 --- !u!1 &1035958600
 GameObject:
   m_ObjectHideFlags: 0
@@ -10762,6 +10756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4aff6c182e1a414da16b5b46ff8168e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  USystem: {fileID: 922161375}
 --- !u!114 &1063269149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11966,7 +11961,17 @@ Prefab:
       propertyPath: defaultDatapath
       value: VRUniverse.exe
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1875049561585628, guid: edde1771937ceea49941ab9bc7a39b56, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114175508827714260, guid: edde1771937ceea49941ab9bc7a39b56,
+        type: 2}
+      propertyPath: USystem
+      value: 
+      objectReference: {fileID: 922161375}
+    m_RemovedComponents:
+    - {fileID: 114345039500330128, guid: edde1771937ceea49941ab9bc7a39b56, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: edde1771937ceea49941ab9bc7a39b56, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1205225000 stripped
