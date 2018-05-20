@@ -5,7 +5,7 @@ block content
 	div.container
 		div.row
 			div.col-md-6.col-md-offset-3
-				p.form-head Upload to the VRUniverse!
+				h4.text-center Upload to the VRUniverse!
 				form(action="/user/upload" method="post" style="margin-bottom : 50px;" enctype="multipart/form-data")
 					div(class="form-group" style="padding-top: 25px;")
 						label.form-label Project Name :
@@ -21,7 +21,7 @@ block content
 								label.form-label Contributor Email :
 								input(type="email" class="form-control" id="name" name="email")
 						label.form-label Description :
-						input(type="text" class="form-control" id="name" style="height : 200px" name="desc")
+						textarea(type="text" class="form-control" id="name" rows=8 name="desc")
 						label.form-label Project Members : 
 						input(type="text" class="form-control" id="members" name="members")
 						label.form-label Tags : 

@@ -17,7 +17,7 @@ def convert(input):
     else:
         return input
 
-convert(data)
+#convert(data)
 
 def populatePlanets():
     for planet in data['PlanetJSON']:
@@ -28,7 +28,7 @@ def populateTags():
     for planet in data['PlanetJSON']:
         for tag in planet['Tags']:
             conn.execute(tag_insert_sql, (tag, ));
-            conn.commit();
+            conn.commit()
             
 
 def populateMapper():
@@ -40,7 +40,7 @@ def populateMapper():
             tag_id = None;
             for i in conn.execute('SELECT tag_id from tags where tag = ?', (convert(tag),)):
                 tag_id = i[0]
-            conn.execute(map_insert_sql, (id, tag_id));
+                conn.execute(map_insert_sql, (id, tag_id));
         conn.commit();
 
 def populateMapperWithYears():
@@ -53,14 +53,14 @@ def populateMapperWithYears():
             for i in conn.execute('SELECT tag_id from tags where tag = ?', (year,)):
                 tag_id = i[0]
             conn.execute(map_insert_sql, (id, tag_id));
-        conn.commit();
+            conn.commit();
 
 for year in years:    
     data = json.load(open('../data/VRClubUniverseData/' + year + '.json'))
-    conn = sqlite3.connect('universe.db')
+    conn = sqlite3.connect('test.db')
 
     #call methods here
-
+    populateMapperWithYears();
 
     conn.commit();
 

@@ -62,6 +62,8 @@ exports.getProjectsFromTags = (tags, callback) => {
 	  					(select tag_id from tags where tag = '${tags[i]}'))`
 	}
 
+	console.log(str);
+
 	db.serialize(() => {
 	  	db.all(str, (err, rows) => {
 

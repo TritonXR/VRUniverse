@@ -15,6 +15,8 @@ router.get('/*', function(req, res, next) {
 		tagArr.push(key);
 	}
 
+	console.log(tagArr);
+
 	if (tagArr.length == 0) {
 		res.redirect('/projects');
 		return;
