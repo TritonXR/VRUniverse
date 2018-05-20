@@ -21,3 +21,6 @@ $RECYCLE.BIN/
 Desktop.ini
 Website/.idea/workspace.xml
 Website/node_modules
+Website/data
+Website/download
+Website/tmp
