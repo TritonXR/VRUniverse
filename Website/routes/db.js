@@ -141,6 +141,20 @@ exports.getTagIDsFromTags = (tags, callback) => {
 	});
 }
 
+exports.createTag = (tag, callback) => {
+	let sql = `SELECT tag_id from tags where tag in (` + tags.map(tag => '(?)').join(' , ') + ");";
+	db.serialize(() => {
+		db.all(sql, tags, (err, rows) => {
+			if (err) {
+				console.error(err.message);
+			}
+			else {
+				callback(rows);
+			}
+		});
+	});
+}
+
 //untested
 exports.getTagsFromProjectName = (name, callback) => {
 	var str = `SELECT DISTINCT tag from tags where tag_id in 
