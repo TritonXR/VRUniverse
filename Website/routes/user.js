@@ -24,7 +24,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage:storage});
 
-const ORGNAME = 'UCSDVR'
+const ORGNAME = 'TritonXR'
 
 router.get('/signin', function(req, res, next) {
     res.render('user/signup');
