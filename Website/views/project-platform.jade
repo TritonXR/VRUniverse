@@ -1,0 +1,57 @@
+extends header 	
+include ./mixins/filter-mixin.jade
+
+block content
+	include ./includes/nav.jade
+
+	style.
+		.footer {
+			position : absolute;
+			bottom: 0;
+			height: auto;
+		}
+
+		.footer__text {
+			margin-top: 0;
+		}
+
+		.u-nav {
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 100%;
+			z-index: 100;
+		}
+
+	-var searchTags = JSON.parse(tags);
+	div.projects__sidenav
+		h1.projects__sidenav-title.text-center Filter
+		div.projects__sidenav__opts
+			form(method="get" action="/filter/")
+				div.projects__sidenav__opts-container
+					-for (var tag in searchTags)
+						div
+							input(type="checkbox", name="#{searchTags[tag].tag}" class="download-checkbox", value="true" id="#{searchTags[tag].tag}")
+							label(for="#{searchTags[tag].tag}").projects__sidenav__opts-label #{searchTags[tag].tag}
+				button(type="submit" id="filterbutton").center-block.btn.btn-lg.projects__sidenav__opts-btn Search
+
+	div.projects__content
+
+		-if (tagArr == null)
+			h2.text-center All Projects in VRUniverse
+		-else if (tagArr.length == 1)
+			h2.text-center All Projects with Tag #{tagArr}
+		-else if (tagArr.length > 1)
+			h2.text-center All Projects with Tags #{tagArr}
+		-else if (tagArr.length == 0)
+			h2.text-center Can't find any projects with those tags!
+
+		-var data = JSON.parse(json);
+			-for(var prop in data)
+				-data[prop].platform = platform
+				div.container-fluid
+					+filter-mixin(data[prop])
+
+	script.
+		let arr = !{tagArr};
+		console.log(arr);

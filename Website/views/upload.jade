@@ -24,6 +24,10 @@ block content
 						textarea(type="text" class="form-control" id="name" rows=8 name="desc")
 						label.form-label Project Members : 
 						input(type="text" class="form-control" id="members" name="members")
+						label.form-label Platform:
+						select(name="platform" class="form-control")
+							option HTC Vive
+							option Oculus Rift
 						label.form-label Tags : 
 						select(name="tags" multiple class="form-control" id="tags")
 							-for (let i in tags) {

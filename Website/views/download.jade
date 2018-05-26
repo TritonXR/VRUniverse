@@ -1,17 +1,35 @@
 extends header 
-include ./mixins/project-mixin.jade
 
 block content
-	-var data = JSON.parse(json);
-	form(action="/download" method="post")
-		-for(var prop in data)
-			div.container-fluid
-				div(style="margin-top: 30px;").row
-					div.col-md-8.year
-						span #{prop}
-				-var inner_obj = JSON.parse(data[prop])
-					-for (var key in inner_obj["PlanetJSON"])
-							+project-mixin(inner_obj["PlanetJSON"][key])
+	include ./includes/nav.jade
 
-		input(type="submit").btn.download-submit
+	style.
+		footer {
+			position: absolute;
+			bottom: 0;
+		}
+	.container
+		h1 Download  
+	#exTab1.container
+		ul.nav.nav-pills
+			li.active
+				a(href='#1a', data-toggle='tab') Overview
+			li
+				a(href='#2a', data-toggle='tab') Using nav-pills
+			li
+				a(href='#3a', data-toggle='tab') Applying clearfix
+			li
+				a(href='#4a', data-toggle='tab') Background color
+			.tab-content.clearfix
+				#1a.tab-pane.active
+					h3 Content's background color is the same for the tab
+				#2a.tab-pane
+					h3
+						| We use the class nav-pills instead of nav-tabs which automatically creates a background color for the tab
+				#3a.tab-pane
+					h3
+						| We applied clearfix to the tab-content to rid of the gap between the tab and the content
+				#4a.tab-pane
+					h3 We use css to change the background color of the content to be equal to the tab
+
 
