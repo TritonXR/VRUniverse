@@ -497,10 +497,9 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 1966111971}
-    - target: {fileID: 224922462243629548, guid: 81b0c83294fd7704ab76fd01ef2d3389,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
+    - target: {fileID: 1863951640989040, guid: 81b0c83294fd7704ab76fd01ef2d3389, type: 2}
+      propertyPath: m_Name
+      value: SearchSelectCanvas
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81b0c83294fd7704ab76fd01ef2d3389, type: 2}
