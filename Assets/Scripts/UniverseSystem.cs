@@ -45,9 +45,12 @@ public class UniverseSystem : MonoBehaviour {
     private bool CurrentlyTraveling;
 
     //panels to disable while traveling
-    [SerializeField] private Canvas[] panels;
+    //[SerializeField] private Canvas[] panels;
+    
+    [SerializeField] public Canvas[] panels; //make it public in order to be controlled by a outside button 
 
-	void Awake()
+
+    void Awake()
 	{
 		if (instance != null && instance != this)
 		{
@@ -519,7 +522,17 @@ public class UniverseSystem : MonoBehaviour {
      */
     void Update()
     {
-        
+        /*if (Input.GetKeyDown(KeyCode.A))
+        {
+            StartCoroutine(TeleportToYear(0));
+        } else if (Input.GetKeyDown(KeyCode.B))
+        {
+            StartCoroutine(TeleportToYear(1));
+        } else if (Input.GetKeyDown(KeyCode.C))
+        {
+            StartCoroutine(TeleportToYear(2));
+        }*/
+
     }
 
 	public static UniverseSystem GetInstance()

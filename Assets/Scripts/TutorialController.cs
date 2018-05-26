@@ -9,6 +9,8 @@ public class TutorialController : MonoBehaviour {
     [SerializeField] private GameObject[] tutorialPanels;
     [SerializeField] private GameObject tutorialSpawnPoint; // spawn point
     
+
+
     int tutorialsFinished = 0;
 
     bool tutorialDismissed = false;
@@ -33,15 +35,25 @@ public class TutorialController : MonoBehaviour {
             tutorialPanels[tutorialsFinished].SetActive(true);
             tutorialPanels[tutorialsFinished].GetComponent<TutorialMove>().StartFollowing();
         }
+
+
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (tutorialsFinished == 0 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
+        if (tutorialsFinished == 0 && !tutorialPanels[0].GetComponent<TutorialMove>().IsFollowing())
         {
             AdvanceTutorial();
         }
-        if (tutorialsFinished == 1 && CategoryManager.GetInstance().GetNumSelected() > 0)
+        if (tutorialsFinished == 1 && SearchPanelsControl.GetInstance().GetIfPanelsEnabled())
+        {
+            AdvanceTutorial();
+        }
+        if (tutorialsFinished == 2 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
+        {
+            AdvanceTutorial();
+        }
+        if (tutorialsFinished == 3 && CategoryManager.GetInstance().GetNumSelected() > 0)
         {
             AdvanceTutorial();
         }
@@ -52,18 +64,7 @@ public class TutorialController : MonoBehaviour {
         Debug.Log("Skipping Tutorials");
         foreach (GameObject tutorial in tutorialPanels) tutorial.SetActive(false);
         tutorialsFinished = tutorialPanels.Length;
-    }
-
-    public void DismissCurrentTutorial()
-    {
-        if(tutorialDismissed)
-        {
-            AdvanceTutorial();
-        }
-        else
-        {
-            tutorialDismissed = true;
-        }
+        SearchPanelsControl.GetInstance().displayPanels();
     }
 
     public static TutorialController GetInstance()
