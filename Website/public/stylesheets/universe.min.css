@@ -281,3 +281,17 @@ html, body {
   background: white;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem; }
+
+.manage__container {
+  padding-top: 5rem; }
+
+.manage__proj {
+  border: solid 2px;
+  border-radius: 5px;
+  margin-top: 1rem;
+  margin-bottom: 1rem; }
+  .manage__proj-row {
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem; }
+  .manage__proj-purp {
+    color: #7b4ba8; }
