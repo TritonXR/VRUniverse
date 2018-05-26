@@ -11,6 +11,9 @@ var WebSocketServer = require('ws').Server;
 var unzip = require('unzip');
 var multer = require('multer');
 var path = require('path');
+var vive = require('./vive-db.js')
+var oculus = require('./oculus-db.js')
+
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -71,7 +74,7 @@ router.get('/signedin', function(req, res, next) {
 });
 
 
-/*router.post('/upload', upload.any(), function(req, res) {
+router.post('/upload', upload.any(), function(req, res) {
     var year = req.body.year;
     var projectname = req.body.project;
     var upload_image = '';
@@ -87,9 +90,11 @@ router.get('/signedin', function(req, res, next) {
 
     if (platform == 'HTC Vive') {
         platform = 'Vive';
+        var db = vive;
     }
     else if (platform == 'Oculus Rift') {
         platform = 'Oculus'
+        var db = oculus;
     }
 
     var json_dir = "./data/VRClubUniverseData/" + platform + '/';
@@ -206,6 +211,6 @@ function findFile(extension, cb){
             cb(filename);
         }
     }
-}*/
+}
 
 module.exports = router;
