@@ -16,6 +16,11 @@ public class SQLiteTags : MonoBehaviour
     private void Start()
     {
 
+        SetDatabasePath();
+    }
+
+    private void SetDatabasePath()
+    {
 #if UNITY_EDITOR
         //dbPath = "URI=file:" + Application.dataPath + "/../Website/data/VRClubUniverseData/vive.db";
         if (USystem.GetOculusBool()) dbPath = "URI=file:" + Application.dataPath + "/../Website/db/oculus.db";
@@ -28,6 +33,7 @@ public class SQLiteTags : MonoBehaviour
 
     public List<PlanetData> Select(string[] tags)
     {
+        if (dbPath == null) SetDatabasePath();
         using (var conn = new SqliteConnection(dbPath))
         {
             conn.Open();
@@ -89,6 +95,7 @@ public class SQLiteTags : MonoBehaviour
 
     public List<PlanetData> SelectAllPlanets()
     {
+        if (dbPath == null) SetDatabasePath();
         using (var conn = new SqliteConnection(dbPath))
         {
             conn.Open();
