@@ -6,6 +6,7 @@
 !/Assets/
 !/ProjectSettings/!.gitignore
 !/Website/
+!/HelperExeProject/
 !/deploy.sh
 !/VRClubUniverse_Data/!/ProjectSettings/!.gitignore
 !VRUniverse_Helper.*
