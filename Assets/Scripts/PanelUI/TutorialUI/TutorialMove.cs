@@ -8,7 +8,7 @@ public class TutorialMove : MonoBehaviour
     [SerializeField] private float moveTime = 1.0f;
     [SerializeField] private Transform followAnchor;
 
-    private bool followEnabled;
+    private bool followEnabled = false;
     private Vector3 defaultPosition;
     private Quaternion defaultRotation;
 
@@ -21,7 +21,7 @@ public class TutorialMove : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        followEnabled = false;
+        
     }
 
     // Update is called once per frame

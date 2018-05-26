@@ -41,15 +41,19 @@ public class TutorialController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (tutorialsFinished == 0 && SearchPanelsControl.GetInstance().GetIfPanelsEnabled())
+        if (tutorialsFinished == 0 && !tutorialPanels[0].GetComponent<TutorialMove>().IsFollowing())
         {
             AdvanceTutorial();
         }
-        if (tutorialsFinished == 1 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
+        if (tutorialsFinished == 1 && SearchPanelsControl.GetInstance().GetIfPanelsEnabled())
         {
             AdvanceTutorial();
         }
-        if (tutorialsFinished == 2 && CategoryManager.GetInstance().GetNumSelected() > 0)
+        if (tutorialsFinished == 2 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
+        {
+            AdvanceTutorial();
+        }
+        if (tutorialsFinished == 3 && CategoryManager.GetInstance().GetNumSelected() > 0)
         {
             AdvanceTutorial();
         }
@@ -61,19 +65,6 @@ public class TutorialController : MonoBehaviour {
         foreach (GameObject tutorial in tutorialPanels) tutorial.SetActive(false);
         tutorialsFinished = tutorialPanels.Length;
         SearchPanelsControl.GetInstance().displayPanels();
-        
-    }
-
-    public void DismissCurrentTutorial()
-    {
-        if(tutorialDismissed)
-        {
-            AdvanceTutorial();
-        }
-        else
-        {
-            tutorialDismissed = true;
-        }
     }
 
     public static TutorialController GetInstance()
