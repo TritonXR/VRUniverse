@@ -8,7 +8,7 @@ public class TutorialDismiss : MonoBehaviour, PointableObject
 
     [SerializeField] private Text buttonText;
     [SerializeField] private TutorialMove moveController;
-    private Image buttonBorder;
+    [SerializeField] private Image buttonBorder;
     [SerializeField] private Color TextDefaultColor = Color.white;
     [SerializeField] private Color TextHighlightColor = Color.black;
 
@@ -17,7 +17,6 @@ public class TutorialDismiss : MonoBehaviour, PointableObject
     // Use this for initialization
     void Start()
     {
-        buttonBorder = GetComponent<Image>();
         dismissed = true;
     }
 
@@ -41,7 +40,7 @@ public class TutorialDismiss : MonoBehaviour, PointableObject
     {
         if(dismissed)
         {
-            TutorialController.GetInstance().AdvanceTutorial();
+           TutorialController.GetInstance().AdvanceTutorial();
         }
         else
         {
