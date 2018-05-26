@@ -1,56 +1,28 @@
-extends header 	
-include ./mixins/filter-mixin.jade
-
+extends ./header
 block content
-	include ./includes/nav.jade
+    include ./includes/nav.jade
+    style.
+        footer {
+            position: absolute;
+            bottom: 0;
+        }
 
-	style.
-		.footer {
-			position : absolute;
-			bottom: 0;
-			height: auto;
-		}
+        a {
+            color: black;
+        }
 
-		.footer__text {
-			margin-top: 0;
-		}
+        a:hover {
+            color: black;
+        }
 
-		.u-nav {
-			position: fixed;
-			left: 0;
-			top: 0;
-			width: 100%;
-			z-index: 100;
-		}
+        #cont {
+            margin: 20rem;
+        }
 
-	-var searchTags = JSON.parse(tags);
-	div.projects__sidenav
-		h1.projects__sidenav-title.text-center Filter
-		div.projects__sidenav__opts
-			form(method="get" action="/filter/")
-				div.projects__sidenav__opts-container
-					-for (var tag in searchTags)
-						div
-							input(type="checkbox", name="#{searchTags[tag].tag}" class="download-checkbox", value="true" id="#{searchTags[tag].tag}")
-							label(for="#{searchTags[tag].tag}").projects__sidenav__opts-label #{searchTags[tag].tag}
-				button(type="submit" id="filterbutton").center-block.btn.btn-lg.projects__sidenav__opts-btn Search
-
-	div.projects__content
-
-		-if (tagArr == null)
-			h2.text-center All Projects in VRUniverse
-		-else if (tagArr.length == 1)
-			h2.text-center All Projects with Tag #{tagArr}
-		-else if (tagArr.length > 1)
-			h2.text-center All Projects with Tags #{tagArr}
-		-else if (tagArr.length == 0)
-			h2.text-center Can't find any projects with those tags!
-
-		-var data = JSON.parse(json);
-			-for(var prop in data)
-				div.container-fluid
-					+filter-mixin(data[prop])
-
-	script.
-		let arr = !{tagArr};
-		console.log(arr);
+    div.row
+        div.container
+            div.text-center#cont
+                a(href="/projects/Oculus")
+                    h1 Oculus Rift
+                a(href="/projects/Vive")
+                    h1 HTC Vive
