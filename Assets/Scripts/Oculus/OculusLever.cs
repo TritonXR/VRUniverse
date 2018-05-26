@@ -21,6 +21,7 @@ public class OculusLever : MonoBehaviour, LeverVariant
 
     [SerializeField] private float NUM_VIB = 3;
     [SerializeField] private ushort VIB_INTENSITY = 1500;
+    [SerializeField] private float AMPLITUDE = 0.5f;
 
     [SerializeField] private float DISPLAYED_SPEED_CORRECTION = -1.0f;
 
@@ -120,6 +121,18 @@ public class OculusLever : MonoBehaviour, LeverVariant
                 // Debug.Log("Should vibrate here");
                 foreach (Transform controller in touchingControllers)
                 {
+                   
+                    if (controller.gameObject.GetComponent<OculusController>().tag == "Left Controller")
+                    {
+                        //ovr_SetControllerVibration(Hmd, ovrControllerType_LTouch, VIB_INTENSITY, trigger);
+                        //OVRInput.SetControllerVibration(VIB_INTENSITY, AMPLITUDE, OVRInput.Controller.LTouch);
+                        Debug.Log("Left controller vibrate");
+                    }
+                    else if (controller.gameObject.GetComponent<OculusController>().tag == "Right Controller")
+                    {
+                        //OVRInput.SetControllerVibration(VIB_INTENSITY, AMPLITUDE, OVRInput.Controller.RTouch);
+                        Debug.Log("Right controller vibrate");
+                    }
                     //SteamVR_Controller.Input((int)controller.GetComponent<SteamVR_TrackedController>().controllerIndex).TriggerHapticPulse(VIB_INTENSITY);
                     //ovr_SetControllerVibration(Hmd, ovrControllerType_LTouch, VIB_INTENSITY, trigger);
                     //VIBRATE
