@@ -1,1 +1,26 @@
-p #{err}
+extends ./header
+block content
+    include ./includes/nav.jade
+    style.
+        footer {
+            position: absolute;
+            bottom: 0;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: black;
+        }
+
+        #cont {
+            margin: 20rem;
+        }
+
+    div.row
+        div.container
+            div.text-center(style="padding: 190px")
+                h1
+                    p #{err}

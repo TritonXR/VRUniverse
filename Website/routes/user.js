@@ -67,7 +67,7 @@ router.get('/signedin', function(req, res, next) {
                     res.json({err: "You Are Not A Member Of UCSDVR!"})
 
                 })
-                .catch((err) => res.json({err: err}))
+                .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.status}))
         })
 });
 
