@@ -23,7 +23,7 @@ public class BackToSearch : MonoBehaviour, PointableObject {
 	public void PointerEnter()
 	{
 		//Enable the highlight to show it is being hovered on
-		highlight.enabled = true;
+		//highlight.enabled = true;
 
 	}
 
@@ -33,7 +33,7 @@ public class BackToSearch : MonoBehaviour, PointableObject {
 	public void PointerExit()
 	{
 		//Disable the highlight
-		highlight.enabled = false;
+		//highlight.enabled = false;
 	}
 
 	public void PointerClick()
@@ -42,7 +42,7 @@ public class BackToSearch : MonoBehaviour, PointableObject {
 		foreach (BoxCollider col in buttonColliders) {
 			col.enabled = false;
 		}
-		highlight.enabled = false;
+		//highlight.enabled = false;
 
 		CategoryManager.GetInstance().SetVisible(true);
 		ResultDisplay.GetInstance().SetVisible(true);
