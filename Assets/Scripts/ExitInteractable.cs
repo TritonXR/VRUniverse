@@ -24,10 +24,6 @@ public class ExitInteractable : MonoBehaviour, PointableObject
 
     void Start()
     {
-        //selectedPlanet = updatedCanvas.gameObject.GetComponent<PlanetDisplay>().targetplanet.gameObject.GetComponent<PlanetController>();
-        //highlight.enabled = true;
-
-
     }
 
     /*
@@ -48,6 +44,7 @@ public class ExitInteractable : MonoBehaviour, PointableObject
 
     }
 
+    //Exit the Planet when Clicking on the Exit Button
     public void PointerClick()
     {
         Exit();
@@ -59,7 +56,6 @@ public class ExitInteractable : MonoBehaviour, PointableObject
      */
     public void Exit()
     {
-        //selectedPlane = GetComponentInParent<>();
         updatedCanvas.enabled = false;
         PlanetController.DeselectPlanet();
     }

@@ -15,7 +15,6 @@ public class SQLiteTags : MonoBehaviour
 
     private void Start()
     {
-
         SetDatabasePath();
     }
 
@@ -31,9 +30,11 @@ public class SQLiteTags : MonoBehaviour
 #endif
     }
 
+    //select planets by category
     public List<PlanetData> Select(string[] tags)
     {
         if (dbPath == null) SetDatabasePath();
+        //connect to the database file    
         using (var conn = new SqliteConnection(dbPath))
         {
             conn.Open();
@@ -41,6 +42,7 @@ public class SQLiteTags : MonoBehaviour
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
+                //select all planets of certain tags
                 cmd.CommandText = "SELECT DISTINCT* from planets where id in (SELECT planet_id from map where tag_id in (SELECT tag_id from tags where tag = @ftg))";
 
                 cmd.Parameters.Add(new SqliteParameter
@@ -49,8 +51,7 @@ public class SQLiteTags : MonoBehaviour
                     Value = tags[0]
                 });
 
-                    
-                   
+                //iterate those planets getting selected
                 for (int i = 1; i < tags.Length; i++)
                 {
                     string index = "tags" + i.ToString();
@@ -66,6 +67,7 @@ public class SQLiteTags : MonoBehaviour
                     
                 var reader = cmd.ExecuteReader();
                 planetList = new List<PlanetData>();
+                //deal with the display menu
                 while (reader.Read())
                 {
 					PlanetData planet = new PlanetData();
@@ -87,26 +89,29 @@ public class SQLiteTags : MonoBehaviour
 
 					planetList.Add (planet);
                 }
+                //add selected planet into planetlist
             }
         }
 
 		return planetList;
     }
 
+    //select all planets
     public List<PlanetData> SelectAllPlanets()
     {
         if (dbPath == null) SetDatabasePath();
         using (var conn = new SqliteConnection(dbPath))
         {
             conn.Open();
-
             using (var cmd = conn.CreateCommand())
             {
                 cmd.CommandType = CommandType.Text;
+                //select all planets
                 cmd.CommandText = "SELECT DISTINCT* from planets";
 
                 var reader = cmd.ExecuteReader();
                 planetList = new List<PlanetData>();
+                //deal with the display menu
                 while (reader.Read())
                 {
                     PlanetData planet = new PlanetData();
@@ -125,9 +130,9 @@ public class SQLiteTags : MonoBehaviour
                     db_tags = db_tags.Replace("]", "");
 
                     planet.des_tag = db_tags.Split(',');
-
                     planetList.Add(planet);
                 }
+                //add selected planets into planetlist
             }
         }
         return planetList;

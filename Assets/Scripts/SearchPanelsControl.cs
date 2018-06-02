@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * Name: SearchPanelsControl.cs
+ * Description: Contains methods called when hit the toggle controlling turn on/off SearchResult Canvas and Category Canvas
+ * Utilized on: SpaceshipTest.prefab
+ */
+
 public class SearchPanelsControl : MonoBehaviour {
 
-    // new panels = UniverseSystem.GetInstance().GetComponent<Canvas>();
     private Canvas[] newpanels;
     private bool turnup;
     private static SearchPanelsControl instance;
     [SerializeField] private Text displaytext;
-    // private ToggleButton 
-
+    
     // Use this for initialization
     void Awake()
     {
@@ -22,40 +26,28 @@ public class SearchPanelsControl : MonoBehaviour {
         else instance = this;
     }
 
-
+    // Initiate the Panels to be off
     void Start () {
         newpanels = UniverseSystem.GetInstance().panels;
         turnup = false;
-        clearPanels();  //will that be a delay  
+        clearPanels();    
         displaytext.text = "Display: Off";
     }
 
     // Update is called once per frame
     void Update() {
-        /*if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (turnup == false)
-            {
-                displayPanels();
-                turnup = true;
-            }
-            else
-            {
-                clearPanels();
-                turnup = false;
-            }
-        }*/
         SetLabel(turnup);
     }
 
+    // Display the CategoryCanvas and SearchResultCanvas
     public void displayPanels()
     {
         turnup = true;
-        //SearchResultsCanvas --> ResultDisplay GetComponentsInChildren<Box Collider>
-        //CategoiresCanvas --> CategoryManager
+        //SearchResultsCanvas -->  GetComponentsInChildren<ResultDisplay>
+        //CategoiresCanvas -->  GetComponentsInChildren<CategoryManager>
         for (int index = 0; index < newpanels.Length; index++)
         {
-            if (newpanels[index].GetComponent<CategoryManager>() != null) //access PanelLeft
+            if (newpanels[index].GetComponent<CategoryManager>() != null) 
             {
                 newpanels[index].enabled = true;
                 BoxCollider[] SearchResultArray = newpanels[index].GetComponentsInChildren<BoxCollider>();
@@ -83,12 +75,16 @@ public class SearchPanelsControl : MonoBehaviour {
         }
     }
 
+    // Turn off the CategoryCanvas and SearchResultCanvas
     public void clearPanels()
     {
         turnup = false;
+
+        //SearchResultsCanvas -->  GetComponentsInChildren<ResultDisplay>
+        //CategoiresCanvas -->  GetComponentsInChildren<CategoryManager>
         for (int index = 0; index < newpanels.Length; index++)
         {
-            if (newpanels[index].GetComponent<CategoryManager>() != null) //access PanelLeft
+            if (newpanels[index].GetComponent<CategoryManager>() != null) 
             {
                 newpanels[index].enabled = false;
                 BoxCollider[] SearchResultArray = newpanels[index].GetComponentsInChildren<BoxCollider>();
@@ -122,20 +118,17 @@ public class SearchPanelsControl : MonoBehaviour {
             if (turnup == false)
             {
                 displayPanels();
-                //turnup = true;
             }
             else
             {
                 clearPanels();
-                //turnup = false;
             }
-            //other.gameObject.GetComponent<SteamVR_TrackedController>().controllerIndex.TriggerHapticPulse(VIB_INTENSITY);
             SteamVR_Controller.Input((int)other.GetComponent<SteamVR_TrackedController>().controllerIndex).TriggerHapticPulse(1000);
 
         }
     }
 
-
+    //set the label of toggle
     private void SetLabel(bool turnup)
     {
         if (turnup == false)
@@ -148,11 +141,13 @@ public class SearchPanelsControl : MonoBehaviour {
         }
     }
 
+    //helper function
     public bool GetIfPanelsEnabled()
     {
         return turnup;
     }
 
+    //return instance of SearchPanels
     public static SearchPanelsControl GetInstance()
     {
         return instance;
