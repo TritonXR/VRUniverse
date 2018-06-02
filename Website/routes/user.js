@@ -61,8 +61,7 @@ router.get('/signedin', function(req, res, next) {
             octokit.users.getOrgMembership({org: ORGNAME})
                 .then((res2) => {
 
-                    res2.data.role == "admin"
-                    if(res2.data.role == "admin" || process.env.IS_ADMIN) {
+                    if(res2.data.role == "admin" || process.env.IS_ADMIN == 1) {
 
                         //callback hell yay me
                         vive.getAllProjects(function(vive_data) {
