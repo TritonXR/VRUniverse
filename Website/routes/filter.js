@@ -8,7 +8,7 @@ String.prototype.isEmpty = function() {
 };
 
 
-router.get('/Vive/*', function(req, res, next) {
+router.get('/vive', function(req, res, next) {
 	let db = vive;
 	let obj = req.query;
 	var tagArr = []
@@ -28,15 +28,17 @@ router.get('/Vive/*', function(req, res, next) {
 		db.getProjectsFromTags(tagArr, function(query) {
 
 			if (query == null || query.length === 0) {
-				res.render('projects', {json : JSON.stringify(query), 
-										tagArr : [],
-										tags : JSON.stringify(data)
+				res.render('project-platform', {json : JSON.stringify(query), 
+										tagArray : [],
+										tags : JSON.stringify(data),
+										platform: 'Vive'
 										});
 			}
 			else {
-				res.render('projects', {json : JSON.stringify(query), 
-										tagArr : tagArr,
-										tags : JSON.stringify(data)
+				res.render('project-platform', {json : JSON.stringify(query), 
+										tagArray : tagArr,
+										tags : JSON.stringify(data),
+										platform: 'Vive'
 										});
 			}
 		});		
@@ -45,7 +47,7 @@ router.get('/Vive/*', function(req, res, next) {
 });
 
 
-router.get('/Oculus/*', function(req, res, next) {
+router.get('/Oculus', function(req, res, next) {
 	let db = oculus;
 	let obj = req.query;
 	var tagArr = []
@@ -65,15 +67,17 @@ router.get('/Oculus/*', function(req, res, next) {
 		db.getProjectsFromTags(tagArr, function(query) {
 
 			if (query == null || query.length === 0) {
-				res.render('projects', {json : JSON.stringify(query), 
-										tagArr : [],
-										tags : JSON.stringify(data)
+				res.render('project-platform', {json : JSON.stringify(query), 
+										tagArray : [],
+										tags : JSON.stringify(data),
+										platform: 'Oculus'
 										});
 			}
 			else {
-				res.render('projects', {json : JSON.stringify(query), 
-										tagArr : tagArr,
-										tags : JSON.stringify(data)
+				res.render('project-platform', {json : JSON.stringify(query), 
+										tagArray : tagArr,
+										tags : JSON.stringify(data),
+										platform: 'Oculus'
 										});
 			}
 		});		

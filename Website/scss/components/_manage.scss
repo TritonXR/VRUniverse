@@ -1,0 +1,22 @@
+.manage {
+
+	&__container {
+		padding-top: 5rem;
+	}
+
+	&__proj {
+		border: solid 2px;
+		border-radius: 5px;
+		margin-top : 1rem;
+		margin-bottom: 1rem;
+
+		&-row {
+			margin-bottom: 0.8rem;
+			margin-top: 0.8rem;
+		}
+
+		&-purp {
+			color: $default-purple;
+		}
+	}
+}

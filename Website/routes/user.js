@@ -60,8 +60,21 @@ router.get('/signedin', function(req, res, next) {
 
             octokit.users.getOrgMembership({org: ORGNAME})
                 .then((res2) => {
+
+                    if(res2.data.role == "admin" || process.env.IS_ADMIN == 1) {
+
+                        //callback hell yay me
+                        vive.getAllProjects(function(vive_data) {
+                            oculus.getAllProjects(function(oculus_data) {
+                                res.render('manage', {vive: vive_data, oculus: oculus_data});
+                            });
+                        });
+
+                        return;
+                    }
+
                     if (res2.data.role) {
-                        db.getAllTags((tags) => {
+                        vive.getAllTags((tags) => {
                             res.render('upload', {"tags" : tags});
                         });
                         return;
@@ -203,6 +216,11 @@ router.post('/upload', upload.any(), function(req, res) {
         }
     });
 });
+
+router.post('/remove', function(res, req, next) {
+    console.log(req.body, req.query);
+    res.json({"wow" : "wow"});
+})
 
 function findFile(extension, cb){
     var file = fs.readdirSync('tmp/');

@@ -27,7 +27,7 @@ block content
 	div.projects__sidenav
 		h1.projects__sidenav-title.text-center Filter
 		div.projects__sidenav__opts
-			form(method="get" action="/filter/")
+			form(method="get" action="/filter/#{platform}/")
 				div.projects__sidenav__opts-container
 					-for (var tag in searchTags)
 						div
