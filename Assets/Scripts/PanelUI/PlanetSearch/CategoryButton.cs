@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// used to allow users to toggle whether the search results select for a category or not
 public class CategoryButton : MonoBehaviour, PointableObject {
 
 	[SerializeField] private Image categoryIcon;
@@ -25,8 +26,10 @@ public class CategoryButton : MonoBehaviour, PointableObject {
 		
 	}
 
-	public void PointerEnter()
+    // called when user starts pointing at button
+    public void PointerEnter()
 	{
+        // highlight the planet if the category is not selected
         CategoryManager manager = CategoryManager.GetInstance();
         if (!manager.CheckIfSelected(categoryName))
         {
@@ -34,38 +37,45 @@ public class CategoryButton : MonoBehaviour, PointableObject {
         }
 	}
 
-	public void PointerClick()
+    // called when user pulls trigger while pointing at this button
+    public void PointerClick()
 	{
-
+        // toggle the category
 		CategoryManager manager = CategoryManager.GetInstance();
         manager.ToggleSelected(categoryName);
 
+        // override highlight for new state
         if (manager.CheckIfSelected(categoryName))
             categoryIcon.color = selectedColor;
         else
             categoryIcon.color = defaultColor;
     }
 
-	public void PointerExit()
+    // called when user stops pointing at button
+    public void PointerExit()
 	{
+        // override highlight for new state
 		if (CategoryManager.GetInstance().CheckIfSelected(categoryName))
 			categoryIcon.color = selectedColor;
 		else
 			categoryIcon.color = defaultColor;
 	}
 
+    // force the button back to default color
 	public void Deselect(){
 		categoryIcon.color = defaultColor;
 	}
 
+    // get the category attached to this button
     public string GetCategory()
     {
 		return categoryName;
     }
 
-	public void setCount(int num)
+    // update the category text with the number of planets in the category
+	public void SetCount(int num)
 	{
-		this.count = num;
+		count = num;
 		info = GetComponentInChildren<Text> ();
 		info.text = categoryName.ToUpper() + " ("+count+")";
 	}

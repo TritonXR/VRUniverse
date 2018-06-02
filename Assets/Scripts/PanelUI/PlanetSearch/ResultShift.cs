@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// uses to switch which search results are visible
+// use to switch which search results are visible
 public class ResultShift : MonoBehaviour, PointableObject {
 
 	public enum ResultShiftAmount {ShiftUpOne, ShiftDownOne};

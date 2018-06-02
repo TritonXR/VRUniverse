@@ -99,9 +99,10 @@ public class SimpleExitByMenuButton : MonoBehaviour {
             {
                 if (potential_controller.hideFlags == HideFlags.NotEditable || potential_controller.hideFlags == HideFlags.HideAndDontSave)
                     continue;
-
+#if UNITY_EDITOR
                 if (!UnityEditor.EditorUtility.IsPersistent(potential_controller.transform.root.gameObject))
                     continue;
+#endif
 
                 temp_controller_list.Add(potential_controller);
             }

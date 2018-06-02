@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// used to manage selected categories and get search results from database interface script
 public class CategoryManager : MonoBehaviour {
 
 	private static CategoryManager instance;
@@ -12,8 +13,6 @@ public class CategoryManager : MonoBehaviour {
     private CategoryButton[] categoryButtons;
 
 	private SQLiteTags database;
-
-
 
 	void Awake()
 	{
@@ -32,7 +31,7 @@ public class CategoryManager : MonoBehaviour {
 		buttonColliders = GetComponentsInChildren<BoxCollider>();
 		categoryButtons = GetComponentsInChildren<CategoryButton> ();
 		database = GetComponent<SQLiteTags> ();
-		count ();
+		GenerateCategoryCounts ();
 
         StartCoroutine(EndOfStartFrame());
 	}
@@ -42,10 +41,12 @@ public class CategoryManager : MonoBehaviour {
 		
 	}
 
+    // checks if a given category is selected or not
 	public bool CheckIfSelected(string category) {
 		return selectedCategories.Contains(category);
 	}
 
+    // toggles whether a given category is selected or not and updates search results
 	public void ToggleSelected(string category) {
 		if (selectedCategories.Contains(category)) {
 			selectedCategories.Remove(category);
@@ -57,64 +58,71 @@ public class CategoryManager : MonoBehaviour {
 
 		List<PlanetData> searchResults = new List<PlanetData>();
 
-        if (tags.Length > 0)
+        if (tags.Length > 0) // perform logical AND search if there are categories selected
         {
             searchResults = database.Select(tags);
         }
-        else
+        else // return all planets if no categories selected
         {
             searchResults = database.SelectAllPlanets();
         }
 
+        // update the result display
 		ResultDisplay.GetInstance().DisplaySearchResults(searchResults);
 	}
 
+    // get the number of selected categories
     public int GetNumSelected()
     {
         return selectedCategories.Count;
     }
 
+    // set whether the panel is visible or not
 	public void SetVisible(bool visible)
 	{
 		renderedCanvas.enabled = visible;
+
+        //disable buttons while panel is invisible
 		foreach (BoxCollider col in buttonColliders) {
 			col.enabled = visible;
 		}
 	}
 
+    // get singleton instance
 	public static CategoryManager GetInstance() {
 		return instance;
 	}
 
+    // reset so no categories are selected
 	public void ResetAll(){
 		for (int i = 0; i < categoryButtons.Length; i++) {
 			categoryButtons[i].Deselect();
 		}
-        selectedCategories.Clear();
+
+        selectedCategories.Clear(); //clear selected planets
+
+        //update results display
 		ResultDisplay.GetInstance().DisplaySearchResults(database.SelectAllPlanets());
 	}
 
-	public List<string> getSelectedCategories(){
-		return this.selectedCategories;
+    // get the list of selected categories
+	public List<string> GetSelectedCategories(){
+		return selectedCategories;
 	} 
 
-	public void count(){
-		for (int i = 0; i < categoryButtons.Length; i++) {
-			selectedCategories.Add (categoryButtons [i].GetCategory());
-			string[] tags = selectedCategories.ToArray();
+    // figure out how many planets are in each category
+	public void GenerateCategoryCounts(){
+        string[] tags = new string[1];
 
-			if (tags.Length > 0)
-			{
-				categoryButtons [i].setCount(database.Select(tags).Count);
-			}
-			else
-			{
-				categoryButtons [i].setCount(database.SelectAllPlanets().Count);
-			}
-			selectedCategories.Clear();
+        // go through each button, get its category, find the planets in that category, and tell the button how many planets that is
+		for (int i = 0; i < categoryButtons.Length; i++) {
+            tags[0] = categoryButtons[i].GetCategory();
+
+			categoryButtons[i].SetCount(database.Select(tags).Count);
 		}
 	}
 
+    // after all the start functions have been called, search for all planets and display them
     private IEnumerator EndOfStartFrame()
     {
         yield return new WaitForEndOfFrame();

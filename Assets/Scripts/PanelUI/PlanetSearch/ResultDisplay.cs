@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+// used to manage all of the search results
 public class ResultDisplay : MonoBehaviour {
 
     private static ResultDisplay instance = null;
@@ -14,8 +15,8 @@ public class ResultDisplay : MonoBehaviour {
 
     private List<PlanetData> planetSearchResults;
     private List<int> planetsWaitingForImages;
-    private int topEntryIndex, maxTopEntryIndex;
-    private PlanetData dummyPlanet;
+    private int topEntryIndex, maxTopEntryIndex; //current index of the entry displayed at the top; largest index that can be at the top
+    private PlanetData dummyPlanet; // planet data used to signify empty search results
 	private BoxCollider[] buttonColliders;
 
     private bool isLoadingImages;
@@ -53,12 +54,18 @@ public class ResultDisplay : MonoBehaviour {
 
     }
 
+    // displays the passed planet data
     public void DisplaySearchResults(List<PlanetData> searchResults)
     {
+        //saves data for future use
         planetSearchResults = searchResults;
         topEntryIndex = 0;
         maxTopEntryIndex = planetSearchResults.Count - entry_list.Length;
+
+        //displays the data
         UpdateDisplayedEntries();
+
+        //starts loading the planet image data
         List<string> imagePaths = new List<string>();
         List<PassSprite> callbacks = new List<PassSprite>();
         planetsWaitingForImages.Clear();
@@ -72,9 +79,12 @@ public class ResultDisplay : MonoBehaviour {
         ImageLoader.GetInstance().LoadImages(imagePaths, callbacks);
     }
 
+    // shifts the displayed results up or down
     public void ShiftDisplayedResults(int shiftUpAmount)
     {
         topEntryIndex += shiftUpAmount;
+
+        //clamps the shift
         if (topEntryIndex > maxTopEntryIndex)
         {
             topEntryIndex = maxTopEntryIndex;
@@ -84,46 +94,54 @@ public class ResultDisplay : MonoBehaviour {
             topEntryIndex = 0;
         }
 
+        //updates the displayed data
         UpdateDisplayedEntries();
     }
 
+    // passes data to the search result scripts to be displayed
     public void UpdateDisplayedEntries()
     {
-        if (planetSearchResults == null)
+        if (planetSearchResults == null) // case: no data has been passed yet
         {
             foreach (ResultEntry entry in entry_list)
             {
-                entry.DisplayPlanet(dummyPlanet);
+                entry.DisplayPlanet(dummyPlanet); // display empty data
             }
 
+            // disable up/down buttons
             upButton.SetButtonEnabled(false);
             downButton.SetButtonEnabled(false);
         }
         else
         {
             for (int index = 0; index < entry_list.Length; index++) {
-				if (index + topEntryIndex < planetSearchResults.Count) {
+				if (index + topEntryIndex < planetSearchResults.Count) { // display data where possible
 					entry_list[index].DisplayPlanet(planetSearchResults[index + topEntryIndex]);
-				} else {
+				} else { // display empty data if not enough actual data
 					entry_list[index].DisplayPlanet(dummyPlanet);
 				}
             }
 
+            // only allow scrolling up and down so far
             upButton.SetButtonEnabled(topEntryIndex > 0);
             downButton.SetButtonEnabled(topEntryIndex < maxTopEntryIndex);
         }
     }
 
+
+    // enable or disable the canvas and its buttons
 	public void SetVisible(bool visible) {
 		resultsCanvas.enabled = visible;
 		if (!visible) {
 			foreach (BoxCollider col in buttonColliders)
 				col.enabled = false;
 		} else {
+            // update entries on enable
 			UpdateDisplayedEntries();
 		}
 	}
 
+    // receives and distributes planet images when the loader produces them
     public void ReceiveSprite(Sprite image)
     {
         int planetIndex = planetsWaitingForImages[0];
@@ -138,11 +156,13 @@ public class ResultDisplay : MonoBehaviour {
         }
     }
 
+    // get a reference to the result display singleton
     public static ResultDisplay GetInstance()
     {
         return instance;
     }
 
+    // update the display after all other start function have finished
 	private IEnumerator PostStartBehaviors() {
 		yield return new WaitForEndOfFrame();
 		UpdateDisplayedEntries();

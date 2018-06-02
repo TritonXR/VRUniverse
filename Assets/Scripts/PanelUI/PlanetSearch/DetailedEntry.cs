@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// used to display detailed info about a search result of interest
 public class DetailedEntry : MonoBehaviour {
 
 	private static DetailedEntry instance = null;
@@ -34,6 +35,7 @@ public class DetailedEntry : MonoBehaviour {
 		
 	}
 
+    // update displayed into
 	public void UpdateInfo(string title, string creator, string desc, string year, string[] tags, Sprite image)
 	{
 		//Sets the text for the different data components on the menu
@@ -58,6 +60,8 @@ public class DetailedEntry : MonoBehaviour {
 		}
 
 		Planet_Tag.text = tagText;
+
+        // image may or may not be loaded when this function is called
         if (image != null)
         {
             Planet_Image.sprite = image; //Uses the image component to set the sprite of what the picture should be
@@ -70,6 +74,7 @@ public class DetailedEntry : MonoBehaviour {
 
 	}
 
+    // set whether the canvas is visible or not
 	public void SetVisible(bool visible)
 	{
 		renderedCanvas.enabled = visible;
@@ -78,16 +83,21 @@ public class DetailedEntry : MonoBehaviour {
 		}
 	}
 
+    // gets the button that handles traveling to/from planets
 	public TravelInteractable GetTravelButton() {
 		return travelButton;
 	}
 
+
+    // receive and display a sprite
     public void ReceiveSprite(Sprite image)
     {
         Planet_Image.sprite = image;
         Planet_Image.enabled = true;
     }
 
+
+    // get singleton instance
 	public static DetailedEntry GetInstance()
 	{
 		return instance;
