@@ -15,14 +15,10 @@ block content
             color: black;
         }
 
-        #cont {
-            margin: 20rem;
-        }
-
     div.row
         div.container
-            div.text-center#cont
-                a(href="/projects/Oculus")
-                    h1 Oculus Rift
-                a(href="/projects/Vive")
-                    h1 HTC Vive
+            div.text-center.projects__platform
+                a(href="/projects/Oculus").projects__platform-link
+                  img(src='/public/images/htcvivebutton.png').projects__platform-link-img
+                a(href="/projects/Vive").projects__platform-link
+                  img(src='/public/images/oculusriftbutton_720.png').projects__platform-link-img
