@@ -45,7 +45,7 @@ router.get('/signedin', function(req, res, next) {
         headers: {
             'User-Agent': 'Request-Promise'
         },
-        json: true 
+        json: true
     };
 
     request(opts)
@@ -99,7 +99,7 @@ router.post('/upload', upload.any(), function(req, res) {
     if (!platform) {
         res.render('universe_err', {err: 'Please Fill in All Fields!'});
         return;
-    }    
+    }
 
     if (platform == 'HTC Vive') {
         platform = 'Vive';
@@ -208,7 +208,6 @@ router.post('/upload', upload.any(), function(req, res) {
                     }
 
                     db.createEntry(proj, function(status) {
-                        res.send('Successfully Uploaded Project!');
                         res.render('upload_success',{upload_success:"Successfully Uploaded Project!"});
                     });
                 });
