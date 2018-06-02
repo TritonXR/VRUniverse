@@ -30,7 +30,7 @@
 
 		    &-label {
 			    margin-left: 1rem;
-			    font-size: 1.8rem;	
+			    font-size: 1.8rem;
 		    }
 
 		    &-btn {
@@ -42,7 +42,7 @@
 				    color : #7b4ba8;
 				    background-color: #fbfbfb;
 				    box-shadow: 0px 1px 1px 2px #ccc;
-			    }	    	
+			    }
 		    }
 	    }
 	}
@@ -118,8 +118,19 @@
 		    &:hover {
 		    	background-color: $default-purple;
 		    	color: #fbfbfb;
-		    	text-decoration: none; 
+		    	text-decoration: none;
 		    }
+		}
+	}
+
+	&__platform {
+		padding-top: 10rem;
+
+		&-link {
+
+				&-img {
+					width: 50rem;
+				}
 		}
 	}
 }

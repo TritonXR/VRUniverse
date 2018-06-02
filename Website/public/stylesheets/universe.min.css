@@ -273,6 +273,11 @@ html, body {
     color: #fbfbfb;
     text-decoration: none; }
 
+.projects__platform {
+  padding-top: 10rem; }
+  .projects__platform-link-img {
+    width: 50rem; }
+
 .choose__container {
   font-size: 2rem;
   margin-top: 3rem; }
