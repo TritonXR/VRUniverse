@@ -38,6 +38,8 @@ public class PlanetDisplay : MonoBehaviour {
         renderedCanvas = GetComponent<Canvas>();
         renderedCanvas.enabled = false;
 		buttonColliders = GetComponentsInChildren<BoxCollider> ();
+
+        //disable the button colliders so that they don't obstruct the pointer when invisible
 		foreach (BoxCollider col in buttonColliders) {
 			col.enabled = false;
 		}
@@ -125,6 +127,7 @@ public class PlanetDisplay : MonoBehaviour {
         if(renderedCanvas != null) renderedCanvas.enabled = visible;
         if (buttonColliders != null)
         {
+            //enable/disable the button colliders so that they don't obstruct the pointer when invisible
             foreach (BoxCollider col in buttonColliders)
             {
                 col.enabled = visible;

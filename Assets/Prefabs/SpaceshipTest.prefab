@@ -1519,6 +1519,7 @@ GameObject:
   - component: {fileID: 23126144375295144}
   - component: {fileID: 33375045968333374}
   - component: {fileID: 114651003510881440}
+  - component: {fileID: 114123078895356138}
   m_Layer: 0
   m_Name: '[CameraRig]'
   m_TagString: Untagged
@@ -7209,6 +7210,18 @@ MonoBehaviour:
   resetIcon: {fileID: 114927199112670208}
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   highlightColor1: {r: 0, g: 1, b: 0, a: 1}
+--- !u!114 &114123078895356138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1409227591877718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b352d38c7cd1442858c029ed9cd274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ControlMode: 1
 --- !u!114 &114131918759506804
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8175,6 +8188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonText: {fileID: 114447239175317978}
   moveController: {fileID: 114151781851967412}
+  buttonBorder: {fileID: 0}
   TextDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   TextHighlightColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &114273801847039246
@@ -8388,6 +8402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonText: {fileID: 114638929598307122}
   moveController: {fileID: 114651881333594090}
+  buttonBorder: {fileID: 0}
   TextDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   TextHighlightColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &114309993503590880
@@ -9338,6 +9353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonText: {fileID: 114258576958120012}
   moveController: {fileID: 114674740897432562}
+  buttonBorder: {fileID: 0}
   TextDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   TextHighlightColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &114500800414600660
@@ -9638,7 +9654,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detailedEntryCanvas: {fileID: 223830853614351182}
-  highlight: {fileID: 0}
 --- !u!114 &114572034006510646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11633,6 +11648,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonText: {fileID: 114847434898826958}
   moveController: {fileID: 114318386658527690}
+  buttonBorder: {fileID: 0}
   TextDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   TextHighlightColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &114864862644248692
@@ -11891,6 +11907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonText: {fileID: 114439861796951484}
   moveController: {fileID: 114714223100899046}
+  buttonBorder: {fileID: 0}
   TextDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   TextHighlightColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &114915229839137448
@@ -12306,7 +12323,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761155654530700}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.008
   m_Height: 0.06
@@ -16883,8 +16900,8 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1130666903
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &224009613422120444
 RectTransform:
