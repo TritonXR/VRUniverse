@@ -8,7 +8,12 @@ public class TutorialController : MonoBehaviour {
 
     [SerializeField] private GameObject[] tutorialPanels;
     [SerializeField] private GameObject tutorialSpawnPoint; // spawn point
-    
+
+    [SerializeField] public UniverseSystem USystem;
+
+    [SerializeField] public static bool isOculus;
+
+
 
 
     int tutorialsFinished = 0;
@@ -19,6 +24,7 @@ public class TutorialController : MonoBehaviour {
 
     void Awake()
     {
+        isOculus = USystem.GetOculusBool();
         if (instance != null && instance != this)
         {
             Destroy(this);
@@ -45,10 +51,21 @@ public class TutorialController : MonoBehaviour {
         {
             AdvanceTutorial();
         }
-        if (tutorialsFinished == 1 && SearchPanelsControl.GetInstance().GetIfPanelsEnabled())
+        if (!isOculus)
         {
-            AdvanceTutorial();
+            if (tutorialsFinished == 1 && SearchPanelsControl.GetInstance().GetIfPanelsEnabled())
+            {
+                AdvanceTutorial();
+            }
         }
+        else
+        {
+            if (tutorialsFinished == 1 && OculusSearchPanelsControl.GetInstance().GetIfPanelsEnabled())
+            {
+                AdvanceTutorial();
+            }
+        }
+       
         if (tutorialsFinished == 2 && !UniverseSystem.GetInstance().GetCurrentYear().Equals(UniverseSystem.LOBBY_YEAR_STRING))
         {
             AdvanceTutorial();
@@ -64,7 +81,8 @@ public class TutorialController : MonoBehaviour {
         Debug.Log("Skipping Tutorials");
         foreach (GameObject tutorial in tutorialPanels) tutorial.SetActive(false);
         tutorialsFinished = tutorialPanels.Length;
-        SearchPanelsControl.GetInstance().displayPanels();
+        if (!isOculus) SearchPanelsControl.GetInstance().displayPanels();
+        else OculusSearchPanelsControl.GetInstance().displayPanels();
     }
 
     public static TutorialController GetInstance()
