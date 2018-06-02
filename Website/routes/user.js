@@ -61,7 +61,7 @@ router.get('/signedin', function(req, res, next) {
             octokit.users.getOrgMembership({org: ORGNAME})
                 .then((res2) => {
 
-                    if(res2.data.role == "admin" || process.env.IS_ADMIN == 1) {
+                    if((res2.data.role == "admin" || process.env.IS_ADMIN == 1)) {
 
                         //callback hell yay me
                         vive.getAllProjects(function(vive_data) {
@@ -86,6 +86,21 @@ router.get('/signedin', function(req, res, next) {
         })
 });
 
+
+router.get('/manage/upload', function (req,res, next) {
+    octokit.users.getOrgMembership({org: ORGNAME})
+        .then((res2) => {
+            if (res2.data.role) {
+                vive.getAllTags((tags) => {
+                    res.render('upload', {"tags" : tags});
+                });
+                return;
+            }
+            res.json({err: "You Are Not A Member Of UCSDVR!"})
+
+        })
+        .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.status}))
+});
 
 router.post('/upload', upload.any(), function(req, res) {
     var year = req.body.year;
@@ -180,6 +195,9 @@ router.post('/upload', upload.any(), function(req, res) {
     if (typeof tags === 'string') {
         tags = [tags];
     }
+
+    console.log(tags, typeof tags);
+
     var tag_arr = tags;
     var proj = {
         Name: projectname,
@@ -216,9 +234,45 @@ router.post('/upload', upload.any(), function(req, res) {
     });
 });
 
-router.post('/remove', function(res, req, next) {
-    console.log(req.body, req.query);
-    res.json({"wow" : "wow"});
+router.post('/remove', function(req, res, next) {
+    let platform = req.body.platform;
+    let id = req.body.id;
+    let year = req.body.year;
+    let name = req.body.name
+
+    if (platform == 'vive') {
+        platform = 'Vive'
+        var db = vive;
+    }
+    else if (platform == 'oculus') {
+        platform = 'Oculus'
+        var db = oculus;
+    }
+    let json_dir = "./data/VRClubUniverseData/" + platform + '/';
+    console.log(json_dir + year + '.json');
+    fs.readFile(json_dir + year + '.json', 'utf-8', function(err, file_content) {
+        if(err) {
+            console.log(err);
+        } else {
+            content = JSON.parse(file_content);
+            if(content){
+                let i = 0;
+                let arr = content['PlanetJSON'].filter(data => data.Name != name);
+                let x = {PlanetJSON: arr};
+                console.log(arr);
+                fs.writeFile(json_dir + year + '.json', JSON.stringify(x, null, 2), function (err) {
+                    if(err){
+                        res.json({err});
+                        return;
+                    }
+
+                    db.removeEntry(id, function(status) {
+                        res.json({"status" : "woooo"});
+                    });
+                });
+            }
+        }
+    });
 })
 
 function findFile(extension, cb){

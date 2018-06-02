@@ -78,7 +78,7 @@ exports.getProjectsFromTags = (tags, callback) => {
 exports.createEntry = (json, callback) => {
 
 	let vals = [json.Name, json.Creator , json.Description , json.Year, 
-				json.Image, json.Executable, "[ " + json.Tags.toString() + " ]"];
+				json.Image, json.Executable,json.Tags.toString()];
 
 	let createPlanetEntry = `INSERT INTO planets (name, creator, description, 
 								year, image, executable, tags) 

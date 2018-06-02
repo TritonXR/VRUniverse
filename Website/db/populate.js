@@ -4,7 +4,8 @@
 */
 
 var sqlite3 = require('sqlite3').verbose();
-const DBNAME = 'test.db';
+const DBNAME = 'oculus.db';
+platform = 'Oculus';
 var path = require('path');
 var db = new sqlite3.Database(path.resolve( './' + DBNAME),
 							sqlite3.OPEN_READWRITE, (err) => {
@@ -18,7 +19,7 @@ const planet_insert_sql = "INSERT INTO planets (name, creator, description, year
 const tag_insert_sql = "INSERT or IGNORE INTO tags (tag) VALUES(?)"
 const map_insert_sql = "INSERT INTO map (planet_id, tag_id) VALUES(?, ?)"
 
-glob("../data/VRClubUniverseData/*.json", function(er, files) {
+glob("../data/VRClubUniverseData/" + platform + "/*.json", function(er, files) {
     if(er) return;
 
     var x = 0;
@@ -34,10 +35,11 @@ glob("../data/VRClubUniverseData/*.json", function(er, files) {
 
 
 function populate(planets) {
-    //populatePlanets(planets);
+    console.log("here");
+    populatePlanets(planets);
     populateTags(planets);
     //populateMapper(planets);
-    //db.close();
+    db.close();
 }
 
 

@@ -1,8 +1,8 @@
 import sqlite3
 import json
 
-years = [str(2016), str(2017)];
-
+years = [str(2018)];
+platform = 'Oculus'
 planet_insert_sql = "INSERT INTO planets (name, creator, description, year, image, executable, tags) VALUES(?, ?, ?, ?, ?, ?, ?)" 
 tag_insert_sql = "INSERT or IGNORE INTO tags (tag) VALUES(?)"
 map_insert_sql = "INSERT INTO map (planet_id, tag_id) VALUES(?, ?)"
@@ -56,11 +56,12 @@ def populateMapperWithYears():
             conn.commit();
 
 for year in years:    
-    data = json.load(open('../data/VRClubUniverseData/' + year + '.json'))
-    conn = sqlite3.connect('test.db')
+    data = json.load(open('../data/VRClubUniverseData/' + platform + '/'  + year + '.json'))
+    conn = sqlite3.connect('oculus.db')
 
     #call methods here
     populateMapperWithYears();
+    populateMapper();
 
     conn.commit();
 

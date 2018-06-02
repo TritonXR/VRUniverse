@@ -21,6 +21,7 @@ block content
 
     div.row
         div.manage__container.col-md-10.col-md-offset-1
+                a(href='/user/manage/upload') Go To Upload Form
                 h2.row Vive Projects In VR Universe
                     -for (let i = 0; i < vive.length; i++) {
                         div(data-toggle="collapse" data-target="#vive-#{vive[i].id}").col-md-10.col-md-offset-1.manage__proj 
@@ -40,7 +41,7 @@ block content
                                     span.manage__proj-purp Tags: 
                                     span #{vive[i].tags}
                                 div.row.manage__delete.text-center
-                                    button.btn.btn-danger.btn-lg.delete-btn(data-platform="vive" data-id="#{vive[i].id}" onclick="removeProj(this)") Delete
+                                    button.btn.btn-danger.btn-lg.delete-btn(data-platform="vive" data-id="#{vive[i].id}" onclick="removeProj(this)" data-year="#{vive[i].year}" data-name="#{vive[i].name}") Delete
 
                     -}
 
@@ -64,11 +65,14 @@ block content
                 url: "/user/remove/",
                 data: {
                     platform: elem.dataset.platform,
-                    id: elem.dataset.id
+                    id: elem.dataset.id,
+                    year: elem.dataset.year,
+                    name: elem.dataset.name
                 },
                 dataType: "json",
                 success: function(data) {
-                    alert(data);
+                    alert(JSON.stringify(data));
+                    $(elem).hide();
                 }
             })
           }
