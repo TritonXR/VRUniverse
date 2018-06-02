@@ -41,7 +41,7 @@ namespace VRUniverse_Helper
                     }
 
                     Console.WriteLine("Too few arguments, starting " + vruniverse_exe_name);
-                    Process.Start("VRUniverse.exe");
+                    Process.Start(vruniverse_exe_name);
                     return;
                 }
                 catch (Exception e)
