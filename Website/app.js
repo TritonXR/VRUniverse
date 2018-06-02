@@ -62,6 +62,10 @@ app.get('/universe_err', (req, res, next) => {
   */
 });
 
+app.get('/upload_success', (req, res, next) => {
+  res.render('upload_success',{upload_success:"Upload Successfully!"});
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

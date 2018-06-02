@@ -196,6 +196,7 @@ router.post('/upload', upload.any(), function(req, res) {
 
                     db.createEntry(proj, function(status) {
                         res.send('Successfully Uploaded Project!');
+                        res.render('upload_success',{upload_success:"Successfully Uploaded Project!"});
                     });
                 });
             }
