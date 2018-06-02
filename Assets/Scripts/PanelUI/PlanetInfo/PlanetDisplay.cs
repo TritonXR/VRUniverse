@@ -12,8 +12,8 @@ public class PlanetDisplay : MonoBehaviour {
     [SerializeField] private Transform targetViewer; //the canvas will turn to face this transform
     [SerializeField] private Transform orbitAnchor; //the canvas will orbit around this transform
     [SerializeField] private float orbitRadius; //how far the canvas is from the orbit anchor
-    [SerializeField] private Vector2 baseOffsetDirection; //this gets normalized, so you just need the direction roughly correct
-    [SerializeField] private Vector2 additionalOffset; //this doesn't get normalized, it's in addition to the base offset
+    [SerializeField] private Vector2 baseOffsetDirection; //this centers the panel around one edge of the planet (if normalized, may be closer or farther from center based on length)
+    [SerializeField] private Vector2 additionalOffset; // this is additional offset used to correct for the size of the panel
     [SerializeField] private TravelInteractable travelConfirmButton; 
     [SerializeField] private ExitInteractable exitButton;
     public Transform targetPlanet;
@@ -33,6 +33,8 @@ public class PlanetDisplay : MonoBehaviour {
     void Start () {
         targetPlanet = null;
         //baseOffsetDirection.Normalize();
+
+        //canvas and buttons disabled by default
         renderedCanvas = GetComponent<Canvas>();
         renderedCanvas.enabled = false;
 		buttonColliders = GetComponentsInChildren<BoxCollider> ();
@@ -45,6 +47,8 @@ public class PlanetDisplay : MonoBehaviour {
 	void Update () {
 		if(targetPlanet != null)
         {
+
+            //positions itself in front of a planet a set distance from the anchor facing the viewer
             Vector3 targetPlanetOffset = targetPlanet.position - orbitAnchor.position;
             Vector3 rightOffsetDir = Vector3.Cross(targetPlanetOffset, Vector3.up).normalized;
             Vector3 upOffsetDir = Vector3.Cross(rightOffsetDir, targetPlanetOffset).normalized;
@@ -66,16 +70,19 @@ public class PlanetDisplay : MonoBehaviour {
         }
     }
 
+    // sets what the viewer is looking at
     public void SetViewTarget(Transform target)
     {
         targetPlanet = target;
     }
 
+    // gets what the viewer is looking at
     public Transform GetViewTarget()
     {
         return targetPlanet;
     }
 
+    //updates the info on the panel
     public void UpdateInfo(string title, string creator, string desc, string year, string[] tags, Sprite image)
     {
         //Sets the text for the different data components on the menu
@@ -112,6 +119,7 @@ public class PlanetDisplay : MonoBehaviour {
         
     }
 
+    // makes the panel and its buttons visible or not
     public void SetVisible(bool visible)
     {
         if(renderedCanvas != null) renderedCanvas.enabled = visible;
@@ -124,16 +132,19 @@ public class PlanetDisplay : MonoBehaviour {
         }
     }
 
+    // gets the exit button
     public ExitInteractable GetExitInteractable()
     {
         return exitButton;
     }
 
+    // gets the travel button
     public TravelInteractable GetTravelInteractable()
     {
         return travelConfirmButton;
     }
 
+    // gets the singleton instance
     public static PlanetDisplay GetInstance()
     {
         return instance;
