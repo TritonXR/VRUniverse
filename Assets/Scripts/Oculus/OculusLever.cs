@@ -59,15 +59,8 @@ public class OculusLever : MonoBehaviour, LeverVariant
         AcceptingInput = true;
         //Debug.Log("Default speed: " + DEFAULT_SPEED);
         SetLabel(DEFAULT_SPEED);
-
-        if (DEFAULT_SPEED * MAX_SPEED > 0.0f)
-        {
-            currentOffset = STOP_MAX + DEFAULT_SPEED / MAX_SPEED * (MAX_OFFSET - STOP_MAX);
-        }
-        else
-        {
-            currentOffset = STOP_MIN + DEFAULT_SPEED / MAX_SPEED * (MIN_OFFSET - STOP_MIN);
-        }
+        currentOffset = 0.0f;
+        
         transform.position = Vector3.Lerp(RearAnchor.position, ForwardAnchor.position, currentOffset / 2.0f + 0.5f);
 
         maxOffsetDistance = Vector3.Distance(ForwardAnchor.position, RearAnchor.position) / 2.0f;

@@ -16,6 +16,8 @@ public class TravelInteractable : MonoBehaviour, PointableObject
     //Access to the planet executable string
     [SerializeField] private string executableString;
 
+    [SerializeField] public UniverseSystem USystem;
+
     void Start()
     {
         
@@ -56,9 +58,13 @@ public class TravelInteractable : MonoBehaviour, PointableObject
         //Write the year index to the following path
         string path;
 #if UNITY_EDITOR
-            path = Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/saveData.txt"; //saveData not exist on my side
+            if (USystem.GetOculusBool()) path = Application.dataPath + "/../Website/data/VRClubUniverseData/Oculus/saveData.txt"; //saveData not exist on my side
+        else path = Application.dataPath + "/../Website/data/VRClubUniverseData/Vive/saveData.txt"; //saveData not exist on my side
 #elif UNITY_STANDALONE
-            path = Application.dataPath + "/../VRClubUniverseData/Vive/saveData.txt"; //Change everything under VRClubUniverseData to VR../Vive/
+            if (USystem.GetOculusBool()) path = Application.dataPath + "/../VRClubUniverseData/Oculus/saveData.txt"; //Change everything under VRClubUniverseData to VR../Vive/
+            else path = Application.dataPath + "/../VRClubUniverseData/Vive/saveData.txt"; //Change everything under VRClubUniverseData to VR../Vive/
+        
+            
 #endif
 
         string currentYear = UniverseSystem.GetInstance().GetCurrentYear();
