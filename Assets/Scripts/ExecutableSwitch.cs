@@ -53,7 +53,7 @@ public class ExecutableSwitch : MonoBehaviour
 		System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 		startInfo.FileName = helperDatapath;
 		if (isOculus) startInfo.Arguments = "\"" + datapath + "\" \"" + appDatapath + "/../VRUniverse_Oculus.exe\" " + delayTime;
-        else startInfo.Arguments = "\"" + datapath + "\" \"" + appDatapath + "/../VRUniverse.exe\" " + delayTime;
+        else startInfo.Arguments = "\"" + datapath + "\" \"" + appDatapath + "/../VRUniverse_Vive.exe\" " + delayTime;
 
 
         Debug.Log("Arguments: " + startInfo.Arguments);

@@ -20,7 +20,10 @@ public class TravelInteractable : MonoBehaviour, PointableObject
 
     void Start()
     {
-        
+        if (!USystem)
+        {
+            USystem = UniverseSystem.GetInstance();
+        }
     }
 
     /*
