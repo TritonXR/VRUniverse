@@ -8,7 +8,7 @@ mixin filter-mixin(data)
 								div.projects__elem-name #{data.name}
 						div.row
 							div.col-md-2(align="center")
-								img(src="/data/VRClubUniverseData/VR_Demos/#{data.year}/#{data.executable}/#{data.image}").projects__elem-img
+								img(src="/data/VRClubUniverseData/#{platform}/#{data.year}/#{data.executable}/#{data.image}").projects__elem-img
 							div.col-md-8.col-md-offset-2.projects__elem-data
 								div(class="row projects__elem-data__row")
 									div.projects__elem-data__row-title Creator(s) : 
@@ -22,6 +22,6 @@ mixin filter-mixin(data)
 										- data.tags = data.tags.split(",");
 										-data.tags.push("" + data.year);
 											- for (var key in data.tags)
-												a.projects__elem-tag(href="/filter/?#{data.tags[key]}=true")
+												a.projects__elem-tag(href="/filter/#{platform}/?#{data.tags[key]}=true")
 													span #{data.tags[key]}
 										

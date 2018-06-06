@@ -1,7 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 var path = require('path');
-var db_path = (process.env.UNIVERSE_DB_DEV) ? 'test_universe.db' : 'universe.db';
-var db = new sqlite3.Database(path.resolve( __dirname + '/../db/' + db_path),
+var db_path = (process.env.UNIVERSE_DB_DEV) ? 'test_oculus.db' : 'oculus.db';
+var db = new sqlite3.Database(path.resolve( __dirname + '/../data/VRClubUniverseData/Oculus/' + db_path),
 							sqlite3.OPEN_READWRITE, (err) => {
 	if (err) console.error(err.message);
 	else console.log('Connected to the ' + db_path + ' database!');
@@ -78,7 +78,7 @@ exports.getProjectsFromTags = (tags, callback) => {
 exports.createEntry = (json, callback) => {
 
 	let vals = [json.Name, json.Creator , json.Description , json.Year, 
-				json.Image, json.Executable, "[ " + json.Tags.toString() + " ]"];
+				json.Image, json.Executable,json.Tags.toString()];
 
 	let createPlanetEntry = `INSERT INTO planets (name, creator, description, 
 								year, image, executable, tags) 

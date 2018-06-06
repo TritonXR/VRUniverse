@@ -1,32 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/* This class is to change some particular values of planets.
+ */
 public class ChangeValue : MonoBehaviour {
-//	public string name = "Vivace";
-//	public int year = 2017;
-
-//	public Color oricolor1 = Color.yellow;
-//	public Color oricolor2 = Color.blue;
-//	public Color basecolor;
-//	public Color peakcolor;
-//	public Color sludgecolor;
-//	public float crackscale = 0;
-//	public float crackwarping = 0;
-//	public float waterlevel = 0;
-//
-//	private string property1 = "Base Color";
-//	private string property2 = "Peak Color";
-//	private string property3 = "Sludge Color";
-//	private string property4 = "Cracks Scale";
-//	private string property5 = "Cracks Scale";
-//	private string property6 = "Water Level";
-//	public Renderer rend;
-//	void Start() {
-//		rend = GetComponent<Renderer>();
-//	}
-//
-
-
+	//Change those planets'looking depending on their properites: name and year
 	public void change(Renderer rend, string name, int year, bool renderImmediately){
 		Color oricolor1 = Color.yellow;
 		Color oricolor2 = Color.blue;
@@ -43,7 +21,7 @@ public class ChangeValue : MonoBehaviour {
 			newname += name1 [i];
 		}
 
-		//change color
+		//Use hash functions to make different planets have different colors
 		if (year % 3 == 0) {
 			basecolor = new Color ((newname * year) % 255 /255.0f, (newname + year) % 255 /255.0f,(newname ^ year) % 255 /255.0f);
 			peakcolor = new Color ((newname + year) % 255 /255.0f, oricolor1.g, oricolor1.b);
@@ -60,15 +38,21 @@ public class ChangeValue : MonoBehaviour {
 			sludgecolor = new Color (oricolor2.r, oricolor2.g,newname % 255/255.0f);
 		}
 
+		//Use hash functions to change the crackscale, crakwarping and waterlevel
 		crackscale = (newname + year) % 30 * 2;
 		crackwarping = newname % 100 / 100.0f;
 		waterlevel = newname*2  % 100 / 100.0f;
 
+		//Apply all the changes
 		applyChange (rend,basecolor,peakcolor,sludgecolor,crackscale,crackwarping,waterlevel, renderImmediately);
 	}
 
+
+	//Apply changes to those planets
 	void applyChange(Renderer rend,Color basecolor,Color peakcolor,Color sludgecolor,float crackscale,float crackwarping,float waterlevel, bool renderImmediately) {
 		ProceduralMaterial substance = rend.sharedMaterial as ProceduralMaterial;
+
+		//Set all those values.
 		if (substance) {
 
 			substance.SetProceduralColor("Base Color",basecolor);

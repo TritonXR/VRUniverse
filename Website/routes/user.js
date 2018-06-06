@@ -11,7 +11,9 @@ var WebSocketServer = require('ws').Server;
 var unzip = require('unzip');
 var multer = require('multer');
 var path = require('path');
-var db = require('./db.js');
+var vive = require('./vive-db.js')
+var oculus = require('./oculus-db.js')
+
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -43,7 +45,7 @@ router.get('/signedin', function(req, res, next) {
         headers: {
             'User-Agent': 'Request-Promise'
         },
-        json: true 
+        json: true
     };
 
     request(opts)
@@ -58,8 +60,21 @@ router.get('/signedin', function(req, res, next) {
 
             octokit.users.getOrgMembership({org: ORGNAME})
                 .then((res2) => {
+
+                    if((res2.data.role == "admin" || process.env.IS_ADMIN == 1)) {
+
+                        //callback hell yay me
+                        vive.getAllProjects(function(vive_data) {
+                            oculus.getAllProjects(function(oculus_data) {
+                                res.render('manage', {vive: vive_data, oculus: oculus_data});
+                            });
+                        });
+
+                        return;
+                    }
+
                     if (res2.data.role) {
-                        db.getAllTags((tags) => {
+                        vive.getAllTags((tags) => {
                             res.render('upload', {"tags" : tags});
                         });
                         return;
@@ -67,10 +82,25 @@ router.get('/signedin', function(req, res, next) {
                     res.json({err: "You Are Not A Member Of UCSDVR!"})
 
                 })
-                .catch((err) => res.json({err: err}))
+                .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.status}))
         })
 });
 
+
+router.get('/manage/upload', function (req,res, next) {
+    octokit.users.getOrgMembership({org: ORGNAME})
+        .then((res2) => {
+            if (res2.data.role) {
+                vive.getAllTags((tags) => {
+                    res.render('upload', {"tags" : tags});
+                });
+                return;
+            }
+            res.json({err: "You Are Not A Member Of UCSDVR!"})
+
+        })
+        .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.status}))
+});
 
 router.post('/upload', upload.any(), function(req, res) {
     var year = req.body.year;
@@ -79,8 +109,24 @@ router.post('/upload', upload.any(), function(req, res) {
     var upload_exec = '';
     console.log(req.body)
 
-    var json_dir = "./data/VRClubUniverseData/";
-    var exec_dir = "./data/VRClubUniverseData/VR_Demos/";
+    var platform = req.body.platform;
+
+    if (!platform) {
+        res.render('universe_err', {err: 'Please Fill in All Fields!'});
+        return;
+    }
+
+    if (platform == 'HTC Vive') {
+        platform = 'Vive';
+        var db = vive;
+    }
+    else if (platform == 'Oculus Rift') {
+        platform = 'Oculus'
+        var db = oculus;
+    }
+
+    var json_dir = "./data/VRClubUniverseData/" + platform + '/';
+    var exec_dir = "./data/VRClubUniverseData/" + platform + '/';
     if(!fs.existsSync(exec_dir + year))
     {
         fs.mkdirSync(exec_dir + year);
@@ -145,6 +191,13 @@ router.post('/upload', upload.any(), function(req, res) {
     });
 
     var tags = req.body.tags;
+
+    if (typeof tags === 'string') {
+        tags = [tags];
+    }
+
+    console.log(tags, typeof tags);
+
     var tag_arr = tags;
     var proj = {
         Name: projectname,
@@ -173,13 +226,54 @@ router.post('/upload', upload.any(), function(req, res) {
                     }
 
                     db.createEntry(proj, function(status) {
-                        res.send('Successfully Uploaded Project!');
+                        res.render('upload_success',{upload_success:"Successfully Uploaded Project!"});
                     });
                 });
             }
         }
     });
 });
+
+router.post('/remove', function(req, res, next) {
+    let platform = req.body.platform;
+    let id = req.body.id;
+    let year = req.body.year;
+    let name = req.body.name
+
+    if (platform == 'vive') {
+        platform = 'Vive'
+        var db = vive;
+    }
+    else if (platform == 'oculus') {
+        platform = 'Oculus'
+        var db = oculus;
+    }
+    let json_dir = "./data/VRClubUniverseData/" + platform + '/';
+    console.log(json_dir + year + '.json');
+    fs.readFile(json_dir + year + '.json', 'utf-8', function(err, file_content) {
+        if(err) {
+            console.log(err);
+        } else {
+            content = JSON.parse(file_content);
+            if(content){
+                let i = 0;
+                let arr = content['PlanetJSON'].filter(data => data.Name != name);
+                let x = {PlanetJSON: arr};
+                console.log(arr);
+                fs.writeFile(json_dir + year + '.json', JSON.stringify(x, null, 2), function (err) {
+                    if(err){
+                        res.json({err});
+                        return;
+                    }
+
+                    db.removeEntry(id, function(status) {
+                        res.json({"status" : "woooo"});
+                    });
+                });
+            }
+        }
+    });
+})
 
 function findFile(extension, cb){
     var file = fs.readdirSync('tmp/');

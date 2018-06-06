@@ -4,7 +4,7 @@ var fs = require("fs");
 var JSZip = require("jszip");
 var FileSaver = require('file-saver');
 var fs_extra = require("node-fs-extra");
-var db = require('./db.js');
+//var db = require('./db.js');
 
 
 var data = {};
