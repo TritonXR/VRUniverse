@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var fs = require("fs");
+var JSZip = require("jszip");
+var FileSaver = require('file-saver');
 var fs_extra = require("node-fs-extra");
 var db = require('./db.js');
+
 
 var data = {};
 var fulldata = {};
@@ -49,6 +52,15 @@ function readFiles(dirname, callback) {
 
 
 /* GET users listing. */
+router.get('/vive', function (req, res, next) {
+    var zip = new JSZip();
+    zip.folder('./data/VRClubUniverseData/');
+    zip.generateAsync({type:"uint8array"}).then(function(content){
+        SaveAs(content, 'text.zip');
+    });
+
+    res.redirect('../download');
+});
 
 router.get('/', function (req, res, next) {
     //readFiles('./data/VRClubUniverseData/', function (data) {
