@@ -35,15 +35,17 @@ block content
 							label(for="#{searchTags[tag].tag}").projects__sidenav__opts-label #{searchTags[tag].tag}
 				button(type="submit" id="filterbutton").center-block.btn.btn-lg.projects__sidenav__opts-btn Search
 
+	
+
 	div.projects__content
 
-		-if (tagArr == null)
+		-if (tagArray == null)
 			h2.text-center All Projects in VRUniverse
-		-else if (tagArr.length == 1)
-			h2.text-center All Projects with Tag #{tagArr}
-		-else if (tagArr.length > 1)
-			h2.text-center All Projects with Tags #{tagArr}
-		-else if (tagArr.length == 0)
+		-else if (tagArray.length == 1)
+			h2.text-center All Projects with Tag #{tagArray}
+		-else if (tagArray.length > 1)
+			h2.text-center All Projects with Tags #{tagArray}
+		-else if (tagArray.length == 0)
 			h2.text-center Can't find any projects with those tags!
 
 		-var data = JSON.parse(json);
