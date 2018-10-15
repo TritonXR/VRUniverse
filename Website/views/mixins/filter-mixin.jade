@@ -19,13 +19,8 @@ mixin filter-mixin(data)
 								div(class="row projects__elem-data__row")
 									div.projects__elem-data__row-title Tags :
 
-										- data.tags = data.tags.replace(new RegExp("'", 'g'), '');
-										- data.tags = data.tags.substring(1, data.tags.length - 1);
+										- data.tags = data.tags.substring(2, data.tags.length - 2); //removes [space and space] from beginning and end of tags
 										- data.tags = data.tags.split(",");
-
-										- for (let i = 0; i < data.tags.length; i++) {
-												- data.tags[i] = data.tags[i].trim().substring(1, data.tags[i].length);
-										- }
 										
 										-data.tags.push("" + data.year);
 											- for (var key in data.tags)
