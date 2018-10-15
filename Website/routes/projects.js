@@ -1,66 +1,42 @@
 var express = require('express');
 var router = express.Router();
 var fs = require("fs");
-var db = require('./db.js');
-
-
-function readFiles(dirname, callback) {
-    var data = {};
-    var counter = 0;
-    var sum;
-    fs.readdir(dirname, function (err, filenames) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        var array = filenames
-            .filter(function (filename) {
-                return filename.substr(-5) === '.json';
-            });
-        sum = array.length;
-        array.forEach(function (filename) {
-            fs.readFile(dirname + filename, 'utf-8', function (err, content) {
-                if (err) {
-                    onError(err);
-                    return;
-                }
-                var year = filename.split(".")[0];
-                data[year] = content;
-                counter++;
-                if (counter === sum) {
-                    callback(data)
-                }    
-            });
-        });   
-    });  
-} 
+var vive = require('./vive-db.js');
+var oculus = require('./oculus-db.js');
 
 
 router.get('/', function (req, res, next) {
+    res.render('projects');
+});
 
-    db.getAllTags(function(tags) {
-        db.getAllProjects(function(data) {
-            res.render('projects', {
+
+router.get('/Vive', function (req, res, next) {
+
+    vive.getAllTags(function(tags) {
+        vive.getAllProjects(function(data) {
+            res.render('project-platform', {
                 json: JSON.stringify(data),
                 tags : JSON.stringify(tags),
-                tagArray : null
+                tagArray : null,
+                platform: 'Vive'
             });
         });
     });
 });
 
-function updateShow(projs, callback) {
-    for (index in projs["PlanetJSON"]) {
-        if (projs["PlanetJSON"][index].Name != key) {
-            projs["PlanetJSON"][index].Show = false;
-        }
-        //console.log("AAAAA " + JSON.stringify(projs["PlanetJSON"][index]));
-        if (index == projs["PlanetJSON"].length - 1) {
-            console.log("callback!!!!");
-            callback(projs);
-        }
-    }
-    
-}
+router.get('/Oculus', function (req, res, next) {
+
+    oculus.getAllTags(function(tags) {
+        oculus.getAllProjects(function(data) {
+            res.render('project-platform', {
+                json: JSON.stringify(data),
+                tags : JSON.stringify(tags),
+                tagArray : null,
+                platform: 'Oculus'
+            });
+        });
+    });
+});
+
 
 module.exports = router;

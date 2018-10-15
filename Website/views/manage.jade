@@ -1,0 +1,78 @@
+extends ./header
+block content
+    include ./includes/nav.jade
+    style.
+        /*footer {
+            position: absolute;
+            bottom: 0;
+        }*/
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: black;
+        }
+
+        #cont {
+            margin: 20rem;
+        }
+
+    div.row
+        div.manage__container.col-md-10.col-md-offset-1
+                a(href='/user/manage/upload') Go To Upload Form
+                h2.row Vive Projects In VR Universe
+                    -for (let i = 0; i < vive.length; i++) {
+                        div(data-toggle="collapse" data-target="#vive-#{vive[i].id}").col-md-10.col-md-offset-1.manage__proj 
+                            b  
+                                h1.manage__proj-purp #{vive[i].name}
+                            div(id="vive-#{vive[i].id}").collapse 
+                                div.row.manage__proj-row 
+                                    span.manage__proj-purp Creator: 
+                                    span #{vive[i].creator}
+                                div.row.manage__proj-row 
+                                    span.manage__proj-purp Descripton: 
+                                    span #{vive[i].description}
+                                div.row.manage__proj-row 
+                                    span.manage__proj-purp Year: 
+                                    span #{vive[i].year}
+                                div.row.manage__proj-row 
+                                    span.manage__proj-purp Tags: 
+                                    span #{vive[i].tags}
+                                div.row.manage__delete.text-center
+                                    button.btn.btn-danger.btn-lg.delete-btn(data-platform="vive" data-id="#{vive[i].id}" onclick="removeProj(this)" data-year="#{vive[i].year}" data-name="#{vive[i].name}") Delete
+
+                    -}
+
+                h2.row Oculus Projects in VR Universe
+                    -for (let i = 0; i < oculus.length; i++) {
+                        button(data-toggle="collapse" data-target="#oc-#{oculus[i].id}").col-md-10.col-md-offset-1.manage__proj 
+                            b 
+                                h1.manage__proj-purp #{oculus[i].name}
+                            div(id="oc-#{oculus[i].id}").collapse
+                                div.row.manage__proj-row Creator: #{oculus[i].creator}
+                                div.row.manage__proj-row Descripton: #{oculus[i].description}
+                                div.row.manage__proj-row Year: #{oculus[i].year}
+                                div.row.manage__proj-row Tags: #{oculus[i].tags}
+                    -}
+
+
+    script.
+          function removeProj(elem) {
+            $.ajax({
+                type: "POST",
+                url: "/user/remove/",
+                data: {
+                    platform: elem.dataset.platform,
+                    id: elem.dataset.id,
+                    year: elem.dataset.year,
+                    name: elem.dataset.name
+                },
+                dataType: "json",
+                success: function(data) {
+                    alert(JSON.stringify(data));
+                    $(elem).hide();
+                }
+            })
+          }

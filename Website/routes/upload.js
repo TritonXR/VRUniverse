@@ -3,7 +3,8 @@ var router = express.Router();
 var fs = require('fs');
 var path = require('path');
 var multer = require('multer');
-var db = require('./db.js');
+var vive = require('./vive-db.js');
+var oculus = require('./oculus-db.js');
 var unzip = require('unzip');
 
 var storage = multer.diskStorage({
@@ -19,23 +20,24 @@ var upload = multer({storage:storage});
 
 
 router.use( function(req, res, next) {
+
     if (!req.isAuthenticated()) {
-    if (req.method == "GET") {
-        res.redirect('/user/signin');
+        if (req.method == "GET") {
+            res.redirect('/user/signin');
+        } else {
+            res.json({
+                status: false,
+                msg: "logout"
+            })
+        }
     } else {
-        res.json({
-            status: false,
-            msg: "logout"
-        })
+        next();
     }
-} else {
-    next();
-}
 });
 
 /* GET upload form. */
 router.get('/', function(req, res, next) {
-    db.getAllTags((tags) => {
+    vive.getAllTags((tags) => {
         //tags = tags.map(x => x['tag'].trim());
         console.log(tags);
         res.render('upload', {"tags" : tags});
@@ -48,14 +50,27 @@ router.post('/', upload.any(), function(req, res) {
     var projectname = req.body.project;
     var upload_image = '';
     var upload_exec = '';
-    console.log(req.body)
+    var platform = req.body.platform;
 
-    var json_dir = "./data/VRClubUniverseData/";
-    var exec_dir = "./data/VRClubUniverseData/VR_Demos/";
+    if (!platform) {
+        res.render('universe_err', {err: 'Please Fill in All Fields!'});
+        return;
+    }    
+
+    if (platform == 'HTC Vive') {
+        platform = 'Vive';
+        var db = vive;
+    }
+    else if (platform == 'Oculus Rift') {
+        platform = 'Oculus'
+        var db = oculus;
+    }
+
+    var json_dir = "./data/VRClubUniverseData/" + platform + '/';
+    var exec_dir = "./data/VRClubUniverseData/" + platform + '/';
     if(!fs.existsSync(exec_dir + year))
     {
         fs.mkdirSync(exec_dir + year);
-        console.log("hahah ")
         var options = options || {};
         options.flag = 'wx';
         var content = { PlanetJSON: []};

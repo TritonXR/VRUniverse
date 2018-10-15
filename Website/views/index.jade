@@ -1,11 +1,21 @@
 extends header
 
 block content
-	head			
-		div(class="video-background")
-			div(class="video-foreground")
-				iframe(src="https://www.youtube.com/embed/eQo5MkgLEhk?autoplay=1&loop=1&playlist=eQo5MkgLEhk" frameborder="0" allowfullscreen)
-		div.container-fluid
-			div.row
-				div.title
-					p(style="font-family : monospace; font-size : 70px; ") in development™
+
+	style.
+		.u-nav {
+			background: transparent;
+		}
+
+	div.hero
+		include ./includes/nav.jade
+
+		div.container-fluid.hero__index
+			div.col-md-6.hero__index-content
+				div.container-fluid
+					div VR Universe
+					div.hero__index-content_text VRUniverse is a project dedicated to creating a virtual reality platform to display projects developed by actual VR Club members. As members come and go, this universe will continue to showcase a portfolio of student creations ranging from beginner to experienced and with majors of all kinds.
+			div.col-md-5.hero__container
+				img(src='/public/images/VRUniverseLogo.png').hero__container-img
+	
+	include ./about.jade

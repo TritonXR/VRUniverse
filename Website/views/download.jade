@@ -1,15 +1,27 @@
 extends header 
-include ./mixins/project-mixin.jade
 
 block content
-	-var data = JSON.parse(json);
-	-for(var prop in data)
-		-console.log(typeof data[prop]);
-		div.container-fluid
-			div(style="margin-top: 30px;").row
-				div.col-md-8.year
-					span #{prop}
-			-var inner_obj = JSON.parse(data[prop])
-			-for (var key in inner_obj["PlanetJSON"])
-					+project-mixin(inner_obj["PlanetJSON"][key])
+	include ./includes/nav.jade
 
+	style.
+		footer {
+			position: absolute;
+			bottom: 0;
+		}
+	.container
+		h1 Download  
+	#exTab1.container
+		ul.nav.nav-pills
+			li.active
+				a(href='#1a', data-toggle='tab') Vive
+			li
+				a(href='#2a', data-toggle='tab') Oculus
+			.tab-content.clearfix
+				#1a.tab-pane.active
+					h3 Download HTC Vive projects.
+					div.text-center
+						a(class="btn btn-default" href="/download/vive") Download!
+				#2a.tab-pane
+					h3 Download Oculus Rift projects.
+					div.text-center
+						a(class="btn btn-default" href="/download/oculus") Download!

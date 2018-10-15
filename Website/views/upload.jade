@@ -1,11 +1,12 @@
 extends header 
 
 block content
+	include ./includes/nav.jade
 	div.container
 		div.row
 			div.col-md-6.col-md-offset-3
-				p.form-head Upload to the VR Club Universe!
-				form(action="/upload" method="post" style="margin-bottom : 50px;" enctype="multipart/form-data")
+				h4.text-center Upload to the VRUniverse!
+				form(action="/user/upload" method="post" style="margin-bottom : 50px;" enctype="multipart/form-data")
 					div(class="form-group" style="padding-top: 25px;")
 						label.form-label Project Name :
 						input(type="text" class="form-control" id="name" name="project")
@@ -20,9 +21,13 @@ block content
 								label.form-label Contributor Email :
 								input(type="email" class="form-control" id="name" name="email")
 						label.form-label Description :
-						input(type="text" class="form-control" id="name" style="height : 200px" name="desc")
+						textarea(type="text" class="form-control" id="name" rows=8 name="desc")
 						label.form-label Project Members : 
 						input(type="text" class="form-control" id="members" name="members")
+						label.form-label Platform:
+						select(name="platform" class="form-control")
+							option HTC Vive
+							option Oculus Rift
 						label.form-label Tags : 
 						select(name="tags" multiple class="form-control" id="tags")
 							-for (let i in tags) {
@@ -37,7 +42,7 @@ block content
 						button(type="submit" class="btn btn-default") Submit!
 	script(src="/public/javascripts/typeahead.js")
 	link(href="/stylesheets/tagsinput.css")
-
+	
 	script.
 
 		$(document).ready(function() {

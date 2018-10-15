@@ -1,6 +1,6 @@
-extends ../header
+extends ./header
 block content
-    include ../includes/nav.jade
+    include ./includes/nav.jade
     style.
         footer {
             position: absolute;
@@ -21,6 +21,6 @@ block content
 
     div.row
         div.container
-            div.text-center#cont
-                h1 
-                    a(href="https://github.com/login/oauth/authorize?client_id=552a4d5399f4c47e15de&scope=read:org") Sign In With Github
+            div.text-center(style="padding: 190px")
+                h1
+                    p #{upload_success}

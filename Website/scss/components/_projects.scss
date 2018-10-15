@@ -1,0 +1,136 @@
+.projects {
+	&__sidenav {
+	 	width : 20%;
+	    z-index: 1;
+	    left : 0;
+	    overflow-x: hidden;
+	    background-color: white;
+	    position: fixed;
+	    height: 86.7vh;
+	    margin-top: 6.1rem;
+	    border-top-right-radius: 3px;
+	    border-bottom-right-radius: 3px;
+	    -moz-box-shadow: 0 0 1px #ccc;
+	    -webkit-box-shadow: 0 0 1px #ccc;
+	    box-shadow: 0px 1px 1px 2px #ccc;
+
+	    &-title {
+	    	color: $default-purple;
+	    	font-weight: bold;
+	    }
+
+	    &__opts {
+		    width: 100%;
+		    padding-top : 12%;
+		    height: 80%;
+
+		    &-container {
+    			margin-left : 25%;
+		    }
+
+		    &-label {
+			    margin-left: 1rem;
+			    font-size: 1.8rem;
+		    }
+
+		    &-btn {
+			    margin-top: 10%;
+			    color : white;
+			    background-color: $default-purple;
+
+			 	&:hover {
+				    color : #7b4ba8;
+				    background-color: #fbfbfb;
+				    box-shadow: 0px 1px 1px 2px #ccc;
+			    }
+		    }
+	    }
+	}
+
+	&__content {
+		float: left;
+		width : 80%;
+		margin-left : 20%;
+		min-height: 86.7vh;
+		margin-top: 8rem;
+	}
+
+	&__elem {
+		&-container {
+			padding-top : 2rem;
+			padding-bottom : 2rem;
+			margin-bottom : 3.5rem;
+			border-radius: 6px;
+			background-color: white;
+			-moz-box-shadow: 0 0 3px #ccc;
+			-webkit-box-shadow: 0 0 3px #ccc;
+			box-shadow: 0px 1px 1px 2px #ccc;
+
+		}
+
+		&-name {
+			font-weight: bold;
+			font-size: 2.5rem;
+			margin-bottom: 1.5rem;
+		}
+
+		&-img {
+			width :  220%;
+		    border: solid;
+		    border-width: 1px;
+		    border-color: grey;
+		    border-radius : 3px;
+		}
+
+		&-data {
+			font-size: 2.3rem;
+
+			&__row {
+				padding-left : 1.3rem;
+				padding-bottom: 0.8rem;
+
+				&-title {
+					color: $default-purple;
+					font-weight: bold;
+					display: inline;
+				}
+
+				&-data {
+					color: black;
+					display: inline;
+				}
+			}
+		}
+
+		&-tag {
+			background-color: #fbfbfb;
+		    font-size: 20px;
+		    margin-right : 4px;
+		    margin-left : 4px;
+		    padding: 4px;
+		    -moz-box-shadow: 0 0 1px #ccc;
+		    -webkit-box-shadow: 0 0 1px #ccc;
+		    box-shadow: 0px 1px 1px 1px #ccc;
+		    color: $default-purple;
+		    border-radius: 5px;
+		    border-width: 2px;
+
+		    &:hover {
+		    	background-color: $default-purple;
+		    	color: #fbfbfb;
+		    	text-decoration: none;
+		    }
+		}
+	}
+
+	&__platform {
+		padding-top: 10rem;
+
+		&-link {
+
+				&-img {
+					width: 50rem;
+				}
+		}
+	}
+}

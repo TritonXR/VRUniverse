@@ -3,29 +3,50 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node_modules/.bin/gulp"
   },
   "dependencies": {
-    "body-parser": "~1.17.1",
+    "@octokit/rest": "^15.2.7",
+    "body-parser": "^1.18.3",
+    "bootstrap": "3.3.7",
     "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.3",
     "csurf": "^1.9.0",
     "debug": "~2.6.3",
-    "express": "~4.15.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.4",
     "express-session": "^1.15.6",
     "express-validator": "^5.0.0",
+    "express-ws": "^3.0.0",
+    "file-saver": "1.3.8",
     "fs": "0.0.1-security",
+    "glob": "^7.1.2",
     "jade": "~1.11.0",
+    "jszip": "^3.1.5",
     "mongoose": "^5.0.1",
-    "morgan": "~1.8.1",
+    "morgan": "^1.9.1",
     "multer": "^1.3.0",
     "node-fs-extra": "^0.8.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "request": "^2.85.0",
+    "request-progress": "^3.0.0",
+    "request-promise": "^4.2.2",
     "save": "^2.3.2",
     "serve-favicon": "~2.4.2",
     "sqlite3": "^3.1.13",
+    "superagent": "^3.8.3",
     "unzip": "^0.1.11",
-    "util": "^0.10.3"
+    "util": "^0.10.3",
+    "ws": "^5.1.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^3.9.1",
+    "gulp-if": "^2.0.2",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "nodemon": "^1.17.3"
   }
 }

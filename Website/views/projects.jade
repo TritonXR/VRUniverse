@@ -1,48 +1,24 @@
-extends header 	
-include ./mixins/filter-mixin.jade
-
+extends ./header
 block content
-	style.
-		#navbar {
-			margin-bottom : 0px;
-			position : fixed;
-			width : 100%;
-			z-index : 100;
-		}
+    include ./includes/nav.jade
+    style.
+        footer {
+            position: absolute;
+            bottom: 0;
+        }
 
-		footer {
-			position : fixed;
-		}
+        a {
+            color: black;
+        }
 
-	-var searchTags = JSON.parse(tags);
-	div.sidenav-container
-		div.sidenav
-			h2.text-center Filter
-			div.sidenav-params
-				form(method="get" action="/filter/")
-					div.sidenav-params-container
-						-for (var tag in searchTags)
-							div
-								input(type="checkbox", name="#{searchTags[tag].tag}" class="download-checkbox", value="true" id="#{searchTags[tag].tag}")
-								label(for="#{searchTags[tag].tag}") #{searchTags[tag].tag}
-					button(type="submit" id="filterbutton").center-block.btn.btn-lg Search
+        a:hover {
+            color: black;
+        }
 
-	div.download-content
-
-		-if (tagArr == null)
-			h2.text-center All Projects in VR Club Universe
-		-else if (tagArr.length == 1)
-			h2.text-center All Projects with Tag #{tagArr}
-		-else if (tagArr.length > 1)
-			h2.text-center All Projects with Tags #{tagArr}
-		-else if (tagArr.length == 0)
-			h2.text-center Can't find any projects with those tags!
-
-		-var data = JSON.parse(json);
-			-for(var prop in data)
-				div.container-fluid
-					+filter-mixin(data[prop])
-
-	script.
-		let arr = !{tagArr};
-		console.log(arr);
+    div.row
+        div.container
+            div.text-center.projects__platform
+                a(href="/projects/Oculus").projects__platform-link
+                  img(src='/public/images/oculusriftbutton_720.png').projects__platform-link-img
+                a(href="/projects/Vive").projects__platform-link
+                  img(src='/public/images/htcvivebutton.png').projects__platform-link-img

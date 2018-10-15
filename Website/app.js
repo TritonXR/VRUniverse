@@ -9,16 +9,18 @@ var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
 var validator = require('express-validator');
+var dotenv = require('dotenv').config();
 
 var index = require('./routes/index');
 var user = require('./routes/user');
 var projects = require('./routes/projects');
 var download = require('./routes/download');
 var upload = require('./routes/upload');
-var about = require('./routes/about');
 var filter = require('./routes/filter')
 
 var app = express();
+var expressWs = require('express-ws')(app);
+
 mongoose.connect('mongodb://rui:vruniverse@ds111478.mlab.com:11478/vruniverse');
 require('./config/passport');
 // view engine setup
@@ -40,7 +42,6 @@ app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use("/data", express.static(path.join(__dirname, 'data')));
 
 app.use('/', index);
-app.use('/about', about);
 app.use('/projects', projects);
 app.use('/download', download);
 app.use('/upload', upload);
@@ -51,6 +52,14 @@ app.use('/filter', filter);
 //debug and demoing
 app.get('/2016.json', function(req, res, next){
 	res.sendFile(__dirname + '/data/VRClubUniverseData/2016.json');
+});
+
+app.get('/universe_err', (req, res, next) => {
+  res.render('universe_err', {err: 'Your Error Here'});
+
+  /*when you want to send a variable to the front end,
+    write res.render('universe_err', {variable_name: "variable_value"}
+  */
 });
 
 // catch 404 and forward to error handler
