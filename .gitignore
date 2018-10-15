@@ -10,6 +10,9 @@
 !/deploy.sh
 !/VRClubUniverse_Data/!/ProjectSettings/!.gitignore
 !VRUniverse_Helper.*
+!/Wiki/
+!/HelperExeProject/
+!README.md
 
 # OS Stuff
 .DS_Store
