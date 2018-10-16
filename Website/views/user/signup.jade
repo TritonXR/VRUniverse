@@ -23,4 +23,4 @@ block content
         div.container
             div.text-center#cont
                 h1 
-                    a(href="https://github.com/login/oauth/authorize?client_id=552a4d5399f4c47e15de&scope=read:org") Sign In With Github
+                    a(href="https://github.com/login/oauth/authorize?client_id=#{process.env['GITHUB_CLIENT_ID']}&read:org") Sign In With Github
