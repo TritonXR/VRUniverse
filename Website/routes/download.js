@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var fs = require("fs");
+var archiver = require("archiver"); //node-archiver
 var JSZip = require("jszip");
 var FileSaver = require('file-saver');
 var fs_extra = require("node-fs-extra");
@@ -68,6 +69,8 @@ router.get('/', function (req, res, next) {
     //});
 });
 
+
+
 router.post('/', function (req, res, next) {
 
     let filtered = {};
@@ -121,6 +124,48 @@ router.post('/', function (req, res, next) {
     });
 
     res.json({'whahahahaha' : 'hahahaha'});    
-})
+});
+
+// testing using JSZip
+router.get('/file', function (req, res, next){
+    var zip = new JSZip();
+    zip.folder("./data/VRClubUniverseData/Vive/2018/StarshotExpress");
+    zip.generateAsync({type:"blob"}).then(function(content){
+        SaveAs(content, 'result.zip');
+    });
+});
+
+// testing using node archiver
+router.get('/archive', function (req, res, next) {
+    res.attachment('result.zip');
+
+    var zip = archiver('zip');
+    /*
+    zip.on('finish', function(err) {
+        return res.end();
+    });
+    */
+    zip.pipe(res);
+    var dir = "./data/VRClubUniverseData/Vive/2018/StarshotExpress/";
+    //zip.append(fs.createReadStream("./data/VRClubUniverseData/Vive/2018/StarshotExpress/StarshotExpress_Data/GI/level0/92/9200a17b4ced206b313155803c3f289a.caw"), {name: "somefile"});
+    dfs("");
+    zip.finalize(function (err){
+        return res.end();
+    });
+
+    function dfs(filepath) {
+        console.log(dir + filepath);
+        fs.readdirSync(dir + filepath).forEach(file => {
+            var path = filepath + file;
+            if(fs.lstatSync(dir + path).isDirectory()){
+                dfs(path + "/");
+            }
+            else {
+                console.log("file: " + path);
+                zip.append(fs.createReadStream(dir+path), {name: path});
+            }
+        });
+    }
+});
 
 module.exports = router;
