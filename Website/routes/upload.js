@@ -96,6 +96,19 @@ router.post('/', upload.any(), function(req, res) {
             upload_image = projectname + '_Image.jpg';
         }
     });
+    findFile('.jpeg', function(filename){
+        if(filename)
+        {
+            fs.rename(filename,
+                exec_dir + year + '/' + projectname + '/'+ projectname + '_Image.jpg',
+                function(err){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            upload_image = projectname + '_Image.jpg';
+        }
+    });
     findFile('.png', function(filename){
         console.log("here");
         if(filename)
