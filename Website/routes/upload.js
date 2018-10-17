@@ -52,6 +52,11 @@ router.post('/', upload.any(), function(req, res) {
     var upload_exec = '';
     var platform = req.body.platform;
 
+    if (!validateYear(year)) {
+        res.render('universe_err', {err: 'Please Input the Proper Year in the Range 2016-Current Year!'});
+        return;
+    }
+
     if (!platform) {
         res.render('universe_err', {err: 'Please Fill in All Fields!'});
         return;
@@ -200,4 +205,26 @@ function findFile(extension, cb){
         }
     }
 }
+
+/**
+ * Return false for improper year input, true otherwise.
+ * @param {string} year the user input year
+ */
+function validateYear(year) {
+    let regex = /^[0-9]+$/;
+    if(year.length == 4) {
+        if((year != "") && (!regex.test(year))) {
+            return false;
+        }
+        let curr_year = new Date().getFullYear();
+        year = parseInt(year);
+        if((year < 2016) || (year > curr_year)) {
+            return false;
+        }
+    } else {
+        return false;
+    }
+    return true;
+}
+
 module.exports = router;
