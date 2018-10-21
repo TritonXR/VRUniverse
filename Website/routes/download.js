@@ -3,8 +3,8 @@ var router = express.Router();
 var fs = require("fs");
 var archiver = require("archiver"); //node-archiver
 var JSZip = require("jszip");
-var FileSaver = require('file-saver');
-var fs_extra = require("node-fs-extra");
+var vive = require('./vive-db.js');
+var async = require('async');
 //var db = require('./db.js');
 
 
@@ -64,9 +64,7 @@ router.get('/vive', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    //readFiles('./data/VRClubUniverseData/', function (data) {
-        res.render('download');      
-    //});
+    res.render('download');
 });
 
 
@@ -136,32 +134,68 @@ router.get('/file', function (req, res, next){
 });
 
 // testing using node archiver
-router.get('/archive', function (req, res, next) {
-    res.attachment('result.zip');
+router.get('/zip', function (req, res, next) {
+    // download filename == 'projects.zip'
+    res.attachment('projects.zip');
 
+    // define platform --> either Vive or Oculus
+    var platform = "Vive";
+
+    // filter projects choose to download
+    var project_map = new Map();
+    project_map.set("StarshotExpress", 1);
+    project_map.set("Mars2020", 1);
+    project_map.set("UltimateDragonMechVsMonsterShowdown", 1);
+    project_map.set("Vivace", 1);
+
+    // initialize zip
     var zip = archiver('zip');
-    /*
-    zip.on('finish', function(err) {
-        return res.end();
-    });
-    */
     zip.pipe(res);
-    var dir = "./data/VRClubUniverseData/Vive/2018/StarshotExpress/";
-    //zip.append(fs.createReadStream("./data/VRClubUniverseData/Vive/2018/StarshotExpress/StarshotExpress_Data/GI/level0/92/9200a17b4ced206b313155803c3f289a.caw"), {name: "somefile"});
-    dfs("");
-    zip.finalize(function (err){
-        return res.end();
-    });
 
+    // default path of project data.
+    var dir = "./data/VRClubUniverseData/" + platform + "/";
+
+    // arrays store years and project names.
+    // somehow fs will interrupt database query, so divide into 2 steps
+    // get projects, then prepare zip.
+    var projects = [];
+    var years = [];
+    async.series([
+        function(callback){
+            vive.getAllProjects(function(data) {
+                for(i in data){
+                    if(project_map.get(data[i].executable)) {
+                        projects.push(data[i].executable); // Thankfully, executable is same as the
+                                                           // name used in the path
+                        years.push(data[i].year);
+                    }
+                }
+                callback();
+            });
+        },
+        function(callback){
+            for(var i = 0; i < projects.length; i++) {
+                dfs(years[i] + "/" + projects[i] + "/");
+            }
+            callback();
+        },
+        function(callback) {
+            zip.finalize(function (err){
+                return res.end();
+            });
+        }
+    ]);
+
+    // this function stacks subdirectory into zip in its original hierachy.
     function dfs(filepath) {
-        console.log(dir + filepath);
+        // console.log(dir + filepath);
         fs.readdirSync(dir + filepath).forEach(file => {
             var path = filepath + file;
             if(fs.lstatSync(dir + path).isDirectory()){
                 dfs(path + "/");
             }
             else {
-                console.log("file: " + path);
+                // console.log("file: " + path);
                 zip.append(fs.createReadStream(dir+path), {name: path});
             }
         });
