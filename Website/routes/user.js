@@ -267,7 +267,7 @@ router.post('/remove', function(req, res, next) {
                     }
 
                     db.removeEntry(id, function(status) {
-                        res.json({"status" : "woooo"});
+                        res.json({"status" : "Removing possibly successful!"});
                     });
                 });
             }
