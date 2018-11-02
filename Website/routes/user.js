@@ -82,7 +82,7 @@ router.get('/signedin', function(req, res, next) {
                     res.json({err: "You Are Not A Member Of UCSDVR!"})
 
                 })
-                .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.status}))
+                .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.message}))
         })
 });
 
@@ -99,7 +99,7 @@ router.get('/manage/upload', function (req,res, next) {
             res.json({err: "You Are Not A Member Of UCSDVR!"})
 
         })
-        .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.status}))
+        .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.message}))
 });
 
 router.post('/upload', upload.any(), function(req, res) {
