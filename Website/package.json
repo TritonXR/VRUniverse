@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "@octokit/rest": "^15.2.7",
+    "archiver": "^3.0.0",
+    "async": "^2.6.1",
     "body-parser": "^1.18.3",
     "bootstrap": "3.3.7",
     "connect-flash": "^0.1.1",

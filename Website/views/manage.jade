@@ -28,16 +28,16 @@ block content
                             b  
                                 h1.manage__proj-purp #{vive[i].name}
                             div(id="vive-#{vive[i].id}").collapse 
-                                div.row.manage__proj-row 
+                                div.row.manage__proj-row
                                     span.manage__proj-purp Creator: 
                                     span #{vive[i].creator}
-                                div.row.manage__proj-row 
+                                div.row.manage__proj-row
                                     span.manage__proj-purp Descripton: 
                                     span #{vive[i].description}
-                                div.row.manage__proj-row 
+                                div.row.manage__proj-row
                                     span.manage__proj-purp Year: 
                                     span #{vive[i].year}
-                                div.row.manage__proj-row 
+                                div.row.manage__proj-row
                                     span.manage__proj-purp Tags: 
                                     span #{vive[i].tags}
                                 div.row.manage__delete.text-center
@@ -47,14 +47,24 @@ block content
 
                 h2.row Oculus Projects in VR Universe
                     -for (let i = 0; i < oculus.length; i++) {
-                        button(data-toggle="collapse" data-target="#oc-#{oculus[i].id}").col-md-10.col-md-offset-1.manage__proj 
+                        div(data-toggle="collapse" data-target="#oc-#{oculus[i].id}").col-md-10.col-md-offset-1.manage__proj 
                             b 
                                 h1.manage__proj-purp #{oculus[i].name}
                             div(id="oc-#{oculus[i].id}").collapse
-                                div.row.manage__proj-row Creator: #{oculus[i].creator}
-                                div.row.manage__proj-row Descripton: #{oculus[i].description}
-                                div.row.manage__proj-row Year: #{oculus[i].year}
-                                div.row.manage__proj-row Tags: #{oculus[i].tags}
+                                div.row.manage__proj-row
+                                    span.manage__proj-purp Creator: 
+                                    span #{oculus[i].creator}
+                                div.row.manage__proj-row
+                                    span.manage__proj-purp Descripton: 
+                                    span #{oculus[i].description}
+                                div.row.manage__proj-row
+                                    span.manage__proj-purp Year: 
+                                    span #{oculus[i].year}
+                                div.row.manage__proj-row
+                                    span.manage__proj-purp Tags: 
+                                    span #{oculus[i].tags}
+                                div.row.manage__delete.text-center
+                                    button.btn.btn-danger.btn-lg.delete-btn(data-platform="oculus" data-id="#{oculus[i].id}" onclick="removeProj(this)" data-year="#{oculus[i].year}" data-name="#{oculus[i].name}") Delete
                     -}
 
 
