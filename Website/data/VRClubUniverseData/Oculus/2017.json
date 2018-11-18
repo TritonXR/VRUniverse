@@ -1,0 +1,16 @@
+{
+  "PlanetJSON": [
+    {
+      "Name": "MinigameGame",
+      "Creator": "Kristin Agcaoili and Connor Smith",
+      "Description": "Survive a series of minigames and get the high score!",
+      "Year": "2017",
+      "Tags": [
+        "Advanced Project",
+        "Game"
+      ],
+      "Image": "MinigameGame_Image.png",
+      "Executable": "MinigameGame"
+    }
+  ]
+}

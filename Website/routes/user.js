@@ -82,7 +82,10 @@ router.get('/signedin', function(req, res, next) {
                     res.json({err: "You Are Not A Member Of TritonXR!"})
 
                 })
-                .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.message}))
+                .catch((err) => {
+                    console.log("Unauthorized access!\n");
+                    res.render('universe_err', {err: "You Have An Error: \n"+err.message});
+                });
             
         })
 });

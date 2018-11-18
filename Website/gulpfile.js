@@ -33,7 +33,7 @@ gulp.task('nodemon', function(cb) {
       cb();
     })
     .on('restart', function() {
-      gulp.start('css');
+      gulp.task('css');
     });
 });
 
