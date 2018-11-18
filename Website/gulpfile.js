@@ -2,10 +2,8 @@ var gulp = require('gulp'),
   sass = require('gulp-sass'),
   rename = require('gulp-rename'),
   nodemon = require('gulp-nodemon'),
-  gutil = require('gulp-util'),
+  test2 = require('browser-sync').create();
   gulpif = require('gulp-if');
-let browserSync = gutil.env.production ?
-  undefined : require('browser-sync').create();
 
 const paths = {
   src: [
@@ -15,9 +13,7 @@ const paths = {
   ]
 };
 
-
 gulp.task('css', function () {
-  gutil.log('Generating css');
   let stream = gulp.src('./scss/universe.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./public/stylesheets/'))
@@ -26,7 +22,7 @@ gulp.task('css', function () {
   return stream;
 });
 
-gulp.task('nodemon', ['css'], function(cb) {
+gulp.task('nodemon', function(cb) {
   return nodemon({
     exec: 'node',
     script: './bin/www',
@@ -41,8 +37,8 @@ gulp.task('nodemon', ['css'], function(cb) {
     });
 });
 
-gulp.task('default', ['css', 'nodemon'], function () {
-  gulp.watch('./scss/**/*.scss', ['css']);
-});
-
-gulp.task('prod', ['css']);
+gulp.task('default',
+  gulp.series('css', 'nodemon'),
+  function () {
+    gulp.watch('./scss/**/*.scss', ['css']);
+  });
