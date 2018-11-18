@@ -57,8 +57,8 @@ router.get('/signedin', function(req, res, next) {
                 type: 'oauth',
                 token: token
             })
-
-            octokit.users.getOrgMembership({org: ORGNAME})
+            
+            octokit.orgs.getMembershipForAuthenticatedUser({org: ORGNAME})
                 .then((res2) => {
 
                     if((res2.data.role == "admin" || process.env.IS_ADMIN == 1)) {
@@ -79,16 +79,17 @@ router.get('/signedin', function(req, res, next) {
                         });
                         return;
                     }
-                    res.json({err: "You Are Not A Member Of UCSDVR!"})
+                    res.json({err: "You Are Not A Member Of TritonXR!"})
 
                 })
                 .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.message}))
+            
         })
 });
 
 
 router.get('/manage/upload', function (req,res, next) {
-    octokit.users.getOrgMembership({org: ORGNAME})
+    octokit.orgs.getMembershipForAuthenticatedUser({org: ORGNAME})
         .then((res2) => {
             if (res2.data.role) {
                 vive.getAllTags((tags) => {
@@ -96,7 +97,7 @@ router.get('/manage/upload', function (req,res, next) {
                 });
                 return;
             }
-            res.json({err: "You Are Not A Member Of UCSDVR!"})
+            res.json({err: "You Are Not A Member Of TritonXR!"})
 
         })
         .catch((err) => res.render('universe_err', {err: "You Have An Error: \n"+err.message}))
