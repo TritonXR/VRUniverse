@@ -25,19 +25,19 @@
 			"Image": "WaterWorks_Image.png",
 			"Executable": "WaterWorks"
 		},
-		{
-			"Name": "Island Adventure",
-			"Creator": "Brittany Newton",
-			"Description": "Explore and find treasures hidden on an undiscovered island before a volcanic eruption.",
-			"Year": 2017,
-			"Tags": [
-					"Beginner Project",
-					"Experience"
-			],
-			"Image": "IslandAdventure_Image.png",
-			"Executable": "IslandAdventure"
-		},
-      	{
+      {
+        "Name": "Island Adventure",
+        "Creator": "Brittany Newton",
+        "Description": "Explore and find treasures hidden on an undiscovered island before a volcanic eruption.",
+        "Year": 2017,
+        "Tags": [
+          		"Beginner Project",
+          		"Experience"
+        ],
+        "Image": "IslandAdventure_Image.png",
+        "Executable": "IslandAdventure"
+      },
+      {
 		    "Name": "A Island",
 			"Creator": "Kristin Agcaoili, Vicki Intara, Nisha Yerunkar, Jenny Wong",
 			"Description": "You are shipwrecked on an island in the middle of the ocean. Can you survive and escape with nothing but the clothes on your back and items you can find?",
