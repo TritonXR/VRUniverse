@@ -6,6 +6,7 @@ var multer = require('multer');
 var vive = require('./vive-db.js');
 var oculus = require('./oculus-db.js');
 var unzip = require('unzip');
+var yauzl = require('yauzl');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -145,19 +146,42 @@ router.post('/', upload.any(), function(req, res) {
     findFile('.zip', function(filename){
         if(filename)
         {
-            /*fs.rename(filename,
-                exec_dir + year + '/' + projectname + '/'+ projectname + '.exe',
-                function(err){
-                    if(err){
-                        console.log(err);
-                    }
-                });
-            upload_exec = projectname;*/
+            // fs.rename(filename,
+            //     exec_dir + year + '/' + projectname + '/'+ projectname + '.exe',
+            //     function(err){
+            //         if(err){
+            //             console.log(err);
+            //         }
+            //     });
+            // upload_exec = projectname;
 
             fs.createReadStream(filename).pipe(unzip.Extract({ path: exec_dir + year + '/' + projectname + '/'+ projectname + '.exe' }));
             upload_exec = projectname;
         }
     });
+
+/*
+    findFile('.zip', (filename) => {
+        yauzl.open(filename, {lazyEntries: true}, (err, zipfile) => {
+            if(err) throw err;
+            zipfile.readEntry();
+            zipfile.on("entry", (entry) => {
+                const regex = /\/$/;
+                if(regex.test(entry.fileName)) {
+                    zipfile.readEntry();
+                } else {
+                    zipfile.openReadStream(entry, (err, readStream) => {
+                        if(err) throw err;
+                        readStream.on("end", () => {
+                            zipfile.readEntry();
+                        });
+                        readStream.pipe();
+                    })
+                }
+            })
+        });
+    });
+    */
 
     var tags = req.body.tags;
     var tag_arr = tags;

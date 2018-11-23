@@ -41,7 +41,8 @@
     "uglify-js": "^3.4.9",
     "unzip": "^0.1.11",
     "util": "^0.10.4",
-    "ws": "^5.2.2"
+    "ws": "^5.2.2",
+    "yauzl": "^2.10.0"
   },
   "devDependencies": {
     "browser-sync": "^2.26.3",
